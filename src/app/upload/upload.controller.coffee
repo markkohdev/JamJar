@@ -1,5 +1,5 @@
 angular.module "concertstitch"
-  .controller "MainController", ($timeout, webDevTec, toastr) ->
+  .controller "UploadController", ($timeout, webDevTec, toastr) ->
     vm = this
     # activate = ->
     #   getWebDevTec()
@@ -20,4 +20,10 @@ angular.module "concertstitch"
     #     awesomeThing.rank = Math.random()
     #     return
     #   return
+
+    # vm.awesomeThings = []
+    # vm.classAnimation = ''
+    # vm.creationDate = 1443157736204
+    # vm.showToastr = showToastr
+    # activate()
     return

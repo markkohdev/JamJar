@@ -34,6 +34,10 @@ md-toolbar.md-default-theme {
   background-color: black;
 }
 
+md-content {
+  width: 100%;
+}
+
 section.jumbotron {
   margin-bottom: 30px;
   padding: 1px 30px;
@@ -56,6 +60,7 @@ section.jumbotron {
 
   p {
     text-shadow: 0 0 3px #444;
+    font-style: italic;
   }
 }
 
@@ -71,6 +76,10 @@ section.jumbotron {
       width: 50px;
     }
   }
+}
+
+.center {
+  text-align: center;
 }
 
 /**
