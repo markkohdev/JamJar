@@ -20,10 +20,4 @@ angular.module "concertstitch"
     #     awesomeThing.rank = Math.random()
     #     return
     #   return
-
-    # vm.awesomeThings = []
-    # vm.classAnimation = ''
-    # vm.creationDate = 1443157736204
-    # vm.showToastr = showToastr
-    # activate()
     return
