@@ -1,5 +1,5 @@
 angular.module "concertstitch"
-  .controller "UploadController", ($timeout, webDevTec, toastr) ->
+  .controller "UploadController", ($timeout, toastr, FileUploader, $scope) ->
     vm = this
     # activate = ->
     #   getWebDevTec()
@@ -20,4 +20,11 @@ angular.module "concertstitch"
     #     awesomeThing.rank = Math.random()
     #     return
     #   return
+    uploadSettings =
+        url: 'upload.php'
+
+    $scope.uploader = new FileUploader(uploadSettings)
+
+    console.log $scope.uploader
+
     return
