@@ -1,4 +1,4 @@
-angular.module "concertstitch"
+angular.module "jamjar"
   .controller "MainController", ($timeout, webDevTec, toastr) ->
     vm = this
     # activate = ->

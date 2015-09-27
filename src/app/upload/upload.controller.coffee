@@ -1,4 +1,4 @@
-angular.module "concertstitch"
+angular.module "jamjar"
   .controller "UploadController", ($timeout, toastr, FileUploader, $scope) ->
     vm = this
     # activate = ->
