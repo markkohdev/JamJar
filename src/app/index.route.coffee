@@ -1,4 +1,4 @@
-angular.module "concertstitch"
+angular.module "jamjar"
   .config ($stateProvider, $urlRouterProvider, $locationProvider) ->
     $stateProvider
       .state "home",

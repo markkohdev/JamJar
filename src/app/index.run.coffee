@@ -1,3 +1,3 @@
-angular.module "concertstitch"
+angular.module "jamjar"
   .run ($log) ->
     $log.debug 'runBlock end'

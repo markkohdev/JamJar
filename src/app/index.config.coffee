@@ -1,4 +1,4 @@
-angular.module "concertstitch"
+angular.module "jamjar"
   .config ($logProvider, toastr) ->
     # Enable log
     $logProvider.debugEnabled true

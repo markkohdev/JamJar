@@ -1,4 +1,4 @@
-angular.module "concertstitch"
+angular.module "jamjar"
   .directive 'acmeNavbar', ->
 
     NavbarController = (moment) ->
