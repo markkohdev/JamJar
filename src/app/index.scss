@@ -11,6 +11,10 @@ html {
   font-family: 'Roboto Slab', serif;
 }
 
+html, body, .full-height {
+  height:100%;
+}
+
 [layout=row] {
   flex-direction: row;
 }
@@ -83,8 +87,17 @@ section.jumbotron {
 .container {
   text-align: center;
   min-width: 450px;
-  width: 70%;
+  width: 50%;
   margin: 0 auto;
+}
+
+.full-background {
+  background-size: cover;
+  background-position: center;
+}
+
+.concert-bg {
+  background-image: url(../assets/images/concert-crowd.jpg);
 }
 
 /**
