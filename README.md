@@ -1,5 +1,5 @@
-# ConcertStitch
-The repository for ConcertStitch!
+# jamjar
+The repository for jamjar!
 
 ### First time users
 ```
