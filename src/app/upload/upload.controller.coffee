@@ -21,7 +21,7 @@ angular.module "concertstitch"
     #     return
     #   return
     uploadSettings =
-        url: 'upload.php'
+        url: '/upload.php'
 
     $scope.uploader = new FileUploader(uploadSettings)
 
