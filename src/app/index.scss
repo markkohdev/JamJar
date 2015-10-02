@@ -78,8 +78,12 @@ section.jumbotron {
   }
 }
 
-.center {
+
+.container {
   text-align: center;
+  min-width: 450px;
+  width: 70%;
+  margin: 0 auto;
 }
 
 /**
