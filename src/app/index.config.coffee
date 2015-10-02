@@ -1,5 +1,5 @@
 angular.module "jamjar"
-  .config ($logProvider, toastr) ->
+  .config ($logProvider, toastr, $mdThemingProvider) ->
     # Enable log
     $logProvider.debugEnabled true
     # Set options third-party lib
@@ -7,3 +7,4 @@ angular.module "jamjar"
     toastr.options.positionClass = 'toast-top-right'
     toastr.options.preventDuplicates = true
     toastr.options.progressBar = true
+

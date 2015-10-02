@@ -91,6 +91,10 @@ section.jumbotron {
   margin: 0 auto;
 }
 
+.upload-container {
+  padding:15px;
+}
+
 .full-background {
   background-size: cover;
   background-position: center;
@@ -98,6 +102,22 @@ section.jumbotron {
 
 .concert-bg {
   background-image: url(../assets/images/concert-crowd.jpg);
+}
+
+.list-header {
+  font-weight: bold;
+}
+
+.red {
+  color: red;
+}
+
+.blue {
+  color: light-blue;
+}
+
+.orange {
+  color: orange;
 }
 
 /**
