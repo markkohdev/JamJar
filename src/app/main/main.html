@@ -1,12 +1,7 @@
-<div layout="vertical" layout-fill>
-
-  <md-content>
-    <header>
-      <acme-navbar creationDate="main.creationDate" />
-    </header>
+<div layout-fill class="full-background concert-bg">
 
     <section class="jumbotron">
-      <h1>JamJar</h1>
+      <h1>jamjar</h1>
       <p class="lead">
         <!-- <img src="assets/images/yeoman.png" alt="I'm Yeoman"><br> -->
         Relive the concert experience
@@ -15,22 +10,28 @@
       <p></p>
     </section>
 
-    <div class="center">
-      Changing the way you share your concert videos.
+    <div class="container">
+
+      <div ng-cloak>
+        <md-content class="md-padding">
+          <md-tabs md-dynamic-height md-border-bottom>
+            <md-tab label="Home">
+              <md-content class="md-padding">
+                <h1 class="md-display-2">Welcome to jamjar!</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+              </md-content>
+            </md-tab>
+            <md-tab label="Upload">
+              <md-content class="md-padding">
+                <jamjar-upload></jamjar-upload>
+              </md-content>
+            </md-tab>
+          </md-tabs>
+        </md-content>
+      </div>
+
     </div>
 
-<!--     <div class="techs" layout-align="center">
-      <md-card ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'">
-        <div class="thumbnail">
-          <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
-          <div class="caption">
-            <h3>{{ awesomeThing.title }}</h3>
-            <p>{{ awesomeThing.description }}</p>
-            <p><a ng-href="{{ awesomeThing.url }}">{{ awesomeThing.url }}</a></p>
-          </div>
-        </div>
-      </md-card>
-    </div> -->
   </md-content>
 
 </div>
