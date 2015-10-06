@@ -7,12 +7,46 @@
 
 @import url(http://fonts.googleapis.com/css?family=Roboto+Slab:400,700|Roboto:400,700,700italic,400italic);
 
+// Colors!
+$yellow: #FDEB65;
+$orange: #F5A95F;
+$coral: #F15F4E;
+$green: #9BD096;
+$blue: #7976B4;
+$purple: #673A96;
+
 html {
   font-family: 'Roboto Slab', serif;
 }
 
-html, body, .full-height {
-  height:100%;
+html, body {
+  overflow: auto;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.concert-bg {
+  background-image: url(../assets/images/wallpaper.jpg);
+
+}
+
+body {
+  background-image: url(../assets/images/wallpaper7.jpg);
+  // background-color: $purple;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+body:before{
+  background-color: rgba(0,0,0,0.5);
+
 }
 
 [layout=row] {
@@ -83,26 +117,26 @@ section.jumbotron {
   }
 }
 
+.tab-top {
+  background: $coral;
+}
+
 
 .container {
   text-align: center;
   min-width: 450px;
   width: 50%;
-  margin: 0 auto;
+  margin: 50px auto;
 }
 
 .upload-container {
   padding:15px;
 }
 
-.full-background {
-  background-size: cover;
-  background-position: center;
-}
-
-.concert-bg {
-  background-image: url(../assets/images/concert-crowd.jpg);
-}
+// .full-background {
+//   background-size: cover;
+//   background-position: center;
+// }
 
 .list-header {
   font-weight: bold;

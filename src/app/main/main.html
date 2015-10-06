@@ -1,22 +1,20 @@
-<div class="full-background full-height concert-bg" layout="row" layout-align="center center" layout-fill>
+<div layout="row" layout-align="center center" layout-fill>
 
     <div class="container">
       <div ng-cloak>
-        <md-content class="md-padding">
-          <md-tabs md-dynamic-height md-border-bottom>
-            <md-tab label="Home">
-              <md-content class="md-padding">
-                <h1 class="md-display-2">Welcome to jamjar!</h1>
-                <img ng-src="assets/images/jamjar_small.jpg" alt="jamjar"/>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-              </md-content>
-            </md-tab>
-            <md-tab label="Upload">
-              <md-content class="md-padding">
-                <jamjar-upload></jamjar-upload>
-              </md-content>
-            </md-tab>
-          </md-tabs>
+        <md-content>
+          <div class="tab-top">
+            <img ng-src="assets/images/jamjar_logo2_transparent_300x154.png" alt="logo" />
+          </div>
+
+          <md-content class="md-padding">
+            <h1 class="md-display-2">Welcome to jamjar!</h1>
+            <!-- <img ng-src="assets/images/jamjar_small.jpg" alt="jamjar"/> -->
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+
+            <jamjar-upload></jamjar-upload>
+          </md-content>
+
         </md-content>
       </div>
 
