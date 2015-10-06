@@ -33,7 +33,7 @@ html, body {
 }
 
 body {
-  background-image: url(../assets/images/wallpaper7.jpg);
+  background-image: url(../assets/images/wallpaper5.jpg);
   // background-color: $purple;
   background-repeat: no-repeat;
   background-position: center center;
@@ -124,9 +124,13 @@ section.jumbotron {
 
 .container {
   text-align: center;
-  min-width: 450px;
+  // min-width: 450px;
   width: 50%;
   margin: 50px auto;
+
+  @media screen and (max-width: 1024px) {
+    width: 90%;
+  }
 }
 
 .upload-container {
