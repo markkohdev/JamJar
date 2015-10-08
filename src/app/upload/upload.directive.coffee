@@ -5,7 +5,7 @@ angular.module "jamjar"
       bindToController: true
       controllerAs: 'vm'
       templateUrl: 'app/upload/upload.html'
-      controller: ($timeout, toastr, FileUploader, $scope) ->
+      controller: ($timeout, toastr, FileUploader) ->
         vm = this
         # activate = ->
         #   getWebDevTec()
@@ -27,10 +27,23 @@ angular.module "jamjar"
         #     return
         #   return
         uploadSettings =
-            url: '/upload.php'
+            url: 'upload.php'
 
-        $scope.uploader = new FileUploader(uploadSettings)
+        vm.uploader = new FileUploader(uploadSettings)
 
-        console.log $scope.uploader
+        vm.uploader.onWhenAddingFileFailed = (item, filter, options) ->
+            console.info('onWhenAddingFileFailed', item, filter, options)
+
+        vm.uploader.onCompleteItem = (fileItem, response, status, headers) ->
+            console.info('onCompleteItem', fileItem, response, status, headers);
+
+        vm.uploader.onCompleteAll = () ->
+            console.info('onCompleteAll');
+
+        vm.waiting = (item) ->
+            if item.progress < 100 || item.isError
+                return true
+
+            return false
 
         return vm
