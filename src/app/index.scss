@@ -44,15 +44,19 @@ body {
   }
 
   .contain {
-    text-align: center;
-    // min-width: 450px;
     width: 50%;
     margin: 50px auto;
   }
 
+  .footer {
+      color: white;
+  }
+
 }
 
-
+.contain {
+  text-align: center;
+}
 
 .full-height {
   height: 100%;
@@ -170,6 +174,15 @@ section.jumbotron {
 
 .orange {
   color: orange;
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.footer {
+  margin: 10px auto;
+  font-size: 0.75em;
 }
 
 /**

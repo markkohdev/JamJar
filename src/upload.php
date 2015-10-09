@@ -1,8 +1,5 @@
 <?php
 
-ini_set('upload_max_filesize','250M');
-ini_set('post_max_size','100M');
-
 if (!empty($_FILES)) {
     $tempFile = $_FILES['file']['tmp_name'];
     // $targetPath = $_SERVER['DOCUMENT_ROOT'] . $_REQUEST['folder'] . '/';
@@ -20,7 +17,7 @@ if (!empty($_FILES)) {
         // mkdir(str_replace('//','/',$targetPath), 0755, true);
 
         move_uploaded_file($tempFile,$targetFile);
-        echo $targetFile;
+        echo "File upload successful";
     // } else {
     //  echo 'Invalid file type.';
     // }
