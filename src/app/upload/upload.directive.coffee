@@ -27,23 +27,26 @@ angular.module "jamjar"
         #     return
         #   return
         uploadSettings =
-            url: 'upload.php'
+          url: 'upload.php'
+          removeAfterUpload: true
 
         vm.uploader = new FileUploader(uploadSettings)
 
         vm.uploader.onWhenAddingFileFailed = (item, filter, options) ->
-            console.info('onWhenAddingFileFailed', item, filter, options)
+          console.info('onWhenAddingFileFailed', item, filter, options)
 
         vm.uploader.onCompleteItem = (fileItem, response, status, headers) ->
-            console.info('onCompleteItem', fileItem, response, status, headers);
+          console.info('onCompleteItem', fileItem, response, status, headers)
 
         vm.uploader.onCompleteAll = () ->
-            console.info('onCompleteAll');
+          console.info('onCompleteAll')
+
+        vm.uploader.onErrorItem = (item, response, status, headers) ->
+          console.info(item)
 
         vm.waiting = (item) ->
-            if item.progress < 100 || item.isError
-                return true
-
-            return false
+          if item.progress < 100 || item.isError
+            return true
+          return false
 
         return vm

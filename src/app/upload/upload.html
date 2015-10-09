@@ -1,4 +1,4 @@
-<md-content class="md-padding">
+<md-content>
 
   <div class="upload-container">
 
@@ -8,7 +8,7 @@
 
       <div ng-show="vm.uploader.isHTML5">
         <!-- 3. nv-file-over uploader="link" over-class="className" -->
-        <div class="well my-drop-zone" nv-file-over="" uploader="vm.uploader">
+        <div class="well my-drop-zone" nv-file-over="" multiple uploader="vm.uploader">
           Drop your files here!
         </div>
       </div>
@@ -23,32 +23,21 @@
       <p>Queue length: {{ vm.uploader.queue.length }}</p>
 
       <div layout="row" class="list-header">
-        <span class="col-md-3">Name</span>
-        <span class="col-md-2">Size</span>
-        <span class="col-md-3">Progress</span>
-        <span class="col-md-4">Actions</span>
+        <span flex="33">Name</span>
+        <span flex="33">Size</span>
+        <span flex="33">Progress</span>
       </div>
 
-      <div ng-repeat="item in vm.uploader.queue | filter:vm.waiting">
+      <div ng-repeat="item in vm.uploader.queue">
         <div layout="row">
-          <span class="col-md-3" ng-class="{red: item.isError}">{{ item.file.name }}</span>
-          <span class="col-md-2">{{ item.file.size/1024/1024|number:2 }} MB</span>
-          <span class="col-md-3">
+          <span flex="33" ng-class="{red: item.isError}" title="{{item.file.name}}" class="namebox">{{ item.file.name }}</span>
+          <span flex="33">{{ item.file.size/1024/1024|number:2 }} MB</span>
+          <span flex="33">
             <div class="progress" style="margin-bottom: 0;">
                   <div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }">{{item.progress}}%</div>
             </div>
           </span>
-          <span class="col-md-4">
-            <a type="button" class="md-icon-button md-mini blue" ng-click="item.upload()" ng-disabled="item.isReady || item.isUploading || item.isSuccess">
-              <md-icon class="zmdi zmdi-upload"></md-icon>
-            </a>
-            <a type="button" class="md-icon-button md-mini orange" ng-click="item.cancel()" ng-disabled="!item.isUploading">
-              <md-icon class="zmdi zmdi-block"></md-icon>
-            </a>
-            <a type="button" class="md-icon-button md-mini red" ng-click="item.remove()">
-              <md-icon class="zmdi zmdi-delete"></md-icon>
-            </a>
-          </span>
+        </div>
       </div>
 
       <div>
@@ -59,13 +48,13 @@
           </div>
         </div>
         <md-button type="button" class="md-raised md-primary" ng-click="vm.uploader.uploadAll()" ng-disabled="!vm.uploader.getNotUploadedItems().length">
-          <span class="glyphicon glyphicon-upload"></span> Upload all
+          <span class="glyphicon glyphicon-upload"></span> Upload
         </md-button>
         <md-button type="button" class="md-raised" ng-click="vm.uploader.cancelAll()" ng-disabled="!vm.uploader.isUploading">
-          <span class="glyphicon glyphicon-ban-circle"></span> Cancel all
+          <span class="glyphicon glyphicon-ban-circle"></span> Cancel
         </md-button>
         <md-button type="button" class="md-raised md-warn" ng-click="vm.uploader.clearQueue()" ng-disabled="!vm.uploader.queue.length">
-          <span class="glyphicon glyphicon-trash"></span> Remove all
+          <span class="glyphicon glyphicon-trash"></span> Remove
         </md-button>
       </div>
 
