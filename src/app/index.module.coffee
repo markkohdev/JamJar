@@ -5,4 +5,5 @@ angular.module 'jamjar', ['ngAnimate',
                           'ngResource',
                           'ui.router',
                           'ngMaterial',
-                          'angularFileUpload']
+                          'angularFileUpload',
+                          'ngFileUpload']
