@@ -3,7 +3,7 @@
   'use strict';
 
   angular
-    .module('jamjar2')
+    .module('jamjar')
     .constant('moment', moment);
 
 })();

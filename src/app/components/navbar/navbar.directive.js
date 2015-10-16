@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-    .module('jamjar2')
+    .module('jamjar')
     .directive('acmeNavbar', acmeNavbar);
 
   /** @ngInject */
