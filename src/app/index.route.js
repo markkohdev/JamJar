@@ -12,7 +12,13 @@
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        controllerAs: 'main'
+        controllerAs: 'vm'
+      })
+      .state('fallfest', {
+        url: '/fallfest',
+        templateUrl: 'app/fallfest/fallfest.html',
+        controller: 'FallfestController',
+        controllerAs: 'vm'
       });
 
     $urlRouterProvider.otherwise('/');

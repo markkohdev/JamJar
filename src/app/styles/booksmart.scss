@@ -3,10 +3,6 @@
 @import 'colors';
 @import 'fonts';
 
-// Yeoman generated stuff
-@import 'jumbotron';
-@import 'material-icons';
-
 // Booksmart styles!
 html {
   font-family: 'Muli', sans-serif;
@@ -19,3 +15,50 @@ html {
 md-toolbar.md-default-theme {
   background-color: black;
 }
+
+// Full screen mode
+@media screen and (min-width: 1024px) {
+
+  html, body {
+      overflow: auto;
+  }
+
+  .concert_bg {
+    background-image: url(../assets/images/wallpaper5.jpg);
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+  }
+
+  .contain {
+    width: 50%;
+    margin: 50px auto;
+  }
+
+  .footer {
+      color: white;
+  }
+
+}
+
+.center {
+  margin: 0 auto;
+}
+
+.contain {
+  text-align: center;
+}
+
+.footer {
+  margin: 10px auto;
+  font-size: 0.75em;
+}
+
+
+// Yeoman generated stuff
+@import 'jumbotron';
+@import 'material-icons';
