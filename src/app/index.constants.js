@@ -4,7 +4,6 @@
 
   angular
     .module('jamjar2')
-    .constant('malarkey', malarkey)
     .constant('moment', moment);
 
 })();
