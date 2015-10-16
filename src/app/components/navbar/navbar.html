@@ -1,13 +1,15 @@
-<md-toolbar layout="row" layout-align="center center">
+<md-toolbar class="navbar" layout="row" layout-align="center center" layout-fill>
 
-  <md-button href="https://github.com/Swiip/generator-gulp-angular">Gulp Angular</md-button>
+  <div flex="50" layout="row" layout-align="end center">
+    <a ui-sref="home">
+      <img class="logo" ng-src="assets/images/jamjar_logo2_transparent_300x154.png" alt="logo"/>
+    </a>
+  </div>
 
-  <section flex layout="row" layout-align="left center">
-    <md-button href="#" class="md-raised">Home</md-button>
-    <md-button href="#" class="md-raised">About</md-button>
-    <md-button href="#" class="md-raised">Contact</md-button>
+  <section flex="50" layout="row" layout-align="left center">
+    <md-button ui-sref="home" class="md-raised">Home</md-button>
+    <md-button ui-sref="home" class="md-raised">My Concerts</md-button>
+    <md-button ui-sref="home" class="md-raised">Upload</md-button>
   </section>
-
-  <md-button class="acme-navbar-text">Application was created {{ vm.relativeDate }}.</md-button>
 
 </md-toolbar>
