@@ -1,9 +1,0 @@
-node_modules/
-bower_components/
-.sass-cache/
-.idea/
-.tmp/
-dist/
-npm-debug.log
-*.sublime-project
-*.sublime-workspace
