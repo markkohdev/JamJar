@@ -1,9 +1,7 @@
 node_modules/
 bower_components/
+coverage/
 .sass-cache/
 .idea/
 .tmp/
 dist/
-npm-debug.log
-*.sublime-project
-*.sublime-workspace

@@ -1,12 +1,15 @@
-<md-toolbar layout="row" layout-align="center center">
+<md-toolbar class="navbar" layout="row" layout-align="center center" layout-fill>
 
-  <div class="container">
-      <md-button ui-sref="home">jamjar</md-button>
-
-      <section flex layout="row" layout-align="left center">
-        <md-button ui-sref="home" class="md-raised">Home</md-button>
-        <md-button ui-sref="upload" class="md-raised">Upload</md-button>
-      </section>
+  <div flex="50" layout="row" layout-align="end center">
+    <a ui-sref="home">
+      <img class="logo" ng-src="assets/images/jamjar_logo2_transparent_300x154.png" alt="logo"/>
+    </a>
   </div>
+
+  <section flex="50" layout="row" layout-align="left center">
+    <md-button ui-sref="home" class="md-raised">Home</md-button>
+    <md-button ui-sref="home" class="md-raised">My Concerts</md-button>
+    <md-button ui-sref="home" class="md-raised">Upload</md-button>
+  </section>
 
 </md-toolbar>
