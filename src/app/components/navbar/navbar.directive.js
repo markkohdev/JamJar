@@ -10,9 +10,6 @@
     var directive = {
       restrict: 'E',
       templateUrl: 'app/components/navbar/navbar.html',
-      scope: {
-          creationDate: '='
-      },
       controller: NavbarController,
       controllerAs: 'vm',
       bindToController: true
@@ -22,7 +19,22 @@
 
     /** @ngInject */
     function NavbarController() {
-      // var vm = this;
+      var vm = this;
+
+      vm.pages = [
+        {
+          state: 'home',
+          name: 'Home'
+        },
+        {
+          state: 'concerts',
+          name: 'My Concerts'
+        },
+        {
+          state: 'dashboard.uploader',
+          name: 'Uploader'
+        }
+      ];
     }
   }
 

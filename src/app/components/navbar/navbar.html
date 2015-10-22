@@ -4,12 +4,12 @@
     <a ui-sref="home">
       <img class="logo" ng-src="assets/images/jamjar_logo2_transparent_300x154.png" alt="logo"/>
     </a>
+
   </div>
 
   <section flex="50" layout="row" layout-align="left center">
-    <md-button ui-sref="home" class="md-raised">Home</md-button>
-    <md-button ui-sref="home" class="md-raised">My Concerts</md-button>
-    <md-button ui-sref="home" class="md-raised">Upload</md-button>
+    <md-button ng-repeat="page in vm.pages" ui-sref="{{page.state}}" class="md-raised">{{page.name}}</md-button>
   </section>
+
 
 </md-toolbar>
