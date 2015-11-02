@@ -3,7 +3,7 @@
 @import 'colors';
 @import 'fonts';
 
-// Booksmart styles!
+// JamJar styles!
 html {
   font-family: 'Muli', sans-serif;
 }
@@ -14,6 +14,10 @@ html {
 
 md-toolbar.md-default-theme {
   background-color: black;
+}
+
+md-toolbar.md-coral-theme{
+  background-color: coral;
 }
 
 // Full screen mode
@@ -62,3 +66,6 @@ md-toolbar.md-default-theme {
 // Yeoman generated stuff
 @import 'jumbotron';
 @import 'material-icons';
+@import 'dashboard';
+@import 'videogular';
+@import 'playlist';

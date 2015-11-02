@@ -21,6 +21,12 @@
         controller: 'DashboardController',
         controllerAs: 'vm'
       })
+      .state('dashboard.home', {
+        url: '/home',
+        templateUrl: 'app/dashboard/home.html',
+        controller: 'HomeController',
+        controllerAs: 'vm'
+      })
       .state('dashboard.videos', {
         url: '/videos',
         templateUrl: 'app/dashboard/videos.html',
@@ -31,6 +37,18 @@
         url: '/uploader',
         templateUrl: 'app/dashboard/uploader.html',
         controller: 'UploaderController',
+        controllerAs: 'vm'
+      })
+      .state('upload', {
+        url: '/upload',
+        templateUrl: 'app/upload/upload.html',
+        controller: 'jamjarUpload',
+        controllerAs: 'vm'
+      })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'app/login/login.html',
+        controller: 'LoginController',
         controllerAs: 'vm'
       })
       .state('fallfest', {
