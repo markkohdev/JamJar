@@ -1,4 +1,11 @@
 .upload-container {
     max-width: 930px;
     margin: 0 auto;
+
+    .file-drop-zone {
+        width: 400px;
+        height: 200px;
+        background-color: $grey;
+        border: 3px dashed $black;
+    }
 }

@@ -1,23 +1,23 @@
 <md-content>
 
   <div class="upload-container" layout="column" layout-align="center center">
-
-<!--     <div class="col-md-6"> -->
-
-      <h3>Select files</h3>
+      <md-input-container>
+        <label>Upload name...</label>
+        <input ng-model="vm.filename" ng-change="vm.updateFilename()">
+      </md-input-container>
 
       <div ng-show="vm.uploader.isHTML5">
-        <!-- 3. nv-file-over uploader="link" over-class="className" -->
-        <div class="well my-drop-zone" nv-file-over="" multiple uploader="vm.uploader">
-          Drop your files here!
+        <div class="file-drop-zone" nv-file-drop uploader="vm.uploader" layout="column" layout-align="center center">
+          <span>Drop your files here!</span>
         </div>
       </div>
 
-      <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-      <input type="file" nv-file-select="" uploader="vm.uploader" multiple title="Or click here to select files..."/><br/>
-    <!-- </div> -->
+      <div class="md-padding">
+        Or click here to select files...
+        <input type="file" nv-file-select="" uploader="vm.uploader" title=""/>
+      </div>
 
-    <!-- <div class="col-md-6" style="margin-bottom: 40px"> -->
+      <md-divider></md-divider>
 
       <h3>Upload queue</h3>
       <p>Queue length: {{ vm.uploader.queue.length }}</p>

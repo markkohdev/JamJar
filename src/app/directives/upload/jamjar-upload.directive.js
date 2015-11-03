@@ -21,17 +21,22 @@
     function jamjarUploadController(FileUploader, $http) {
       var vm = this;
 
-      var uploadSettings = {
+      vm.uploadSettings = {
         url: 'http://api.localhost.dev:5001/videos/',
         removeAfterUpload: true,
         formData: [
           {
-            'name': 'test'
+            'name': vm.filename
           }
         ]
       };
 
-      vm.uploader = new FileUploader(uploadSettings);
+      vm.uploader = new FileUploader(vm.uploadSettings);
+
+      // When the user updates the filename in the input, update the field in the uploader
+      vm.updateFilename = function() {
+        vm.uploadSettings.formData[0].name = vm.filename;
+      };
 
     }
   }
