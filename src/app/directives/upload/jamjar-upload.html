@@ -7,14 +7,14 @@
       </md-input-container>
 
       <div ng-show="vm.uploader.isHTML5">
-        <div class="file-drop-zone" nv-file-drop uploader="vm.uploader" layout="column" layout-align="center center">
+        <div class="file-drop-zone" nv-file-drop multiple uploader="vm.uploader" layout="column" layout-align="center center">
           <span>Drop your files here!</span>
         </div>
       </div>
 
       <div class="md-padding">
         Or click here to select files...
-        <input type="file" nv-file-select="" uploader="vm.uploader" title=""/>
+        <input type="file" nv-file-select="" multiple uploader="vm.uploader" title=""/>
       </div>
 
       <md-divider></md-divider>

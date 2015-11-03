@@ -22,7 +22,7 @@
       var vm = this;
 
       vm.uploadSettings = {
-        url: 'http://api.localhost.dev:5001/videos/',
+        url: 'http://api.projectjamjar.com/videos/',
         removeAfterUpload: true,
         formData: [
           {
