@@ -11,6 +11,7 @@
                         'ui.router',
                         'ngMaterial',
                         'ui.bootstrap',
+                        'angularFileUpload',
                         'toastr',
                         'angulartics',
                         'angulartics.google.analytics',

@@ -39,12 +39,6 @@
         controller: 'UploaderController',
         controllerAs: 'vm'
       })
-      .state('upload', {
-        url: '/upload',
-        templateUrl: 'app/upload/upload.html',
-        controller: 'jamjarUpload',
-        controllerAs: 'vm'
-      })
       .state('login', {
         url: '/login',
         templateUrl: 'app/login/login.html',
