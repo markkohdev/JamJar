@@ -20,8 +20,6 @@
     "animate.css": "~3.4.0",
     "angular": "~1.4.2",
     "angular-file-upload": "~2.1.4",
-    "angulartics": "~0.20.1",
-    "angulartics-google-analytics": "~0.1.1",
     "angular-svg-round-progressbar": "~0.2.10",
     "videogular": "1.2.4",
     "videogular-themes-default": "1.2.4",
@@ -30,7 +28,6 @@
     "videogular-overlay-play": "*",
     "videogular-poster": "1.2.4",
     "videogular-ima-ads": "*",
-    "videogular-angulartics": "*",
     "videogular-dash": "*"
   },
   "devDependencies": {
@@ -40,7 +37,6 @@
     "jquery": "~2.1.4",
     "angular-sanitize": "~1.4.2",
     "angular": "~1.4.2",
-    "angulartics": "~0.20",
     "waypoints": "~3.1.1",
     "videogular": "~1.3.1"
   }
