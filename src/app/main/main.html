@@ -1,17 +1,153 @@
-<div layout="vertical" layout-fill>
+<div layout="vertical" layout-fill ng-cloak>
+    
+    <md-content layout-fill>
+        
+        <header id="top" class="header">
+            <div class="text-vertical-center">
+                <img class="logo-banner" ng-src="assets/images/jamjar_logotype_transparent_400x155.png" alt="logo"/>
 
-  <md-content layout-fill>
-    <header>
-      <navbar></navbar>
-    </header>
+                <h2>RELIVE THE CONCERT EXPERIENCE</h2>
 
-    <section class="jumbotron">
-      <h1>Welcome to jamjar!</h1>
-      <img ng-src="assets/images/jamjar_transparent_256x256.png" alt="logo"/>
-      <p class="lead">
-        Relive the concert experience, dawg!
-      </p>
-    </section>
-  </md-content>
+                <div layout="row" layout-sm="column" layout-xs="column">
+                    <div flex="10"></div>
 
+                    <div flex="40" layout="column" class="left-align panelbox">
+                        <div flex layout="row" class="whitebox">
+                            <div flex="35"><img ng-src="assets/images/icon_play.png"/></div>
+                            <div flex="65">Organize and watch<br>your concert videos</div>
+                        </div>
+                        <div flex layout="row" class="whitebox">
+                            <div flex="35"><img ng-src="assets/images/icon_multiPlay.png"/></div>
+                            <div flex="65">View full performances<br>stitched together from<br>published videos</div>
+                        </div>
+                        <div flex layout="row" class="whitebox">
+                            <div flex="35"><img ng-src="assets/images/icon_share.png"/></div>
+                            <div flex="65">Upload and share videos<br>within our awesome<br>community</div>
+                        </div>
+                    </div>
+
+                    <div flex="40">
+                        <user-authentication></user-authentication>
+                    </div>
+
+                    <div flex="10"></div>
+                </div>
+
+                <div ng-controller="MainController">
+                    <md-button class="md-fab coral-bg" ng-click="gotoExplore()" aria-label="Explore">
+                        <md-icon><i class="material-icons">keyboard_arrow_down</i></md-icon>
+                    </md-button>
+                </div>
+            </div>
+        </header>
+        
+        <div id="explore" ng-controller="VideoController">
+            <section class="jumbotron">
+              <div layout="row">
+                  <h2 flex class="black-color">Check out some of our auto-stitched concert videos</h2>
+              </div>
+              <div layout="row">
+                  <div flex="25" layout="column">
+                      <div flex class="wrapper1">
+                          <div id="song1"></div>
+                      </div>
+                      <br>
+                      <div flex class="wrapper2">
+                          <div id="song2"></div>
+                      </div>
+                  </div>
+                  <div flex="50" layout="column">
+                    <div flex>
+                         <section class="videobox">
+                            <div class="container">
+                                <div class="videoContentBox">
+                                    <div class="videogular-container">
+                                        <videogular vg-player-ready="vm.onPlayerReady($API)" 
+                                                    vg-complete="vm.onCompleteVideo()"
+                                                    vg-theme="vm.config.theme">
+                                            <vg-media vg-src="vm.config.sources"
+                                                      vg-tracks="vm.config.tracks">
+                                            </vg-media>
+
+                                            <vg-controls>
+                                                <vg-play-pause-button></vg-play-pause-button>
+                                                <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                                                <vg-scrub-bar>
+                                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                                </vg-scrub-bar>
+                                                <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                                                <vg-volume>
+                                                    <vg-mute-button></vg-mute-button>
+                                                    <vg-volume-bar></vg-volume-bar>
+                                                </vg-volume>
+                                                <vg-fullscreen-button></vg-fullscreen-button>
+                                            </vg-controls>
+
+                                            <vg-overlay-play></vg-overlay-play>
+                                            <vg-buffering></vg-buffering>
+                                            <vg-poster vg-url='vm.config.plugins.poster'></vg-poster>
+                                        </videogular>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                  </div>
+                  <div flex="25" layout="column">
+                      <div flex class="wrapper3">
+                          <div id="song3"></div>
+                      </div>
+                      <div flex class="wrapper4">
+                          <div id="song4"></div>
+                      </div>
+                  </div>
+              </div>
+              
+              <br>
+              
+              <md-button class="md-raised coral-bg">See more</md-button>
+          
+            </section>
+        </div>
+        
+        
+<!--
+        <div class="sampleVideos">
+          <md-grid-list
+                md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+                md-row-height-gt-md="1:1" md-row-height="2:2"
+                md-gutter="12px" md-gutter-gt-sm="8px" >
+            <md-grid-tile class="concert1"
+                md-rowspan="3" md-colspan="2" md-colspan-sm="1">
+              <md-grid-tile-footer>
+                <h3>Concert 1</h3>
+              </md-grid-tile-footer>
+            </md-grid-tile>
+            <md-grid-tile class="concert2"
+                md-rowspan="1" md-colspan="2">
+              <md-grid-tile-footer>
+                <h3>Concert2</h3>
+              </md-grid-tile-footer>
+            </md-grid-tile>
+            <md-grid-tile class="concert3"
+                md-rowspan="3" md-colspan="2">
+              <md-grid-tile-footer>
+                <h3>Concert3</h3>
+              </md-grid-tile-footer>
+            </md-grid-tile>
+            <md-grid-tile class="concert4"
+                md-rowspan="2" md-colspan="2" md-colspan-sm="1">
+              <md-grid-tile-footer>
+                <h3>Concert4</h3>
+              </md-grid-tile-footer>
+            </md-grid-tile>
+          </md-grid-list>
+        </div>        
+-->
+
+        <footer>
+            <footbar></footbar>
+        </footer>
+    
+    </md-content>
 </div>

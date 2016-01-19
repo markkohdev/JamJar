@@ -35,14 +35,6 @@
         {
           state: 'dashboard.videos',
           name: 'Concerts'
-        },
-        {
-          state: 'dashboard.uploader',
-          name: 'Uploader'
-        },
-        {
-          state: 'login',
-          name: 'Log In'
         }
       ];
     }

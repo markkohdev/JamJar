@@ -1,0 +1,68 @@
+<div class="authenticationBox">
+    
+    <div layout="column" ng-show="user.isSet(1)" layout-padding>
+        <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()" novalidate>
+            <br>
+            
+            <md-input-container class="md-block">
+                <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
+            </md-input-container>
+            
+            <md-input-container class="md-block">
+                <input ng-model="user.password" type="password" placeholder="Password" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-button type="submit" class="md-raised green-bg">Log In</md-button>
+            
+                <div layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <md-button class="md-raised" ng-click="user.setTab(3)">Forgot Password</md-button>
+                    <md-button class="md-raised" ng-click="user.setTab(2)">Sign Up</md-button>
+                </div>
+            </md-input-container>
+        </form>
+    </div>
+    
+    <div layout="column" ng-show="user.isSet(2)" layout-padding>
+        <form name="signUpForm" ng-submit="signUpForm.$valid && user.signUp()" novalidate>
+            <md-input-container class="md-block">
+                <input ng-model="user.name" type="text" placeholder="Name" ng-required="true">
+            </md-input-container>
+            
+            <md-input-container class="md-block">
+                <input ng-model="user.newEmail" type="email" placeholder="Email" ng-required="true">
+            </md-input-container>
+            
+            <md-input-container class="md-block">
+                <input ng-model="user.newPassword" type="password" placeholder="Password" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-button type="submit" class="md-raised green-bg">Sign Up</md-button>
+                
+                <div layout="row" layout-align="end center" layout-wrap>
+                    <md-button class="md-raised" ng-click="user.setTab(1)">Log In</md-button>
+                </div>
+            </md-input-container>
+
+        </form>
+    </div>
+    
+    <div layout="column" ng-show="user.isSet(3)" layout-padding>
+        <form name="resetPwForm" ng-submit="resetPwForm.$valid && user.resetPw()" novalidate>
+            <md-input-container class="md-block">
+                <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-button type="submit" class="md-raised green-bg">Reset Password</md-button>
+            
+                <div layout="row" layout-align="end center" layout-wrap>
+                    <md-button class="md-raised" ng-click="user.setTab(2)">Sign Up</md-button>
+                    <md-button class="md-raised" ng-click="user.setTab(1)">Log In</md-button>
+                </div>
+            </md-input-container>
+        </form>
+    </div>
+    
+</div>

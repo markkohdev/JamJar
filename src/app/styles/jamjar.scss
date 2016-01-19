@@ -5,19 +5,238 @@
 
 // JamJar styles!
 html {
-  font-family: 'Muli', sans-serif;
+    font-family: 'Muli', sans-serif;
+    height: 100%;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100% !important;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    color: white;
+    font-family: 'Muli';
+    font-style: normal;
+    font-weight: 500;
 }
 
 [layout=row] {
   flex-direction: row;
 }
 
-md-toolbar.md-default-theme {
-  background-color: black;
+md-toolbar.md-coral-theme{
+    background-color: $coral;
 }
 
-md-toolbar.md-coral-theme{
-  background-color: coral;
+.coral-bg {
+    background-color: $coral !important;
+}
+
+.gray-bg {
+    background-color: $gray !important;
+}
+
+.skyblue-bg {
+    background-color: $skyblue !important;   
+}
+
+.black-color {
+    color: black !important;
+}
+
+.header {
+    display: table;
+    position: relative;
+    width: 100%;
+    height: 700px;
+    //height: 100%;
+    background: url(../assets/images/concertBG.JPG) no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+    
+    h2 {
+        letter-spacing: 4px;   
+    }
+
+    .panelbox {
+        font-size: 18px;
+        font-weight: bold;
+    }
+    
+    .whitebox {
+        background-color: rgba(139,139,131,0.5);
+        color: white;
+        width: 400px;
+        height: 80px;
+        padding: 10px 30px 10px 30px;
+        margin: 10px;
+        border-radius: 25px;
+        margin-left:auto;
+        margin-right:auto;
+    }
+}
+
+footer {
+    padding: 10px;
+    background-color: $coral;
+    color: white;
+    
+    h3 {
+        -webkit-margin-before: 0 !important;
+        -webkit-margin-after: .3em !important;
+        text-decoration: underline;
+    }
+    
+    ul {
+        list-style-type: none;
+        line-height: 2em;
+    }
+    
+    a {
+        color: white !important;
+        text-decoration: none !important;
+    }
+    
+    .container {
+        padding: 0 20px 0 20px;    
+    }
+}
+
+.text-vertical-center {
+    display: table-cell;
+    text-align: center;
+    //vertical-align: middle;
+    padding-top: 50px;
+}
+
+.left-align{
+    text-align: left;
+}
+
+#explore .md-button {
+  color: white !important;
+}
+
+.wrapper1 {
+    width:250px;
+    height:200px;
+    //border:2px black solid;
+    margin:auto;
+    position: relative;
+}
+
+.wrapper2 {
+    width:250px;
+    height:200px;
+    //border:2px black solid;
+    margin:auto;
+    position: relative;
+}
+
+.wrapper3 {
+    width:250px;
+    height:200px;
+    //border:2px black solid;
+    margin:auto;
+    position: relative;
+}
+
+.wrapper4 {
+    width:250px;
+    height:200px;
+    //border:2px black solid;
+    margin:auto;
+    position: relative;
+}
+
+#song1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/images/song1.JPG");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#song2 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/images/song2.JPG");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#song3 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/images/song3.JPG");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+#song4 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("../assets/images/song4.JPG");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.scale img {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+
+
+.sampleVideos md-grid-list {
+  margin: 8px; }
+.sampleVideos .concert1 {
+  background-image: url("../assets/images/song1.JPG");
+  background-size:cover;}
+.sampleVideos .concert2 {
+  background-image: url("../assets/images/song2.JPG");
+background-size:cover;}
+.sampleVideos .concert3 {
+  background-image: url("../assets/images/song3.JPG");
+background-size:cover;}
+.sampleVideos .concert4 {
+  background-image: url("../assets/images/song4.JPG");
+background-size:cover;}
+.sampleVideos md-grid-tile {
+  transition: all 400ms ease-out 50ms; }
+
+.resize-cover {
+    max-height: 100%;
+    max-width: 100%
+}
+
+
+.ng-invalid.ng-dirty{
+  border-color: red !important;
+}
+
+.ng-valid.ng-dirty{
+  border-color: green !important;
+}
+
+.logo-banner{
+    max-width: 300px;
 }
 
 // Full screen mode
@@ -49,19 +268,14 @@ md-toolbar.md-coral-theme{
 
 }
 
+
+//todelete
+
+
 .center {
   margin: 0 auto;
 }
-
-.contain {
-  text-align: center;
-}
-
-.footer {
-  margin: 10px auto;
-  font-size: 0.75em;
-}
-
+//endtodelete
 
 // Yeoman generated stuff
 @import 'jumbotron';

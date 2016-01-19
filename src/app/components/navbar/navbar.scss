@@ -2,6 +2,33 @@
 .navbar {
     .logo {
         max-width: 130px;
+        max-height: 60px;
         margin-left: 50px;
+        margin-right: 20px;
     }
+    
+    .icon {
+        max-width: 130px;
+        max-height: 60px;
+        margin-left: 20px;
+        margin-right: 50px;
+    }
+    
+    label {
+        color: white !important;   
+        font-weight: normal;
+        font-size: 14px;
+    }
+    
+    input {
+        color: white !important;   
+        font-weight: normal;
+        font-size: 14px;
+    }
+    
+    md-input-container .md-input {
+        border-color: white !important;
+    }
+    
+    background-color: $coral !important;
 }

@@ -3,9 +3,7 @@
 
   angular
     .module('jamjar')
-    .controller('HomeController', HomeController)
-    .controller('LeftCtrl', LeftCtrl)
-    .controller('RightCtrl', RightCtrl);
+    .controller('HomeController', HomeController);
     
   /** @ngInject */
   function HomeController($scope, $timeout, $mdSidenav, $log) {
@@ -57,7 +55,7 @@
         }
       }
     
-      function LeftCtrl($scope, $timeout, $mdSidenav, $log) {
+      /*function LeftCtrl($scope, $timeout, $mdSidenav, $log) {
             $scope.close = function () {
               $mdSidenav('left').close()
                 .then(function () {
@@ -73,5 +71,6 @@
               $log.debug("close RIGHT is done");
             });
         };
-      }
+      }*/
+
 })();
