@@ -15,8 +15,6 @@
       bindToController: true
     };
 
-    return directive;
-
     /** @ngInject */
     function UserController() {
         var vm = this;
@@ -50,6 +48,9 @@
             
         };
     }
+
+    return directive;
+
   }
 
 })();
