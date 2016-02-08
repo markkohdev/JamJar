@@ -12,8 +12,6 @@
                         'ngMaterial',
                         'ui.bootstrap',
                         'toastr',
-                        'angulartics',
-                        'angulartics.google.analytics',
                         'angularFileUpload',
                         'com.2fdevs.videogular',
                         'com.2fdevs.videogular.plugins.controls',
