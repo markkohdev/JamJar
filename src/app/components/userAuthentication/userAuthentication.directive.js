@@ -18,11 +18,13 @@
     return directive;
 
     /** @ngInject */
-    function UserController(AuthService, $http) {
+    function UserController(AuthService, $location) {
         var vm = this;
 
         vm.tab = 1;
+
         vm.authService = AuthService;
+        vm.$location   = $location;
 
         vm.errorMessage = null;
 
@@ -50,14 +52,13 @@
 
         vm.setError = function(err) {
             vm.errorMessage = err.error;
-            alert(err.error);
         }
 
         vm.logIn = function(){
             vm.authService.logIn(vm.login, function(err, resp) {
                 if (err) return vm.setError(err);
 
-
+                vm.$location.path('/upload');
             });
         };
 

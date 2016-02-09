@@ -3,6 +3,11 @@
     <div layout="column" ng-show="user.isSet(1)" layout-padding>
         <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()">
             <br>
+
+            <!-- TODO : this looks awful -->
+            <div layout='row' ng-show="user.errorMessage">
+              <h3 style='color: red'>ERROR : {{user.errorMessage}}</h2>
+            </div>
             
             <md-input-container class="md-block">
                 <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
