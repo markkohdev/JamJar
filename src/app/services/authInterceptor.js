@@ -1,11 +1,11 @@
 
 angular
   .module('jamjar')
-  .factory('authInterceptor', function ($rootScope, $q, AuthService) {
+  .factory('authInterceptor', function ($rootScope, $q, TokenService) {
   return {
     request: function (config) {
       config.headers = config.headers || {};
-      var token = AuthService.getToken();
+      var token = TokenService.getToken();
       if (token) {
         config.headers.Authorization = 'Token ' + token;
       }
@@ -13,7 +13,7 @@ angular
     },
     response: function (response) {
       if (response.status === 401) {
-        AuthService.onUnauthorized();
+        TokenService.onUnauthorized();
         // handle the case where the user is not authenticated
       }
       return response || $q.when(response);
