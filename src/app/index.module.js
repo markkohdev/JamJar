@@ -13,6 +13,7 @@
                         'ui.bootstrap',
                         'toastr',
                         'angularFileUpload',
+                        'ngCookies',
                         'com.2fdevs.videogular',
                         'com.2fdevs.videogular.plugins.controls',
                         'com.2fdevs.videogular.plugins.overlayplay',

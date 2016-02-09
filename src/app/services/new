@@ -1,0 +1,15 @@
+
+
+function UserController(AuthService) {
+    var vm = this;
+
+    vm.authService = AuthService;
+
+    vm.logIn = function(){
+        // AuthService isn't defined here
+        vm.authService.logIn(vm.login, function(err, resp) {
+            if (err) return vm.setError(err);
+
+            debugger
+        });
+    };

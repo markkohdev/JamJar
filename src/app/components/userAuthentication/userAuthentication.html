@@ -1,15 +1,15 @@
 <div class="authenticationBox">
     
     <div layout="column" ng-show="user.isSet(1)" layout-padding>
-        <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()" novalidate>
+        <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()">
             <br>
             
             <md-input-container class="md-block">
-                <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
+                <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
             </md-input-container>
             
             <md-input-container class="md-block">
-                <input ng-model="user.password" type="password" placeholder="Password" ng-required="true">
+                <input ng-model="user.login.password" type="password" placeholder="Password" ng-required="true">
             </md-input-container>
 
             <md-input-container class="md-block">
@@ -24,18 +24,36 @@
     </div>
     
     <div layout="column" ng-show="user.isSet(2)" layout-padding>
-        <form name="signUpForm" ng-submit="signUpForm.$valid && user.signUp()" novalidate>
-            <md-input-container class="md-block">
-                <input ng-model="user.name" type="text" placeholder="Name" ng-required="true">
-            </md-input-container>
+        <form name="signUpForm" ng-submit="signUpForm.$valid && user.signUp()">
+            <div layout="row">
+              <md-input-container class="md-block">
+                  <input ng-model="user.signup.first_name" type="text" placeholder="First Name" ng-required="true">
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                  <input ng-model="user.signup.last_name" type="text" placeholder="Last Name" ng-required="true">
+              </md-input-container>
+            </div>
+
+            <div layout="row">
+              <md-input-container class="md-block">
+                  <input ng-model="user.signup.username" type="text" placeholder="Username" ng-required="true">
+              </md-input-container>
+              
+              <md-input-container class="md-block">
+                  <input ng-model="user.signup.email" type="email" placeholder="Email" ng-required="true">
+              </md-input-container>
+            </div>
             
-            <md-input-container class="md-block">
-                <input ng-model="user.newEmail" type="email" placeholder="Email" ng-required="true">
-            </md-input-container>
-            
-            <md-input-container class="md-block">
-                <input ng-model="user.newPassword" type="password" placeholder="Password" ng-required="true">
-            </md-input-container>
+            <div layout="row">
+              <md-input-container class="md-block">
+                  <input ng-model="user.signup.password" type="password" placeholder="Password" ng-required="true">
+              </md-input-container>
+
+              <md-input-container class="md-block">
+                  <input ng-model="user.signup.confirm" type="password" placeholder="Confirm Password" ng-required="true">
+              </md-input-container>
+            </div>
 
             <md-input-container class="md-block">
                 <md-button type="submit" class="md-raised green-bg">Sign Up</md-button>
@@ -49,7 +67,7 @@
     </div>
     
     <div layout="column" ng-show="user.isSet(3)" layout-padding>
-        <form name="resetPwForm" ng-submit="resetPwForm.$valid && user.resetPw()" novalidate>
+        <form name="resetPwForm" ng-submit="resetPwForm.$valid && user.resetPw()">
             <md-input-container class="md-block">
                 <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
             </md-input-container>

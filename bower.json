@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "dependencies": {
     "angular-animate": "~1.4.2",
-    "angular-cookies": "~1.4.2",
+    "angular-cookies": "^1.5.0",
     "angular-touch": "~1.4.2",
     "angular-sanitize": "~1.4.2",
     "angular-messages": "~1.4.2",
@@ -35,6 +35,7 @@
     "jquery": "~2.1.4",
     "angular-sanitize": "~1.4.2",
     "angular": "~1.4.2",
-    "waypoints": "~3.1.1"
+    "waypoints": "~3.1.1",
+    "angular-cookies": "~1.4.2"
   }
 }
