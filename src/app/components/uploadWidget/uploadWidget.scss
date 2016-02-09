@@ -1,0 +1,28 @@
+.upload-container {
+    margin: 10px;
+
+    .file-drop-zone {
+        min-height: 200px;
+        background-color: white;
+        border: 1px dotted $black;
+    }
+    
+    .md-button {
+        padding: 5px 15px;
+        background-color: $skyblue !important;
+        color: white !important;
+    }
+    
+    .md-datepicker-button {
+        width: 36px; 
+    }
+    
+    
+    // hide default "Choose File No file chosen"
+    label.myLabel input[type="file"] {
+        position: fixed;
+        top: -1000px;
+    }
+    
+    
+}

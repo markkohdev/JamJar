@@ -1,15 +1,27 @@
-<md-toolbar class="navbar" layout="row" layout-align="center center" layout-fill>
-
-  <div flex="50" layout="row" layout-align="end center">
-    <a ui-sref="home">
-      <img class="logo" ng-src="assets/images/jamjar_logo2_transparent_300x154.png" alt="logo"/>
-    </a>
-
-  </div>
-
-  <section flex="50" layout="row" layout-align="left center">
-    <md-button ng-repeat="page in vm.pages" ui-sref="{{page.state}}" class="md-raised">{{page.name}}</md-button>
-  </section>
-
-
+<md-toolbar class="navbar" layout="row" layout-align="space-between center">
+    <span flex="50">
+        <a ui-sref="home">
+            <img class="logo" ng-src="assets/images/jamjar_logotype_transparent_400x155.png" alt="logo"/>
+        </a>
+        
+        <md-button ng-repeat="page in vm.pages" ui-sref="{{page.state}}">
+            {{page.name}}
+        </md-button>
+    </span>
+    
+    <span flex>
+        <md-input-container class="md-block">
+            <label>Search...</label>
+            <input ng-model="search">
+        </md-input-container>
+    </span>
+    
+    <span>
+        <a ui-sref="dashboard.uploader">
+            <img class="logo" ng-src="assets/images/cloud-upload.png"/>
+        </a>   
+        <a ui-sref="login">
+            <img class="icon" ng-src="assets/images/waveforms.png"/>
+        </a>        
+    </span>
 </md-toolbar>

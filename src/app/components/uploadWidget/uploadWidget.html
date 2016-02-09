@@ -1,0 +1,97 @@
+<div class="upload-container">
+    <div ng-show="upload.uploader.isHTML5">
+        <div class="file-drop-zone" 
+             nv-file-drop 
+             multiple 
+             uploader="upload.uploader" 
+             layout="column" 
+             layout-align="center center">
+            
+            <div>
+                <label class="myLabel md-raised md-button md-default-theme">
+                    <input type="file" 
+                           nv-file-select=""
+                           multiple 
+                           uploader="upload.uploader"/>
+                    <span>CHOOSE VIDEOS TO UPLOAD</span>
+                </label>
+            </div>
+            
+            <div>or drag and drop them here</div>
+            
+        </div>
+    </div>
+    
+    <div class="md-padding">
+    </div>
+    
+    <div ng-repeat="item in upload.uploader.queue" layout-fill>
+        <md-content layout="column" class="md-padding">
+            <div layout="row" layout-align="space-between start">
+                <div layout="column" layout-padding layout-fill>
+                    <h3 ng-class="{red: item.isError}" title="{{item.file.name}}" class="namebox">
+                        {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB
+                    </h3>
+                    <div layout="row" layout-align="space-between start" layout-padding>
+                        <md-button ng-click="item.pause()" flex>Pause</md-button>
+                        <md-button ng-click="item.cancel()" flex>Cancel</md-button>
+                    </div>
+                    <!--<md-icon ng-click="item.cancel()" md-font-icon="zmdi zmdi-close zmdi-hc-2x"></md-icon>-->
+                </div>
+ 
+                <div layout="column" layout-padding layout-fill>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input ng-model="item.title" placeholder="Title">
+                    </md-input-container>
+                    <md-input-container class="md-block">
+                        <!--<textarea ng-model="item.description" placeholder="Description" columns="1" md-maxlength="150" rows="5">
+                        </textarea>-->
+                        <input ng-model="item.description" placeholder="Description">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input ng-model="item.tags" placeholder="Tags">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Public</label>
+                        <md-select ng-model="item.privacy">
+                            <md-option ng-repeat="ps in privacySettings" value="{{ps.value}}">
+                                {{ps.value}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+                
+                <div layout="column" layout-padding layout-fill>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input ng-model="item.concertName" placeholder="Concert Name">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input ng-model="item.artist" placeholder="Artist">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input ng-model="item.song" placeholder="Song">
+                    </md-input-container>
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <input ng-model="item.venue" placeholder="Venue">
+                    </md-input-container>
+                    <md-datepicker ng-model="user.concertDate" md-placeholder="Concert Date">
+                    </md-datepicker>
+                </div>
+            </div>
+            
+            <div layout="row" layout-align="end center">
+                <md-button ng-click="item.save()">Save</md-button>
+            </div>
+            
+            <div>
+                <md-progress-linear md-mode="determinate" value="{{item.progress}}"></md-progress-linear>
+            </div>
+            
+        </md-content>
+        
+        <md-divider></md-divider>
+    </div>    
+    
+    
+    
+</div>

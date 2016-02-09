@@ -20,19 +20,21 @@
     /** @ngInject */
     function NavbarController() {
       var vm = this;
-
+      
+      vm.isCollapsed = false;
+        
       vm.pages = [
         {
           state: 'home',
           name: 'Home'
         },
         {
-          state: 'concerts',
-          name: 'My Concerts'
+          state: 'dashboard.home',
+          name: 'Dashboard'
         },
         {
-          state: 'dashboard.uploader',
-          name: 'Uploader'
+          state: 'dashboard.videos',
+          name: 'Concerts'
         }
       ];
     }

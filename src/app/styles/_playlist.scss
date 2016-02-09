@@ -1,0 +1,20 @@
+/*----------PLAYLIST------------*/
+.playlist ul {
+    list-style-type: none;
+}
+
+.playlist ul a {
+    cursor: pointer;
+    color: #428bca;
+    text-decoration: none;
+}
+
+.playlist ul a:visited {
+    color: #428bca;
+}
+
+.playlist ul a:hover {
+    color: #428bca;
+    text-decoration: underline;
+}
+/*--------END PLAYLIST----------*/
