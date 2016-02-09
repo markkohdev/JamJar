@@ -18,7 +18,7 @@
     return directive;
 
     /** @ngInject */
-    function UserController(AuthService) {
+    function UserController(AuthService, $http) {
         var vm = this;
 
         vm.tab = 1;
@@ -57,7 +57,7 @@
             vm.authService.logIn(vm.login, function(err, resp) {
                 if (err) return vm.setError(err);
 
-                debugger
+
             });
         };
 
