@@ -2,7 +2,7 @@
 
 angular
   .module('jamjar')
-  .factory('AuthService', function(APIService, TokenService) {
+  .factory('AuthService', function(APIService, TokenService, localStorageService) {
     var service = this;
 
     return {
@@ -28,6 +28,18 @@ angular
 
           callback(null, resp);
         });
+      },
+
+      setUser: function(user) {
+        var service = this;
+
+        localStorageService.set('user', user);
+      },
+
+      getUser: function() {
+        var service = this;
+
+        return localStorageService.get('user');
       },
   }
 });

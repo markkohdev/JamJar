@@ -14,6 +14,12 @@
         controller: 'MainController',
         controllerAs: 'vm'
       })
+      .state('confirm', {
+        url: '/confirm',
+        templateUrl: 'app/auth/confirm.html',
+        controller: 'SignupConfirmController',
+        controllerAs: 'controller'
+      })
       .state('dashboard', {
         url: '/dashboard',
         abstract: true,

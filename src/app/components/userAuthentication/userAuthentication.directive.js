@@ -58,6 +58,7 @@
             vm.authService.logIn(vm.login, function(err, resp) {
                 if (err) return vm.setError(err);
 
+                vm.authService.setUser(resp.user);
                 vm.$location.path('/upload');
             });
         };
@@ -66,7 +67,8 @@
             vm.authService.signUp(vm.signup, function(err, resp) {
                   if (err) return vm.setError(err);
 
-                  debugger
+                vm.authService.setUser(resp.user);
+                vm.$location.path('/confirm');
             });
         };
 
