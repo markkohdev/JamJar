@@ -3,10 +3,10 @@
 
   angular
     .module('jamjar')
-    .controller('HomeController', HomeController);
+    .controller('DiscoverController', DiscoverController);
     
   /** @ngInject */
-  function HomeController($scope, $timeout, $mdSidenav, $log) {
+  function DiscoverController($scope, $timeout, $mdSidenav, $log) {
         $scope.toggleLeft = buildDelayedToggler('left');
         $scope.toggleRight = buildToggler('right');
         $scope.isOpenRight = function(){

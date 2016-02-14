@@ -36,7 +36,7 @@
       .state('dashboard.discover', {
         url: '/discover',
         templateUrl: 'app/dashboard/discover.html',
-        controller: 'HomeController',
+        controller: 'DiscoverController',
         controllerAs: 'vm'
       })
       .state('dashboard.my_videos', {

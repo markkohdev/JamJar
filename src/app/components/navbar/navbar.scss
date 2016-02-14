@@ -29,6 +29,10 @@
     md-input-container .md-input {
         border-color: white !important;
     }
+
+    a.active {
+      border-bottom: 1px solid #fff;
+    }
     
     background-color: $coral !important;
 }

@@ -9,7 +9,5 @@
   function DashboardController() {
     var vm = this;
 
-    vm.test = "Dashboard!";
-
   }
 })();

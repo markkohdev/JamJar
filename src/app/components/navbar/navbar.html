@@ -1,10 +1,10 @@
 <md-toolbar class="navbar" layout="row" layout-align="space-between center">
     <span flex="50">
-        <a ui-sref="dashboard.discover">
+        <a ui-sref="dashboard.discover" style='display: inline-block'>
             <img class="logo" ng-src="assets/images/jamjar_logotype_transparent_400x155.png" alt="logo"/>
         </a>
         
-        <md-button ng-repeat="page in vm.pages" ui-sref="{{page.state}}">
+        <md-button ng-repeat="page in vm.pages" ui-sref="{{page.state}}" ui-sref-active="active">
             {{page.name}}
         </md-button>
     </span>
