@@ -28,9 +28,11 @@
 
         vm.errorMessage = null;
 
-        var cookiedUser = AuthService.getUser().username;
+        var user = AuthService.getUser();
+        var username = !!user ? user.username : '';
+
         vm.login = {
-          username: cookiedUser || '',
+          username: username,
           password: ''
         };
 
