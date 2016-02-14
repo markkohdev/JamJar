@@ -62,7 +62,7 @@
                 if (err) return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
-                vm.$state.go('discover');
+                vm.$state.go('dashboard.discover');
             });
         };
 
@@ -71,7 +71,7 @@
                   if (err) return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
-                vm.$state.go('landing.confirm');
+                vm.$state.go('dashboard.confirm');
             });
         };
 

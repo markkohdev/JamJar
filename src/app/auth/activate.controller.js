@@ -23,7 +23,7 @@
           vm.status = "There was a problem activating your account";
         } else {
           vm.status = "Activated!";
-          $state.go('home');
+          $state.go('landing');
         }
       });
     };

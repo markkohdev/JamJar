@@ -14,24 +14,6 @@
         controller: 'MainController',
         controllerAs: 'vm'
       })
-      .state('confirm', {
-        url: '/auth/confirm',
-        templateUrl: 'app/auth/confirm.html',
-        controller: 'SignupConfirmController',
-        controllerAs: 'controller'
-      })
-      .state('activate', {
-        url: '/auth/activate/',
-        templateUrl: 'app/auth/activate.html',
-        controller: 'SignupActivateController',
-        controllerAs: 'controller'
-      })
-      .state('home', {
-        url: '/home',
-        templateUrl: 'app/dashboard/dashboard.html',
-        controller: 'DashboardController',
-        controllerAs: 'vm'
-      })
       .state('dashboard', {
         url: '/dashboard',
         abstract: true,
@@ -39,28 +21,34 @@
         controller: 'DashboardController',
         controllerAs: 'vm'
       })
-      .state('dashboard.videos', {
-        url: '/videos',
-        templateUrl: 'app/dashboard/videos.html',
-        controller: 'VideosController',
-        controllerAs: 'vm'
+      .state('dashboard.confirm', {
+        url: '/auth/confirm',
+        templateUrl: 'app/auth/confirm.html',
+        controller: 'SignupConfirmController',
+        controllerAs: 'controller'
       })
-      .state('dashboard.uploader', {
-        url: '/uploader',
-        templateUrl: 'app/dashboard/uploader.html',
-        controller: 'UploaderController',
-        controllerAs: 'vm'
+      .state('dashboard.activate', {
+        url: '/auth/activate/',
+        templateUrl: 'app/auth/activate.html',
+        controller: 'SignupActivateController',
+        controllerAs: 'controller'
       })
-      .state('discover', {
+      .state('dashboard.discover', {
         url: '/discover',
-        templateUrl: 'app/discover/discover.html',
-        controller: 'DiscoverController',
+        templateUrl: 'app/dashboard/discover.html',
+        controller: 'HomeController',
         controllerAs: 'vm'
       })
-      .state('upload', {
+      .state('dashboard.my_videos', {
+        url: '/videos',
+        templateUrl: 'app/dashboard/my_videos.html',
+        controller: 'MyVideosController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard.upload', {
         url: '/upload',
-        templateUrl: 'app/upload/upload.html',
-        controller: 'jamjarUpload',
+        templateUrl: 'app/dashboard/upload.html',
+        controller: 'UploadController',
         controllerAs: 'vm'
       });
 
