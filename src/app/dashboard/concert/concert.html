@@ -9,9 +9,39 @@
   </div>
 </div>
 
-<div layout="row" style='margin-top: 40px; background-color: #303030; padding: 15px'>
+<div layout="row" style='margin: 40px auto; background-color: #303030; padding: 15px'>
   <div layout="column" flex="20">
     <span style="color: white; font-size: 1.2em">JamJars</span>
+  </div>
+  <div layout="column" flex="80" layout-align="center end">
+    <span style="color: white; font-size: 1.2em;">See more</span>
+  </div>
+</div>
+
+<div layout="row" style='margin: 40px auto; background-color: #303030; padding: 15px'>
+  <div layout="column" flex="20">
+    <span style="color: white; font-size: 1.2em">All Videos</span>
+  </div>
+  <div layout="column" flex="80" layout-align="center end">
+    <span style="color: white; font-size: 1.2em;">See more</span>
+  </div>
+</div>
+
+<div layout="row" layout-wrap>
+  <div ng-repeat="video in vm.concert.videos" flex="25" style="margin-bottom: 30px">
+    <div layout="column">
+      <img src="http://fakeimg.pl/200x100/?text={{video.name}}" style="width: 75%; margin-bottom: 10px" />
+      <div style="color: white">Artist/Group</div>
+      <div style="color: white">Concert Date</div>
+      <div style="color: white">Venue</div>
+      <div style="color: white"># Views / # Contributers</div>
+    </div>
+  </div>
+</div>
+
+<div layout="row" style='margin: 40px auto; background-color: #303030; padding: 15px'>
+  <div layout="column" flex="20">
+    <span style="color: white; font-size: 1.2em">My Videos</span>
   </div>
   <div layout="column" flex="80" layout-align="center end">
     <span style="color: white; font-size: 1.2em;">See more</span>
