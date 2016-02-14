@@ -45,6 +45,12 @@
         controller: 'MyVideosController',
         controllerAs: 'vm'
       })
+      .state('dashboard.concert', {
+        url: '/concert/:id',
+        templateUrl: 'app/dashboard/concert/concert.html',
+        controller: 'ConcertController',
+        controllerAs: 'vm'
+      })
       .state('dashboard.upload', {
         url: '/upload',
         templateUrl: 'app/dashboard/upload/upload.html',

@@ -21,7 +21,7 @@
     function ConcertsController(AuthService, $state) {
         var vm = this;
 
-        vm.videos = _.range(4);
+        vm.concerts = _.range(1, 5);
     }
   }
 
