@@ -62,7 +62,7 @@
                 if (err) return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
-                vm.$location.path('/upload');
+                vm.$location.path('/discover');
             });
         };
 
