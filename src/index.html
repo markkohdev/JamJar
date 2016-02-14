@@ -28,10 +28,11 @@
     <div ng-controller="IndexController as index">
       <div layout="vertical" layout-fill>
           <md-content layout-fill>
+              <div ui-view>
               <header>
                   <navbar ng-if="!index.isHome()"></navbar>
               </header>
-              <div ui-view></div>
+              </div>
           </md-content>
       </div>
     </div>

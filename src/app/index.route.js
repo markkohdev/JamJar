@@ -6,7 +6,7 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('landing', {
         url: '/',
@@ -26,31 +26,31 @@
         controller: 'SignupActivateController',
         controllerAs: 'controller'
       })
-      //.state('dashboard', {
-      //  url: '/dashboard',
-      //  abstract: true,
-      //  templateUrl: 'app/dashboard/dashboard.html',
-      //  controller: 'DashboardController',
-      //  controllerAs: 'vm'
-      //})
-      //.state('dashboard.home', {
-      //  url: '/home',
-      //  templateUrl: 'app/dashboard/home.html',
-      //  controller: 'HomeController',
-      //  controllerAs: 'controller'
-      //})
-      //.state('dashboard.videos', {
-      //  url: '/videos',
-      //  templateUrl: 'app/dashboard/videos.html',
-      //  controller: 'VideosController',
-      //  controllerAs: 'vm'
-      //})
-      //.state('dashboard.uploader', {
-      //  url: '/uploader',
-      //  templateUrl: 'app/dashboard/uploader.html',
-      //  controller: 'UploaderController',
-      //  controllerAs: 'vm'
-      //})
+      .state('home', {
+        url: '/home',
+        templateUrl: 'app/dashboard/dashboard.html',
+        controller: 'DashboardController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard', {
+        url: '/dashboard',
+        abstract: true,
+        templateUrl: 'app/dashboard/dashboard.html',
+        controller: 'DashboardController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard.videos', {
+        url: '/videos',
+        templateUrl: 'app/dashboard/videos.html',
+        controller: 'VideosController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard.uploader', {
+        url: '/uploader',
+        templateUrl: 'app/dashboard/uploader.html',
+        controller: 'UploaderController',
+        controllerAs: 'vm'
+      })
       .state('discover', {
         url: '/discover',
         templateUrl: 'app/discover/discover.html',
