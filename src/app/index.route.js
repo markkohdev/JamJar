@@ -15,9 +15,15 @@
         controllerAs: 'vm'
       })
       .state('confirm', {
-        url: '/confirm',
+        url: '/auth/confirm',
         templateUrl: 'app/auth/confirm.html',
         controller: 'SignupConfirmController',
+        controllerAs: 'controller'
+      })
+      .state('activate', {
+        url: '/auth/activate/',
+        templateUrl: 'app/auth/activate.html',
+        controller: 'SignupActivateController',
         controllerAs: 'controller'
       })
       .state('dashboard', {

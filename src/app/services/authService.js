@@ -30,6 +30,16 @@ angular
         });
       },
 
+      activate: function(data, callback) {
+        var service = this;
+
+        APIService.postPath('auth/activate/', data, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+      },
+
       setUser: function(user) {
         var service = this;
 

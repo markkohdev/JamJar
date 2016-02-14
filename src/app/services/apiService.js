@@ -7,7 +7,7 @@ angular
     function APIService () {
         var service = this;
 
-        if ($window.location.host.match(/^localhost/)) {
+        if ($window.location.host.match(/localhost/)) {
           service.apiRootUrl = 'http://localhost:5001/';
         } else {
           service.apiRootUrl = 'http://api.projectjamjar.com/';
