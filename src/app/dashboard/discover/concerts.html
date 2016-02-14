@@ -1,0 +1,12 @@
+<h2>Concerts</h2>
+
+<div layout="row" layout-wrap>
+  <div ng-repeat="video in concerts.videos" flex="25" style="margin-bottom: 30px">
+    <div layout="column">
+      <img src="http://fakeimg.pl/150x150/?text=Concert+{{video}}" style="width: 150px; height: 150px; margin-bottom: 15px; border-radius: 50%" />
+      <div style="color: white">Artist/Group</div>
+      <div style="color: white">Concert Date</div>
+      <div style="color: white">Venue</div>
+    </div>
+  </div>
+</div>

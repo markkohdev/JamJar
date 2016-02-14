@@ -1,12 +1,14 @@
-<div layout="vertical" layout-fill>
+<div layout="column" layout-fill>
 
-  <md-content layout-fill>
+  <md-content fill>
     <header>
       <navbar></navbar>
     </header>
 
-    <div ui-view></div>
-      
+    <div layout="column" style="padding: 30px 10%; background-color: #272727;">
+      <div ui-view></div>
+    </div>
+
     <footer>
         <footbar></footbar>
     </footer>
