@@ -35,19 +35,19 @@
       })
       .state('dashboard.discover', {
         url: '/discover',
-        templateUrl: 'app/dashboard/discover.html',
+        templateUrl: 'app/dashboard/discover/discover.html',
         controller: 'DiscoverController',
         controllerAs: 'vm'
       })
       .state('dashboard.my_videos', {
         url: '/videos',
-        templateUrl: 'app/dashboard/my_videos.html',
+        templateUrl: 'app/dashboard/my_videos/my_videos.html',
         controller: 'MyVideosController',
         controllerAs: 'vm'
       })
       .state('dashboard.upload', {
         url: '/upload',
-        templateUrl: 'app/dashboard/upload.html',
+        templateUrl: 'app/dashboard/upload/upload.html',
         controller: 'UploadController',
         controllerAs: 'vm'
       });
