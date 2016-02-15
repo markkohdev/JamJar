@@ -3,10 +3,10 @@
 
   angular
     .module('jamjar')
-    .controller('UploaderController', UploaderController);
+    .controller('UploadController', UploadController);
 
   /** @ngInject */
-  function UploaderController() {
+  function UploadController() {
     var vm = this;
 
     vm.test = "uploading";

@@ -6,25 +6,13 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
-      .state('home', {
+      .state('landing', {
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
         controllerAs: 'vm'
-      })
-      .state('confirm', {
-        url: '/auth/confirm',
-        templateUrl: 'app/auth/confirm.html',
-        controller: 'SignupConfirmController',
-        controllerAs: 'controller'
-      })
-      .state('activate', {
-        url: '/auth/activate/',
-        templateUrl: 'app/auth/activate.html',
-        controller: 'SignupActivateController',
-        controllerAs: 'controller'
       })
       .state('dashboard', {
         url: '/dashboard',
@@ -33,40 +21,40 @@
         controller: 'DashboardController',
         controllerAs: 'vm'
       })
-      .state('dashboard.home', {
-        url: '/home',
-        templateUrl: 'app/dashboard/home.html',
-        controller: 'HomeController',
+      .state('dashboard.confirm', {
+        url: '/auth/confirm',
+        templateUrl: 'app/auth/confirm.html',
+        controller: 'SignupConfirmController',
+        controllerAs: 'controller'
+      })
+      .state('dashboard.activate', {
+        url: '/auth/activate/',
+        templateUrl: 'app/auth/activate.html',
+        controller: 'SignupActivateController',
+        controllerAs: 'controller'
+      })
+      .state('dashboard.discover', {
+        url: '/discover',
+        templateUrl: 'app/dashboard/discover/discover.html',
+        controller: 'DiscoverController',
         controllerAs: 'vm'
       })
-      .state('dashboard.videos', {
+      .state('dashboard.my_videos', {
         url: '/videos',
-        templateUrl: 'app/dashboard/videos.html',
-        controller: 'VideosController',
+        templateUrl: 'app/dashboard/my_videos/my_videos.html',
+        controller: 'MyVideosController',
         controllerAs: 'vm'
       })
-      .state('dashboard.uploader', {
-        url: '/uploader',
-        templateUrl: 'app/dashboard/uploader.html',
-        controller: 'UploaderController',
+      .state('dashboard.concert', {
+        url: '/concert/:id',
+        templateUrl: 'app/dashboard/concert/concert.html',
+        controller: 'ConcertController',
         controllerAs: 'vm'
       })
-      .state('upload', {
+      .state('dashboard.upload', {
         url: '/upload',
-        templateUrl: 'app/upload/upload.html',
-        controller: 'jamjarUpload',
-        controllerAs: 'vm'
-      })
-      .state('login', {
-        url: '/login',
-        templateUrl: 'app/login/login.html',
-        controller: 'LoginController',
-        controllerAs: 'vm'
-      })
-      .state('fallfest', {
-        url: '/fallfest',
-        templateUrl: 'app/fallfest/fallfest.html',
-        controller: 'FallfestController',
+        templateUrl: 'app/dashboard/upload/upload.html',
+        controller: 'UploadController',
         controllerAs: 'vm'
       });
 

@@ -32,7 +32,7 @@ angular
 
       get: function (resource, primaryKey, callback) {
         var service = this;
-        var p = $http.get(service.apiRootUrl + service._normalizePath(resource) + '/' + primaryKey);
+        var p = $http.get(service.apiRootUrl + service._normalizePath(resource) + '/' + primaryKey + '/');
 
         if (callback)
           handleCallback(p, callback);
@@ -42,7 +42,7 @@ angular
 
       post: function (resource, data, callback) {
         var service = this;
-        var p = $http.post(service.apiRootUrl + service._normalizePath(resource) + '/', data);
+        var p = $http.post(service.apiRootUrl + service._normalizePath(resource) + '/', data + '/');
 
         if (callback)
           handleCallback(p, callback);
@@ -52,7 +52,7 @@ angular
 
       list: function (resource, primaryKey, callback) {
         var service = this;
-        var p = $http.get(service.apiRootUrl + service._normalizePath(resource) + '/' + primaryKey);
+        var p = $http.get(service.apiRootUrl + service._normalizePath(resource) + '/');
 
         if (callback)
           handleCallback(p, callback);
