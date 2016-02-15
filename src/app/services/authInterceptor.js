@@ -6,8 +6,8 @@ angular
     request: function (config) {
       config.headers = config.headers || {};
       var token = TokenService.getToken();
-      var isAuth = config.url.match(/\/auth\/login\//) || config.url.match(/\/auth\/signup\//);
       // don't include token on auth requests -- user doesn't have one yet!!
+      var isAuth = config.url.match(/\/auth\//);
       if (token && !isAuth)  {
         config.headers.Authorization = 'Token ' + token;
       }
