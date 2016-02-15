@@ -18,37 +18,68 @@
     return directive;
 
     /** @ngInject */
-    function UserController() {
+    function UserController(AuthService, $location) {
         var vm = this;
-        
+
         vm.tab = 1;
-        
-        vm.email = '';
-        vm.password = '';
-        
-        vm.name = '';
-        vm.newEmail = '';
-        vm.newPassword = '';
-        
+
+        vm.authService = AuthService;
+        vm.$location   = $location;
+
+        vm.errorMessage = null;
+
+        var user = AuthService.getUser();
+        var username = !!user ? user.username : '';
+
+        vm.login = {
+          username: username,
+          password: ''
+        };
+
+        vm.signup = {
+          username: '',
+          password: '',
+          confirm: '',
+          email: '',
+          first_name: '',
+          last_name: ''
+        };
+
         vm.isSet = function(checkTab){
             return vm.tab === checkTab;   
         };
-        
+
         vm.setTab = function(activeTab){
-            vm.tab = activeTab;   
+            vm.tab = activeTab;
         };
-        
+
+        vm.setError = function(err) {
+            vm.errorMessage = err.error;
+        }
+
         vm.logIn = function(){
-            
+            vm.authService.logIn(vm.login, function(err, resp) {
+                if (err) return vm.setError(err);
+
+                vm.authService.setUser(resp.user);
+                vm.$location.path('/upload');
+            });
         };
-        
+
         vm.signUp = function(){
-            
+            vm.authService.signUp(vm.signup, function(err, resp) {
+                  if (err) return vm.setError(err);
+
+                vm.authService.setUser(resp.user);
+                vm.$location.path('/auth/confirm');
+            });
         };
-        
+
         vm.resetPw = function(){
-            
+
         };
+      
+        return vm;
     }
   }
 
