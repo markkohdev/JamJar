@@ -1,0 +1,14 @@
+<h2>Concerts</h2>
+
+<div layout="row" layout-wrap>
+  <div ng-repeat="concert in concerts.concerts" flex="25" style="margin-bottom: 30px">
+    <div layout="column">
+      <a ui-sref="dashboard.concert({id: concert})">
+        <img src="http://fakeimg.pl/150x150/?text=Concert+{{concert}}" style="width: 150px; height: 150px; margin-bottom: 15px; border-radius: 50%" />
+      </a>
+      <div style="color: white">Artist/Group</div>
+      <div style="color: white">Concert Date</div>
+      <div style="color: white">Venue</div>
+    </div>
+  </div>
+</div>

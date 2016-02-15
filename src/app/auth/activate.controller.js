@@ -6,7 +6,7 @@
     .controller('SignupActivateController', SignupActivateController);
 
   /** @ngInject */
-  function SignupActivateController(AuthService, APIService, $location) {
+  function SignupActivateController(AuthService, APIService, $state, $location) {
     var vm = this;
 
     vm.apiService = APIService;
@@ -23,7 +23,7 @@
           vm.status = "There was a problem activating your account";
         } else {
           vm.status = "Activated!";
-          $location.path('/home');
+          $state.go('landing');
         }
       });
     };

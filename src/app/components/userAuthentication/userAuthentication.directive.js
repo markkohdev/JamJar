@@ -16,13 +16,13 @@
     };
 
     /** @ngInject */
-    function UserController(AuthService, $location) {
+    function UserController(AuthService, $state) {
         var vm = this;
 
         vm.tab = 1;
 
         vm.authService = AuthService;
-        vm.$location   = $location;
+        vm.$state = $state;
 
         vm.errorMessage = null;
 
@@ -60,7 +60,7 @@
                 if (err) return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
-                vm.$location.path('/upload');
+                vm.$state.go('dashboard.discover');
             });
         };
 
@@ -69,7 +69,7 @@
                   if (err) return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
-                vm.$location.path('/auth/confirm');
+                vm.$state.go('dashboard.confirm');
             });
         };
 

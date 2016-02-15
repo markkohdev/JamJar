@@ -1,0 +1,19 @@
+<div layout="row">
+  <div layout="column">
+    <img src="http://fakeimg.pl/100x100/?text=Concert+{{vm.concert_id}}" style="width: 100px; border-radius: 50%" />
+  </div>
+  <div layout="column" layout-align="end start" style="margin-left: 20px">
+    <div style="color: white">Marky Mark &amp; The Funky Bunch</div>
+    <div style="color: white">{{vm.concert.venue.name}}</div>
+    <div style="color: white">{{vm.concert.date}}</div>
+  </div>
+</div>
+
+<div layout="row" style='margin-top: 40px; background-color: #303030; padding: 15px'>
+  <div layout="column" flex="20">
+    <span style="color: white; font-size: 1.2em">JamJars</span>
+  </div>
+  <div layout="column" flex="80" layout-align="center end">
+    <span style="color: white; font-size: 1.2em;">See more</span>
+  </div>
+</div>

@@ -25,16 +25,16 @@
         
       vm.pages = [
         {
-          state: 'home',
-          name: 'Home'
+          state: 'dashboard.discover',
+          name: 'Discover'
         },
         {
-          state: 'dashboard.home',
-          name: 'Dashboard'
+          state: 'dashboard.my_videos',
+          name: 'My Videos'
         },
         {
-          state: 'dashboard.videos',
-          name: 'Concerts'
+          state: 'dashboard.upload',
+          name: 'Upload'
         }
       ];
     }
