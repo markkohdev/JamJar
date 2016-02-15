@@ -2,7 +2,7 @@
 
 angular
   .module('jamjar')
-  .factory('TokenService', function(localStorageService, $state) {
+  .factory('TokenService', function(localStorageService, $injector) {
     var service = this;
 
     return {
@@ -20,7 +20,7 @@ angular
 
         onUnauthorized: function() {
           this.clearToken();
-          $state.go('landing');
+          $injector.get('$state').go('landing');
         }
     }
 

@@ -13,7 +13,7 @@ angular
       }
       return config;
     },
-    response: function (response) {
+    responseError: function(response) {
       if (response.status === 401) {
         TokenService.onUnauthorized();
         // handle the case where the user is not authenticated
