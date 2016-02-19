@@ -13,7 +13,7 @@
 
         ConcertService.getConcertById(vm.concert_id, function(err, res) {
           if (err) {
-            debugger
+            // TODO : handle errors!
           }
 
           vm.concert = res;

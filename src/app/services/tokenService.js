@@ -2,24 +2,25 @@
 
 angular
   .module('jamjar')
-  .factory('TokenService', function($window) {
+  .factory('TokenService', function(localStorageService, $injector) {
     var service = this;
 
     return {
         setToken: function(token) {
-          $window.localStorage.token = token;
+          localStorageService.set('token', token);
         },
 
         getToken: function() {
-          return $window.localStorage.token;
+          return localStorageService.get('token');
         },
 
         clearToken: function() {
-          delete $window.localStorage.token;
+          localStorageService.remove('token');
         },
 
         onUnauthorized: function() {
-          debugger
+          this.clearToken();
+          $injector.get('$state').go('landing');
         }
     }
 

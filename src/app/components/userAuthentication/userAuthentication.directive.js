@@ -15,8 +15,6 @@
       bindToController: true
     };
 
-    return directive;
-
     /** @ngInject */
     function UserController(AuthService, $state) {
         var vm = this;
@@ -81,6 +79,9 @@
       
         return vm;
     }
+
+    return directive;
+
   }
 
 })();
