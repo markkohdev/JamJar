@@ -51,6 +51,12 @@
         controller: 'ConcertController',
         controllerAs: 'vm'
       })
+      .state('dashboard.player', {
+        url: '/player/:type/:concert_id/:video_id',
+        templateUrl: 'app/dashboard/player/player.html',
+        controller: 'JamJarPlayerController',
+        controllerAs: 'vm'
+      })
       .state('dashboard.upload', {
         url: '/upload',
         templateUrl: 'app/dashboard/upload/upload.html',
