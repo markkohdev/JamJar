@@ -16,5 +16,24 @@ angular
           callback(null, resp);
         });
       },
+
+      list: function(callback) {
+
+        APIService.list(service.model, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+      },
+
+      getGraphById: function(id, callback) {
+
+        var endpoint = service.model + "/" + id + "/graph/";
+        APIService.getPath(endpoint, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+      },
   }
 });

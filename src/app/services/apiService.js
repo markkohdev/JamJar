@@ -50,7 +50,7 @@ angular
         return p;
       },
 
-      list: function (resource, primaryKey, callback) {
+      list: function (resource, callback) {
         var service = this;
         var p = $http.get(service.apiRootUrl + service._normalizePath(resource) + '/');
 
