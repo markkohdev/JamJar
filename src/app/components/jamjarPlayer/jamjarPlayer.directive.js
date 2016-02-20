@@ -16,18 +16,17 @@
     };
 
     /** @ngInject */
-    function JamJarPlayerController(ConcertService, $sce) {
+    function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
       var vm = this;
+
+      vm.$stateParams = $stateParams;
 
       vm.API = null;
       vm.concert = {};
-      vm.connections = [];
       vm.nowPlaying = {};
       vm.start_time = 0;
 
       vm.setSource = function(src, offset) {
-        //vm.API.stop();
-
         var adjusted_time = (vm.API.currentTime / 1000.0) - offset;
 
         var new_source = [{src: $sce.trustAsResourceUrl(src), type: 'video/mp4'}];
@@ -36,9 +35,8 @@
           theme: "bower_components/videogular-themes-default/videogular.css",
         };
 
-        // annoying -- API is broken. Pass directly into directive via scope var
+        // set this globally -- can't update the time until the video is loaded (in callback)
         vm.start_time = adjusted_time;
-        console.log("Seeking to " + adjusted_time + " seconds");
       };
 
       vm.getVideoById = function(video_id) {
@@ -48,18 +46,18 @@
       };
 
       vm.setSourceByVideoId = function(video_id, offset_seconds) {
+        $state.go('dashboard.player', {concert_id: vm.$stateParams.concert_id, video_id: video_id, type: $stateParams.type});
         if (!offset_seconds) {
           offset_seconds = 0;
         }
 
         var node = vm.getVideoById(video_id);
 
-        vm.connections = node.connects_to;
         vm.nowPlaying = node;
         vm.setSource(node.video.web_src, offset_seconds);
       };
 
-      vm.getValidConnections = function() {
+      vm.calculateValidConnections = function() {
         return _.filter(vm.nowPlaying.connects_to, function(node) {
           // require node's video length to be < requested offset position AND offset > 0
           var adjusted_time = (vm.API.currentTime / 1000.0) - node.edge.offset;
@@ -67,18 +65,27 @@
         });
       };
 
+      vm.setValidConnections = function() {
+        vm.connections = vm.calculateValidConnections();
+      };
+
+      vm.onUpdateSource = function(src) {
+        vm.setValidConnections();
+        vm.API.seekTime(vm.start_time);
+      },
+
       vm.onUpdateTime = function() {
         // this gets called often... maybe not the best way to handle it..
-        vm.connections = vm.getValidConnections();
+        vm.setValidConnections();
       };
 
       vm.onComplete = function() {
-        var validConnections = vm.getValidConnections();
+        vm.setValidConnections();
 
-        if (validConnections.length == 0) return;
+        if (vm.connections.length == 0) return;
 
         // ideally this would sort by some combination of connected videos, length, confidence, etc
-        var sorted = _.sortBy(validConnections, function(node) {
+        var sorted = _.sortBy(vm.connections, function(node) {
           return -node.video.length;
         });
 
@@ -86,38 +93,18 @@
       };
 
       vm.onPlayerReady = function(API) {
-        console.log("player is ready!");
         vm.API = API;
 
-        vm.API.vgUpdateTime = function(time, duration) {
-          console.log("time", time, duration);
-        };
-
-        vm.API.vgError = function(err) {
-          console.log("Error", err);
-        };
-
-        vm.API.vgChangeSource = function(src) {
-          console.log("Source", src);
-        };
-
-
-        ConcertService.getGraphById(1, function(err, resp) {
+        ConcertService.getGraphById(vm.$stateParams.concert_id, function(err, resp) {
           if (err) { debugger; return }
 
           vm.concert = resp;
-
-          var firstVideoId = 1;
-          var node = vm.getVideoById(firstVideoId);
-
+          var node = vm.getVideoById(vm.$stateParams.video_id);
           vm.nowPlaying = node;
-
-          vm.setSourceByVideoId(firstVideoId, 0);
-
-          //vm.config = {
-          //  sources: [{src: $sce.trustAsResourceUrl(node.video.web_src), type: "video/mp4"}],
-          //  theme: "bower_components/videogular-themes-default/videogular.css",
-          //};
+          vm.config = {
+            sources: [{src: $sce.trustAsResourceUrl(node.video.web_src), type: "video/mp4"}],
+            theme: "bower_components/videogular-themes-default/videogular.css",
+          };
         });
       };
     }

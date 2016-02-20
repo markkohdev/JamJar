@@ -1,38 +1,60 @@
-<div ng-show="player.config != undefined || true">
-  <p>Now Playing: {{player.nowPlaying.video.name}}</p>
-  <p>State: {{player.API.currentState}}</p>
-  <p>Time: {{player.API.currentTime / 1000.0}} / {{player.API.totalTime / 1000.0}}</p>
-  <p>Ready: {{player.API.isReady}}</p>
-  <p>Buffering: {{player.API.isBuffering}}</p>
-  <div class='row' >
-    <div class='col-sm-2' ng-repeat="node in player.connections">
-      <a class='btn btn-xs' ng-click="player.setSourceByVideoId(node.video.id, node.edge.offset)">{{node.video.name}} [{{node.edge.confidence}}]</a>
-    </div>
+<div layout="column">
+  <div layout="row" class='jamjar-player'>
+    <videogular vg-theme="player.config.theme"
+                vg-auto-play="true"
+                vg-player-ready="player.onPlayerReady($API)"
+                vg-update-time="player.onUpdateTime()"
+                vg-change-source="player.onUpdateSource($source)"
+                vg-complete="player.onComplete()">
+      <vg-media vg-src="player.config.sources"></vg-media>
+
+      <vg-controls>
+        <vg-play-pause-button></vg-play-pause-button>
+        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+        <vg-scrub-bar>
+          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+        </vg-scrub-bar>
+        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+        <vg-volume>
+          <vg-mute-button></vg-mute-button>
+          <vg-volume-bar></vg-volume-bar>
+        </vg-volume>
+        <vg-fullscreen-button></vg-fullscreen-button>
+      </vg-controls>
+
+      <vg-overlay-play></vg-overlay-play>
+    </videogular>
   </div>
-
-  <videogular vg-theme="player.config.theme"
-              vg-start-time="player.start_time"
-              vg-auto-play="true"
-              vg-player-ready="player.onPlayerReady($API)"
-              vg-update-time="player.onUpdateTime()"
-              vg-complete="player.onComplete()"
-              style="width: 512px; height: 512px; margin: 10px auto; display: block">
-    <vg-media vg-src="player.config.sources"></vg-media>
-
-    <vg-controls>
-      <vg-play-pause-button></vg-play-pause-button>
-      <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
-      <vg-scrub-bar>
-        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-      </vg-scrub-bar>
-      <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
-      <vg-volume>
-        <vg-mute-button></vg-mute-button>
-        <vg-volume-bar></vg-volume-bar>
-      </vg-volume>
-      <vg-fullscreen-button></vg-fullscreen-button>
-    </vg-controls>
-
-    <vg-overlay-play></vg-overlay-play>
-  </videogular>
+  <div layout="row" class="jamjar-player-info">
+    <div flex="5"></div>
+    <div flex="45">
+      <div layout="column" layout-align="center start">
+        <div layout="row">Title: {{player.nowPlaying.video.name}}</div>
+        <div layout="row">Uploaded By: {{player.nowPlaying.video.user.username}}</div>
+        <!--
+        <div layout="row">
+          DEBUG
+          <div layout="column" ng-repeat="node in player.connections">
+            <a style="margin-left: 20px" ng-click="player.setSourceByVideoId(node.video.id, node.edge.offset)">{{node.video.name}} [{{node.edge.confidence}}]</a>
+          </div>
+        </div>
+        -->
+        <!--
+        <div layout="row">State: {{player.API.currentState}}</div>
+        <div layout="row">Time: {{player.API.currentTime / 1000.0}} / {{player.API.totalTime / 1000.0}}</div>
+        <div layout="row">Ready: {{player.API.isReady}}</div>
+        <div layout="row">Buffering: {{player.API.isBuffering}}</div>
+        -->
+      </div>
+    </div>
+    <div flex="45">
+      <div layout="column" layout-align="center end">
+        <div flex layout-align="center start">
+          <div layout="row"># Likes</div>
+          <div layout="row"># upvotes / # downvotes</div>
+        </div>
+      </div>
+    </div>
+    <div flex="5"></div>
+  </div>
 </div>
