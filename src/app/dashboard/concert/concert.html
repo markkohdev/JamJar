@@ -30,11 +30,10 @@
 <div layout="row" layout-wrap>
   <div ng-repeat="video in vm.concert.videos" flex="25" style="margin-bottom: 30px">
     <div layout="column">
-      <img src="http://fakeimg.pl/200x100/?text={{video.name}}" style="width: 75%; margin-bottom: 10px" />
-      <div style="color: white">Artist/Group</div>
-      <div style="color: white">Concert Date</div>
-      <div style="color: white">Venue</div>
-      <div style="color: white"># Views / # Contributers</div>
+      <img ng-src="{{video.thumb_src[256]}}" style="width: 256px; height: 256px; margin-bottom: 10px" />
+      <div style="color: white">{{video.artists[0].name}}</div>
+      <div style="color: white">Recorded by: <a href="#">{{video.user.username}}</a></div>
+      <div style="color: white">{{video.views}} Views</div>
     </div>
   </div>
 </div>

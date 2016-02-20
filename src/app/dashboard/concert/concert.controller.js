@@ -17,6 +17,7 @@
           }
 
           vm.concert = res;
+          console.log(vm.concert);
         });
     }
 })();
