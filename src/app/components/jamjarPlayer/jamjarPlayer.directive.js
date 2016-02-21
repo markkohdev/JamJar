@@ -67,8 +67,8 @@
         return _.filter(vm.nowPlaying.edges, function(edge) {
           // require video length to be < requested offset position AND offset > 0
           var adjusted_time = (vm.API.currentTime / 1000.0) - edge.offset;
-          var video_length = vm.concert.concert.videos[edge.video].length;
-          return adjusted_time > 0 && adjusted_time < video_length && edge.confidence >= 5;
+          var video = vm.getVideoById(edge.video);
+          return adjusted_time > 0 && adjusted_time < video.length && edge.confidence >= 5;
         });
       };
 
@@ -93,8 +93,8 @@
 
         // ideally this would sort by some combination of connected videos, length, confidence, etc
         var sorted = _.sortBy(vm.connections, function(edge) {
-          var video_length = vm.concert.concert.videos[edge.video].length;
-          return -video_length;
+          var video = vm.getVideoById(edge.video);
+          return -video.length;
         });
 
         vm.setSourceByVideoId(sorted[0].video, sorted[0].offset);
