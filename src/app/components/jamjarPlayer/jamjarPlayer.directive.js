@@ -40,9 +40,17 @@
       };
 
       vm.getVideoById = function(video_id) {
-        return _.find(vm.concert.graph, function(node) {
-          return node.video.id == video_id;
+        var video = _.find(vm.concert.concert.videos, function(video) {
+          return video.id == video_id;
         });
+
+        var graph = _.find(vm.concert.graph, function(graph) {
+            return !!graph.adjacencies[video_id];
+        });
+
+        video.edges = graph.adjacencies[video_id];
+
+        return video;
       };
 
       vm.setSourceByVideoId = function(video_id, offset_seconds) {
@@ -51,17 +59,16 @@
           offset_seconds = 0;
         }
 
-        var node = vm.getVideoById(video_id);
-
-        vm.nowPlaying = node;
-        vm.setSource(node.video.web_src, offset_seconds);
+        vm.nowPlaying = vm.getVideoById(video_id);
+        vm.setSource(vm.nowPlaying.web_src, offset_seconds);
       };
 
       vm.calculateValidConnections = function() {
-        return _.filter(vm.nowPlaying.connects_to, function(node) {
-          // require node's video length to be < requested offset position AND offset > 0
-          var adjusted_time = (vm.API.currentTime / 1000.0) - node.edge.offset;
-          return adjusted_time > 0 && adjusted_time < node.video.length && node.edge.confidence >= 5;
+        return _.filter(vm.nowPlaying.edges, function(edge) {
+          // require video length to be < requested offset position AND offset > 0
+          var adjusted_time = (vm.API.currentTime / 1000.0) - edge.offset;
+          var video_length = vm.concert.concert.videos[edge.video].length;
+          return adjusted_time > 0 && adjusted_time < video_length && edge.confidence >= 5;
         });
       };
 
@@ -85,11 +92,12 @@
         if (vm.connections.length == 0) return;
 
         // ideally this would sort by some combination of connected videos, length, confidence, etc
-        var sorted = _.sortBy(vm.connections, function(node) {
-          return -node.video.length;
+        var sorted = _.sortBy(vm.connections, function(edge) {
+          var video_length = vm.concert.concert.videos[edge.video].length;
+          return -video_length;
         });
 
-        vm.setSourceByVideoId(sorted[0].video.id, sorted[0].edge.offset);
+        vm.setSourceByVideoId(sorted[0].video, sorted[0].offset);
       };
 
       vm.onPlayerReady = function(API) {
@@ -99,10 +107,9 @@
           if (err) { debugger; return }
 
           vm.concert = resp;
-          var node = vm.getVideoById(vm.$stateParams.video_id);
-          vm.nowPlaying = node;
+          vm.nowPlaying = vm.getVideoById(vm.$stateParams.video_id);
           vm.config = {
-            sources: [{src: $sce.trustAsResourceUrl(node.video.web_src), type: "video/mp4"}],
+            sources: [{src: $sce.trustAsResourceUrl(vm.nowPlaying.web_src), type: "video/mp4"}],
             theme: "bower_components/videogular-themes-default/videogular.css",
           };
         });

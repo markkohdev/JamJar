@@ -21,10 +21,10 @@
 <div layout="row" layout-wrap>
   <div ng-repeat="jamjar in vm.concert_graph.graph" flex="25" style="margin-bottom: 30px">
     <div layout="column">
-      <a ui-sref="dashboard.player({concert_id: vm.concert.id, video_id: jamjar.video.id, type: 'jamjar'})">
-        <img ng-src="http://fakeimg.pl/256x256/?text=JamJar+{{jamjar.video.id}}" style="width: 256px; height: 256px; margin-bottom: 10px" />
+      <a ui-sref="dashboard.player({concert_id: vm.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
+        <img ng-src="http://fakeimg.pl/256x256/?text=JamJar+{{vm.concert.id}}/{{jamjar.start_id}}" style="width: 256px; height: 256px; margin-bottom: 10px" />
       </a>
-      <div style="color: white">{{vm.concert_graph.graph[0].connects_to.length}} Videos</div>
+      <div style="color: white">{{jamjar.count}} Videos</div>
     </div>
   </div>
 </div>
