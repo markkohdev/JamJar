@@ -26,7 +26,7 @@
     </videogular>
     <div class='video-switcher'>
       <span ng-repeat="video in player.connections">
-        <a href="javascript:void(0)" ng-click="player.setSourceByVideoId(video.video, video.offset)">
+        <a href="javascript:void(0)" ng-click="player.setSourceByVideoId(video.video, video.offset)" title="[id={{video.video}} confidence={{video.confidence}}]">
           <div class='switchable'>&nbsp;</div>
         </a>
       </span>
