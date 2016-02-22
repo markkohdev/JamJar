@@ -7,16 +7,23 @@
   function UploadController ($timeout, $q) {
     var self = this;
 
+    var showUpload = false;
+      
+    function showUploadWidget(){
+        showUpload = true;
+    }
+      
+    function canShowUpload(){
+        return showUpload;
+    }
+      
     self.readonly = false;
     self.selectedItem = null;
     self.searchText = null;
     self.querySearch = querySearch;
     self.artists = loadArtists();
     self.selectedArtist = [];
-    self.numberChips = [];
-    self.numberChips2 = [];
-    self.numberBuffer = '';
-    self.autocompleteRequireMatch = true;
+    self.autocompleteRequireMatch = false;
       
     self.transformChip = transformChip;
       

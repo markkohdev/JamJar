@@ -2,8 +2,7 @@
   "name": "jamjar2",
   "version": "0.0.0",
   "dependencies": {
-	"angular-aria": "*",
-    "angular-animate": "~1.4.x",
+    "angular-animate": "~1.4.2",
     "angular-cookies": "^1.5.0",
     "angular-touch": "~1.4.2",
     "angular-sanitize": "~1.4.2",

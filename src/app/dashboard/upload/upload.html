@@ -2,7 +2,7 @@
     <h3>Create a Concert Album</h3>
     
     <div ng-controller="UploadController as ctrl">
-        <md-input-container class="md-block">
+        <div style="margin-bottom: 20px !important;">
             <md-chips ng-model="ctrl.selectedArtist" 
                       md-autocomplete-snap
                       md-transform-chip="ctrl.transformChip($chip)"
@@ -21,7 +21,7 @@
                 </span>
               </md-chip-template>
             </md-chips>
-        </md-input-container>
+        </div>
         
         <md-input-container class="md-block">
             <input ng-model="concertVenue" type="text" placeholder="Concert Venue" ng-required="true">
@@ -32,10 +32,12 @@
         </md-input-container>
         
         <div layout="row" layout-align="end center">
-            <md-button ng-click="ctrl.continue()">Continue</md-button>
-        </div>
+            <md-button ng-click="showDetails = ! showDetails">Continue</md-button>
+        </div>    
+        
+        <div ng-show="showDetails">
+            <upload-widget></upload-widget>
+        </div> 
     </div>
     
-    
-    <upload-widget></upload-widget>
 </div>
