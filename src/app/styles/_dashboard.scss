@@ -1,6 +1,4 @@
 .dashboard{
-    color: white;
-    
     a {
         color: white !important;
         text-decoration: none !important;
@@ -23,10 +21,23 @@
 }
 
 .dark-theme{
+    color: white;
     padding: 30px 10%; 
-    background-color: #272727;
+    background-color: $darkgray;
 }
 
 .light-theme{
+    color: black;
+    padding: 20px;
+    background-color: $lightgray;
     
+    h3{
+        color: black !important;
+    }
+}
+
+.md-button {
+    padding: 0px 5px;
+    background-color: $coral !important;
+    color: white !important;
 }

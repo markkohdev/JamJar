@@ -9,8 +9,12 @@
     
     .md-button {
         padding: 5px 15px;
-        background-color: $skyblue !important;
+        background-color: $coral !important;
         color: white !important;
+    }
+    
+    .md-button.md-small{
+        padding: 1px 1px !important;
     }
     
     .md-datepicker-button {
