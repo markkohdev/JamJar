@@ -1,38 +1,45 @@
 // Navbar specific styling
 .navbar {
+    
+    background-color: $coral !important;
+    
     .logo {
-        max-width: 130px;
-        max-height: 60px;
-        margin-left: 50px;
-        margin-right: 20px;
+        max-width: 100px;
+        max-height: 40px;
+        margin-left: 30px;
+        margin-right: 50px;
     }
     
-    .icon {
-        max-width: 130px;
-        max-height: 60px;
-        margin-left: 20px;
-        margin-right: 50px;
+    .md-menu {
+        padding: 8px 15px !important;
     }
     
     label {
         color: white !important;   
         font-weight: normal;
-        font-size: 14px;
+        font-size: 12px;
     }
     
     input {
         color: white !important;   
         font-weight: normal;
-        font-size: 14px;
+        font-size: 12px;
     }
     
-    md-input-container .md-input {
+    md-input-container {
+        padding-bottom: 15px !important;
+    }
+    
+    .md-input {
         border-color: white !important;
     }
 
     a.active {
-      border-bottom: 1px solid #fff;
+        border-bottom: 1px solid #fff;
     }
     
-    background-color: $coral !important;
+    a {
+        font-size: 12px;
+        display: inline-block;
+    }
 }

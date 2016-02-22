@@ -19,7 +19,7 @@
 
         /** @ngInject */ 
         function uploadController(FileUploader, $scope) {
-            $scope.privacySettings = ('Public Limited Private').split(' ').map(function(ps) {
+            $scope.privacySettings = ('Public Private').split(' ').map(function(ps) {
                 return {value: ps};
             })
             

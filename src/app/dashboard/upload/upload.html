@@ -1,4 +1,43 @@
-<div class="gray-bg">
-    <h1>Upload</h1>
-    <upload-widget></upload-widget>
+<div class="light-theme">
+    <h3>Create a Concert Album</h3>
+    
+    <div ng-controller="UploadController as ctrl">
+        <div style="margin-bottom: 20px !important;">
+            <md-chips ng-model="ctrl.selectedArtist" 
+                      md-autocomplete-snap
+                      md-transform-chip="ctrl.transformChip($chip)"
+                      md-require-match="ctrl.autocompleteRequireMatch">
+              <md-autocomplete
+                  md-selected-item="ctrl.selectedItem"
+                  md-search-text="ctrl.searchText"
+                  md-items="item in ctrl.querySearch(ctrl.searchText)"
+                  md-item-text="item.name"
+                  placeholder="Search for artist(s)">
+                <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+              </md-autocomplete>
+              <md-chip-template>
+                <span>
+                  <strong>{{$chip.name}}</strong>
+                </span>
+              </md-chip-template>
+            </md-chips>
+        </div>
+        
+        <md-input-container class="md-block">
+            <input ng-model="concertVenue" type="text" placeholder="Concert Venue" ng-required="true">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+            <input ng-model="concertDate" type="date" placeholder="Concert Date" ng-required="true">
+        </md-input-container>
+        
+        <div layout="row" layout-align="end center">
+            <md-button ng-click="showDetails = ! showDetails">Continue</md-button>
+        </div>    
+        
+        <div ng-show="showDetails">
+            <upload-widget></upload-widget>
+        </div> 
+    </div>
+    
 </div>

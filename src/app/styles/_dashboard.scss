@@ -1,62 +1,43 @@
-md-sidenav.md-locked-open {
-    width: 200px !important;
-    min-width: 200px !important;
-    max-width: 200px !important;
+.dashboard{
+    a {
+        color: white !important;
+        text-decoration: none !important;
+    }
 }
 
-#jammer-sidebar {
-    margin: 14px 0;
-    width: 100%;
+.block{
+    margin: 0px 50px 20px 0px;
 }
 
-#jammer-sidebar li {
-    position: relative;
-    line-height: 24px;
-    font-size: 11px;
+.rect{
+    margin-bottom: 15px;
 }
 
-#jammer-sidebar .jammer-sidebar-section h3, #jammer-sidebar .jammer-sidebar-section .jammer-sidebar-submenu .jammer-sidebar-section.jammer-sidebar-single-section h3 {
-    padding: 0;
-    position: relative;
+.circle{
+    width: 150px; 
+    height: 150px; 
+    margin-bottom: 15px; 
+    border-radius: 50%
 }
 
-#jammer-sidebar>li>h3 {
-    text-transform: uppercase;
+.dark-theme{
+    color: white;
+    padding: 30px 10%; 
+    background-color: $darkgray;
 }
 
-#jammer-sidebar h3, #jammer-sidebar h3 a {
-    background: none;
-    color: #444;
-    font-size: 11px;
-    font-weight: 500;
+.light-theme{
+    color: black;
+    padding: 20px;
+    background-color: $lightgray;
+    
+    h3{
+        color: black !important;
+    }
 }
 
-#jammer-sidebar>.jammer-sidebar-section>h3 a {
-    line-height: 11px;
-    padding-top: 13px;
-    padding-bottom: 13px;
-}
-
-#jammer-sidebar .jammer-sidebar-section a, #jammer-sidebar .jammer-sidebar-submenu li a {
-    display: block;
-    padding: 0 14px;
-}
-
-#jammer-sidebar .jammer-sidebar-section h3 a>.header-text, #jammer-sidebar .jammer-sidebar-section h3 a>.studio-icon {
-    vertical-align: middle;
-    display: inline-block;
-}
-
-#jammer-sidebar .studio-icon {
-    margin: 0;
-    margin-right: 7px;
-}
-
-#jammer-sidebar .jammer-sidebar-section h3 a span.header-text {
-    width: 74%;
-}
-
-#jammer-sidebar .jammer-sidebar-section h3 a>.header-text, #jammer-sidebar .jammer-sidebar-section h3 a>.studio-icon {
-    vertical-align: middle;
-    display: inline-block;
+.md-button {
+    padding: 0px 5px;
+    background-color: $coral !important;
+    color: white !important;
 }

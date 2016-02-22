@@ -18,25 +18,55 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController() {
-      var vm = this;
+    function NavbarController($mdDialog) {
+        var vm = this;
       
-      vm.isCollapsed = false;
+        vm.isCollapsed = false;
         
-      vm.pages = [
-        {
-          state: 'dashboard.discover',
-          name: 'Discover'
-        },
-        {
-          state: 'dashboard.my_videos',
-          name: 'My Videos'
-        },
-        {
-          state: 'dashboard.upload',
-          name: 'Upload'
-        }
-      ];
+        vm.pages = [
+            {
+              state: 'dashboard.discover',
+              name: 'Discover'
+            },
+            {
+              state: 'dashboard.my_videos',
+              name: 'My Videos'
+            },
+            {
+              state: 'dashboard.upload',
+              name: 'Upload'
+            }
+        ];
+        
+        vm.settings = [
+            {
+                state: 'settings.account',
+                name: 'Account'
+            },
+            {
+                state: 'settings.logout',
+                name: 'Log Out'
+            }            
+        ];
+        
+        vm.allPages = vm.pages.concat(vm.settings);
+        
+        var originatorEv;
+
+        vm.openMenu = function($mdOpenMenu, ev) {
+            originatorEv = ev;
+            $mdOpenMenu(ev);
+        };
+
+        vm.announceClick = function(index) {
+            $mdDialog.show(
+                $mdDialog.alert()
+                    .content('Logging out... ')
+                    .ok('Cool')
+                    .targetEvent(originatorEv)
+            );
+            originatorEv = null;
+        };
     }
   }
 

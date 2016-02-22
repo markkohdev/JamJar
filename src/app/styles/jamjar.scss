@@ -2,14 +2,12 @@
 
 @import 'colors';
 @import 'fonts';
+@import 'dashboard';
 
 // JamJar styles!
-html {
-    font-family: 'Muli', sans-serif;
-    height: 100%;
-}
 
 html, body {
+    font-family: 'Muli', sans-serif;
     width: 100%;
     min-height: 100% !important;
     height: 100%;
@@ -25,7 +23,7 @@ h2 {
 }
 
 [layout=row] {
-  flex-direction: row;
+    flex-direction: row;
 }
 
 md-toolbar.md-coral-theme{
@@ -54,7 +52,7 @@ md-toolbar.md-coral-theme{
     width: 100%;
     height: 700px;
     //height: 100%;
-    background: url(../assets/images/concertBG.JPG) no-repeat center center scroll;
+    background: url(../assets/images/concert_bg/concert_coral_web_bg_1094x729.png) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
@@ -82,10 +80,27 @@ md-toolbar.md-coral-theme{
     }
 }
 
+.wrapper {
+    min-height: 100%;
+    position: relative;
+    /*height: auto !important;
+    height: 100%;
+    margin: 0 auto -170px;*/
+}
+
+.content {
+    padding-bottom: 130px;/*height of the footer*/
+}
+
 footer {
     padding: 10px;
     background-color: $coral;
     color: white;
+    width: 100%;
+    height: 130px;
+    position: absolute;
+    bottom:0;
+    left:0;
     
     h3 {
         -webkit-margin-before: 0 !important;
