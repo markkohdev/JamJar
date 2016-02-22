@@ -24,6 +24,13 @@
 
       <vg-overlay-play></vg-overlay-play>
     </videogular>
+    <div class='video-switcher'>
+      <span ng-repeat="video in player.connections">
+        <a href="javascript:void(0)" ng-click="player.setSourceByVideoId(video.video, video.offset)">
+          <div class='switchable'>&nbsp;</div>
+        </a>
+      </span>
+    </div>
   </div>
   <div layout="row" class="jamjar-player-info">
     <div flex="5"></div>
