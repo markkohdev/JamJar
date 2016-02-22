@@ -30,17 +30,17 @@
         var username = !!user ? user.username : '';
 
         vm.login = {
-          username: username,
-          password: ''
+            username: username,
+            password: ''
         };
 
         vm.signup = {
-          username: '',
-          password: '',
-          confirm: '',
-          email: '',
-          first_name: '',
-          last_name: ''
+            username: '',
+            password: '',
+            confirm: '',
+            email: '',
+            first_name: '',
+            last_name: ''
         };
 
         vm.isSet = function(checkTab){
@@ -57,7 +57,8 @@
 
         vm.logIn = function(){
             vm.authService.logIn(vm.login, function(err, resp) {
-                if (err) return vm.setError(err);
+                if (err) 
+                    return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
                 vm.$state.go('dashboard.discover');
@@ -66,7 +67,8 @@
 
         vm.signUp = function(){
             vm.authService.signUp(vm.signup, function(err, resp) {
-                  if (err) return vm.setError(err);
+                if (err) 
+                    return vm.setError(err);
 
                 vm.authService.setUser(resp.user);
                 vm.$state.go('dashboard.confirm');

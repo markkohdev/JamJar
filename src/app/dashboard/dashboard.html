@@ -1,19 +1,13 @@
-<div layout="column" layout-fill>
-
-  <md-content fill>
+<div layout="column" layout-fill class="wrapper dashboard">
     <header>
-      <navbar></navbar>
+        <navbar></navbar>
     </header>
 
-    <div layout="column"  style="padding: 30px 10%; background-color: #272727;" class="wrapper">
-      <div ui-view></div>
-      <div class="push"></div>
+    <div layout="column">
+        <div ui-view class="content"></div>
     </div>
 
     <footer>
         <footbar></footbar>
     </footer>
-  </md-content>
-    
-
 </div>
