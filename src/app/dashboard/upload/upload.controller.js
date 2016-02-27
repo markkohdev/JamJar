@@ -4,8 +4,8 @@
       .module('jamjar')
       .controller('UploadController', UploadController);
 
-  function UploadController (ArtistService, $q) {
-    var self = this;
+  function UploadController (ArtistService, $scope) {
+    var vm = this;
 
     var showUpload = false;
       
@@ -17,21 +17,28 @@
         return showUpload;
     }
       
-    self.selectedItem = null;
-    self.searchText = null;
-    self.selectedArtists = [];
-    self.autocompleteRequireMatch = false;
+    vm.selectedItem = null;
+    vm.searchText = null;
+    vm.selectedArtists = [];
+    vm.autocompleteRequireMatch = false;
+    vm.searchResults = [];
 
-    // populated by responses from the API
-    self.searchResults = [];
-    self.transformChip = transformChip;
+    vm.concertVenue = null;
+    vm.concertDate = null;
 
-    self.artistSearch = function(query) {
+    vm.artistSearch = function(query) {
+      var controller = vm;
+
       return ArtistService.search(query);
     }
 
+    vm.concertVenueName = function() {
+      return _.get(vm.concertVenue, 'name', null);
+    }
+
     /* Return the proper object when the append is called*/
-    function transformChip(chip) {
+    vm.transformChip = function(chip) {
+      var controller = vm;
       // If it is an object, it's already a known chip
       if (angular.isObject(chip)) {
         return chip;
