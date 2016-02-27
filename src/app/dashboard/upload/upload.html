@@ -3,14 +3,14 @@
     
     <div ng-controller="UploadController as ctrl">
         <div style="margin-bottom: 20px !important;">
-            <md-chips ng-model="ctrl.selectedArtist" 
+            <md-chips ng-model="ctrl.selectedArtists" 
                       md-autocomplete-snap
                       md-transform-chip="ctrl.transformChip($chip)"
                       md-require-match="ctrl.autocompleteRequireMatch">
               <md-autocomplete
                   md-selected-item="ctrl.selectedItem"
                   md-search-text="ctrl.searchText"
-                  md-items="item in ctrl.querySearch(ctrl.searchText)"
+                  md-items="item in ctrl.artistSearch(ctrl.searchText)"
                   md-item-text="item.name"
                   md-delay="500"
                   placeholder="Search for artist(s)">

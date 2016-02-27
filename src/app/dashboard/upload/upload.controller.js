@@ -19,15 +19,14 @@
       
     self.selectedItem = null;
     self.searchText = null;
-    ///self.querySearch = querySearch;
-    self.selectedArtist = [];
+    self.selectedArtists = [];
     self.autocompleteRequireMatch = false;
 
     // populated by responses from the API
     self.searchResults = [];
     self.transformChip = transformChip;
 
-    self.querySearch = function(query) {
+    self.artistSearch = function(query) {
       return ArtistService.search(query);
     }
 
