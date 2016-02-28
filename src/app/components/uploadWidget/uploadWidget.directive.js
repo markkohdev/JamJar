@@ -34,6 +34,21 @@
                 //removeAfterUpload: true
             });
 
+            vm.valid = function() {
+              var videoDetails = $scope.videoDetails();
+
+              var validDetails = _.get(videoDetails, 'venue.place_id') && videoDetails.date;
+              var validArtists = _.every(videoDetails.artists, function(artist) {
+                return !!artist.id;
+              });
+
+              var validFiles = _.every(vm.uploader.queue, function(item) {
+                return item.file.name && item.privacy;
+              });
+
+              return validDetails && validArtists && validFiles;
+            }
+
             vm.pause = function(doc) {
             };
 
@@ -59,13 +74,12 @@
                 // clear previous errors if any
                 item.file.error = null;
 
-                var videoInformation = [{name: item.file.name, concert: concert.id}];
+                var is_private = (item.privacy == 'Private');
+                var videoInformation = [{name: item.file.name, concert: concert.id, is_private: is_private}];
                 // include multiple `artists` keys if multiple artists are given
                 var artistInformation = _.map(artists, function(artist) { return {artists: artist.id} });
                 item.formData = videoInformation.concat(artistInformation);
                 item.upload();
-
-                debugger
               });
 
             },
