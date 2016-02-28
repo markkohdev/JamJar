@@ -26,14 +26,24 @@
     vm.concertVenue = null;
     vm.concertDate = null;
 
-    vm.artistSearch = function(query) {
-      var controller = vm;
+    vm.outstanding_artist_deferred = null;
 
+    vm.artistSearch = function(query) {
       return ArtistService.search(query);
     }
 
     vm.concertVenueName = function() {
       return _.get(vm.concertVenue, 'name', null);
+    }
+
+    vm.videoDetails = function() {
+      return function() {
+        return {
+          'venue': vm.concertVenue,
+          'date': vm.concertDate,
+          'artists': vm.selectedArtists
+        }
+      }
     }
 
     /* Return the proper object when the append is called*/

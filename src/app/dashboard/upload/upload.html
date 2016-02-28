@@ -2,28 +2,28 @@
     <h3>Create a Concert Album</h3>
     
     <div>
-        <div style="margin-bottom: 20px !important;">
-            <md-chips ng-model="vm.selectedArtists" 
-                      md-autocomplete-snap
-                      md-transform-chip="vm.transformChip($chip)"
-                      md-require-match="vm.autocompleteRequireMatch">
-              <md-autocomplete
-                  md-selected-item="vm.selectedItem"
-                  md-search-text="vm.searchText"
-                  md-items="item in vm.artistSearch(vm.searchText)"
-                  md-item-text="item.name"
-                  md-delay="500"
-                  placeholder="Search for artist(s)">
-                <span md-highlight-text="vm.searchText">{{item.name}}</span>
-              </md-autocomplete>
-              <md-chip-template>
-                <span>
-                  <strong>{{$chip.name}}</strong>
-                </span>
-              </md-chip-template>
-            </md-chips>
-        </div>
-        
+        <md-input-container class="md-block" md-no-float>
+          <md-chips ng-model="vm.selectedArtists" 
+                    md-autocomplete-snap
+                    md-transform-chip="vm.transformChip($chip)"
+                    md-require-match="vm.autocompleteRequireMatch">
+            <md-autocomplete
+                md-selected-item="vm.selectedItem"
+                md-search-text="vm.searchText"
+                md-items="item in vm.artistSearch(vm.searchText)"
+                md-item-text="item.name"
+                md-delay="200"
+                placeholder="Artist Search">
+              <span md-highlight-text="vm.searchText">{{item.name}}</span>
+            </md-autocomplete>
+            <md-chip-template>
+              <span>
+                <strong>{{$chip.name}}</strong>
+              </span>
+            </md-chip-template>
+          </md-chips>
+        </md-input-container>
+
         <md-input-container class="md-block">
             <input type="text" ng-model="vm.concertVenue" force-selection="true" g-places-autocomplete placeholder="Concert Venue" ng-required="true" />
         </md-input-container>
@@ -31,14 +31,13 @@
         <md-input-container class="md-block">
           <input ng-model="vm.concertDate" type="date" placeholder="Concert Date" ng-required="true">
         </md-input-container>
-        
+
         <div layout="row" layout-align="end center">
             <md-button ng-click="showDetails = ! showDetails">Continue</md-button>
-        </div>    
-        
+        </div>
+
         <div ng-show="showDetails">
-            <upload-widget></upload-widget>
-        </div> 
+          <upload-widget video-details="vm.videoDetails()"></upload-widget>
+        </div>
     </div>
-    
 </div>
