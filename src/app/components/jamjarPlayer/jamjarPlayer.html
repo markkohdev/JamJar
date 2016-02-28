@@ -1,43 +1,34 @@
 <div layout="column">
   <div layout="row" class='jamjar-player'>
-    <videogular vg-theme="player.config.theme"
-                vg-auto-play="true"
-                vg-player-ready="player.onPlayerReady($API)"
-                vg-update-time="player.onUpdateTime()"
-                vg-change-source="player.onUpdateSource($source)"
-                vg-complete="player.onComplete()">
-      <vg-media vg-src="player.config.sources"></vg-media>
-
-      <vg-controls>
-        <vg-play-pause-button></vg-play-pause-button>
-        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
-        <vg-scrub-bar>
-          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-        </vg-scrub-bar>
-        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
-        <vg-volume>
-          <vg-mute-button></vg-mute-button>
-          <vg-volume-bar></vg-volume-bar>
-        </vg-volume>
-        <vg-fullscreen-button></vg-fullscreen-button>
-      </vg-controls>
-
-      <vg-overlay-play></vg-overlay-play>
-    </videogular>
+    <md-grid-list md-cols="{{player.cols}}" md-row-height="fit" md-gutter="8px">
+      <md-grid-tile ng-repeat="(id, video) in player.playable" md-rowspan="1" md-colspan="1" style="background-color: black; width: 500px; height: 500px">
+        <videogular vg-theme="player.config.theme"
+                    vg-auto-play="true"
+                    vg-player-ready="player.onPlayerReady($API, id)"
+                    vg-update-time="player.onUpdateTime(id)"
+                    vg-change-source="player.onUpdateSource($source, id)"
+                    vg-complete="player.onComplete(id)">
+          <vg-media vg-src="video.config.sources"></vg-media>
+        </videogular>
+      </md-grid-tile>
+    </md-grid-list>
+    <!--
     <div class='video-switcher'>
-      <span ng-repeat="video in player.connections">
+      <span ng-repeat="video in player.connections | limitTo:3">
         <a href="javascript:void(0)" ng-click="player.setSourceByVideoId(video.video, video.offset)" title="[id={{video.video}} confidence={{video.confidence}}]">
           <div class='switchable'>&nbsp;</div>
         </a>
       </span>
     </div>
+    -->
   </div>
   <div layout="row" class="jamjar-player-info">
     <div flex="5"></div>
     <div flex="45">
       <div layout="column" layout-align="center start">
-        <div layout="row">Title: {{player.nowPlaying.name}}</div>
-        <div layout="row">Uploaded By: {{player.nowPlaying.user.username}}</div>
+        <div layout="row">{{player.playable[1].config.sources[0].src.toString()}}</div>
+        <!--<div layout="row">Title: {{player.nowPlaying.name}}</div>
+        <div layout="row">Uploaded By: {{player.nowPlaying.user.username}}</div>-->
         <!--
         <div layout="row">
           DEBUG

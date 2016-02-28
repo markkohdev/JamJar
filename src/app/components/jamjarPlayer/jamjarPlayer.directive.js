@@ -21,10 +21,11 @@
 
       vm.$stateParams = $stateParams;
 
-      vm.API = null;
       vm.concert = {};
-      vm.nowPlaying = {};
-      vm.start_time = 0;
+      vm.playable = {};
+      vm.keyVideo = null;
+      vm.rows = 1;
+      vm.cols = 2;
 
       function urlAtOffset(src, offset_seconds) {
         if (offset_seconds) {
@@ -33,19 +34,6 @@
 
         return $sce.trustAsResourceUrl(src)
       }
-
-      vm.setSource = function(src, offset) {
-        var adjusted_time = (vm.API.currentTime / 1000.0) - offset;
-
-        var new_source = [{src: urlAtOffset(src, offset), type: 'video/mp4'}];
-        vm.config = {
-          sources: new_source,
-          theme: "bower_components/videogular-themes-default/videogular.css",
-        };
-
-        // set this globally -- can't update the time until the video is loaded (in callback)
-        vm.start_time = adjusted_time;
-      };
 
       vm.getVideoById = function(video_id) {
         var video = _.find(vm.concert.concert.videos, function(video) {
@@ -61,41 +49,68 @@
         return video;
       };
 
-      vm.setSourceByVideoId = function(video_id, offset_seconds) {
-        $state.go('dashboard.player', {concert_id: vm.$stateParams.concert_id, video_id: video_id, type: $stateParams.type});
-        if (!offset_seconds) {
-          offset_seconds = 0;
+      vm.getOffset = function(videoId) {
+        return (vm.getKeyVideo().API.currentTime / 1000.0) - vm.getVideoById(videoId).edges[vm.keyVideo].offset;
+      }
+
+      vm.getKeyVideo = function() {
+        return vm.playable[vm.keyVideo];
+      }
+
+      vm.addSource = function(videoId, offset) {
+        var video = vm.getVideoById(videoId);
+
+        if (!offset) {
+          offset = 0;
         }
 
-        vm.nowPlaying = vm.getVideoById(video_id);
-        vm.setSource(vm.nowPlaying.web_src, offset_seconds);
+        video.config = {
+          sources: [{src: urlAtOffset(video.web_src, offset), type: 'video/mp4'}],
+          theme: "bower_components/videogular-themes-default/videogular.css",
+        };
+
+        // add it to the now-playing object -- this will create a videogular player for the video
+        vm.playable[video.id] = video;
       };
 
-      vm.calculateValidConnections = function() {
-        return _.filter(vm.nowPlaying.edges, function(edge) {
+      vm.getPlayableVideos = function() {
+        var keyVideo = vm.getKeyVideo();
+
+        var playableEdges = _.filter(keyVideo.edges, function(edge) {
           // require video length to be < requested offset position AND offset > 0
-          var adjusted_time = (vm.API.currentTime / 1000.0) - edge.offset;
           var video = vm.getVideoById(edge.video);
-          return adjusted_time > 0 && adjusted_time < video.length && edge.confidence >= 5;
+          var offset = (vm.getKeyVideo().API.currentTime / 1000.0) - edge.offset;
+          return offset > 0 && offset < video.length && edge.confidence >= 5;
+        });
+
+        return _.map(playableEdges, function(edge) {
+          return vm.getVideoById(edge.video);
         });
       };
 
-      vm.setValidConnections = function() {
-        vm.connections = vm.calculateValidConnections();
-      };
-
-      vm.onUpdateSource = function(src) {
-        vm.setValidConnections();
-        vm.API.seekTime(vm.start_time);
+      vm.onUpdateSource = function(src, videoId) {
+        if (videoId != vm.keyVideo) {
+          var offset = vm.getOffset(videoId);
+          vm.playable[videoId].API.seekTime(offset);
+        }
       },
 
       vm.onUpdateTime = function() {
-        // this gets called often... maybe not the best way to handle it..
-        vm.setValidConnections();
+        var videos = vm.getPlayableVideos();
+        _.each(videos, function(video) {
+          if (vm.playable[video.id]) {
+            // already in playable -- skip it
+            return;
+          } else {
+            // not in playable -- add it
+            vm.addSource(video.id, 0);
+          }
+        });
       };
 
       vm.onComplete = function() {
-        vm.setValidConnections();
+        //vm.setValidConnections();
+        return;
 
         if (vm.connections.length == 0) return;
 
@@ -108,19 +123,28 @@
         vm.setSourceByVideoId(sorted[0].video, sorted[0].offset);
       };
 
-      vm.onPlayerReady = function(API) {
-        vm.API = API;
+      // fetch the concert graph and add the first video as a source
+      ConcertService.getGraphById(vm.$stateParams.concert_id, function(err, resp) {
+        if (err) { debugger; return }
 
-        ConcertService.getGraphById(vm.$stateParams.concert_id, function(err, resp) {
-          if (err) { debugger; return }
+        vm.concert = resp;
 
-          vm.concert = resp;
-          vm.nowPlaying = vm.getVideoById(vm.$stateParams.video_id);
-          vm.config = {
-            sources: [{src: urlAtOffset(vm.nowPlaying.web_src), type: "video/mp4"}],
-            theme: "bower_components/videogular-themes-default/videogular.css",
-          };
-        });
+        var video_id = parseInt(vm.$stateParams.video_id);
+        vm.addSource(video_id);
+        vm.keyVideo = video_id;
+      });
+
+      // listen for new videogular player instances (created via additions to `playable`)
+      vm.onPlayerReady = function(API, videoId) {
+        console.log('player ready', videoId);
+        if (vm.playable[parseInt(videoId)]) {
+          vm.playable[videoId].API = API;
+          if (videoId == vm.keyVideo) {
+            API.setVolume(0.5);
+          } else {
+            API.setVolume(0.0);
+          }
+        }
       };
     }
 
