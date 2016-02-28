@@ -10,13 +10,25 @@
 
         vm.concert_id = $state.params.id;
         vm.concert = {};
+        vm.concert_graph = {};
 
         ConcertService.getConcertById(vm.concert_id, function(err, res) {
           if (err) {
-            // TODO : handle errors!
+            debugger
+            return alert('error');
           }
 
           vm.concert = res;
         });
+
+        ConcertService.getGraphById(vm.concert_id, function(err, res) {
+          if (err) {
+            debugger
+            return alert('error');
+          }
+
+          vm.concert_graph = res;
+        });
+
     }
 })();

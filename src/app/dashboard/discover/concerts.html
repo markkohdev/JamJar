@@ -3,8 +3,8 @@
 <div layout="row" layout-wrap>
   <div ng-repeat="concert in concerts.concerts" flex="25">
     <div layout="column" class="block">
-      <a ui-sref="dashboard.concert({id: concert})">
-        <img src="http://fakeimg.pl/150x150/?text=Concert+{{concert}}" class="circle" />
+      <a ui-sref="dashboard.concert({id: concert.id})">
+        <img src="http://fakeimg.pl/150x150/?text=Concert+{{concert.id}}" class="circle" />
         <div>Artist/Group</div>
         <div>Concert Date</div>
         <div>Venue</div>

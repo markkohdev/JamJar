@@ -18,10 +18,21 @@
     return directive;
 
     /** @ngInject */
-    function ConcertsController(AuthService, $state) {
+    function ConcertsController(ConcertService) {
         var vm = this;
 
-        vm.concerts = _.range(1, 5);
+        vm.concerts = {};
+
+
+        (function() {
+          ConcertService.list(function(err, res) {
+            if (err) { return alert('error')}
+
+            vm.concerts = res;
+            console.log(vm.concerts);
+          });
+
+        })();
     }
   }
 
