@@ -43,12 +43,12 @@
             vm.uploadStatus = function(item) {
               if (item.isError) {
                 return "Error: " + item.file.error;
-              } else if (item.isReady) {
-                return "Ready to upload";
               } else if (item.isUploading) {
                 return "Uploading";
               } else if (item.isUploaded) {
                 return "Uploaded!";
+              } else if (item.isReady) {
+                return "Ready to upload";
               }
               return "Ready to upload";
             }

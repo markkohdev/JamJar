@@ -36,6 +36,10 @@
       return _.get(vm.concertVenue, 'name', null);
     }
 
+    vm.canContinue = function() {
+      return vm.selectedArtists.length > 0 && vm.concertVenue && vm.concertDate;
+    }
+
     vm.videoDetails = function() {
       return function() {
         return {
