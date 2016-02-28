@@ -26,10 +26,18 @@
       vm.nowPlaying = {};
       vm.start_time = 0;
 
+      function urlAtOffset(src, offset_seconds) {
+        if (offset_seconds) {
+          src = src + '#' + Math.floor(offset_seconds);
+        }
+
+        return $sce.trustAsResourceUrl(src)
+      }
+
       vm.setSource = function(src, offset) {
         var adjusted_time = (vm.API.currentTime / 1000.0) - offset;
 
-        var new_source = [{src: $sce.trustAsResourceUrl(src), type: 'video/mp4'}];
+        var new_source = [{src: urlAtOffset(src, offset), type: 'video/mp4'}];
         vm.config = {
           sources: new_source,
           theme: "bower_components/videogular-themes-default/videogular.css",
@@ -109,7 +117,7 @@
           vm.concert = resp;
           vm.nowPlaying = vm.getVideoById(vm.$stateParams.video_id);
           vm.config = {
-            sources: [{src: $sce.trustAsResourceUrl(vm.nowPlaying.web_src), type: "video/mp4"}],
+            sources: [{src: urlAtOffset(vm.nowPlaying.web_src), type: "video/mp4"}],
             theme: "bower_components/videogular-themes-default/videogular.css",
           };
         });
