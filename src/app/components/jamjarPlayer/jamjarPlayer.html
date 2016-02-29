@@ -1,26 +1,23 @@
 <div layout="column">
   <div layout="row" class='jamjar-player'>
     <md-grid-list md-cols="{{player.cols}}" md-row-height="fit" md-gutter="8px">
-      <md-grid-tile ng-repeat="(id, video) in player.playable" md-rowspan="1" md-colspan="1" style="background-color: black; width: 500px; height: 500px">
+      <md-grid-tile ng-repeat="(id, video) in player.playable" md-rowspan="1" md-colspan="1" style="background-color: black; width: 500px; height: 500px" class='player-tile'>
         <videogular vg-theme="player.config.theme"
                     vg-auto-play="true"
                     vg-player-ready="player.onPlayerReady($API, id)"
-                    vg-update-time="player.onUpdateTime(id)"
+                    vg-update-time="player.onUpdateTime($time, id)"
                     vg-change-source="player.onUpdateSource($source, id)"
+                    vg-update-state="player.onUpdateState($state, id)"
                     vg-complete="player.onComplete(id)">
           <vg-media vg-src="video.config.sources"></vg-media>
         </videogular>
+        <!--
+        <span class='video-switcher' style="color: #fff; text-align: center; font-size: 200%">
+          <span>VIDEO {{id}}</span>
+        </span>
+        -->
       </md-grid-tile>
     </md-grid-list>
-    <!--
-    <div class='video-switcher'>
-      <span ng-repeat="video in player.connections | limitTo:3">
-        <a href="javascript:void(0)" ng-click="player.setSourceByVideoId(video.video, video.offset)" title="[id={{video.video}} confidence={{video.confidence}}]">
-          <div class='switchable'>&nbsp;</div>
-        </a>
-      </span>
-    </div>
-    -->
   </div>
   <div layout="row" class="jamjar-player-info">
     <div flex="5"></div>
