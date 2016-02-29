@@ -6,10 +6,9 @@
   background-color: #000;
 
   .player-tile {
-    transition-duration: 0.5s;
-    transition: width 0.5s, height 0.5s;
-    -webkit-transition: width 0.5s, height 0.5s;
-    transition-timing-function: ease;
+    transition: width 0.5s;
+    -webkit-transition: width 0.5s;
+    transition-timing-function: linear;
   }
 
   .video-switcher {
