@@ -65,8 +65,7 @@
     var self = this;
 
     if (!self.API) {
-      // hack -- TODO
-      //self.onInitialized.push(_.bind(self.play, this, offset));
+      return;
     } else {
       self.API.play();
     }
@@ -115,8 +114,7 @@
     self.max_videos = 3;
     self.bufferTime = 3; // seconds
 
-    self.rows = 1;
-    self.cols = 1;
+    self.volume = 0.5; // 0.5
   }
 
   JamJar.prototype.initialize = function(concert_id, video_id) {
@@ -132,15 +130,15 @@
 
       // encapsulate videos in Video class
       _.each(self.concert.concert.videos, function(video) {
+        //
+        // these subgraphs are disjoint, so find the first subgraph
+        // containing this video  -- it's the only one
         var graph = _.find(self.concert.graph, function(subgraph) {
           return !!subgraph.adjacencies[video.id];
         });
+
         var edges = graph.adjacencies[video.id];
         self.videos[video.id] = new Video(video, edges, self.$sce);
-
-        // these subgraphs are disjoint, so find the first subgraph
-        // containing this video  -- it's the only one
-
       });
 
       // use video_id passed to initialize as primary video. Video offsets will be calculated
@@ -154,6 +152,18 @@
       self.addEdges();
     });
   };
+
+  JamJar.prototype.click = function(selectedVideo) {
+    var self = this;
+    _.each(self.nowPlaying, function(video) {
+      var vol = (selectedVideo == video) ? self.volume : 0.0;
+      video.volume(vol);
+    });
+  }
+
+  JamJar.prototype.mouseover = function(selectedVideo) {
+    var self = this;
+  }
 
   JamJar.prototype.addVideo = function(video) {
     var self = this;
@@ -169,7 +179,7 @@
 
     video.setAPI(API);
     if (video == self.primaryVideo) {
-      video.volume(0.5);
+      video.volume(self.volume);
     } else {
       video.volume(0.0);
     }
@@ -184,14 +194,25 @@
     if (self.nowPlaying.length == 0)
       return ; // what do we do here?
 
-    self.primaryVideo = self.nowPlaying[0];
-    self.primaryVideo.volume(0.5);
+    if (self.primaryVideo == video) {
+      self.primaryVideo = self.nowPlaying[0];
+      self.primaryVideo.volume(self.volume);
 
-    _.each(self.cuePoints, function(cue, index) {
-      delete self.cuePoints[index];
-    });
+      _.each(self.cuePoints, function(cue, index) {
+        delete self.cuePoints[index];
+      });
 
-    self.addEdges();
+      self.addEdges();
+    } else {
+      _.each(self.primaryVideo.edges, function(edge) {
+        var video = self.videos[edge.video];
+
+        if (_.indexOf(self.nowPlaying, video)) {
+          return;
+        }
+      });
+
+    }
   }
 
   JamJar.prototype.onUpdateTime = function(time, video) {
@@ -234,8 +255,6 @@
 
   JamJar.prototype.addPlayerEdge = function (video, queueTime, startTime) {
     var self = this;
-
-    console.log("queue point", video.video.id, queueTime, startTime);
 
     var cuePoint = [
       {

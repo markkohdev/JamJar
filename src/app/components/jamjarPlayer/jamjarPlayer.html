@@ -1,17 +1,19 @@
 <div layout="column">
   <div layout="row" class='jamjar-player'>
-    <md-grid-list md-cols="{{player.jamjar.nowPlaying.length}}" md-row-height="fit" md-gutter="8px">
-      <md-grid-tile ng-repeat="video in player.jamjar.nowPlaying" md-rowspan="1" md-colspan="1" style="background-color: black; width: 500px; height: 500px" class='player-tile'>
-        <videogular vg-theme="player.config.theme"
-                    vg-auto-play="true"
-                    vg-player-ready="player.jamjar.onPlayerReady($API, video)"
-                    vg-update-time="player.jamjar.onUpdateTime($time, video)"
-                    vg-change-source="player.jamjar.onUpdateSource($source, video)"
-                    vg-update-state="player.jamjar.onUpdateState($state, video)"
-                    vg-complete="player.jamjar.onComplete(video)"
-                    vg-cue-points="player.jamjar.cuePoints">
-          <vg-media vg-src="video.config.sources"></vg-media>
-        </videogular>
+    <md-grid-list md-cols="{{player.jamjar.nowPlaying.length || 1}}" md-row-height="fit" md-gutter="8px">
+      <md-grid-tile ng-click="alert('ok')" ng-repeat="video in player.jamjar.nowPlaying | limitTo:player.jamjar.max_videos" md-rowspan="1" md-colspan="1" style="background-color: black; width: 500px; height: 500px" class='player-tile'>
+        <div ng-click="player.jamjar.click(video)" ng-mouseover="player.jamjar.mouseover(video)">
+          <videogular vg-theme="player.config.theme"
+                      vg-auto-play="true"
+                      vg-player-ready="player.jamjar.onPlayerReady($API, video)"
+                      vg-update-time="player.jamjar.onUpdateTime($time, video)"
+                      vg-change-source="player.jamjar.onUpdateSource($source, video)"
+                      vg-update-state="player.jamjar.onUpdateState($state, video)"
+                      vg-complete="player.jamjar.onComplete(video)"
+                      vg-cue-points="player.jamjar.cuePoints">
+            <vg-media vg-src="video.config.sources"></vg-media>
+          </videogular>
+        </div>
         <!--
         <span class='video-switcher' style="color: #fff; text-align: center; font-size: 200%">
           <span>VIDEO {{id}}</span>
