@@ -29,28 +29,29 @@
         <md-content layout="column" class="md-padding">
             <div layout="row" layout-align="space-between start">
                 <div flex="33" layout="column" layout-padding layout-fill>
-                    <img src="http://fakeimg.pl/150x150/?text=thumbnail" class="rect" />
+                    <img src="http://fakeimg.pl/250x150/?text={{item.file.name}}" class="rect" />
                     
+                  <!--
                     <div layout="row" layout-align="space-between start" layout-padding>
                         <md-button ng-click="item.pause()" flex class="md-small">Pause</md-button>
                         <md-button ng-click="item.cancel()" flex class="md-small">Cancel</md-button>
                     </div>
-                    <!--<md-icon ng-click="item.cancel()" md-font-icon="zmdi zmdi-close zmdi-hc-2x"></md-icon>-->
+                    -->
                 </div>
  
                 <div flex="66" layout="column" layout-padding layout-fill>
-                    <p ng-class="{red: item.isError}" title="{{item.file.name}}" class="namebox">
-                        {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB
+                    <p ng-class="{red: item.isError}"  title="{{item.file.name}}" class="namebox">
+                      {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB | {{ upload.uploadStatus(item) }}
                     </p>
                     
                     <md-input-container class="md-block" flex-gt-sm>
-                        <input ng-model="item.title" placeholder="Video Name">
+                        <input ng-model="item.title" placeholder="Video Name" ng-disabled="item.isUploaded && !item.isError">
                     </md-input-container>
                     
                     <md-input-container class="md-block" flex-gt-sm>
-                        <label>Public</label>
-                        <md-select ng-model="item.privacy">
-                            <md-option ng-repeat="ps in privacySettings" value="{{ps.value}}">
+                        <label>Sharing</label>
+                        <md-select ng-model="item.privacy" ng-disabled="item.isUploaded">
+                            <md-option ng-repeat="ps in upload.privacySettings" value="{{ps.value}}">
                                 {{ps.value}}
                             </md-option>
                         </md-select>
@@ -68,7 +69,7 @@
     </div>    
     
     <div layout="row" layout-align="end center">
-        <md-button ng-click="item.publish()" class="md-small">Publish</md-button>
+        <md-button ng-disabled="!upload.valid()" ng-click="upload.doUpload()" class="md-small">Upload</md-button>
     </div>
     
 </div>

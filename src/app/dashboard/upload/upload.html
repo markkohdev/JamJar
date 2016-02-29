@@ -1,43 +1,47 @@
 <div class="light-theme">
-    <h3>Create a Concert Album</h3>
+    <h3>Upload your concert videos</h3>
     
-    <div ng-controller="UploadController as ctrl">
-        <div style="margin-bottom: 20px !important;">
-            <md-chips ng-model="ctrl.selectedArtist" 
-                      md-autocomplete-snap
-                      md-transform-chip="ctrl.transformChip($chip)"
-                      md-require-match="ctrl.autocompleteRequireMatch">
-              <md-autocomplete
-                  md-selected-item="ctrl.selectedItem"
-                  md-search-text="ctrl.searchText"
-                  md-items="item in ctrl.querySearch(ctrl.searchText)"
-                  md-item-text="item.name"
-                  placeholder="Search for artist(s)">
-                <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
-              </md-autocomplete>
-              <md-chip-template>
-                <span>
-                  <strong>{{$chip.name}}</strong>
-                </span>
-              </md-chip-template>
-            </md-chips>
-        </div>
-        
-        <md-input-container class="md-block">
-            <input ng-model="concertVenue" type="text" placeholder="Concert Venue" ng-required="true">
-        </md-input-container>
+    <div class='upload-details'>
+      <md-input-container class="md-block" md-no-float>
+        <md-chips ng-model="vm.selectedArtists" 
+                  md-autocomplete-snap
+                  md-transform-chip="vm.transformChip($chip)"
+                  md-require-match="vm.autocompleteRequireMatch">
+          <md-autocomplete
+              class='artist-search'
+              md-selected-item="vm.selectedItem"
+              md-search-text="vm.searchText"
+              md-items="item in vm.artistSearch(vm.searchText)"
+              md-item-text="item.name"
+              md-delay="200"
+              placeholder="Add Artist">
+            <span md-highlight-text="vm.searchText">{{item.name}}</span>
+          </md-autocomplete>
+          <md-chip-template>
+            <span>
+              <strong>{{$chip.name}}</strong>
+            </span>
+          </md-chip-template>
+        </md-chips>
+      </md-input-container>
 
-        <md-input-container class="md-block">
-            <input ng-model="concertDate" type="date" placeholder="Concert Date" ng-required="true">
-        </md-input-container>
-        
-        <div layout="row" layout-align="end center">
-            <md-button ng-click="showDetails = ! showDetails">Continue</md-button>
-        </div>    
-        
-        <div ng-show="showDetails">
-            <upload-widget></upload-widget>
-        </div> 
+      <md-input-container class="md-block">
+          <input type="text" ng-model="vm.concertVenue" force-selection="true" g-places-autocomplete placeholder="Concert Venue" ng-required="true" />
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <input ng-model="vm.concertDate" type="date" placeholder="Concert Date" ng-required="true">
+      </md-input-container>
+
+      <div layout="row" layout-align="end center" ng-show="!showDetails">
+          <md-button ng-disabled="!vm.canContinue()" ng-click="showDetails = ! showDetails">Continue</md-button>
+      </div>
+
+
+      <div ng-show="showDetails">
+        <upload-widget edit-mode="showDetails = ! showDetails" video-details="vm.videoDetails()"></upload-widget>
+      </div>
+
+
     </div>
-    
 </div>

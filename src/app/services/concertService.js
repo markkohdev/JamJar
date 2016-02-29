@@ -35,5 +35,13 @@ angular
           callback(null, resp);
         });
       },
+
+      getOrCreateConcert: function(data, callback) {
+        APIService.post(service.model, data, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+      },
   }
 });
