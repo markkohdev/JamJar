@@ -71,6 +71,12 @@
     }
   }
 
+  Video.prototype.pause = function() {
+    var self = this;
+
+    self.API.pause();
+  }
+
   Video.prototype.offset = function(seconds) {
     var self = this;
 
@@ -114,7 +120,7 @@
     self.max_videos = 3;
     self.bufferTime = 3; // seconds
 
-    self.volume = 0.5; // 0.5
+    self.volume = 0.0; // 0.5
   }
 
   JamJar.prototype.initialize = function(concert_id, video_id) {
@@ -153,8 +159,46 @@
     });
   };
 
+  JamJar.prototype.spanDimensions = function(video){
+    var self = this;
+
+    var dims = {row: 1, col: 1}
+
+    if (self.nowPlaying.length == 1) {
+      dims.row = 2;
+      dims.col = 2;
+    } else if (self.nowPlaying.length == 2) {
+      dims.row = 2;
+      dims.col = 1;
+    } else {
+      if (self.nowPlaying[0] == video) {
+        dims.row = 2;
+        dims.col = 1;
+      } else {
+        dims.row = 1;
+        dims.col = 1;
+      }
+    }
+
+    return dims;
+  }
+
+  JamJar.prototype.rowSpan = function(video) {
+    var self = this;
+
+    return self.spanDimensions(video).row;
+  }
+  
+
+  JamJar.prototype.colSpan = function(video) {
+    var self = this;
+
+    return self.spanDimensions(video).col;
+  }
+
   JamJar.prototype.click = function(selectedVideo) {
     var self = this;
+    selectedVideo.pause();
     _.each(self.nowPlaying, function(video) {
       var vol = (selectedVideo == video) ? self.volume : 0.0;
       video.volume(vol);
@@ -180,6 +224,7 @@
     video.setAPI(API);
     if (video == self.primaryVideo) {
       video.volume(self.volume);
+      video.offset(15.0); //debug!
     } else {
       video.volume(0.0);
     }

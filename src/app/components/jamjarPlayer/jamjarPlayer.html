@@ -1,8 +1,12 @@
 <div layout="column">
   <div layout="row" class='jamjar-player'>
-    <md-grid-list md-cols="{{player.jamjar.nowPlaying.length || 1}}" md-row-height="fit" md-gutter="8px">
-      <md-grid-tile ng-click="alert('ok')" ng-repeat="video in player.jamjar.nowPlaying | limitTo:player.jamjar.max_videos" md-rowspan="1" md-colspan="1" style="background-color: black; width: 500px; height: 500px" class='player-tile'>
-        <div ng-click="player.jamjar.click(video)" ng-mouseover="player.jamjar.mouseover(video)">
+    <md-grid-list md-cols="2" md-row-height="2:1" md-gutter="2px">
+      <md-grid-tile ng-repeat="video in player.jamjar.nowPlaying | limitTo:player.jamjar.max_videos"
+                    md-rowspan="{{player.jamjar.rowSpan(video)}}"
+                    md-colspan="{{player.jamjar.colSpan(video)}}"
+                    style="background-color: black;"
+                    class='player-tile'>
+        <div ng-click="player.jamjar.click(video)" ng-mouseover="player.jamjar.mouseover(video)" style="height: 100%">
           <videogular vg-theme="player.config.theme"
                       vg-auto-play="true"
                       vg-player-ready="player.jamjar.onPlayerReady($API, video)"
