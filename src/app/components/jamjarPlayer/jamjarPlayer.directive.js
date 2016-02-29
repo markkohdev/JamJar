@@ -41,17 +41,12 @@
     self.buffering = true;
 
     self.config = self.getConfig();
-    self.onInitialized = [];
   }
 
   Video.prototype.setAPI = function(API) {
     var self = this;
 
     self.API = API;
-
-    while (func = self.onInitialized.unshift()) {
-      func();
-    }
   }
 
   Video.prototype.time = function() {
@@ -71,7 +66,7 @@
 
     if (!self.API) {
       // hack -- TODO
-      self.onInitialized.push(_.bind(self.play, this, offset));
+      //self.onInitialized.push(_.bind(self.play, this, offset));
     } else {
       self.API.play();
     }
