@@ -39,6 +39,7 @@
     self.edges = edges;
 
     self.buffering = true;
+    self.playable = false;
 
     self.config = self.getConfig();
   }
@@ -120,7 +121,7 @@
     self.max_videos = 3;
     self.bufferTime = 3; // seconds
 
-    self.volume = 0.0; // 0.5
+    self.volume = 0.5; // 0.5
   }
 
   JamJar.prototype.initialize = function(concert_id, video_id) {
@@ -198,7 +199,6 @@
 
   JamJar.prototype.click = function(selectedVideo) {
     var self = this;
-    selectedVideo.pause();
     _.each(self.nowPlaying, function(video) {
       var vol = (selectedVideo == video) ? self.volume : 0.0;
       video.volume(vol);
@@ -212,10 +212,10 @@
   JamJar.prototype.addVideo = function(video) {
     var self = this;
 
-    if (self.nowPlaying.length < self.max_videos) {
-      self.nowPlaying.push(video);
-      self.cols = self.nowPlaying.length;
-    }
+    var playable = (self.nowPlaying.length <= self.max_videos);
+    video.playable = playable;
+
+    self.nowPlaying.push(video);
   };
 
   JamJar.prototype.onPlayerReady = function(API, video) {
@@ -224,7 +224,6 @@
     video.setAPI(API);
     if (video == self.primaryVideo) {
       video.volume(self.volume);
-      video.offset(15.0); //debug!
     } else {
       video.volume(0.0);
     }
@@ -236,8 +235,10 @@
     var nowPlayingIndex = _.indexOf(self.nowPlaying, video);
     self.nowPlaying.splice(nowPlayingIndex, 1);
 
-    if (self.nowPlaying.length == 0)
+    if (self.nowPlaying.length == 0) {
+      debugger
       return ; // what do we do here?
+    }
 
     if (self.primaryVideo == video) {
       self.primaryVideo = self.nowPlaying[0];
@@ -249,14 +250,14 @@
 
       self.addEdges();
     } else {
-      _.each(self.primaryVideo.edges, function(edge) {
-        var video = self.videos[edge.video];
+      // mark some of the unplayable videos as playable?
+      var queued = _.filter(self.nowPlaying, {playable: false});
+      _.each(queued, function(video) {
+        var remaining = _.filter(self.nowPlaying, {playable: true});
+        if (remaining.length >= self.max_videos) return;
 
-        if (_.indexOf(self.nowPlaying, video)) {
-          return;
-        }
+        video.playable = true;
       });
-
     }
   }
 

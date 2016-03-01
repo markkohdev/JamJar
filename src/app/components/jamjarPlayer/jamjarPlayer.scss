@@ -5,36 +5,19 @@
   display: block;
   background-color: #000;
 
+  .jj-videogular {
+    height: 256px;
+  }
+
+  .jj-gridlist {
+    height: 256px;
+    //max-height: 100%;
+  }
+
   .player-tile {
     transition: width 0.5s;
     -webkit-transition: width 0.5s;
-    transition-timing-function: linear;
-  }
-
-  .video-switcher {
-    position: relative;
-    bottom: 70px;
-    height: 16px;
-    text-align: center;
-    z-index: 100;
-
-    .switchable {
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255,255,255,0.5);
-      display: inline-block;
-      margin-left: 5px;
-    }
-
-    .switchable:hover {
-      border-radius: 50%;
-      width: 10px;
-      height: 10px;
-      background-color: rgba(255,255,255,0.8);
-      display: inline-block;
-      margin-left: 5px;
-    }
+    transition-timing-function: ease;
   }
 }
 

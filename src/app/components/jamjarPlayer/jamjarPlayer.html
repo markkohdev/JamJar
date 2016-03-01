@@ -1,13 +1,15 @@
 <div layout="column">
   <div layout="row" class='jamjar-player'>
-    <md-grid-list md-cols="2" md-row-height="2:1" md-gutter="2px">
-      <md-grid-tile ng-repeat="video in player.jamjar.nowPlaying | limitTo:player.jamjar.max_videos"
+    <md-grid-list md-cols="2" md-row-height="256px" md-gutter="2px" class='jj-gridlist'>
+      <md-grid-tile ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true} | limitTo:player.jamjar.max_videos"
                     md-rowspan="{{player.jamjar.rowSpan(video)}}"
                     md-colspan="{{player.jamjar.colSpan(video)}}"
                     style="background-color: black;"
                     class='player-tile'>
-        <div ng-click="player.jamjar.click(video)" ng-mouseover="player.jamjar.mouseover(video)" style="height: 100%">
-          <videogular vg-theme="player.config.theme"
+        <div ng-click="player.jamjar.click(video)" ng-mouseover="player.jamjar.mouseover(video)">
+          <videogular class='jj-videogular'
+                      ng-style="{height: 256 * player.jamjar.rowSpan(video)}"
+                      vg-theme="player.config.theme"
                       vg-auto-play="true"
                       vg-player-ready="player.jamjar.onPlayerReady($API, video)"
                       vg-update-time="player.jamjar.onUpdateTime($time, video)"
@@ -17,6 +19,7 @@
                       vg-cue-points="player.jamjar.cuePoints">
             <vg-media vg-src="video.config.sources"></vg-media>
           </videogular>
+          <div style="color: #fff; font-size: 2em; position: relative; top: -80px; text-align: center">{{video.video.name}}</div>
         </div>
         <!--
         <span class='video-switcher' style="color: #fff; text-align: center; font-size: 200%">
@@ -31,22 +34,8 @@
     <div flex="45">
       <div layout="column" layout-align="center start">
         <div layout="row">{{player.playable[1].config.sources[0].src.toString()}}</div>
-        <!--<div layout="row">Title: {{player.nowPlaying.name}}</div>
-        <div layout="row">Uploaded By: {{player.nowPlaying.user.username}}</div>-->
-        <!--
-        <div layout="row">
-          DEBUG
-          <div layout="column" ng-repeat="node in player.connections">
-            <a style="margin-left: 20px" ng-click="player.setSourceByVideoId(node.video.id, node.edge.offset)">{{node.video.name}} [{{node.edge.confidence}}]</a>
-          </div>
-        </div>
-        -->
-        <!--
-        <div layout="row">State: {{player.API.currentState}}</div>
-        <div layout="row">Time: {{player.API.currentTime / 1000.0}} / {{player.API.totalTime / 1000.0}}</div>
-        <div layout="row">Ready: {{player.API.isReady}}</div>
-        <div layout="row">Buffering: {{player.API.isBuffering}}</div>
-        -->
+        <div layout="row">Title: {{player.nowPlaying.name}}</div>
+        <div layout="row">Uploaded By: {{player.nowPlaying.user.username}}</div>
       </div>
     </div>
     <div flex="45">
