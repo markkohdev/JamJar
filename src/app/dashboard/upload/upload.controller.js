@@ -26,14 +26,8 @@
     vm.concertVenue = null;
     vm.concertDate = null;
 
-    vm.outstanding_artist_deferred = null;
-
     vm.artistSearch = function(query) {
       return ArtistService.search(query);
-    }
-
-    vm.concertVenueName = function() {
-      return _.get(vm.concertVenue, 'name', null);
     }
 
     vm.canContinue = function() {

@@ -43,7 +43,7 @@
               });
 
               var validFiles = _.every(vm.uploader.queue, function(item) {
-                return item.file.name && item.privacy;
+                return item.title && item.privacy;
               });
 
               return validDetails && validArtists && validFiles;
@@ -75,7 +75,7 @@
                 item.file.error = null;
 
                 var is_private = (item.privacy == 'Private');
-                var videoInformation = [{name: item.file.name, concert: concert.id, is_private: is_private}];
+                var videoInformation = [{name: item.title, concert: concert.id, is_private: is_private}];
                 // include multiple `artists` keys if multiple artists are given
                 var artistInformation = _.map(artists, function(artist) { return {artists: artist.id} });
                 item.formData = videoInformation.concat(artistInformation);
