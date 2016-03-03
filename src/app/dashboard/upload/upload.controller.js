@@ -4,8 +4,8 @@
       .module('jamjar')
       .controller('UploadController', UploadController);
 
-  function UploadController ($timeout, $q) {
-    var self = this;
+  function UploadController (ArtistService, $scope) {
+    var vm = this;
 
     var showUpload = false;
       
@@ -17,18 +17,36 @@
         return showUpload;
     }
       
-    self.readonly = false;
-    self.selectedItem = null;
-    self.searchText = null;
-    self.querySearch = querySearch;
-    self.artists = loadArtists();
-    self.selectedArtist = [];
-    self.autocompleteRequireMatch = false;
-      
-    self.transformChip = transformChip;
-      
+    vm.selectedItem = null;
+    vm.searchText = null;
+    vm.selectedArtists = [];
+    vm.autocompleteRequireMatch = false;
+    vm.searchResults = [];
+
+    vm.concertVenue = null;
+    vm.concertDate = null;
+
+    vm.artistSearch = function(query) {
+      return ArtistService.search(query);
+    }
+
+    vm.canContinue = function() {
+      return vm.selectedArtists.length > 0 && vm.concertVenue && vm.concertDate;
+    }
+
+    vm.videoDetails = function() {
+      return function() {
+        return {
+          'venue': vm.concertVenue,
+          'date': vm.concertDate,
+          'artists': vm.selectedArtists
+        }
+      }
+    }
+
     /* Return the proper object when the append is called*/
-    function transformChip(chip) {
+    vm.transformChip = function(chip) {
+      var controller = vm;
       // If it is an object, it's already a known chip
       if (angular.isObject(chip)) {
         return chip;
@@ -37,47 +55,6 @@
       else{
           return { name: chip }
       }
-    }
-      
-    /*Search for artists*/
-    function querySearch (query) {
-      var results = query ? self.artists.filter(createFilterFor(query)) : [];
-      return results;
-    }
-
-    /*Create filter function for a query string*/
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-
-      return function filterFn(artist) {
-        return (artist._lowername.indexOf(lowercaseQuery) === 0);
-      };
-
-    }
-
-    function loadArtists() {
-      var groups = [
-        {
-          'name': 'group1'
-        },
-        {
-          'name': 'group2'
-        },
-        {
-          'name': 'group3'
-        },
-        {
-          'name': 'group4'
-        },
-        {
-          'name': 'group5'
-        }
-      ];
-
-      return groups.map(function (g) {
-        g._lowername = g.name.toLowerCase();
-        return g;
-      });
     }
   }
 })();
