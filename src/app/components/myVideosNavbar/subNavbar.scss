@@ -1,0 +1,38 @@
+// Navbar specific styling
+.sub-navbar {
+    
+    background-color: $white !important;
+    
+    .md-menu {
+        padding: 8px 15px !important;
+    }
+    
+    label {
+        color: white !important;   
+        font-weight: normal;
+        font-size: 12px;
+    }
+    
+    input {
+        color: white !important;   
+        font-weight: normal;
+        font-size: 12px;
+    }
+    
+    md-input-container {
+        padding-bottom: 15px !important;
+    }
+    
+    .md-input {
+        border-color: white !important;
+    }
+
+    a.active {
+        border-bottom: 1px solid #fff;
+    }
+    
+    a {
+        font-size: 12px;
+        display: inline-block;
+    }
+}

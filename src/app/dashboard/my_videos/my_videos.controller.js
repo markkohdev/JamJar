@@ -7,6 +7,6 @@
     /** @ngInject */
     function MyVideosController($sce, $timeout) {
         var vm = this;
-        
+        vm.videos = _.range(8);
     }
 })();
