@@ -23,15 +23,15 @@
         
         vm.pages = [
             {
-              state: 'myvideos.all',
+              state: 'dashboard.my_videos',
               name: 'All'
             },
             {
-              state: 'myvideos.concerts',
+              state: 'dashboard.my_concerts',
               name: 'Concerts'
             },
             {
-              state: 'myvideos.playlists',
+              state: 'dashboard.my_playlists',
               name: 'Playlists'
             }
         ];

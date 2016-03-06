@@ -39,12 +39,6 @@
         controller: 'DiscoverController',
         controllerAs: 'vm'
       })
-      .state('dashboard.my_videos', {
-        url: '/videos',
-        templateUrl: 'app/dashboard/my_videos/my_videos.html',
-        controller: 'MyVideosController',
-        controllerAs: 'vm'
-      })
       .state('dashboard.concert', {
         url: '/concert/:id',
         templateUrl: 'app/dashboard/concert/concert.html',
@@ -62,6 +56,24 @@
         url: '/upload',
         templateUrl: 'app/dashboard/upload/upload.html',
         controller: 'UploadController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard.my_videos', {
+        url: '/myvideos',
+        templateUrl: 'app/dashboard/my_videos/my_videos.html',
+        controller: 'MyVideosController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard.my_concerts', {
+        url: '/myconcerts',
+        templateUrl: 'app/dashboard/my_videos/my_concerts.html',
+        controller: 'MyConcertsController',
+        controllerAs: 'vm'
+      })
+      .state('dashboard.my_playlists', {
+        url: '/myplaylists',
+        templateUrl: 'app/dashboard/my_videos/my_playlists.html',
+        controller: 'MyPlaylistsController',
         controllerAs: 'vm'
       });
 

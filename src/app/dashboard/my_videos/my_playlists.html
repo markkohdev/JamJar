@@ -1,0 +1,12 @@
+<sub-navbar></sub-navbar>
+<div class="light-theme my-videos-page">
+    <div layout="row" layout-wrap>
+      <div ng-repeat="video in vm.videos" flex="25">
+        <div layout="column" class="block">
+          <img src="http://fakeimg.pl/200x100/?text=All+{{video}}" class="rect"/>
+          <div>PlaylistName</div>
+          <div># Video</div>
+        </div>
+      </div>
+    </div>
+</div>

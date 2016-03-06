@@ -28,7 +28,6 @@
 
 .light-theme{
     color: black;
-    padding: 20px;
     background-color: $lightgray;
     
     h3{
@@ -36,8 +35,10 @@
     }
 }
 
-.md-button {
-    padding: 0px 5px;
-    background-color: $coral !important;
-    color: white !important;
+.my-videos-page {
+    padding: 30px 10%; 
+}
+
+.upload-page {
+    padding: 20px !important;
 }
