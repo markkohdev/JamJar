@@ -3,7 +3,9 @@
     <div layout="row" layout-wrap>
       <div ng-repeat="video in vm.videos" flex="25">
         <div layout="column" class="block">
-          <img src="http://fakeimg.pl/200x100/?text=All+{{video}}" class="rect"/>
+          <div class="short-bar-div"><div class="collection-bar"></div></div>
+          <div class="long-bar-div"><div class="collection-bar"></div></div>
+          <img src="http://fakeimg.pl/200x100/?text=Concert+{{video}}" class="rect"/>
           <div>Artist/Group</div>
           <div>ConcertDate</div>
           <div>Venue</div>
