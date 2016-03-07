@@ -1,0 +1,16 @@
+<sub-navbar></sub-navbar>
+<div class="light-theme my-videos-page">
+    <div layout="row" layout-wrap>
+      <div ng-repeat="video in vm.videos" flex="25">
+        <div layout="column" class="block">
+          <div class="short-bar-div"><div class="collection-bar"></div></div>
+          <div class="long-bar-div"><div class="collection-bar"></div></div>
+          <img src="http://fakeimg.pl/200x100/?text=Concert+{{video}}" class="rect"/>
+          <div>Artist/Group</div>
+          <div>ConcertDate</div>
+          <div>Venue</div>
+          <div># Videos</div>
+        </div>
+      </div>
+    </div>
+</div>
