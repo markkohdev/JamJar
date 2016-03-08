@@ -21,7 +21,7 @@
     vm.searchText = null;
     vm.selectedArtists = [];
     vm.autocompleteRequireMatch = false;
-    vm.searchResults = [];
+    //vm.searchResults = [];
 
     vm.concertVenue = null;
     vm.concertDate = null;

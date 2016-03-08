@@ -1,5 +1,5 @@
 <md-toolbar class="navbar" layout="row" layout-align="space-between center">
-    <span flex="66" layout="row" layout-align="start center">
+    <span flex="65" layout="row" layout-align="start center">
         <a ui-sref="dashboard.discover">
             <img class="logo" ng-src="assets/images/jamjar_text_logo/jamjar_text_transparent_200x77.png" alt="logo"/>
         </a>
@@ -12,13 +12,13 @@
         </span>
     </span>
     
-    <span flex="33" layout="row" layout-align="end center">
+    <span flex="35" layout="row" layout-align="end center">
         <span hide-xs hide-sm hide-md layout="row" layout-align="end center">
             <md-button ng-repeat="page in vm.pages" ui-sref="{{page.state}}" ui-sref-active="active">
                 {{page.name}}
             </md-button>
 
-            <md-menu md-position-mode="target-right target">
+            <md-menu md-position-mode="target-right target" flex="20">
                 <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)" aria-label="Settings">
                     <md-icon md-menu-origin md-svg-src = 'assets/images/btns/settingsBtn.svg'></md-icon>
                 </md-button>
