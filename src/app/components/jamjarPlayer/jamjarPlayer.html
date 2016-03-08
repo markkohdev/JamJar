@@ -1,33 +1,48 @@
 <div layout="column">
-  <div layout="row" class='jamjar-player'>
-    <md-grid-list md-cols="2" md-row-height="256px" md-gutter="2px" class='jj-gridlist'>
-      <md-grid-tile ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true} | limitTo:player.jamjar.max_videos"
-                    md-rowspan="{{player.jamjar.rowSpan(video)}}"
-                    md-colspan="{{player.jamjar.colSpan(video)}}"
-                    style="background-color: black;"
-                    class='player-tile'>
-        <div ng-click="player.jamjar.click(video)" ng-mouseover="player.jamjar.mouseover(video)">
-          <videogular class='jj-videogular'
-                      ng-style="{height: 256 * player.jamjar.rowSpan(video)}"
-                      vg-theme="player.config.theme"
-                      vg-auto-play="true"
-                      vg-player-ready="player.jamjar.onPlayerReady($API, video)"
-                      vg-update-time="player.jamjar.onUpdateTime($time, video)"
-                      vg-change-source="player.jamjar.onUpdateSource($source, video)"
-                      vg-update-state="player.jamjar.onUpdateState($state, video)"
-                      vg-complete="player.jamjar.onComplete(video)"
-                      vg-cue-points="player.jamjar.cuePoints">
-            <vg-media vg-src="video.config.sources"></vg-media>
-          </videogular>
-          <div style="color: #fff; font-size: 2em; position: relative; top: -80px; text-align: center">{{video.video.name}}</div>
+  <div layout="row" ng-if="player.jamjar.primaryVideo" class='jamjar-player'>
+      <div ng-repeat="video in player.jamjar.nowPlaying">
+        <videogular flex="80" 
+                    vg-theme="player.config.theme"
+                    vg-auto-play="true"
+                    vg-preload="preload"
+                    vg-player-ready="player.jamjar.onPlayerReady($API, video)"
+                    vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
+                    vg-change-source="player.jamjar.onUpdateSource($source, video)"
+                    vg-update-state="player.jamjar.onUpdateState($state, video)"
+                    vg-complete="player.jamjar.onComplete(video)"
+                    vg-cue-points="player.jamjar.cuePoints"
+                    ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
+          <vg-media vg-src="video.config.sources"></vg-media>
+          <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+            <vg-volume>
+              <vg-mute-button></vg-mute-button>
+              <vg-volume-bar></vg-volume-bar>
+            </vg-volume>
+            <vg-fullscreen-button></vg-fullscreen-button>
+          </vg-controls>
+          <vg-overlay-play></vg-overlay-play>
+        </videogular>
+      </div>
+      <div flex="20" class='player-sidebar'>
+        <div layout="column" layout-align="space-around center">
+          <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
+            <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
+              <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
+              <div class='player-thumbnail-info' >
+                {{edge = player.jamjar.getEdge(video); ""}}
+                Id: {{video.video.id}}, Confidence: {{edge.confidence}}, Offset: {{edge.offset}}
+                <br /> {{player.jamjar.getBufferInfo(video)}} <!-- debug -->
+              </div>
+            </div>
+          </div>
         </div>
-        <!--
-        <span class='video-switcher' style="color: #fff; text-align: center; font-size: 200%">
-          <span>VIDEO {{id}}</span>
-        </span>
-        -->
-      </md-grid-tile>
-    </md-grid-list>
+      </div>
   </div>
   <div layout="row" class="jamjar-player-info">
     <div flex="5"></div>

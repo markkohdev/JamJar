@@ -1,3 +1,4 @@
+
 (function() {
   'use strict';
 
@@ -48,6 +49,7 @@
     var self = this;
 
     self.API = API;
+    self.playable = true;
   }
 
   Video.prototype.time = function() {
@@ -118,9 +120,10 @@
     // used by Videogular to emit events at certain times
     self.cuePoints = {};
 
-    self.max_videos = 3;
-    self.bufferTime = 3; // seconds
+    // performance hack
+    self.lastTimeUpdate = null;
 
+    // default volume for videos
     self.volume = 0.5; // 0.5
   }
 
@@ -156,66 +159,89 @@
 
       self.addVideo(self.primaryVideo);
 
-      self.addEdges();
+      self.resetEdges();
     });
   };
 
-  JamJar.prototype.spanDimensions = function(video){
-    var self = this;
-
-    var dims = {row: 1, col: 1}
-
-    if (self.nowPlaying.length == 1) {
-      dims.row = 2;
-      dims.col = 2;
-    } else if (self.nowPlaying.length == 2) {
-      dims.row = 2;
-      dims.col = 1;
-    } else {
-      if (self.nowPlaying[0] == video) {
-        dims.row = 2;
-        dims.col = 1;
-      } else {
-        dims.row = 1;
-        dims.col = 1;
-      }
-    }
-
-    return dims;
-  }
-
-  JamJar.prototype.rowSpan = function(video) {
-    var self = this;
-
-    return self.spanDimensions(video).row;
-  }
-  
-
-  JamJar.prototype.colSpan = function(video) {
-    var self = this;
-
-    return self.spanDimensions(video).col;
-  }
-
-  JamJar.prototype.click = function(selectedVideo) {
+  JamJar.prototype.muteAll = function() {
     var self = this;
     _.each(self.nowPlaying, function(video) {
-      var vol = (selectedVideo == video) ? self.volume : 0.0;
-      video.volume(vol);
+      video.volume(0.0);
     });
+  }
+
+  JamJar.prototype.switchVideo = function(selectedVideo) {
+    var self = this;
+
+    self.primaryVideo.pause();
+    self.muteAll();
+
+    var edge = self.getEdge(selectedVideo);
+
+    var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
+    var offset = self.primaryVideo.time() - edge.offset + diff;
+
+    self.primaryVideo = selectedVideo;
+    self.primaryVideo.volume(self.volume);
+
+    self.primaryVideo.offset(offset);
+    self.primaryVideo.play();
+
+    self.resetEdges();
+  }
+
+  JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
+    var self = this;
+
+    self.muteAll();
+
+    self.primaryVideo = selectedVideo;
+    self.primaryVideo.volume(self.volume);
+
+    self.primaryVideo.offset(offset);
+    self.primaryVideo.play();
+
+    self.resetEdges();
   }
 
   JamJar.prototype.mouseover = function(selectedVideo) {
     var self = this;
   }
 
+  JamJar.prototype.getEdge = function(other) {
+    var self = this;
+
+    var edge = _.find(self.primaryVideo.edges, {video: other.video.id});
+
+    return edge || {};
+  }
+
+  JamJar.prototype.getBufferInfo = function(video) {
+    var self = this;
+
+    var buffered = video.API.buffered;
+
+    return _.map(_.range(buffered.length), function(i) {
+      return Math.floor(buffered.start(i)) + "-" + Math.floor(buffered.end(i));
+    }).join(",");
+  }
+
   JamJar.prototype.addVideo = function(video) {
     var self = this;
 
-    var playable = (self.nowPlaying.length <= self.max_videos);
-    video.playable = playable;
+    if (_.indexOf(self.nowPlaying, video) == -1) {
+      self.nowPlaying.push(video);
+    }
+  };
 
-    self.nowPlaying.push(video);
+  JamJar.prototype.removeVideo = function(video) {
+    var self = this;
+
+    var index = _.indexOf(self.nowPlaying, video);
+
+    if (index >= 0) {
+      self.nowPlaying.splice(index, 1);
+    }
   };
 
   JamJar.prototype.onPlayerReady = function(API, video) {
@@ -232,37 +258,42 @@
   JamJar.prototype.onComplete = function(video) {
     var self = this;
 
-    var nowPlayingIndex = _.indexOf(self.nowPlaying, video);
-    self.nowPlaying.splice(nowPlayingIndex, 1);
+    self.removeVideo(video);
 
-    if (self.nowPlaying.length == 0) {
-      debugger
-      return ; // what do we do here?
+    if (video != self.primaryVideo) {
+      return;
     }
 
-    if (self.primaryVideo == video) {
-      self.primaryVideo = self.nowPlaying[0];
-      self.primaryVideo.volume(self.volume);
-
-      _.each(self.cuePoints, function(cue, index) {
-        delete self.cuePoints[index];
-      });
-
-      self.addEdges();
-    } else {
-      // mark some of the unplayable videos as playable?
-      var queued = _.filter(self.nowPlaying, {playable: false});
-      _.each(queued, function(video) {
-        var remaining = _.filter(self.nowPlaying, {playable: true});
-        if (remaining.length >= self.max_videos) return;
-
-        video.playable = true;
-      });
+    // primary video ended, have to reconcile everything here
+    if (self.nowPlaying.length > 0) {
+      var next = self.nowPlaying[0];
+      var edge = self.getEdge(next);
+      var offset = video.video.length - edge.offset;
+      self.switchVideoDirect(next, offset);
     }
   }
 
-  JamJar.prototype.onUpdateTime = function(time, video) {
+  JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     var self = this;
+
+    // queued videos get an initial onUpdateTime -- ignore that
+    if (updatedVideo != self.primaryVideo) {
+      return;
+    }
+
+    _.each(self.nowPlaying, function(video) {
+
+      // we don't want to change the startTime for the currently playing video!
+      if (video == self.primaryVideo || !video.API) {
+        return;
+      }
+
+      self.lastTimeUpdate = new Date();
+
+      var edge = self.getEdge(video);
+      var tentativeStartTime = Math.max(playedTime - edge.offset, 0);
+      video.offset(tentativeStartTime);
+    });
   }
 
   JamJar.prototype.onUpdateSource = function(source, video) {
@@ -278,49 +309,53 @@
     }
   }
 
-  JamJar.prototype.addEdges = function () {
+  JamJar.prototype.resetEdges = function () {
     var self = this;
 
     // for each edge that this video links to
     // add cuepoint to
     //  1) queue it N seconds before it's needed
     //  2) play it when it's needed!
+    //
+    _.each(self.cuePoints, function(cue, index) {
+      delete self.cuePoints[index];
+    });
+
 
     _.each(self.primaryVideo.edges, function(edge) {
       var video = self.videos[edge.video];
 
+      // if edge < 0, then it should already be queued (eg. queue it now!)
+      // gotta do that range thing where i find out if 
       if (edge.offset > 0) {
-        var queueTime = Math.max(edge.offset - self.bufferTime, 0.1);
-        var startTime = edge.offset;
+        var queueTime = edge.offset;
+        var removeTime = video.video.length - edge.offset ;
 
-        self.addPlayerEdge(video, queueTime, startTime);
+        self.addPlayerEdge(video, queueTime, removeTime);
       }
     });
 
   };
 
-  JamJar.prototype.addPlayerEdge = function (video, queueTime, startTime) {
+  JamJar.prototype.addPlayerEdge = function (video, queueTime, removeTime) {
     var self = this;
 
     var cuePoint = [
       {
          timeLapse:{
            start: queueTime,
-           end: startTime
+           end: removeTime
          },
          onUpdate: function(currentTime, timeLapse, params) {},
          onLeave: function(currentTime, timeLapse, params) {},
 
          onEnter: _.once(function(currentTime, timeLapse, params) {
-           console.log('queuing video ' + params.video.video.id);
+           console.log('adding video to queue: ', params.video.video.id);
            params.self.addVideo(params.video);
          }),
          onComplete: _.once(function (currentTime, timeLapse, params) {
-           var diff = currentTime - timeLapse.end;
-           console.log('playing video ' + params.video.video.id, 'with offset ' + diff);
-           // diff seems like it should matter, but it makes the overlap _worse_
-           //params.video.play(diff);
-           params.video.play(0.0);
+           console.log('removing video w/ id:', params.video.video.id);
+           params.self.removeVideo(params.video);
          }),
          params: {
            video: video,
