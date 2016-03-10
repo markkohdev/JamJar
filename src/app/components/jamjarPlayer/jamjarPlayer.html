@@ -34,13 +34,11 @@
           <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
             <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
               <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
-              <!--
               <div class='player-thumbnail-info' >
                 {{edge = player.jamjar.getEdge(video); ""}}
                 Id: {{video.video.id}}, Confidence: {{edge.confidence}}, Offset: {{edge.offset}}
                 <br /> {{player.jamjar.getBufferInfo(video)}}
               </div>
-              -->
             </div>
           </div>
         </div>
@@ -50,9 +48,8 @@
     <div flex="5"></div>
     <div flex="45">
       <div layout="column" layout-align="center start">
-        <div layout="row">{{player.playable[1].config.sources[0].src.toString()}}</div>
-        <div layout="row">Title: {{player.nowPlaying.name}}</div>
-        <div layout="row">Uploaded By: {{player.nowPlaying.user.username}}</div>
+        <div layout="row">Title: {{player.jamjar.primaryVideo.video.name}}</div>
+        <div layout="row">Uploaded By: {{player.jamjar.primaryVideo.video.user.username}}</div>
       </div>
     </div>
     <div flex="45">

@@ -101,6 +101,8 @@
   function JamJar(concertService, $sce) {
     var self = this;
 
+    window.self = self;
+
     // stopgap until this becomes a factory with DI
     self.concertService = concertService;
     self.$sce = $sce;
@@ -178,8 +180,9 @@
 
     var edge = self.getEdge(selectedVideo);
 
-    var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
-    var offset = self.primaryVideo.time() - edge.offset + diff;
+    // this seems to work well, but it breaks if the video is paused!!
+    //var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
+    var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
     self.primaryVideo = selectedVideo;
     self.primaryVideo.volume(self.volume);
@@ -312,24 +315,19 @@
   JamJar.prototype.resetEdges = function () {
     var self = this;
 
-    // for each edge that this video links to
-    // add cuepoint to
-    //  1) queue it N seconds before it's needed
-    //  2) play it when it's needed!
-    //
     _.each(self.cuePoints, function(cue, index) {
       delete self.cuePoints[index];
     });
 
-
     _.each(self.primaryVideo.edges, function(edge) {
       var video = self.videos[edge.video];
 
-      // if edge < 0, then it should already be queued (eg. queue it now!)
-      // gotta do that range thing where i find out if 
-      if (edge.offset > 0) {
-        var queueTime = edge.offset;
-        var removeTime = video.video.length - edge.offset ;
+      if (edge.confidence > 20) {
+        // if the edge video starts before current, then queue it immediately!
+        var queueTime = Math.max(0, edge.offset);
+
+        // remove it when the video ends!
+        var removeTime = edge.offset + video.video.length;
 
         self.addPlayerEdge(video, queueTime, removeTime);
       }
