@@ -1,57 +1,58 @@
 <div layout="column">
-  <div layout="row" class='jamjar-player'>
-    <videogular vg-theme="player.config.theme"
-                vg-auto-play="true"
-                vg-player-ready="player.onPlayerReady($API)"
-                vg-update-time="player.onUpdateTime()"
-                vg-change-source="player.onUpdateSource($source)"
-                vg-complete="player.onComplete()">
-      <vg-media vg-src="player.config.sources"></vg-media>
-
-      <vg-controls>
-        <vg-play-pause-button></vg-play-pause-button>
-        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
-        <vg-scrub-bar>
-          <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-        </vg-scrub-bar>
-        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
-        <vg-volume>
-          <vg-mute-button></vg-mute-button>
-          <vg-volume-bar></vg-volume-bar>
-        </vg-volume>
-        <vg-fullscreen-button></vg-fullscreen-button>
-      </vg-controls>
-
-      <vg-overlay-play></vg-overlay-play>
-    </videogular>
-    <div class='video-switcher'>
-      <span ng-repeat="video in player.connections">
-        <a href="javascript:void(0)" ng-click="player.setSourceByVideoId(video.video, video.offset)" title="[id={{video.video}} confidence={{video.confidence}}]">
-          <div class='switchable'>&nbsp;</div>
-        </a>
-      </span>
-    </div>
+  <div layout="row" ng-if="player.jamjar.primaryVideo" class='jamjar-player'>
+      <div ng-repeat="video in player.jamjar.nowPlaying">
+        <videogular flex="80" 
+                    vg-theme="player.config.theme"
+                    vg-auto-play="true"
+                    vg-preload="preload"
+                    vg-player-ready="player.jamjar.onPlayerReady($API, video)"
+                    vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
+                    vg-change-source="player.jamjar.onUpdateSource($source, video)"
+                    vg-update-state="player.jamjar.onUpdateState($state, video)"
+                    vg-complete="player.jamjar.onComplete(video)"
+                    vg-cue-points="player.jamjar.cuePoints"
+                    ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
+          <vg-media vg-src="video.config.sources"></vg-media>
+          <vg-controls>
+            <vg-play-pause-button></vg-play-pause-button>
+            <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+            <vg-scrub-bar>
+              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+            </vg-scrub-bar>
+            <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+            <vg-volume>
+              <vg-mute-button></vg-mute-button>
+              <vg-volume-bar></vg-volume-bar>
+            </vg-volume>
+            <vg-fullscreen-button></vg-fullscreen-button>
+          </vg-controls>
+          <vg-overlay-play></vg-overlay-play>
+        </videogular>
+      </div>
+      <div flex="20" class='player-sidebar'>
+        <div layout="column" layout-align="space-around center">
+          <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
+            <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
+              <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
+              <!--
+              <div class='player-thumbnail-info' >
+                {{edge = player.jamjar.getEdge(video); ""}}
+                Id: {{video.video.id}}, Confidence: {{edge.confidence}}, Offset: {{edge.offset}}
+                <br /> {{player.jamjar.getBufferInfo(video)}}
+              </div>
+              -->
+            </div>
+          </div>
+        </div>
+      </div>
   </div>
   <div layout="row" class="jamjar-player-info">
     <div flex="5"></div>
     <div flex="45">
       <div layout="column" layout-align="center start">
+        <div layout="row">{{player.playable[1].config.sources[0].src.toString()}}</div>
         <div layout="row">Title: {{player.nowPlaying.name}}</div>
         <div layout="row">Uploaded By: {{player.nowPlaying.user.username}}</div>
-        <!--
-        <div layout="row">
-          DEBUG
-          <div layout="column" ng-repeat="node in player.connections">
-            <a style="margin-left: 20px" ng-click="player.setSourceByVideoId(node.video.id, node.edge.offset)">{{node.video.name}} [{{node.edge.confidence}}]</a>
-          </div>
-        </div>
-        -->
-        <!--
-        <div layout="row">State: {{player.API.currentState}}</div>
-        <div layout="row">Time: {{player.API.currentTime / 1000.0}} / {{player.API.totalTime / 1000.0}}</div>
-        <div layout="row">Ready: {{player.API.isReady}}</div>
-        <div layout="row">Buffering: {{player.API.isBuffering}}</div>
-        -->
       </div>
     </div>
     <div flex="45">
