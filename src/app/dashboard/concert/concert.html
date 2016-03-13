@@ -4,7 +4,7 @@
       <img ng-src="http://fakeimg.pl/100x100/?text=Concert+{{vm.concert_id}}" style="width: 100px; border-radius: 50%" />
     </div>
     <div layout="column" layout-align="end start" style="margin-left: 20px">
-      <div style="color: white">{{vm.concert_artists}}</div>
+      <div style="color: white">{{vm.getConcertArtists()}}</div>
       <div style="color: white">{{vm.concert.venue.name}}</div>
       <div style="color: white">{{vm.concert.date}}</div>
     </div>

@@ -5,7 +5,7 @@
     <div layout="column" class="block">
       <a ui-sref="dashboard.concert({id: concert.id})">
         <img src="http://fakeimg.pl/150x150/?text=Concert+{{concert.id}}" class="circle" />
-        <div>Artist/Group</div>
+        <div>{{concerts.concertArtists(concert)}}</div>
         <div>{{concert.date}}</div>
         <div>{{concert.venue.name}}</div>
       </a>
