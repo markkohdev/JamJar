@@ -4,7 +4,7 @@
   <div ng-repeat="concert in concerts.concerts" flex="25">
     <div layout="column" class="block">
       <a ui-sref="dashboard.concert({id: concert.id})">
-        <img src="http://fakeimg.pl/150x150/?text=Concert+{{concert.id}}" class="circle" />
+        <img ng-src="{{concert.videos[0].artists[0].images[2].url}}" class="circle" />
         <div>{{concerts.concertArtists(concert)}}</div>
         <div>{{concert.date}}</div>
         <div>{{concert.venue.name}}</div>

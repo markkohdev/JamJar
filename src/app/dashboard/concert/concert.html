@@ -1,7 +1,7 @@
 <div class='dark-theme'>
   <div layout="row">
     <div layout="column">
-      <img ng-src="http://fakeimg.pl/100x100/?text=Concert+{{vm.concert_id}}" style="width: 100px; border-radius: 50%" />
+      <img ng-src="{{vm.concert.videos[0].artists[0].images[2].url}}" class="circle" />
     </div>
     <div layout="column" layout-align="end start" style="margin-left: 20px">
       <div style="color: white">{{vm.getConcertArtists()}}</div>
