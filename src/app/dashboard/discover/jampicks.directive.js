@@ -21,7 +21,7 @@
     function JampicksController(AuthService, $state) {
         var vm = this;
 
-        vm.videos = _.range(8);
+        vm.videos = _.range(2);
     }
   }
 
