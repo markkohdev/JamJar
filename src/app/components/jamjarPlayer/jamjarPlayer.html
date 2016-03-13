@@ -31,14 +31,9 @@
       </div>
       <div flex="20" class='player-sidebar'>
         <div layout="column" layout-align="space-around center">
-          <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
+          <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}" ng-if="video != player.jamjar.primaryVideo">
             <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
               <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
-              <div class='player-thumbnail-info' >
-                {{edge = player.jamjar.getEdge(video); ""}}
-                Id: {{video.video.id}}, Confidence: {{edge.confidence}}, Offset: {{edge.offset}}
-                <br /> {{player.jamjar.getBufferInfo(video)}}
-              </div>
             </div>
           </div>
         </div>
