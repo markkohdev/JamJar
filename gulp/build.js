@@ -74,7 +74,7 @@ gulp.task('html', ['inject', 'partials'], function () {
 gulp.task('fonts', function () {
   return gulp.src($.mainBowerFiles()
       .concat('bower_components/material-design-iconfont/iconfont/*')
-      .concat('../bower_components/videogular-themes-default/fonts/*')
+      //.concat('../bower_components/videogular-themes-default/fonts/*')
     )
     .pipe($.filter('**/*.{eot,svg,ttf,woff,woff2}'))
     .pipe($.flatten())
