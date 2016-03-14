@@ -157,7 +157,7 @@
       // relative to this video until the primary video ends. Then, an adjacent video will be
       // promoted to be the new primary video.
       self.primaryVideo = self.videos[video_id];
-      self.primaryVideo.buffering = false; // start playing immediately!
+      self.primaryVideo.buffering = true; // start playing immediately!
 
       self.addVideo(self.primaryVideo);
 
