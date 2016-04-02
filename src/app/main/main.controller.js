@@ -8,8 +8,12 @@
 
     /** @ngInject */
     
-    function MainController($anchorScroll, $location, $scope) {
+    function MainController($anchorScroll, $location, $scope, $state, TokenService) {
         var vm = this;
+
+        if (TokenService.getToken() && TokenService.getUser()) {
+          return $state.go('dashboard.discover');
+        }
 
         $scope.gotoExplore = function(){
             if($location.hash() !== 'explore') {
