@@ -25,20 +25,8 @@ h2 {
     flex-direction: row;
 }
 
-md-toolbar.md-coral-theme{
-    background-color: $coral;
-}
-
 .coral-bg {
     background-color: $coral !important;
-}
-
-.gray-bg {
-    background-color: $gray !important;
-}
-
-.skyblue-bg {
-    background-color: $skyblue !important;   
 }
 
 .black-color {
@@ -88,18 +76,15 @@ md-toolbar.md-coral-theme{
 }
 
 .content {
-    padding-bottom: 130px;/*height of the footer*/
+    padding-bottom: 140px; /*height of the footer*/
 }
 
 footer {
-    padding: 10px;
     background-color: $coral;
     color: white;
     width: 100%;
-    height: 130px;
+    height: 140px;
     position: absolute;
-    bottom:0;
-    left:0;
     
     h3 {
         -webkit-margin-before: 0 !important;
@@ -136,6 +121,20 @@ footer {
 #explore .md-button {
   color: white !important;
 }
+
+.ng-invalid.ng-dirty{
+  border-color: red !important;
+}
+
+.ng-valid.ng-dirty{
+  border-color: green !important;
+}
+
+.logo-banner{
+    max-width: 300px;
+}
+
+
 
 .wrapper1 {
     width:250px;
@@ -209,86 +208,5 @@ footer {
     background-repeat: no-repeat;
     background-size: contain;
 }
-
-.scale img {
-    width: 100%;
-    height: 100%;
-    display: inline-block;
-}
-
-
-
-.sampleVideos md-grid-list {
-  margin: 8px; }
-.sampleVideos .concert1 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+1");
-  background-size:cover;}
-.sampleVideos .concert2 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+2");
-background-size:cover;}
-.sampleVideos .concert3 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+3");
-background-size:cover;}
-.sampleVideos .concert4 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+4");
-background-size:cover;}
-.sampleVideos md-grid-tile {
-  transition: all 400ms ease-out 50ms; }
-
-.resize-cover {
-    max-height: 100%;
-    max-width: 100%
-}
-
-
-.ng-invalid.ng-dirty{
-  border-color: red !important;
-}
-
-.ng-valid.ng-dirty{
-  border-color: green !important;
-}
-
-.logo-banner{
-    max-width: 300px;
-}
-
-// Full screen mode
-@media screen and (min-width: 1024px) {
-
-  html, body {
-      overflow: auto;
-  }
-
-  .concert_bg {
-    background-image: url(../assets/images/wallpaper5.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-
-  .contain {
-    width: 50%;
-    margin: 50px auto;
-  }
-
-  .footer {
-      color: white;
-  }
-
-}
-
-
-//todelete
-
-
-.center {
-  margin: 0 auto;
-}
-//endtodelete
 
 // Yeoman generated stuff

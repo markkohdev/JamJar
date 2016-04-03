@@ -78,7 +78,7 @@ angular
           handleCallback(p, callback);
 
         return p;
-      },
+      }
   };
 
   return new APIService();
