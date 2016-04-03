@@ -29,10 +29,6 @@
             {
               state: 'dashboard.my_concerts',
               name: 'Concerts'
-            },
-            {
-              state: 'dashboard.my_playlists',
-              name: 'Playlists'
             }
         ];
     }

@@ -9,8 +9,6 @@
     /** @ngInject */
     
     function MainController($anchorScroll, $location, $scope) {
-        var vm = this;
-
         $scope.gotoExplore = function(){
             if($location.hash() !== 'explore') {
                 $location.hash('explore');   
