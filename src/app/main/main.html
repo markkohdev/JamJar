@@ -130,24 +130,28 @@
             </section>
         </div>      
         
-        
-        <div id="explore" ng-controller="VideoController">
-            <section>
-              <div layout="row">
-                  <h2 flex class="black-color">Check out some of our auto-stitched concert videos</h2>
-              </div>
-              <div layout="row">
-                  <div flex="25" layout="column">
-                      <div flex class="wrapper1">
-                          <div id="song1"></div>
-                      </div>
-                      <br>
-                      <div flex class="wrapper2">
-                          <div id="song2"></div>
-                      </div>
+        <nav class="main-nav">
+            <div class="nav-container">
+                <user-authentication></user-authentication>
+            </div>
+        </nav>
+
+        <div class="landing-content">
+            
+            <section class="presentation">
+                <h1>About JamJar</h1>
+                <p>
+                    Re-live the concert experience with JamJar! By combining crowdsourced concert videos, JamJar lets you replay live performances from anywhere in the crowd. Just post your concert videos to JamJar and we'll do the rest! JamJar provides a unique viewing experience that rivals being at the show – and best of all it’s free for everyone!
+                </p>
+            </section>
+            
+            <div ng-controller="VideoController">
+                <section class="sample">
+                  <div layout="row">
+                      <h2 flex>CHECKOUT OUR FEATURED JAMJAR</h2>
                   </div>
-                  <div flex="50" layout="column">
-                    <div flex>
+                  <div layout="row">
+                      <div flex layout="column">
                          <section class="videobox">
                             <div class="container">
                                 <div class="videoContentBox">
@@ -181,23 +185,10 @@
                                 </div>
                             </div>
                         </section>
-                    </div>
-                  </div>
-                  <div flex="25" layout="column">
-                      <div flex class="wrapper3">
-                          <div id="song3"></div>
-                      </div>
-                      <div flex class="wrapper4">
-                          <div id="song4"></div>
                       </div>
                   </div>
-              </div>
-              
-              <br>
-              
-              <md-button class="md-raised coral-bg">See more</md-button>
-          
-            </section>
+                </section>
+            </div>
         </div>
 
         <footer>

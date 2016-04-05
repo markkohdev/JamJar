@@ -1,29 +1,30 @@
-<div class="authenticationBox" ng-cloak="">
+<div class="authenticationBox">
     
-    <div ng-show="user.isSet(1)">
+    <div layout="column" ng-show="user.isSet(1)" layout-padding>
         <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()">
+            <br>
+
             <!-- TODO : this looks awful -->
-            <!--<div layout='row' ng-show="user.errorMessage">
+            <div layout='row' ng-show="user.errorMessage">
                 <h3 style='color: red'>ERROR : {{user.errorMessage}}</h2>
-            </div>-->
-            <div layout="row" layout-align="center">
-                <md-input-container>
-                    <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
-                </md-input-container>
-
-                <md-input-container>
-                    <input ng-model="user.login.password" type="password" placeholder="Password" ng-required="true">
-                </md-input-container>
-
-                <md-input-container>
-                    <md-button type="submit" class="md-raised coral-bg small-btn">Log In</md-button>
-
-                    <!--<div layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
-                        <md-button class="md-raised" ng-click="user.setTab(3)">Forgot Password</md-button>
-                        <md-button class="md-raised" ng-click="user.setTab(2)">Sign Up</md-button>
-                    </div>-->
-                </md-input-container>
             </div>
+            
+            <md-input-container class="md-block">
+                <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
+            </md-input-container>
+            
+            <md-input-container class="md-block">
+                <input ng-model="user.login.password" type="password" placeholder="Password" ng-required="true">
+            </md-input-container>
+
+            <md-input-container class="md-block">
+                <md-button type="submit" class="md-raised green-bg">Log In</md-button>
+            
+                <div layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
+                    <md-button class="md-raised" ng-click="user.setTab(3)">Forgot Password</md-button>
+                    <md-button class="md-raised" ng-click="user.setTab(2)">Sign Up</md-button>
+                </div>
+            </md-input-container>
         </form>
     </div>
     
