@@ -2,6 +2,10 @@
 .navbar {
     
     background-color: $coral !important;
+
+    .navbar-search {
+      color: black !important;
+    }
     
     .logo {
         max-width: 100px;
@@ -15,13 +19,13 @@
     }
     
     label {
-        color: white !important;   
+        color: white !important;
         font-weight: normal;
         font-size: 12px;
     }
     
     input {
-        color: white !important;   
+        color: black;
         font-weight: normal;
         font-size: 12px;
     }
@@ -48,4 +52,39 @@
         background-color: $coral !important;
         color: white !important;
     }
+}
+
+.navbar-search-results {
+
+  li {
+    border-bottom: 1px solid #ccc;
+    height: auto;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    white-space: normal;
+  }
+
+  .item-title-name {
+    padding-left: 5px;
+  }
+
+  li:last-child {
+    border-bottom-width: 0;
+  }
+
+  .item-title {
+    display: block;
+    line-height: 2;
+  }
+
+  .item-metadata {
+    display: block;
+    line-height: 2;
+  }
+
+  .item-title md-icon {
+    height: 18px;
+    width: 18px;
+  }
+
 }

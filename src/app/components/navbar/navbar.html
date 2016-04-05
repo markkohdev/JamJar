@@ -5,11 +5,30 @@
         </a>
         
         <span flex>
-            <form name="searchBar" ng-submit="vm.doSearch()">
-              <md-input-container class="md-block">
-                  <label>Search...</label>
-                  <input ng-model="vm.search">
-              </md-input-container>
+            <form name="searchBar" ng-submit="$event.preventDefault()">
+              <md-autocomplete class='navbar-search'
+                  md-search-text-change=""
+                  md-search-text="vm.searchText"
+                  md-items="item in vm.querySearch(vm.searchText)"
+                  md-item-text="item"
+                  md-min-length="1"
+                  md-menu-class="navbar-search-results"
+                  placeholder="Search...">
+                <md-item-template>
+                  <span class="item-title">
+                    <md-icon>{{item.icon}}</md-icon>
+                    <span class='item-title-name' md-highlight-text="vm.search" md-highlight-flags="^i"> {{item.name}} </span>
+                  </span>
+                  <span class="item-metadata">
+                    <span class="item-metastat" md-highlight-text="vm.search" md-highlight-flags="^i">
+                      {{item.details}}
+                    </span>
+                  </span>
+                </md-item-template>
+                <md-not-found>
+                  <span>no results found</span>
+                </md-not-found>
+              </md-autocomplete>
             </form>
         </span>
     </span>

@@ -49,18 +49,12 @@
             }            
         ];
 
-        vm.search = "";
-        vm.doSearch = function() {
-          console.log("Searching: ", vm.search);
-          SearchService.search(vm.search, function(err, resp) {
-            if (err) {
-              debugger
-              console.log(err);
-            }
+        vm.searchText = "";
 
-            console.log(resp);
-          });
-        };
+        vm.querySearch  = function(query) {
+          var promise = SearchService.search(vm.searchText);
+          return promise;
+        }
 
         vm.allPages = vm.pages.concat(vm.settings);
         
