@@ -23,6 +23,10 @@
 
         vm.concerts = {};
 
+        vm.concertArtists = function(concert) {
+          return _.map(concert.artists, 'name').join(", ");
+        };
+
 
         (function() {
           ConcertService.list(function(err, res) {
