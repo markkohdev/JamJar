@@ -5,10 +5,12 @@
         </a>
         
         <span flex>
-            <md-input-container class="md-block">
-                <label>Search...</label>
-                <input ng-model="search">
-            </md-input-container>
+            <form name="searchBar" ng-submit="vm.doSearch()">
+              <md-input-container class="md-block">
+                  <label>Search...</label>
+                  <input ng-model="vm.search">
+              </md-input-container>
+            </form>
         </span>
     </span>
     
