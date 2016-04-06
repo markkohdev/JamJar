@@ -16,7 +16,7 @@
     };
 
     /** @ngInject */
-    function UserController(AuthService, $state, $scope, $mdDialog, $mdMedia) {
+    function UserController(AuthService, $state, $scope, $mdDialog, $mdMedia, $window, $log) {
         var vm = this;
         vm.tab = 1;
         vm.authService = AuthService;
@@ -49,6 +49,8 @@
 
         vm.setTab = function(activeTab){
             vm.tab = activeTab;
+            $scope.$log = $log;
+            $scope.message = 'Hello World!';
         };
 
         vm.setError = function(err) {
@@ -65,7 +67,7 @@
             });
         };
 
-        $scope.showPrompt = function(ev) {
+        vm.showPrompt = function(ev) {
             // Appending dialog to document.body to cover sidenav in docs app
             var confirm = $mdDialog.prompt()
                   .title('What would you name your dog?')
@@ -81,6 +83,20 @@
                   $scope.status = 'You didn\'t name your dog.';
             });
         };
+        
+          $scope.openDialog = function(){
+            $mdDialog.show({
+              controller: function($scope, $mdDialog){
+                // do something with dialog scope
+              },
+              template: '<md-dialog aria-label="My Dialog">'+
+                            '<md-dialog-content class="sticky-container">Blah Blah' +
+                            '</md-dialog-content>' +
+                            '<md-button ng-click=close()>Close</md-button>' +
+                            '</md-dialog>',
+              targetEvent: event
+            });
+          };
         
         vm.signUp = function(){
             vm.authService.signUp(vm.signup, function(err, resp) {

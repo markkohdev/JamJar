@@ -1,20 +1,19 @@
 <div class="authenticationBox dialogdemoBasicUsage" id="popupContainer" ng-cloak="">
     
     <div ng-show="user.isSet(1)">
-        <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()">
-            <!-- TODO : this looks awful -->
-            <!--<div layout='row' ng-show="user.errorMessage">
-                <h3 style='color: red'>ERROR : {{user.errorMessage}}</h2>
-            </div>-->
-            
+        <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()">            
             <div layout="row" layout-align="center">
-                <md-button type="button" class="md-raised" ng-click="user.showPrompt($event)">Sign Up</md-button>
+                <md-button type="button" class="md-raised" ng-click="user.openDialog()">Sign Up</md-button>
                 
                 <div flex></div>
                 
-                <md-input-container>
-                    <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
-                </md-input-container>
+                <div layout="column">
+                    <md-input-container>
+                        <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
+                    </md-input-container>
+
+                    <div ng-show="user.errorMessage" class="error-msg left-align">Error: {{user.errorMessage}}</div>
+                </div>
 
                 <div layout="column">
                     <md-input-container>
@@ -37,9 +36,13 @@
                 
                 <div flex></div>
                 
-                <md-input-container>
-                    <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
-                </md-input-container>
+                <div layout="column">       
+                    <md-input-container>
+                        <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
+                    </md-input-container>
+
+                    <div ng-show="user.errorMessage" class="error-msg left-align">Error: {{user.errorMessage}}</div>
+                </div>
 
                 <md-button type="submit" class="md-raised coral-bg">Reset Password</md-button>
             </div>

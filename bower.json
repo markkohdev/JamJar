@@ -37,7 +37,7 @@
   "resolutions": {
     "jquery": "~2.1.4",
     "angular-sanitize": "~1.4.2",
-    "angular": "~1.4.2",
+    "angular": "~1.5.3",
     "waypoints": "~3.1.1",
     "angular-cookies": "~1.4.2"
   }
