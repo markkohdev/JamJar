@@ -16,6 +16,7 @@ angular
 
         clearToken: function() {
           localStorageService.remove('token');
+          localStorageService.remove('user');
         },
 
         onUnauthorized: function() {
