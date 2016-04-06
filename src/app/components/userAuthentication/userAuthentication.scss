@@ -8,18 +8,15 @@
     margin-left:auto;
     margin-right:auto;*/
     
-    .coral-bg {
-        background-color: $coral;
-        color: $white;
-    }
+    /*.md-button.md-small {
+        height: 30px;
+        line-height: 30px;
+        min-height: 30px;
+        vertical-align: top;
+        padding: 0 0;
+        margin: 5px;
+    }*/
     
-    .small-btn {
-        
-    }
-    
-    md-input-container.md-icon-float {
-        margin-top: -5px !important;
-    }
     
     label {
         color: white !important;
@@ -30,31 +27,29 @@
         font-weight: bold;
     }
     
-    md-input-container {
-        padding-bottom: 2px !important;
-        margin-right: 15px !important;
+    .forgot-link {
+        color: white;
+        margin-right: 15px;
+        font-size: 12px;
     }
     
-    md-input-container input {
-        margin-top: 25px !important;
+    .coral-bg {
+        background-color: $coral;
+        color: $white;
     }
     
     md-input-container .md-input {
         border-color: white !important;
-        line-height: 0 !important;
+        //line-height: 0 !important;
     }
     
-    md-input-container.md-icon-float > input {
-        padding-top: 2px !important;
+    md-input-container {
+        height: 30px;
+        margin: 5px 15px 2px 0px !important;
     }
     
-    md-input-container.md-icon-float > label {
-        margin-left: 0;
-    }
-    
-    md-input-container button { 
-        margin-top: 0px !important;
+    .md-button {
+        margin-left: 25px !important;
+        margin-right: 25px !important;
     }
 }
-
-

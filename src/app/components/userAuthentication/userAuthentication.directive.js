@@ -16,15 +16,15 @@
     };
 
     /** @ngInject */
-    function UserController(AuthService, $state) {
+    function UserController(AuthService, $state, $scope, $mdDialog, $mdMedia) {
         var vm = this;
-
         vm.tab = 1;
-
         vm.authService = AuthService;
         vm.$state = $state;
-
         vm.errorMessage = null;
+        
+        $scope.status = '  ';
+        $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
         var user = AuthService.getUser();
         var username = !!user ? user.username : '';
@@ -65,6 +65,23 @@
             });
         };
 
+        $scope.showPrompt = function(ev) {
+            // Appending dialog to document.body to cover sidenav in docs app
+            var confirm = $mdDialog.prompt()
+                  .title('What would you name your dog?')
+                  .textContent('Bowser is a common name.')
+                  .placeholder('dog name')
+                  .ariaLabel('Dog name')
+                  .targetEvent(ev)
+                  .ok('Okay!')
+                  .cancel('I\'m a cat person');
+            $mdDialog.show(confirm).then(function(result) {
+                  $scope.status = 'You decided to name your dog ' + result + '.';
+            }, function() {
+                  $scope.status = 'You didn\'t name your dog.';
+            });
+        };
+        
         vm.signUp = function(){
             vm.authService.signUp(vm.signup, function(err, resp) {
                 if (err) 

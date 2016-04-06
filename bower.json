@@ -10,7 +10,7 @@
     "jquery": "~2.1.4",
     "angular-resource": "~1.4.2",
     "angular-ui-router": "~0.2.15",
-    "angular-material": "~0.10.1",
+    "angular-material": "~1.0.7",
     "material-design-iconfont": "~0.0.2",
     "bootstrap": "~3.3.5",
     "angular-bootstrap": "*",

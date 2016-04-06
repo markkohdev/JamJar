@@ -113,86 +113,99 @@
         <footer>
             <footbar></footbar>
         </footer>
+    </md-content>
+</div>
 -->
-        <div class="header-wrap">
-            <header>
-                <object id="logo" data="../../assets/svgs/jamjar-logo-optimised.svg" type="image/svg+xml"></object>
-                <object id="logo-text" data="../../assets/svgs/jamjar-text-optimised.svg" type="image/svg+xml"></object>
 
-                <h2>RE-LIVE THE CONCERT EXPERIENCE</h2>
-            </header>
+<div class="header-wrap">
+    <header class="landing-header">
+        <object id="logo" data="../../assets/svgs/jamjar-logo-optimised.svg" type="image/svg+xml"></object>
+        <object id="logo-text" data="../../assets/svgs/jamjar-text-optimised.svg" type="image/svg+xml"></object>
 
-            <section class="video-bg">
-                <video autoplay loop>
-                    <source src="../../assets/videos/mia-bg.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-            </section>
-        </div>      
-        
-        <nav class="main-nav">
-            <div class="nav-container">
-                <user-authentication></user-authentication>
+        <h2>RE-LIVE THE CONCERT EXPERIENCE</h2>
+    </header>
+
+    <section class="video-bg">
+        <video autoplay loop>
+            <source src="../../assets/videos/mia-bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+</div>      
+
+<nav class="main-nav">
+    <div class="nav-container">
+        <user-authentication></user-authentication>
+    </div>
+</nav>
+
+<div class="landing-content">
+    <section class="presentation">
+        <h1>About JamJar</h1>
+        <p>
+            Re-live the concert experience with JamJar! By combining crowdsourced concert videos, JamJar lets you replay live performances from anywhere in the crowd. Just post your concert videos to JamJar and we'll do the rest! JamJar provides a unique viewing experience that rivals being at the show – and best of all it’s free for everyone!
+        </p>
+    </section>
+
+    <div ng-controller="VideoController">
+        <section class="sample">
+            <div layout="row">
+              <h2 flex>CHECKOUT OUR FEATURED JAMJAR</h2>
             </div>
-        </nav>
+            <div layout="row">
+              <div flex layout="column">
+                 <section class="videobox">
+                    <div class="container">
+                        <div class="videoContentBox">
+                            <div class="videogular-container">
+                                <videogular vg-player-ready="vm.onPlayerReady($API)" 
+                                            vg-complete="vm.onCompleteVideo()"
+                                            vg-theme="vm.config.theme">
+                                    <vg-media vg-src="vm.config.sources"
+                                              vg-tracks="vm.config.tracks">
+                                    </vg-media>
 
-        <div class="landing-content">
-            
-            <section class="presentation">
-                <h1>About JamJar</h1>
-                <p>
-                    Re-live the concert experience with JamJar! By combining crowdsourced concert videos, JamJar lets you replay live performances from anywhere in the crowd. Just post your concert videos to JamJar and we'll do the rest! JamJar provides a unique viewing experience that rivals being at the show – and best of all it’s free for everyone!
-                </p>
-            </section>
-            
-            <div ng-controller="VideoController">
-                <section class="sample">
-                  <div layout="row">
-                      <h2 flex>CHECKOUT OUR FEATURED JAMJAR</h2>
-                  </div>
-                  <div layout="row">
-                      <div flex layout="column">
-                         <section class="videobox">
-                            <div class="container">
-                                <div class="videoContentBox">
-                                    <div class="videogular-container">
-                                        <videogular vg-player-ready="vm.onPlayerReady($API)" 
-                                                    vg-complete="vm.onCompleteVideo()"
-                                                    vg-theme="vm.config.theme">
-                                            <vg-media vg-src="vm.config.sources"
-                                                      vg-tracks="vm.config.tracks">
-                                            </vg-media>
+                                    <vg-controls>
+                                        <vg-play-pause-button></vg-play-pause-button>
+                                        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                                        <vg-scrub-bar>
+                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        </vg-scrub-bar>
+                                        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                                        <vg-volume>
+                                            <vg-mute-button></vg-mute-button>
+                                            <vg-volume-bar></vg-volume-bar>
+                                        </vg-volume>
+                                        <vg-fullscreen-button></vg-fullscreen-button>
+                                    </vg-controls>
 
-                                            <vg-controls>
-                                                <vg-play-pause-button></vg-play-pause-button>
-                                                <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
-                                                <vg-scrub-bar>
-                                                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                                </vg-scrub-bar>
-                                                <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
-                                                <vg-volume>
-                                                    <vg-mute-button></vg-mute-button>
-                                                    <vg-volume-bar></vg-volume-bar>
-                                                </vg-volume>
-                                                <vg-fullscreen-button></vg-fullscreen-button>
-                                            </vg-controls>
-
-                                            <vg-overlay-play></vg-overlay-play>
-                                            <vg-buffering></vg-buffering>
-                                            <vg-poster vg-url='vm.config.plugins.poster'></vg-poster>
-                                        </videogular>
-                                    </div>
-                                </div>
+                                    <vg-overlay-play></vg-overlay-play>
+                                    <vg-buffering></vg-buffering>
+                                    <vg-poster vg-url='vm.config.plugins.poster'></vg-poster>
+                                </videogular>
                             </div>
-                        </section>
-                      </div>
-                  </div>
+                        </div>
+                    </div>
                 </section>
+              </div>
             </div>
-        </div>
+        </section>
+    </div>
+</div>
 
-        <footer>
-            <footbar></footbar>
-        </footer>
-<!--    </md-content>
-</div>-->
+<footer>
+    <footbar></footbar>
+</footer>
+
+<script>
+    $(function(){
+        $(window).scroll(function() {
+            if ($(this).scrollTop() >= 550) {
+                $('nav.main-nav').addClass('stickytop');
+            }
+            else {
+                $('nav.main-nav').removeClass('stickytop');
+            }
+        });
+    });
+</script>
