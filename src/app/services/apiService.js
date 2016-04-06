@@ -15,12 +15,12 @@ angular
     }
 
     function handleCallback (p, callback) {
-        p.error(function (err, status, headers, config) {
-          callback(err, null, status, headers, config);
-        });
-
-        p.success(function (data, status, headers, config) {
-          callback(null, data, status, headers, config);
+        p.then(
+        function successCallback(response) {
+          callback(null, response.data, response.status, response.headers, response.config);
+        },
+        function errorCallback(response) {
+          callback(response.data, null, response.status, response.headers, response.config);
         });
     }
 
