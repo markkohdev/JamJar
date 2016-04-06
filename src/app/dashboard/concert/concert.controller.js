@@ -12,23 +12,41 @@
         vm.concert = {};
         vm.concert_graph = {};
 
-        ConcertService.getConcertById(vm.concert_id, function(err, res) {
-          if (err) {
-            debugger
-            return alert('error');
-          }
+        vm.getConcertArtists = function() {
+          return _.map(vm.concert.artists, 'name').join(", ");
+        }
 
-          vm.concert = res;
+        ConcertService.getConcertById(vm.concert_id, function(err, res) {
+            if (err) {
+                debugger
+                return alert('error');
+            }
+
+            vm.concert = res;
         });
 
         ConcertService.getGraphById(vm.concert_id, function(err, res) {
-          if (err) {
-            debugger
-            return alert('error');
-          }
+            if (err) {
+                debugger
+                return alert('error');
+            }
 
-          vm.concert_graph = res;
+            vm.concert_graph = res;
+            
+            _.each(vm.concert_graph.graph, function(jamjar){
+                var video_ids = _.keys(jamjar.adjacencies);
+                
+                jamjar.thumbnails = _.map(video_ids, function(videoId){
+                    var video = _.find(vm.concert_graph.concert.videos, {id:parseInt(videoId)});
+                    if(video){
+                        return video.thumb_src;
+                    }
+                });
+            });
+            
+            console.log(vm.concert_graph);
         });
 
+        
     }
 })();

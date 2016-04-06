@@ -1,20 +1,25 @@
 .authenticationBox {
-    background-color: rgba(139,139,131,0.5);
+    /*background-color: rgba(139,139,131,0.5);
     width: 400px;
     height: 300px;
     padding: 10px 5px 10px 5px;
     margin: 10px;
     border-radius: 25px;
     margin-left:auto;
-    margin-right:auto;
+    margin-right:auto;*/
     
-    .green-bg {
-        background-color: $green;
-    }
+    /*.md-button.md-small {
+        height: 30px;
+        line-height: 30px;
+        min-height: 30px;
+        vertical-align: top;
+        padding: 0 0;
+        margin: 5px;
+    }*/
+    
     
     label {
-        color: white !important;   
-        font-weight: bold;
+        color: white !important;
     }
     
     input {
@@ -22,9 +27,29 @@
         font-weight: bold;
     }
     
+    .forgot-link {
+        color: white;
+        margin-right: 15px;
+        font-size: 12px;
+    }
+    
+    .coral-bg {
+        background-color: $coral;
+        color: $white;
+    }
+    
     md-input-container .md-input {
         border-color: white !important;
+        //line-height: 0 !important;
+    }
+    
+    md-input-container {
+        height: 30px;
+        margin: 5px 15px 2px 0px !important;
+    }
+    
+    .md-button {
+        margin-left: 25px !important;
+        margin-right: 25px !important;
     }
 }
-
-

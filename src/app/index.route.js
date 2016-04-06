@@ -6,7 +6,7 @@
     .config(routerConfig);
 
   /** @ngInject */
-  function routerConfig($stateProvider, $urlRouterProvider, $locationProvider) {
+  function routerConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('landing', {
         url: '/',
@@ -50,7 +50,7 @@
         templateUrl: 'app/dashboard/player/player.html',
         controller: 'JamJarPlayerController',
         controllerAs: 'vm',
-        reloadOnSearch: false,
+        reloadOnSearch: false
       })
       .state('dashboard.upload', {
         url: '/upload',
@@ -68,12 +68,6 @@
         url: '/myconcerts',
         templateUrl: 'app/dashboard/my_videos/my_concerts.html',
         controller: 'MyConcertsController',
-        controllerAs: 'vm'
-      })
-      .state('dashboard.my_playlists', {
-        url: '/myplaylists',
-        templateUrl: 'app/dashboard/my_videos/my_playlists.html',
-        controller: 'MyPlaylistsController',
         controllerAs: 'vm'
       });
 

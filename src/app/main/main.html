@@ -1,12 +1,12 @@
-<div layout="vertical" layout-fill ng-cloak>
+ <!--<div layout="vertical" layout-fill ng-cloak>
     
     <md-content layout-fill>
-        
+       
         <header id="top" class="header">
             <div class="text-vertical-center">
                 <img class="logo-banner" ng-src="assets/images/jamjar_text_logo/jamjar_text_transparent_400x155.png" alt="logo"/>
 
-                <h2>RELIVE THE CONCERT EXPERIENCE</h2>
+                <h2>RE-LIVE THE CONCERT EXPERIENCE</h2>
 
                 <div layout="row" layout-sm="column" layout-xs="column">
                     <div flex="10"></div>
@@ -42,7 +42,7 @@
         </header>
         
         <div id="explore" ng-controller="VideoController">
-            <section class="jumbotron">
+            <section>
               <div layout="row">
                   <h2 flex class="black-color">Check out some of our auto-stitched concert videos</h2>
               </div>
@@ -109,45 +109,103 @@
           
             </section>
         </div>
-        
-        
-<!--
-        <div class="sampleVideos">
-          <md-grid-list
-                md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
-                md-row-height-gt-md="1:1" md-row-height="2:2"
-                md-gutter="12px" md-gutter-gt-sm="8px" >
-            <md-grid-tile class="concert1"
-                md-rowspan="3" md-colspan="2" md-colspan-sm="1">
-              <md-grid-tile-footer>
-                <h3>Concert 1</h3>
-              </md-grid-tile-footer>
-            </md-grid-tile>
-            <md-grid-tile class="concert2"
-                md-rowspan="1" md-colspan="2">
-              <md-grid-tile-footer>
-                <h3>Concert2</h3>
-              </md-grid-tile-footer>
-            </md-grid-tile>
-            <md-grid-tile class="concert3"
-                md-rowspan="3" md-colspan="2">
-              <md-grid-tile-footer>
-                <h3>Concert3</h3>
-              </md-grid-tile-footer>
-            </md-grid-tile>
-            <md-grid-tile class="concert4"
-                md-rowspan="2" md-colspan="2" md-colspan-sm="1">
-              <md-grid-tile-footer>
-                <h3>Concert4</h3>
-              </md-grid-tile-footer>
-            </md-grid-tile>
-          </md-grid-list>
-        </div>        
--->
 
         <footer>
             <footbar></footbar>
         </footer>
-    
     </md-content>
 </div>
+-->
+
+<div class="header-wrap">
+    <header class="landing-header">
+        <object id="logo" data="../../assets/svgs/jamjar-logo-optimised.svg" type="image/svg+xml"></object>
+        <object id="logo-text" data="../../assets/svgs/jamjar-text-optimised.svg" type="image/svg+xml"></object>
+
+        <h2>RE-LIVE THE CONCERT EXPERIENCE</h2>
+    </header>
+
+    <section class="video-bg">
+        <video autoplay loop>
+            <source src="../../assets/videos/mia-bg.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+</div>      
+
+<nav class="main-nav">
+    <div class="nav-container">
+        <user-authentication></user-authentication>
+    </div>
+</nav>
+
+<div class="landing-content">
+    <section class="presentation">
+        <h1>About JamJar</h1>
+        <p>
+            Re-live the concert experience with JamJar! By combining crowdsourced concert videos, JamJar lets you replay live performances from anywhere in the crowd. Just post your concert videos to JamJar and we'll do the rest! JamJar provides a unique viewing experience that rivals being at the show – and best of all it’s free for everyone!
+        </p>
+    </section>
+
+    <div ng-controller="VideoController">
+        <section class="sample">
+            <div layout="row">
+              <h2 flex>CHECKOUT OUR FEATURED JAMJAR</h2>
+            </div>
+            <div layout="row">
+              <div flex layout="column">
+                 <section class="videobox">
+                    <div class="container">
+                        <div class="videoContentBox">
+                            <div class="videogular-container">
+                                <videogular vg-player-ready="vm.onPlayerReady($API)" 
+                                            vg-complete="vm.onCompleteVideo()"
+                                            vg-theme="vm.config.theme">
+                                    <vg-media vg-src="vm.config.sources"
+                                              vg-tracks="vm.config.tracks">
+                                    </vg-media>
+
+                                    <vg-controls>
+                                        <vg-play-pause-button></vg-play-pause-button>
+                                        <vg-time-display>{{ currentTime | date:'mm:ss' }}</vg-time-display>
+                                        <vg-scrub-bar>
+                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                                        </vg-scrub-bar>
+                                        <vg-time-display>{{ timeLeft | date:'mm:ss' }}</vg-time-display>
+                                        <vg-volume>
+                                            <vg-mute-button></vg-mute-button>
+                                            <vg-volume-bar></vg-volume-bar>
+                                        </vg-volume>
+                                        <vg-fullscreen-button></vg-fullscreen-button>
+                                    </vg-controls>
+
+                                    <vg-overlay-play></vg-overlay-play>
+                                    <vg-buffering></vg-buffering>
+                                    <vg-poster vg-url='vm.config.plugins.poster'></vg-poster>
+                                </videogular>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+              </div>
+            </div>
+        </section>
+    </div>
+</div>
+
+<footer>
+    <footbar></footbar>
+</footer>
+
+<script>
+    $(function(){
+        $(window).scroll(function() {
+            if ($(this).scrollTop() >= 550) {
+                $('nav.main-nav').addClass('stickytop');
+            }
+            else {
+                $('nav.main-nav').removeClass('stickytop');
+            }
+        });
+    });
+</script>

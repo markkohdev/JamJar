@@ -42,6 +42,6 @@ angular
 
           callback(null, resp);
         });
-      },
+      }
   }
 });
