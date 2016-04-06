@@ -10,10 +10,6 @@
         margin-right: 50px;
     }
     
-    .md-menu {
-        padding: 8px 15px !important;
-    }
-    
     label {
         color: white !important;   
         font-weight: normal;
@@ -27,15 +23,15 @@
     }
     
     md-input-container {
-        padding-bottom: 15px !important;
+        margin: 0 !important;
+    }
+    
+    md-input-container .md-errors-spacer {
+        min-height: 0; //Removes default space allocated for input's error msg
     }
     
     .md-input {
         border-color: white !important;
-    }
-
-    a.active {
-        border-bottom: 1px solid #fff;
     }
     
     a {
@@ -43,9 +39,18 @@
         display: inline-block;
     }
     
+    a.active {
+        border-bottom: 1px solid #fff;
+    }
+    
     .md-button {
         padding: 0px 5px;
         background-color: $coral !important;
         color: white !important;
+        margin: 0px 8px !important;
+    }
+    
+    .md-menu {
+        padding: 0 15px !important;
     }
 }
