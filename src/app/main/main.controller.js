@@ -18,14 +18,14 @@
           return $state.go('dashboard.discover');
         }
 
-        $scope.gotoExplore = function(){
+        /*$scope.gotoExplore = function(){
             if($location.hash() !== 'explore') {
                 $location.hash('explore');   
             }
             else {
                 $anchorScroll();   
             }
-        };
+        };*/
     }
     
     function VideoController($sce, $timeout) {

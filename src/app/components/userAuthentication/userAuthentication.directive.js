@@ -11,20 +11,18 @@
       restrict: 'E',
       templateUrl: 'app/components/userAuthentication/userAuthentication.html',
       controller: UserController,
-      controllerAs: 'user',
+      controllerAs: 'vm',
       bindToController: true
     };
 
     /** @ngInject */
-    function UserController(AuthService, $state, $scope, $mdDialog, $mdMedia, $window, $log) {
+    function UserController(AuthService, $state, $mdDialog, $mdMedia, $window) {
         var vm = this;
         vm.tab = 1;
         vm.authService = AuthService;
         vm.$state = $state;
         vm.errorMessage = null;
-        
-        $scope.status = '  ';
-        $scope.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
+        vm.customFullscreen = $mdMedia('xs') || $mdMedia('sm');
 
         var user = AuthService.getUser();
         var username = !!user ? user.username : '';
@@ -34,23 +32,13 @@
             password: ''
         };
 
-        vm.signup = {
-            username: '',
-            password: '',
-            confirm: '',
-            email: '',
-            first_name: '',
-            last_name: ''
-        };
-
         vm.isSet = function(checkTab){
             return vm.tab === checkTab;   
         };
 
         vm.setTab = function(activeTab){
             vm.tab = activeTab;
-            $scope.$log = $log;
-            $scope.message = 'Hello World!';
+            vm.errorMessage = null;
         };
 
         vm.setError = function(err) {
@@ -66,45 +54,28 @@
                 vm.$state.go('dashboard.discover');
             });
         };
-
-        vm.showPrompt = function(ev) {
-            // Appending dialog to document.body to cover sidenav in docs app
-            var confirm = $mdDialog.prompt()
-                  .title('What would you name your dog?')
-                  .textContent('Bowser is a common name.')
-                  .placeholder('dog name')
-                  .ariaLabel('Dog name')
-                  .targetEvent(ev)
-                  .ok('Okay!')
-                  .cancel('I\'m a cat person');
-            $mdDialog.show(confirm).then(function(result) {
-                  $scope.status = 'You decided to name your dog ' + result + '.';
-            }, function() {
-                  $scope.status = 'You didn\'t name your dog.';
-            });
-        };
         
-          $scope.openDialog = function(){
+        vm.showSignUp = function(ev) {
+            var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+            
             $mdDialog.show({
-              controller: function($scope, $mdDialog){
-                // do something with dialog scope
-              },
-              template: '<md-dialog aria-label="My Dialog">'+
-                            '<md-dialog-content class="sticky-container">Blah Blah' +
-                            '</md-dialog-content>' +
-                            '<md-button ng-click=close()>Close</md-button>' +
-                            '</md-dialog>',
-              targetEvent: event
+                controller: DialogController,
+                templateUrl: 'app/components/userAuthentication/signup.tmpl.html',
+                parent: angular.element(document.body),
+                targetEvent: ev,
+                clickOutsideToClose: false,
+                fullscreen: useFullScreen
+            })
+            .then(function(answer) {
+                
+            }, function() {
+                
             });
-          };
-        
-        vm.signUp = function(){
-            vm.authService.signUp(vm.signup, function(err, resp) {
-                if (err) 
-                    return vm.setError(err);
-
-                vm.authService.setUser(resp.user);
-                vm.$state.go('dashboard.confirm');
+            
+            vm.$watch(function() {
+                return $mdMedia('xs') || $mdMedia('sm');
+            }, function(wantsFullScreen) {
+                vm.customFullscreen = (wantsFullScreen === true);
             });
         };
 
@@ -114,9 +85,51 @@
       
         return vm;
     }
+      
+    function DialogController(AuthService, $scope, $mdDialog, $window) {
+        var vm = $scope;
+        vm.authService = AuthService;
+        vm.emailSent = false;
+        vm.isDisabled = false;
+        
+        var user = AuthService.getUser();
+        
+        vm.signup = {
+            first_name: '',
+            last_name: '',
+            email: '',
+            username: '',
+            password: '',
+            confirm: ''
+        };
+        
+        vm.hide = function() {
+            $mdDialog.hide();
+        };
+        
+        vm.cancel = function() {
+            $mdDialog.cancel();
+        };
+        
+        vm.answer = function(answer) {
+            $mdDialog.hide(answer);
+        };
+        
+        vm.signUp = function(){
+            vm.authService.signUp(vm.signup, function(err, resp) {
+                if (err) {
+                    return vm.setError(err);
+                }
+                
+                vm.emailSent = true;
+                vm.isDisabled = true;
+                vm.authService.setUser(resp.user);
+                //vm.$state.go('dashboard.confirm');
+            });
+        };
+    }
 
     return directive;
-
   }
 
 })();
