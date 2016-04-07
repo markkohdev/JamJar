@@ -1,91 +1,50 @@
-<div class="authenticationBox">
-    
-    <div layout="column" ng-show="user.isSet(1)" layout-padding>
-        <form name="logInForm" ng-submit="logInForm.$valid && user.logIn()">
-            <br>
-
-            <!-- TODO : this looks awful -->
-            <div layout='row' ng-show="user.errorMessage">
-                <h3 style='color: red'>ERROR : {{user.errorMessage}}</h2>
-            </div>
-            
-            <md-input-container class="md-block">
-                <input ng-model="user.login.username" type="text" placeholder="Username" ng-required="true">
-            </md-input-container>
-            
-            <md-input-container class="md-block">
-                <input ng-model="user.login.password" type="password" placeholder="Password" ng-required="true">
-            </md-input-container>
-
-            <md-input-container class="md-block">
-                <md-button type="submit" class="md-raised green-bg">Log In</md-button>
-            
-                <div layout="row" layout-sm="column" layout-align="space-between center" layout-wrap>
-                    <md-button class="md-raised" ng-click="user.setTab(3)">Forgot Password</md-button>
-                    <md-button class="md-raised" ng-click="user.setTab(2)">Sign Up</md-button>
-                </div>
-            </md-input-container>
-        </form>
-    </div>
-    
-    <div layout="column" ng-show="user.isSet(2)" layout-padding>
-        <form name="signUpForm" ng-submit="signUpForm.$valid && user.signUp()">
-            <div layout="row">
-              <md-input-container class="md-block">
-                  <input ng-model="user.signup.first_name" type="text" placeholder="First Name" ng-required="true">
-              </md-input-container>
-
-              <md-input-container class="md-block">
-                  <input ng-model="user.signup.last_name" type="text" placeholder="Last Name" ng-required="true">
-              </md-input-container>
-            </div>
-
-            <div layout="row">
-              <md-input-container class="md-block">
-                  <input ng-model="user.signup.username" type="text" placeholder="Username" ng-required="true">
-              </md-input-container>
-              
-              <md-input-container class="md-block">
-                  <input ng-model="user.signup.email" type="email" placeholder="Email" ng-required="true">
-              </md-input-container>
-            </div>
-            
-            <div layout="row">
-              <md-input-container class="md-block">
-                  <input ng-model="user.signup.password" type="password" placeholder="Password" ng-required="true">
-              </md-input-container>
-
-              <md-input-container class="md-block">
-                  <input ng-model="user.signup.confirm" type="password" placeholder="Confirm Password" ng-required="true">
-              </md-input-container>
-            </div>
-
-            <md-input-container class="md-block">
-                <md-button type="submit" class="md-raised green-bg">Sign Up</md-button>
+<div class="authenticationBox" id="popupContainer" ng-cloak="">
+    <div ng-show="vm.isSet(1)">
+        <form name="logInForm" ng-submit="logInForm.$valid && vm.logIn()">            
+            <div layout="row" layout-align="center">
+                <md-button type="button" class="md-raised" ng-click="vm.showSignUp($event)">Sign Up</md-button>
                 
-                <div layout="row" layout-align="end center" layout-wrap>
-                    <md-button class="md-raised" ng-click="user.setTab(1)">Log In</md-button>
-                </div>
-            </md-input-container>
+                <div flex></div>
+                
+                <div layout="column">
+                    <md-input-container>
+                        <input ng-model="vm.login.username" type="text" placeholder="Username" ng-required="true">
+                    </md-input-container>
 
+                    <div ng-show="vm.errorMessage" class="error-msg left-align">Error: {{vm.errorMessage}}</div>
+                </div>
+
+                <div layout="column">
+                    <md-input-container>
+                        <input ng-model="vm.login.password" type="password" placeholder="Password" ng-required="true">
+                    </md-input-container>
+
+                    <a href="" ng-click="vm.setTab(3)" class="forgot-link right-align">Forgot?</a>
+                </div>
+                
+                <md-button type="submit" class="md-raised coral-bg">Log In</md-button>
+            </div>
         </form>
     </div>
     
-    <div layout="column" ng-show="user.isSet(3)" layout-padding>
-        <form name="resetPwForm" ng-submit="resetPwForm.$valid && user.resetPw()">
-            <md-input-container class="md-block">
-                <input ng-model="user.email" type="email" placeholder="Email" ng-required="true">
-            </md-input-container>
+    <div ng-show="vm.isSet(3)">
+        <form name="resetPwForm" ng-submit="resetPwForm.$valid && vm.resetPw()">
+            <div layout="row" layout-align="center">
+                <md-button type="button" class="md-raised" ng-click="vm.showSignUp($event)">Sign Up</md-button>
+                <md-button type="button" class="md-raised" ng-click="vm.setTab(1)">Log In</md-button>
+                
+                <div flex></div>
+                
+                <div layout="column">       
+                    <md-input-container>
+                        <input ng-model="vm.email" type="email" placeholder="Email" ng-required="true">
+                    </md-input-container>
 
-            <md-input-container class="md-block">
-                <md-button type="submit" class="md-raised green-bg">Reset Password</md-button>
-            
-                <div layout="row" layout-align="end center" layout-wrap>
-                    <md-button class="md-raised" ng-click="user.setTab(2)">Sign Up</md-button>
-                    <md-button class="md-raised" ng-click="user.setTab(1)">Log In</md-button>
+                    <div ng-show="vm.errorMessage" class="error-msg left-align">Error: {{vm.errorMessage}}</div>
                 </div>
-            </md-input-container>
+
+                <md-button type="submit" class="md-raised coral-bg">Reset Password</md-button>
+            </div>
         </form>
-    </div>
-    
+    </div>    
 </div>

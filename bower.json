@@ -10,7 +10,7 @@
     "jquery": "~2.1.4",
     "angular-resource": "~1.4.2",
     "angular-ui-router": "~0.2.15",
-    "angular-material": "~0.10.1",
+    "angular-material": "~1.0.7",
     "material-design-iconfont": "~0.0.2",
     "bootstrap": "~3.3.5",
     "angular-bootstrap": "*",
@@ -37,7 +37,7 @@
   "resolutions": {
     "jquery": "~2.1.4",
     "angular-sanitize": "~1.4.2",
-    "angular": "~1.4.2",
+    "angular": "~1.5.3",
     "waypoints": "~3.1.1",
     "angular-cookies": "~1.4.2"
   }

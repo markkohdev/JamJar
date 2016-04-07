@@ -5,6 +5,14 @@
     }
 }
 
+.wrapper {
+    min-height: 100%;
+    position: relative;
+    /*height: auto !important;
+    height: 100%;
+    margin: 0 auto -170px;*/
+}
+
 .block{
     margin: 0px 50px 20px 0px;
 }
@@ -22,8 +30,8 @@
 
 .dark-theme{
     color: white;
-    padding: 30px 10%; 
     background-color: $darkgray;
+    padding: 30px 10%; 
 }
 
 .light-theme{

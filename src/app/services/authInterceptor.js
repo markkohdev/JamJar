@@ -18,7 +18,7 @@ angular
         TokenService.onUnauthorized();
         // handle the case where the user is not authenticated
       }
-      return response || $q.when(response);
+      return $q.reject(response);
     }
   };
 });

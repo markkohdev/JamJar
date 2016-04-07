@@ -15,7 +15,7 @@ angular
 
           callback(null, resp);
         });
-      },
+      }
   }
 });
 

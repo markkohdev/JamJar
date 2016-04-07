@@ -1,0 +1,19 @@
+.upload-details {    
+    input {
+        font-family: 'Muli', sans-serif;
+    }
+    
+    md-input-container.md-icon-float > label {
+        margin-left: 0;
+    }
+    
+    .artist-search {
+        font-family: 'Muli', sans-serif;
+        color: $black;
+    }
+
+    .venue-search {
+        font-family: 'Muli', sans-serif;
+        color: $black;
+    }
+}

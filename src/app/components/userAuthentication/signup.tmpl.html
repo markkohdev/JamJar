@@ -1,0 +1,57 @@
+<md-dialog aria-label="Sign Up" class="sign-up-form" ng-cloak>
+    <form name="signUpForm" ng-submit="signUpForm.$valid && signUp()">
+        <md-toolbar class="dialog-toolbar">
+            <div class="md-toolbar-tools">
+                <h2>Sign Up</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="assets/images/btns/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="row">
+                    <md-input-container class="md-block">
+                        <input ng-model="signup.first_name" type="text" placeholder="First Name" ng-required="true">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <input ng-model="signup.last_name" type="text" placeholder="Last Name" ng-required="true">
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container class="md-block">
+                        <input ng-model="signup.email" type="email" placeholder="Email" ng-required="true">
+                    </md-input-container>
+                    
+                    <md-input-container class="md-block">
+                        <input ng-model="signup.username" type="text" placeholder="Username" ng-required="true">
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container class="md-block">
+                        <input ng-model="signup.password" type="password" placeholder="Password" ng-required="true">
+                    </md-input-container>
+
+                    <md-input-container class="md-block">
+                        <input ng-model="signup.confirm" type="password" placeholder="Confirm Password" ng-required="true">
+                    </md-input-container>
+                </div>
+                
+                <div ng-if="emailSent" id="emailSent">
+                    <p layout="row" layout-align="center center" class="md-padding">
+                        Awesome! An activation email is coming your way.
+                    </p>
+                </div>
+            </div>
+        </md-dialog-content>
+        
+        <md-dialog-actions layout="row" class="dialog-btn-band">
+            <md-button type="submit" ng-if="!isDisabled" ng-disabled="isDisabled" class="md-raised coral-bg submit-btn">Submit</md-button>
+            <md-button type="button" ng-if="isDisabled" ng-click="cancel()" class="md-raised okay-btn">Okay</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>
