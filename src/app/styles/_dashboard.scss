@@ -1,4 +1,46 @@
-.dashboard{
+.dashboard {
+    font-size: 12px;
+    
+    h1 {
+        color: white;
+        padding-bottom: 16px;
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 1.3em;
+        vertical-align: middle;
+    }
+    
+    h2 {
+        font-size: 15px;
+    }
+    
+    h3 {
+        color: white;
+        margin: 0 0 1px 0;
+        padding: 0 0 2px 0;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3em;
+        vertical-align: middle;
+        /*white-space: nowrap;
+        word-wrap: normal;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow: ellipsis;*/
+    }
+    
+    h4 {
+        color: $mediumgray;
+        margin: 0;
+        padding: 0;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 1.3em;
+        vertical-align: top;
+        white-space: normal;
+        word-wrap: break-word;
+    }
+    
     a {
         color: white !important;
         text-decoration: none !important;
@@ -14,52 +56,19 @@
 }
 
 .block{
-    margin: 0px 50px 20px 0px;
+    margin: 0px 50px 40px 0px;
 }
 
-.rect{
-    margin-bottom: 15px;
+.thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
 }
 
-.circle{
-    width: 150px; 
-    height: 150px; 
-    margin-bottom: 15px; 
-    border-radius: 50%
-}
-
-.dark-theme{
-    color: white;
-    background-color: $darkgray;
-    padding: 30px 10%; 
-}
-
-.light-theme{
-    color: black;
-    background-color: $lightgray;
-    
-    h3{
-        color: black !important;
-    }
-}
-
-.my-videos-page {
-    padding: 30px 10%; 
+.video-list {
+    margin: 0 5%;
 }
 
 .upload-page {
     padding: 20px !important;
-}
-
-.short-bar-div {
-    padding: 0px 10%;
-}
-
-.long-bar-div {
-    padding: 0px 5%;
-}
-
-.collection-bar {
-    border-bottom: medium solid $darkgray;
-    margin-bottom: 3px;
 }

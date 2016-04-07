@@ -118,7 +118,6 @@
                 vm.emailSent = true;
                 vm.isDisabled = true;
                 vm.authService.setUser(resp.user);
-                //vm.$state.go('dashboard.confirm');
             });
         };
     }
