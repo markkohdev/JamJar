@@ -40,6 +40,6 @@ angular
 
       getUser: function() {
         return localStorageService.get('user');
-      },
+      }
   }
 });

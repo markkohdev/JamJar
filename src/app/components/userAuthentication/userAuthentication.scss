@@ -1,23 +1,4 @@
-.authenticationBox {
-    /*background-color: rgba(139,139,131,0.5);
-    width: 400px;
-    height: 300px;
-    padding: 10px 5px 10px 5px;
-    margin: 10px;
-    border-radius: 25px;
-    margin-left:auto;
-    margin-right:auto;*/
-    
-    /*.md-button.md-small {
-        height: 30px;
-        line-height: 30px;
-        min-height: 30px;
-        vertical-align: top;
-        padding: 0 0;
-        margin: 5px;
-    }*/
-    
-    
+.authenticationBox {    
     label {
         color: white !important;
     }
@@ -27,6 +8,11 @@
         font-weight: bold;
     }
     
+    .error-msg {
+        color: red;
+        font-size: 12px;
+    }
+    
     .forgot-link {
         color: white;
         margin-right: 15px;
@@ -34,13 +20,12 @@
     }
     
     .coral-bg {
-        background-color: $coral;
-        color: $white;
+        background-color: $coral !important;
+        color: $white !important;
     }
     
     md-input-container .md-input {
         border-color: white !important;
-        //line-height: 0 !important;
     }
     
     md-input-container {
@@ -53,3 +38,31 @@
         margin-right: 25px !important;
     }
 }
+
+.sign-up-form {    
+    .md-button.submit-btn {
+        margin-right:20px;
+        color: white !important;
+    }
+    
+    .md-button.okay-btn {
+        margin-right:20px;
+    }
+    
+    md-input-container {
+        margin-right: 15px !important;
+    }
+    
+    md-input-container .md-errors-spacer {
+        min-height: 0; //Removes default space allocated for input's error msg
+    }
+    
+    .dialog-toolbar, .dialog-btn-band {
+        background-color: $extradarkgray;
+    }
+    
+    label, input {
+        color: black !important;
+    }
+}
+
