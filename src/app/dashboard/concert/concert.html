@@ -2,13 +2,13 @@
     
   <div layout="row" class="small-padding">
     <div layout="column">
-      <img ng-src="{{vm.concert.videos[0].artists[0].images[2].url}}" class="circle" />
+      <img ng-src="{{vm.concert.videos[0].artists[0].images[2].url}}" class="circle thumbnail" />
     </div>
       
     <div layout="column" layout-align="end start">
-      <div>{{vm.getConcertArtists()}}</div>
-      <div>{{vm.concert.venue.name}}</div>
-      <div>{{vm.concert.date}}</div>
+      <h3>{{vm.getConcertArtists()}}</h3>
+      <h3>{{vm.concert.venue.name}}</h3>
+      <h3>{{vm.concert.date}}</h3>
     </div>
   </div>
 
@@ -29,7 +29,7 @@
             <div class="short-bar-div"><div class="collection-white-bar"></div></div>
             <div class="long-bar-div"><div class="collection-white-bar"></div></div> 
             <img ng-src="{{jamjar.thumbnails[0][256]}}" class="rect thumbnail"/>            
-            <div>{{jamjar.count}} videos</div>
+            <h3>{{jamjar.count}} videos</h3>
         </a>
       </div>
     </div>
@@ -49,9 +49,9 @@
     <div ng-repeat="video in vm.concert.videos" flex="20">
       <div layout="column" class="block">
         <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
-        <div>{{video.name}}</div>
-        <div>Uploaded by: <a href="#">{{video.user.username}}</a></div>
-        <div>{{video.views}} Views</div>
+        <h3>{{video.name}}</h3>
+        <h4>Uploader: <a href="#">{{video.user.username}}</a></h4>
+        <h4>Views: {{video.views}}</h4>
       </div>
     </div>
   </div>
@@ -70,9 +70,9 @@
     <div ng-repeat="video in vm.concert.videos" flex="20">
       <div layout="column" class="block">
         <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
-        <div>{{video.name}}</div>
-        <div>Uploaded by: <a href="#">{{video.user.username}}</a></div>
-        <div>{{video.views}} Views</div>
+        <h3>{{video.name}}</h3>
+        <h4>Uploader: <a href="#">{{video.user.username}}</a></h4>
+        <h4>Views: {{video.views}}</h4>
       </div>
     </div>
   </div>
