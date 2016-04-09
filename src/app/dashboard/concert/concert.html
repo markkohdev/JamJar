@@ -20,12 +20,12 @@
   </div>
 
   <div layout="row" layout-wrap>
-    <div ng-repeat="jamjar in vm.concert_graph.graph" ng-if="jamjar.count > 1" flex="25">
+    <div ng-repeat="jamjar in vm.concert.graph" ng-if="jamjar.count > 1" flex="25">
       <div layout="column">
         <a ui-sref="dashboard.player({concert_id: vm.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
             <div class="short-bar-div"><div class="collection-jamjar-bar"></div></div>
             <div class="long-bar-div"><div class="collection-jamjar-bar"></div></div> 
-            <img ng-src="{{jamjar.thumbnails[0][256]}}" class="video-thumbnail"/>            
+            <img ng-src="{{vm.getThumbForJamJar(jamjar.start_id)}}" class="video-thumbnail"/>
             <div>{{jamjar.count}} videos</div>
         </a>
       </div>

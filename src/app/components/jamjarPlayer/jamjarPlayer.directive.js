@@ -141,8 +141,7 @@
       self.concert = resp;
 
       // encapsulate videos in Video class
-      _.each(self.concert.concert.videos, function(video) {
-        //
+      _.each(self.concert.videos, function(video) {
         // these subgraphs are disjoint, so find the first subgraph
         // containing this video  -- it's the only one
         var graph = _.find(self.concert.graph, function(subgraph) {
