@@ -1,62 +1,64 @@
 <div class='dark-theme'>
   <div layout="row">
     <div layout="column">
-      <img src="http://fakeimg.pl/100x100/?text=Concert+{{vm.concert_id}}" style="width: 100px; border-radius: 50%" />
+      <img ng-src="{{vm.concert.videos[0].artists[0].images[2].url}}" class="circle" />
     </div>
-    <div layout="column" layout-align="end start" style="margin-left: 20px">
-      <div style="color: white">Marky Mark &amp; The Funky Bunch</div>
-      <div style="color: white">{{vm.concert.venue.name}}</div>
-      <div style="color: white">{{vm.concert.date}}</div>
+    <div layout="column" layout-align="end start">
+      <div>{{vm.getConcertArtists()}}</div>
+      <div>{{vm.concert.venue.name}}</div>
+      <div>{{vm.concert.date}}</div>
     </div>
   </div>
 
-  <div layout="row" style='margin: 40px auto; background-color: #303030; padding: 15px'>
+  <div layout="row" class="concert-section">
     <div layout="column" flex="20">
-      <span style="color: white; font-size: 1.2em">JamJars</span>
+      <span>JamJars</span>
     </div>
     <div layout="column" flex="80" layout-align="center end">
-      <span style="color: white; font-size: 1.2em;">See more</span>
+      <span>See more</span>
     </div>
   </div>
 
   <div layout="row" layout-wrap>
-    <div ng-repeat="jamjar in vm.concert_graph.graph" ng-if="jamjar.count > 1" flex="25" style="margin-bottom: 30px">
+    <div ng-repeat="jamjar in vm.concert.graph" ng-if="jamjar.count > 1" flex="25">
       <div layout="column">
         <a ui-sref="dashboard.player({concert_id: vm.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
-          <img ng-src="http://fakeimg.pl/256x256/?text=JamJar+{{vm.concert.id}}/{{jamjar.start_id}}" style="width: 256px; height: 256px; margin-bottom: 10px" />
+            <div class="short-bar-div"><div class="collection-jamjar-bar"></div></div>
+            <div class="long-bar-div"><div class="collection-jamjar-bar"></div></div> 
+            <img ng-src="{{vm.getThumbForJamJar(jamjar.start_id)}}" class="video-thumbnail"/>
+            <div>{{jamjar.count}} videos</div>
         </a>
-        <div style="color: white">{{jamjar.count}} Videos</div>
       </div>
     </div>
   </div>
 
 
-  <div layout="row" style='margin: 40px auto; background-color: #303030; padding: 15px'>
+  <div layout="row" class="concert-section">
     <div layout="column" flex="20">
-      <span style="color: white; font-size: 1.2em">All Videos</span>
+      <span>All Videos</span>
     </div>
     <div layout="column" flex="80" layout-align="center end">
-      <span style="color: white; font-size: 1.2em;">See more</span>
+      <span>See more</span>
     </div>
   </div>
 
   <div layout="row" layout-wrap>
-    <div ng-repeat="video in vm.concert.videos" flex="25" style="margin-bottom: 30px">
+    <div ng-repeat="video in vm.concert.videos" flex="25">
       <div layout="column">
-        <img ng-src="{{video.thumb_src[256]}}" style="width: 256px; height: 256px; margin-bottom: 10px" />
-        <div style="color: white">{{video.artists[0].name}}</div>
-        <div style="color: white">Recorded by: <a href="#">{{video.user.username}}</a></div>
-        <div style="color: white">{{video.views}} Views</div>
+        <img ng-src="{{video.thumb_src[256]}}" class="video-thumbnail"/>
+        <div>{{video.name}}</div>
+        <div>Uploaded by: <a href="#">{{video.user.username}}</a></div>
+        <div>{{video.views}} Views</div>
       </div>
     </div>
   </div>
 
-  <div layout="row" style='margin: 40px auto; background-color: #303030; padding: 15px'>
+  <div layout="row" class="concert-section">
     <div layout="column" flex="20">
-      <span style="color: white; font-size: 1.2em">My Videos</span>
+      <span>My Videos</span>
     </div>
     <div layout="column" flex="80" layout-align="center end">
-      <span style="color: white; font-size: 1.2em;">See more</span>
+      <span>See more</span>
     </div>
   </div>
 </div>

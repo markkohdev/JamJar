@@ -2,56 +2,15 @@
 
 @import 'colors';
 @import 'fonts';
-@import 'dashboard';
 
 // JamJar styles!
 
-html, body {
-    font-family: 'Muli', sans-serif;
-    width: 100%;
-    min-height: 100% !important;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-h2 {
-    color: white;
-    font-family: 'Muli';
-    font-style: normal;
-    font-weight: 500;
-}
-
-[layout=row] {
-    flex-direction: row;
-}
-
-md-toolbar.md-coral-theme{
-    background-color: $coral;
-}
-
-.coral-bg {
-    background-color: $coral !important;
-}
-
-.gray-bg {
-    background-color: $gray !important;
-}
-
-.skyblue-bg {
-    background-color: $skyblue !important;   
-}
-
-.black-color {
-    color: black !important;
-}
-
+/*
 .header {
     display: table;
     position: relative;
     width: 100%;
-    height: 700px;
-    //height: 100%;
+    height: auto;
     background: url(../assets/images/concert_bg/concert_coral_web_bg_1094x729.png) no-repeat center center scroll;
     -webkit-background-size: cover;
     -moz-background-size: cover;
@@ -79,28 +38,33 @@ md-toolbar.md-coral-theme{
         margin-right:auto;
     }
 }
+*/
 
-.wrapper {
-    min-height: 100%;
-    position: relative;
-    /*height: auto !important;
+
+
+/* SETUP */
+html, body {
+    font-family: 'Muli', sans-serif;
+    /*width: 100%;
+    min-height: 100% !important;
     height: 100%;
-    margin: 0 auto -170px;*/
+    margin: 0;
+    padding: 0;*/
 }
 
-.content {
-    padding-bottom: 130px;/*height of the footer*/
+h1, h2 {
+    font-family: 'Comfortaa', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    color: white;
 }
 
 footer {
-    padding: 10px;
     background-color: $coral;
     color: white;
     width: 100%;
-    height: 130px;
+    height: 140px;
     position: absolute;
-    bottom:0;
-    left:0;
     
     h3 {
         -webkit-margin-before: 0 !important;
@@ -123,10 +87,20 @@ footer {
     }
 }
 
+
+/* FORM INPUTS */
+.ng-invalid.ng-dirty{
+  border-color: red !important;
+}
+
+.ng-valid.ng-dirty{
+  border-color: green !important;
+}
+
+/* CUSTOM VIEWS */
 .text-vertical-center {
     display: table-cell;
     text-align: center;
-    //vertical-align: middle;
     padding-top: 50px;
 }
 
@@ -134,10 +108,181 @@ footer {
     text-align: left;
 }
 
-#explore .md-button {
-  color: white !important;
+.right-align{
+    text-align: right;
 }
 
+.coral-bg {
+    background-color: $coral !important;
+}
+
+.black-color {
+    color: black !important;
+}
+
+.content {
+    padding-bottom: 140px; /*height of the footer*/
+}
+
+.logo-banner{
+    max-width: 300px;
+}
+
+/* LANDING PAGE - HEADER */
+.header-wrap {
+  height: 90vh;
+}
+
+.video-bg {
+  height: 90vh;
+  width: 100%;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: url(../assets/images/stripe-25.png) 0 0 repeat;
+  background-color: rgba(241,95,78,0.5); //coral tint
+}
+.video-bg video {
+  display: none;
+  opacity: .6;
+}
+
+header.landing-header {
+  height: 90%;
+  position: relative;
+  z-index: 2;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+  /*-webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;*/
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+    
+    #logo {
+      width: 10em;
+      -webkit-animation: load-scale 2.5s ease-out 0s 1;
+              animation: load-scale 2.5s ease-out 0s 1;
+    }
+
+    #logo-text {
+      width: 15em;
+      -webkit-animation: load-scale 2.5s ease-out 0s 1;
+              animation: load-scale 2.5s ease-out 0s 1;
+    }
+    
+    h2 {
+      text-align: center;
+      opacity: 0;
+      -webkit-animation: load-popup 2.5s ease-out 2.6s 1 forwards;
+              animation: load-popup 2.5s ease-out 2.6s 1 forwards;
+    }
+}
+
+/* LANDING PAGE - STICKY NAV */
+nav.main-nav {
+    background: $extradarkgray;
+    height:55px;
+    z-index:200;
+    margin:0 auto;
+    width:100%;
+    /*position:fixed;
+    top:0;
+    left:0;
+    right:0;*/
+    text-align: center;
+    font-size:12px;
+    text-decoration:none;
+    display:inline-block;
+    padding:7px 0;
+    color:$white;
+}
+
+.nav-container {
+    display: inline;
+    margin:0 auto;
+}
+
+nav.main-nav.stickytop {
+    position:fixed;
+    top:0;
+}
+
+@media all and (min-width: 360px) and (max-width: 480px) {
+    .nav-container {
+        margin:0 auto;
+        width:50%;
+    }
+}
+
+@media screen and (max-width: 480px) { 
+    .nav-container {
+        width:92%;
+    }
+}
+
+/* LANDING PAGE - ABOUT */
+section.presentation {
+    padding: 100px 70px;
+    background: white;
+    //background: url(../assets/images/wallpaper/whiteCloudBg.jpg) no-repeat center center scroll;
+    text-align: center;
+    
+    h1 {
+        position: relative;
+        top: 0;
+        left: 0;
+        display: block;
+        padding-bottom: 25px;
+        margin-bottom: 15px;
+        font: 400 1em;
+        letter-spacing: .5em;
+        text-transform: uppercase;
+        color: black;
+        border-bottom: 3px dotted $coral;
+        text-decoration: none;
+    }
+    
+    p {
+        display: block;
+        width: 100%;
+        max-width: 750px;
+        margin: 30px auto 0;
+        font: 400 1em/28px;
+        color: black;
+    }
+}
+
+/* LANDING PAGE - SAMPLE VIDEO SECTION */
+section.sample {
+    background: url(../assets/images/wallpaper/darkCloudBg.jpg) no-repeat center center scroll;
+    color: $white;
+    font: 400 1em;
+    letter-spacing: .5em;
+    padding: 50px 0px 100px 0px;
+    
+    h2 {
+        text-align: center;
+        padding-bottom: 30px;
+        margin-bottom: 15px;
+        text-decoration: none;
+    }
+}
+
+
+/* VIDEO PLACEHOLDERS */
 .wrapper1 {
     width:250px;
     height:200px;
@@ -211,90 +356,208 @@ footer {
     background-size: contain;
 }
 
-.scale img {
+
+/************/
+/** TABLET **/
+/************/
+@media screen and (min-width: 768px) {
+  .header-wrap {
+    height: 768px;
     width: 100%;
-    height: 100%;
-    display: inline-block;
-}
-
-
-
-.sampleVideos md-grid-list {
-  margin: 8px; }
-.sampleVideos .concert1 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+1");
-  background-size:cover;}
-.sampleVideos .concert2 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+2");
-background-size:cover;}
-.sampleVideos .concert3 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+3");
-background-size:cover;}
-.sampleVideos .concert4 {
-  background-image: url("http://fakeimg.pl/350x200/?text=Song+4");
-background-size:cover;}
-.sampleVideos md-grid-tile {
-  transition: all 400ms ease-out 50ms; }
-
-.resize-cover {
-    max-height: 100%;
-    max-width: 100%
-}
-
-
-.ng-invalid.ng-dirty{
-  border-color: red !important;
-}
-
-.ng-valid.ng-dirty{
-  border-color: green !important;
-}
-
-.logo-banner{
-    max-width: 300px;
-}
-
-// Full screen mode
-@media screen and (min-width: 1024px) {
-
-  html, body {
-      overflow: auto;
   }
 
-  .concert_bg {
-    background-image: url(../assets/images/wallpaper5.jpg);
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  .video-bg {
+    height: auto;
+    width: 100vw;
+    overflow: hidden;
+  }
+  .video-bg video {
+    display: block;
+    width: 1280px   !important;
+    height: auto   !important;
   }
 
-  .contain {
-    width: 50%;
-    margin: 50px auto;
+  header.landing-header {
+      height: 90%;
+      
+      #logo {
+        width: 15em;
+        margin-top: 5em;
+      }
+      
+      h2 {
+        text-align: center;
+        //font-size: 24px;
+        margin-top: 0;
+        margin-bottom: .75em;
+      }
   }
-
-  .footer {
-      color: white;
-  }
-
 }
 
 
-//todelete
+/*********************/
+/** COMPUTER SCREEN **/
+/*********************/
+@media screen and (min-width: 1280px) {
+  .header-wrap {
+    height: 90vh;
+  }
 
+  .video-bg {
+    height: 90%;
+    width: 100%;
+    overflow: hidden;
+  }
+  .video-bg video {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
 
-.center {
-  margin: 0 auto;
+  header.landing-header {
+      height: 90%;
+      
+      #logo {
+        width: 15em;
+        margin-top: 5em;
+      }
+      
+      h2 {
+        text-align: center;
+        //font-size: 42px;
+        margin-top: 0;
+        margin-bottom: .75em;
+      }
+  }
 }
-//endtodelete
+
+/***************/
+/** ANIMATIONS **/
+/***************/
+
+@-webkit-keyframes load-scale {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes load-scale {
+  0% {
+    opacity: 0;
+    -webkit-transform: scale(0);
+            transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@-webkit-keyframes load-spin {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+    -webkit-transform: rotate(180deg) scale(0.8);
+            transform: rotate(180deg) scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(360deg) scale(1);
+            transform: rotate(360deg) scale(1);
+  }
+}
+
+@keyframes load-spin {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0;
+    -webkit-transform: rotate(180deg) scale(0.8);
+            transform: rotate(180deg) scale(0.8);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: rotate(360deg) scale(1);
+            transform: rotate(360deg) scale(1);
+  }
+}
+
+@-webkit-keyframes load-popup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+            transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@keyframes load-popup {
+  0% {
+    opacity: 0;
+    -webkit-transform: translateY(-20px);
+            transform: translateY(-20px);
+  }
+
+  100% {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
+}
+
+@-webkit-keyframes load-bop {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
+@keyframes load-bop {
+  0% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+
+  50% {
+    -webkit-transform: scale(1.05);
+            transform: scale(1.05);
+  }
+
+  100% {
+    -webkit-transform: scale(1);
+            transform: scale(1);
+  }
+}
+
 
 // Yeoman generated stuff
-@import 'jumbotron';
-@import 'material-icons';
-@import 'dashboard';
-@import 'videogular';
-@import 'playlist';

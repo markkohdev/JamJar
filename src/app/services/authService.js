@@ -7,8 +7,6 @@ angular
 
     return {
       logIn: function(data, callback) {
-        var service = this;
-
         APIService.postPath('auth/login/', data, function(err, resp) {
           if (err) {
             TokenService.clearToken();
@@ -21,8 +19,6 @@ angular
       },
 
       signUp: function(data, callback) {
-        var service = this;
-
         APIService.postPath('auth/signup/', data, function(err, resp) {
           if (err) return callback(err);
 
@@ -31,8 +27,6 @@ angular
       },
 
       activate: function(data, callback) {
-        var service = this;
-
         APIService.postPath('auth/activate/', data, function(err, resp) {
           if (err) return callback(err);
 
@@ -41,15 +35,11 @@ angular
       },
 
       setUser: function(user) {
-        var service = this;
-
         localStorageService.set('user', user);
       },
 
       getUser: function() {
-        var service = this;
-
         return localStorageService.get('user');
-      },
+      }
   }
 });

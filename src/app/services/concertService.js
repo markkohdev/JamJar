@@ -27,13 +27,7 @@ angular
       },
 
       getGraphById: function(id, callback) {
-
-        var endpoint = service.model + "/" + id + "/graph/";
-        APIService.getPath(endpoint, function(err, resp) {
-          if (err) return callback(err);
-
-          callback(null, resp);
-        });
+        APIService.get(service.model, id, callback);
       },
 
       getOrCreateConcert: function(data, callback) {
@@ -42,6 +36,6 @@ angular
 
           callback(null, resp);
         });
-      },
+      }
   }
 });

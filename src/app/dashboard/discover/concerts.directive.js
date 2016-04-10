@@ -21,7 +21,11 @@
     function ConcertsController(ConcertService) {
         var vm = this;
 
-        vm.concerts = {};
+        vm.concerts = [];
+
+        vm.concertArtists = function(concert) {
+          return _.map(concert.artists, 'name').join(", ");
+        };
 
 
         (function() {
@@ -29,7 +33,6 @@
             if (err) { return alert('error')}
 
             vm.concerts = res;
-            console.log(vm.concerts);
           });
 
         })();
