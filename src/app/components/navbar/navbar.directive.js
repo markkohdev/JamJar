@@ -18,7 +18,7 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController($mdDialog) {
+    function NavbarController($mdDialog, $state, TokenService) {
         var vm = this;
       
         vm.isCollapsed = false;
@@ -41,13 +41,28 @@
         vm.settings = [
             {
                 state: 'settings.account',
-                name: 'Account'
+                name: 'Account',
+
             },
             {
-                state: 'settings.logout',
-                name: 'Log Out'
+                name: 'Log Out',
+                onClick: function() {
+                  TokenService.clearToken();
+                  $state.go('landing');
+                }
             }            
         ];
+
+        vm.handleClick = function(item) {
+          if (item.state) {
+            $state.go(item.state);
+          } else if (item.onClick) {
+            item.onClick();
+          } else {
+            console.error('bad instruction for item: ', item);
+          }
+
+        };
         
         vm.allPages = vm.pages.concat(vm.settings);
         
