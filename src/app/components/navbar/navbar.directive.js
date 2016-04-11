@@ -18,7 +18,7 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController($mdDialog) {
+    function NavbarController($mdDialog, SearchService) {
         var vm = this;
       
         vm.isCollapsed = false;
@@ -48,7 +48,14 @@
                 name: 'Log Out'
             }            
         ];
-        
+
+        vm.searchText = "";
+
+        vm.querySearch  = function(query) {
+          var promise = SearchService.search(vm.searchText);
+          return promise;
+        }
+
         vm.allPages = vm.pages.concat(vm.settings);
         
         var originatorEv;
