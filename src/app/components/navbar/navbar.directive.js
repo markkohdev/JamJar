@@ -18,7 +18,7 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController($mdDialog, $state, TokenService) {
+    function NavbarController($mdDialog, $state, TokenService, SearchService) {
         var vm = this;
       
         vm.isCollapsed = false;
@@ -63,7 +63,13 @@
           }
 
         };
-        
+        vm.searchText = "";
+
+        vm.querySearch  = function(query) {
+          var promise = SearchService.search(vm.searchText);
+          return promise;
+        }
+
         vm.allPages = vm.pages.concat(vm.settings);
         
         var originatorEv;
