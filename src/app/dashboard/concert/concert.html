@@ -23,12 +23,13 @@
   </div>
 
   <div layout="row" layout-wrap class="video-list">
-    <div ng-repeat="jamjar in vm.concert_graph.graph" ng-if="jamjar.count > 1" flex="20">
+    <div ng-repeat="jamjar in jamjar in vm.concert.graph" ng-if="jamjar.count > 1" flex="20">
       <div layout="column" class="block">
         <a ui-sref="dashboard.player({concert_id: vm.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
             <div class="short-bar-div"><div class="collection-white-bar"></div></div>
             <div class="long-bar-div"><div class="collection-white-bar"></div></div> 
             <img ng-src="{{jamjar.thumbnails[0][256]}}" class="rect thumbnail"/>            
+            <img ng-src="{{vm.getThumbForJamJar(jamjar.start_id)}}" class="rect thumbnail"/>
             <h3>{{jamjar.count}} videos</h3>
         </a>
       </div>
@@ -39,7 +40,6 @@
     <div layout="column" flex="20">
       <span>All Videos</span>
     </div>
-      
     <div layout="column" flex="80" layout-align="center end">
       <span>See more</span>
     </div>
@@ -60,12 +60,10 @@
     <div layout="column" flex="20">
       <span>My Videos</span>
     </div>
-      
     <div layout="column" flex="80" layout-align="center end">
       <span>See more</span>
     </div>
   </div>
-    
   <div layout="row" layout-wrap class="video-list">
     <div ng-repeat="video in vm.concert.videos" flex="20">
       <div layout="column" class="block">
