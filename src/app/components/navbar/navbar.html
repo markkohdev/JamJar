@@ -45,7 +45,7 @@
                 </md-button>
                 <md-menu-content width="2">
                     <md-menu-item ng-repeat="item in vm.settings">
-                        <md-button ui-sref="{{item.state}}"><!-- ng-click="vm.announceClick($index)">-->
+                        <md-button ng-click="vm.handleClick(item)">
                             <div layout="row">
                                 <p flex>
                                     {{item.name}}
@@ -65,7 +65,7 @@
                 </md-button>
                 <md-menu-content width="2">
                     <md-menu-item ng-repeat="item in vm.allPages">
-                        <md-button ui-sref="{{item.state}}">
+                        <md-button ng-click="vm.handleClick(item)">
                             <div layout="row">
                                 <p flex>
                                     {{item.name}}
