@@ -18,7 +18,7 @@
     return directive;
 
     /** @ngInject */
-    function NavbarController($mdDialog, SearchService) {
+    function NavbarController($mdDialog, $state, TokenService, SearchService) {
         var vm = this;
       
         vm.isCollapsed = false;
@@ -44,10 +44,23 @@
                 name: 'Account'
             },
             {
-                state: 'settings.logout',
-                name: 'Log Out'
-            }            
+                name: 'Log Out',
+                onClick: function() {
+                  TokenService.clearToken();
+                  $state.go('landing');
+                }
+            }
         ];
+
+        vm.handleClick = function(item) {
+          if (item.state) {
+            $state.go(item.state);
+          } else if (item.onClick) {
+            item.onClick();
+          } else {
+            console.error('bad instruction for item: ', item);
+          }
+        };
 
         vm.searchText = "";
 
