@@ -29,8 +29,8 @@
               name: 'Discover'
             },
             {
-              state: 'dashboard.my_videos',
-              name: 'My Videos'
+              state: 'dashboard.profile.videos',
+              name: 'Profile'
             },
             {
               state: 'dashboard.upload',

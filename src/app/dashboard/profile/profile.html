@@ -1,0 +1,13 @@
+<md-toolbar class="sub-navbar" layout="row" layout-align="center center">
+    <span flex="initial"></span>
+    
+    <span flex="30" layout="row" layout-align="center center">
+        <md-button ng-repeat="page in vm.pages" ng-click="vm.switchTo(page)" ng-class="{active: vm.page == page.name}">
+            {{page.name}}
+        </md-button>
+    </span>
+    
+    <span flex="5" flex="nogrow"></span>
+</md-toolbar>
+
+<div ui-view></div>

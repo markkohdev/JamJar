@@ -5,8 +5,10 @@
         .controller('MyConcertsController', MyConcertsController);
     
     /** @ngInject */
-    function MyConcertsController($sce, $timeout) {
+    function MyConcertsController($stateParams) {
         var vm = this;
-        vm.videos = _.range(8);
+
+        vm.profile = $stateParams.profile;
+        vm.concerts = vm.profile.concerts;
     }
 })();
