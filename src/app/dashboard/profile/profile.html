@@ -1,13 +1,29 @@
-<md-toolbar class="sub-navbar" layout="row" layout-align="center center">
+<!-- <md-toolbar class="sub-navbar" layout="row" layout-align="center center">
     <span flex="initial"></span>
-    
+
     <span flex="30" layout="row" layout-align="center center">
         <md-button ng-repeat="page in vm.pages" ng-click="vm.switchTo(page)" ng-class="{active: vm.page == page.name}">
             {{page.name}}
         </md-button>
     </span>
-    
-    <span flex="5" flex="nogrow"></span>
-</md-toolbar>
 
-<div ui-view></div>
+    <span flex="5" flex="nogrow"></span>
+</md-toolbar> -->
+
+<md-content>
+    <md-tabs md-dynamic-height md-border-bottom md-selected="vm.selectedTab">
+        <md-tab label="My Videos">
+            <my-videos profile="vm.profile"></my-videos>
+        </md-tab>
+
+        <md-tab label="My Concerts">
+            <h1 class="md-display-2">Tab Two</h1>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+        </md-tab>
+
+    </md-tabs>
+</md-content>
+<br/>
+{{vm.profile}}
+
+<!-- <div ui-view></div> -->

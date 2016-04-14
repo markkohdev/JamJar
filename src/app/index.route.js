@@ -61,16 +61,16 @@
       })
       .state('dashboard.profile.videos', {
         url: '/videos',
-        templateUrl: 'app/dashboard/profile/videos.html',
-        controller: 'MyVideosController',
-        params: { profile: {} },
+        templateUrl: 'app/dashboard/profile/profile.html',
+        controller: 'MyProfileController',
+        params: { tab: 0 },
         controllerAs: 'vm'
       })
       .state('dashboard.profile.concerts', {
         url: '/concerts',
-        templateUrl: 'app/dashboard/profile/concerts.html',
-        controller: 'MyConcertsController',
-        params: { profile: {} },
+        templateUrl: 'app/dashboard/profile/profile.html',
+        controller: 'MyProfileController',
+        params: { tab:1 },
         controllerAs: 'vm'
       });
 

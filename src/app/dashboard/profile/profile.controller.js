@@ -21,6 +21,8 @@
             }
         ];
 
+        vm.selectedTab = $state.params.tab || 0;
+
         vm.page = vm.pages[0].name;
 
         vm.switchTo = function(page) {
