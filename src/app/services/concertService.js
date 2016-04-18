@@ -4,12 +4,12 @@ angular
   .module('jamjar')
   .factory('ConcertService', function(APIService) {
     var service = this;
-
     service.model = 'concerts';
+    
+    var showJamJar = false;
 
     return {
       getConcertById: function(id, callback) {
-
         APIService.get(service.model, id, function(err, resp) {
           if (err) return callback(err);
 
@@ -18,7 +18,6 @@ angular
       },
 
       list: function(callback) {
-
         APIService.list(service.model, function(err, resp) {
           if (err) return callback(err);
 
@@ -36,6 +35,14 @@ angular
 
           callback(null, resp);
         });
+      },
+        
+      setJamJar: function() {
+        showJamJar = !showJamJar;
+      },
+
+      getJamJar: function() {
+        return showJamJar;
       }
   }
 });

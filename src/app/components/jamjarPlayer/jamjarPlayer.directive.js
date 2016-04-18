@@ -4,39 +4,85 @@
 
   angular
     .module('jamjar')
-    .directive('jamjarPlayer', jamjarPlayer);
-
-  /** @ngInject */
-  function jamjarPlayer() {
-    var directive = {
-      restrict: 'E',
-      templateUrl: 'app/components/jamjarPlayer/jamjarPlayer.html',
-      controller: JamJarPlayerController,
-      controllerAs: 'player',
-      bindToController: true
-    };
+    .directive('jamjarPlayer', jamjarPlayer)
+    .directive('jamjarButton', jamjarButton)
+    .directive('jamjarPlugin', jamjarPlugin);
 
     /** @ngInject */
-    function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
-      var vm = this;
+    function jamjarPlayer() {
+        var directive = {
+          restrict: 'E',
+          templateUrl: 'app/components/jamjarPlayer/jamjarPlayer.html',
+          controller: JamJarPlayerController,
+          controllerAs: 'player',
+          bindToController: true
+        };
 
-      vm.$stateParams = $stateParams;
+        /** @ngInject */
+        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
+          var vm = this;
 
-      // this will be a factory with DI
-      vm.jamjar = new JamJar(ConcertService, $sce);
-      vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+          vm.$stateParams = $stateParams;
+
+          // this will be a factory with DI
+          vm.jamjar = new JamJar(ConcertService, $sce);
+          vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+        }
+
+        return directive;
     }
-
-    return directive;
-
-  }
-
+  
+    function jamjarButton (ConcertService) {
+        var directive = {
+            restrict: "E",
+            require: "^videogular",
+            template: "<div class='iconButton' ng-click='ConcertService.setJamJar()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
+            link: function(scope, elem, attrs, API, ConcertService) {
+                scope.API = API;
+                scope.ConcertService = ConcertService;
+            },
+            controller: JamJarBtnController,
+            controllerAs: 'jjb',
+            bindToController: true
+        }
+        
+        function JamJarBtnController(ConcertService) {
+            var vm = this;
+            vm.showJamJar = ConcertService.getJamJar();
+        }
+        
+        return directive;
+    }
+    
+    function jamjarPlugin(ConcertService, VG_STATES) {
+        var directive = {
+            restrict: "E",
+            require: "^videogular",
+            templateUrl: 'app/components/jamjarPlayer/jamjarOverlay.tmpl.html',
+            link: function(scope, elem, attrs, API, ConcertService) {
+                scope.API = API;
+                scope.ConcertService = ConcertService;
+            },
+            controller: JamJarPluginController,
+            controllerAs: 'jjp',
+            bindToController: true
+        }
+        
+        function JamJarPluginController() {
+            var vm = this;
+            vm.showJamJar = ConcertService.getJamJar();
+        }
+        
+        return directive;
+    }
+    
   function Video(video, edges, $sce) {
     var self = this;
 
     self.$sce = $sce;
     self.video = video;
     self.API = null;
+    self.showJamJar = false;
     self.edges = edges;
 
     self.buffering = true;

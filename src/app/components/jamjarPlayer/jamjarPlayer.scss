@@ -1,34 +1,105 @@
 .jamjar-player {
   //width: 512px;
-  height: auto;
-  background-color: #000;
+    background-color: #000;
 
-  .player-sidebar {
-    color: white;
-    width: 100%;
-    height: 512px;
-    overflow-y: scroll;
-    overflow: scroll;
+    .player-sidebar {
+        color: white;
 
-    .player-thumbnail {
-      max-width: 100%;
-      background: rgba(0,255,255, 0.5);
+        .player-thumbnail {
+            max-width: 100%;
+            background: rgba(0,255,255, 0.5);
+        }
+
+        .player-thumbnail-info {
+            position:relative;
+            top:-30px;
+            height: 30px;
+            width: 100%;
+            color: white;
+            text-align: center;
+            line-height: 30px;
+            background-color: rgba(0,0,0,0.5)
+        }
+
+        //.player-thumbnail-disabled {
+        //  content: "";
+        //  display: block;
+        //}
     }
-
-    .player-thumbnail-info {
-      position:relative;
-      top:-30px;
-      height: 30px;
-      width: 100%;
-      color: white;
-      text-align: center;
-      line-height: 30px;
-      background-color: rgba(0,0,0,0.5)
-    }
-
-    //.player-thumbnail-disabled {
-    //  content: "";
-    //  display: block;
-    //}
-  }
 }
+
+.videogular-container {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    overflow: hidden;
+}
+
+/* Custom layer */
+videogular div.jamjar-layer {
+    position: absolute;
+    display: block;
+    z-index: 50;
+    top: 0;
+}
+
+videogular div.jamjar-layer img {
+    width: 500px;
+    height: auto;
+    padding-left: 20px;
+    padding-top: 20px;
+    opacity: 0.5;
+}
+
+/* Custom button */
+videogular jamjar-button {
+    display: table-cell;
+    width: 50px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+}
+
+videogular jamjar-button a,
+videogular jamjar-button a:hover,
+videogular jamjar-button a:visited {
+    color: white;
+    text-decoration: none;
+}
+
+/*
+@media (min-width: 1200px) {
+    .videogular-container {
+        width: 1170px;
+        height: 658.125px;
+    }
+
+    .videogular-container.audio {
+        width: 1170px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    .videogular-container {
+        width: 940px;
+        height: 528.75px;
+    }
+
+    .videogular-container.audio {
+        width: 940px;
+        height: 50px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    .videogular-container {
+        width: 728px;
+        height: 409.5px;
+    }
+
+    .videogular-container.audio {
+        width: 728px;
+        height: 50px;
+    }
+}*/
