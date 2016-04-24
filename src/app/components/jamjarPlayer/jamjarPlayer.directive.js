@@ -36,7 +36,7 @@
         var directive = {
             restrict: "E",
             require: "^videogular",
-            template: "<div class='iconButton' ng-click='ConcertService.setJamJar()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
+            template: "<div class='iconButton' ng-click='jjb.setJamJarOverlay()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
             link: function(scope, elem, attrs, API, ConcertService) {
                 scope.API = API;
                 scope.ConcertService = ConcertService;
@@ -48,7 +48,9 @@
         
         function JamJarBtnController(ConcertService) {
             var vm = this;
-            vm.showJamJar = ConcertService.getJamJar();
+            
+            //vm.overlay = new Overlay();
+            //vm.showJamJar = overlay.setJamJarOverlay();
         }
         
         return directive;
@@ -70,10 +72,27 @@
         
         function JamJarPluginController() {
             var vm = this;
-            vm.showJamJar = ConcertService.getJamJar();
+            
+            //vm.overlay = new Overlay();
+            //vm.showJamJar = overlay.getJamJarOverlay();
         }
         
         return directive;
+    }
+    
+    function Overlay($sce) {
+        var self = this;
+        var showJamJarOverlay = false;
+    }
+    
+    Overlay.prototype.setJamJarOverlay = function () {
+        var self = this;
+        self.showJamJarOverlay = !showJamJarOverlay;
+    }
+    
+    Overlay.prototype.getJamJarOverlay = function () {
+        var self = this;
+        return self.showJamJarOverlay;
     }
     
   function Video(video, edges, $sce) {
@@ -82,7 +101,6 @@
     self.$sce = $sce;
     self.video = video;
     self.API = null;
-    self.showJamJar = false;
     self.edges = edges;
 
     self.buffering = true;

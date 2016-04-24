@@ -1,10 +1,35 @@
-<div class='jamjar-layer' ng-show='jjp.getJamJar()'>
-    <img src='http://www.videogular.com/img/videogular.png'>
-</div>
-
-
-<!--
 <div class='jamjar-layer' ng-show='API.currentState != "play"'>
-    <img src='http://www.videogular.com/img/videogular.png'>
+<!--<div class='jamjar-layer' ng-show='jjp.showJamJar'>-->
+    <div layout="column">
+        <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
+            <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
+                
+                <div ng-if="video == player.jamjar.primaryVideo" class="jamjar-bar active-jam"
+                     style="width: {{video.video.length}}em;">
+                    <div layout="row">
+                        <img class='thumbnail-preview' ng-src="{{video.video.thumb_src[128]}}" />
+                        <div flex layout="column" class="jamjar-preview-info">
+                            <div flex>{{video.video.name}}</div>
+                            <div flex>{{video.video.user.username}}</div>
+                            <div>{{video.edges.video}}</div>
+                            <div>{{video.edges[0]}}</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div ng-if="video != player.jamjar.primaryVideo" class="jamjar-bar" 
+                     style="width: {{video.video.length}}em;
+                            margin-left: {{player.jamjar.primaryVideo.offset}}">
+                    <div layout="row">
+                        <img class='thumbnail-preview' ng-src="{{video.video.thumb_src[128]}}" />
+                        <div flex layout="column" class="jamjar-preview-info">
+                            <div flex>{{video.video.name}}</div>
+                            <div flex>{{video.video.user.username}}</div>
+                            <div>{{video.edges}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
--->
