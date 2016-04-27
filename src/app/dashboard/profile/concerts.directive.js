@@ -3,14 +3,14 @@
 
   angular
     .module('jamjar')
-    .directive('myVideos', myVideos);
+    .directive('myConcerts', myConcerts);
 
   /** @ngInject */
-  function myVideos() {
+  function myConcerts() {
     var directive = {
       restrict: 'E',
-      templateUrl: 'app/dashboard/profile/videos.html',
-      controller: MyVideosController,
+      templateUrl: 'app/dashboard/profile/concerts.html',
+      controller: MyConcertsController,
       controllerAs: 'vm',
       scope: {
         profile: '='
@@ -21,7 +21,7 @@
     return directive;
 
     /** @ngInject */
-    function MyVideosController() {
+    function MyConcertsController() {
       var vm = this;
     }
   }
