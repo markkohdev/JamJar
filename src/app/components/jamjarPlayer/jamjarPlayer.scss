@@ -70,7 +70,7 @@ videogular jamjar-button a:visited {
 }
 
 /* JamJar Bars */
-.jamjar-bar {
+.jamjar-box {
     border-radius: 7px;
     padding: 2px;
     margin: 5px;
@@ -80,17 +80,29 @@ videogular jamjar-button a:visited {
     cursor: pointer;
 }
 
+.jamjar-line {
+    border-radius: 7px;
+    padding: 2px;
+    margin: 5px 5px 5px -5px;
+    min-width: 100px;
+    height: 10px;
+    background: #9BD096;
+    cursor: pointer;
+    z-index: 50;
+}
+
 .active-jam {
     background: #7976B4 !important;
 }
 
 .thumbnail-preview {
-    border-radius: 7px;
+    border-radius: 50%;
     padding: 0 !important;
     height: auto; 
     width: auto; 
     max-width: 100px; 
     max-height: 50px;
+    z-index: 100;
 }
 
 .jamjar-preview-info {

@@ -19,14 +19,19 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
-          var vm = this;
+        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state, VideoService) {
+            var vm = this;
 
-          vm.$stateParams = $stateParams;
+            vm.$stateParams = $stateParams;
+            
+            /*vm.tooltip = {
+                showTooltip : false,
+                tipDirection : 'bottom'
+            };*/
 
-          // this will be a factory with DI
-          vm.jamjar = new JamJar(ConcertService, $sce);
-          vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+            // this will be a factory with DI
+            vm.jamjar = new JamJar(ConcertService, $sce, VideoService);
+            vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
         }
 
         return directive;
@@ -162,7 +167,7 @@
   };
 
 
-  function JamJar(concertService, $sce) {
+  function JamJar(concertService, $sce, videoService) {
     var self = this;
 
     window.self = self;
@@ -191,6 +196,22 @@
 
     // default volume for videos
     self.volume = 0.5; // 0.5
+      
+                  
+    self.videoService = videoService;
+  }
+    
+  JamJar.prototype.getVideoLength = function(video_id){
+      var self = this;
+      self.videoService.getVideoById(video_id, function(err, resp) {
+          if (err) {
+            debugger;
+            return;
+          }
+          
+          console.log(resp.length);
+          return resp.length;
+      });
   }
 
   JamJar.prototype.initialize = function(concert_id, video_id) {
