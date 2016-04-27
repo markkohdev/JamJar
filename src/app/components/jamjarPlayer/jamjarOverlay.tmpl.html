@@ -1,22 +1,25 @@
 <div class='jamjar-layer' ng-show='player.overlay.visible' ng-cloak>
     <div layout="column">
         <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
-            <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
+            <div ng-click="player.jamjar.switchVideo(video)">
                 
                 <div ng-if="video == player.jamjar.primaryVideo">
                     <md-button layout="row">
                         <img flex class="thumbnail-preview" ng-src="{{video.video.thumb_src[128]}}" />
-                        <div flex class="jamjar-line active-jam" style="width: {{video.video.length}}em;"></div>
+                        <div flex class="jamjar-line active-jam" style="width: {{video.video.length - video.time()}}em;"></div>
                         <md-tooltip><!--md-visible="player.tooltip.showTooltip" md-direction="{{player.tooltip.tipDirection}}">-->
                             <div flex>{{video.video.name}}</div>
                             <div flex>{{video.video.user.username}}</div>
                         </md-tooltip>
                     </md-button>
                 </div>
-                <div ng-if="video != player.jamjar.primaryVideo">
+                
+                <div ng-if="video != player.jamjar.primaryVideo" 
+                     style="position: absolute; 
+                            margin-left: {{player.calcOffsetMargin(video)}}em;">
                     <md-button layout="row">
                         <img flex class="thumbnail-preview" ng-src="{{video.video.thumb_src[128]}}" />
-                        <div flex class="jamjar-line" style="width: {{video.video.length}}em;"></div>
+                        <div flex class="jamjar-line" style="width: {{video.video.length - video.time()}}em;"></div>
                         <md-tooltip>
                             <div flex>{{video.video.name}}</div>
                             <div flex>{{video.video.user.username}}</div>

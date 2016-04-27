@@ -40,6 +40,20 @@
             vm.toggleOverlay = function() {
               vm.overlay.visible = !vm.overlay.visible;
             }
+            
+            vm.calcOffsetMargin = function(video) {
+                var offsetMargin = vm.jamjar.getEdge(video).offset;
+                
+                if (offsetMargin < 0){
+                    offsetMargin *= -1;
+                }
+                
+                else {
+                    offsetMargin = 0;
+                }
+                
+                return offsetMargin;
+            }
         }
 
         return directive;
