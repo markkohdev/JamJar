@@ -1,27 +1,12 @@
-<!-- <md-toolbar class="sub-navbar" layout="row" layout-align="center center">
-    <span flex="initial"></span>
-
-    <span flex="30" layout="row" layout-align="center center">
-        <md-button ng-repeat="page in vm.pages" ng-click="vm.switchTo(page)" ng-class="{active: vm.page == page.name}">
-            {{page.name}}
-        </md-button>
-    </span>
-
-    <span flex="5" flex="nogrow"></span>
-</md-toolbar> -->
-
-<md-content>
-    <md-tabs md-dynamic-height md-border-bottom md-selected="vm.selectedTab">
-        <md-tab label="My Videos">
+<md-content class='md-padding'>
+    <md-tabs md-no-pagination md-dynamic-height md-center-tabs md-selected="vm.selectedTab" class='sub-navbar'>
+        <md-tab label="My Videos" class='sub-navbar-tab' class='my-new-class'>
             <my-videos profile="vm.profile"></my-videos>
         </md-tab>
 
-        <md-tab label="My Concerts">
+        <md-tab label="My Concerts" class='sub-navbar-tab'>
             <h1 class="md-display-2">Tab Two</h1>
         </md-tab>
 
     </md-tabs>
 </md-content>
-<br/>
-
-<!-- <div ui-view></div> -->
