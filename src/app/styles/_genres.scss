@@ -1,0 +1,17 @@
+
+$genreTagHeight: 100px;
+
+.genres-section {
+
+  .genre {
+    height: $genreTagHeight;
+  }
+
+  .genre-text {
+    color: #000 !important;
+    text-align: center;
+    line-height: $genreTagHeight;
+    vertical-align: middle;
+    font-size: 18px;
+  }
+}
