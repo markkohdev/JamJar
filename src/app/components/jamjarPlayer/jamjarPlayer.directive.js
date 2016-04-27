@@ -19,7 +19,7 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state, VideoService) {
+        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
             var vm = this;
 
             vm.$stateParams = $stateParams;
@@ -30,7 +30,7 @@
             };*/
 
             // this will be a factory with DI
-            vm.jamjar = new JamJar(ConcertService, $sce, VideoService);
+            vm.jamjar = new JamJar(ConcertService, $sce);
             vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
 
             vm.overlay = {
@@ -63,9 +63,6 @@
         
         function JamJarBtnController(ConcertService) {
             var vm = this;
-            
-            //vm.overlay = new Overlay();
-            //vm.showJamJar = overlay.setJamJarOverlay();
         }
         
         return directive;
@@ -86,9 +83,6 @@
 
         function JamJarPluginController() {
             var vm = this;
-
-            //vm.overlay = new Overlay();
-            //vm.showJamJar = overlay.getJamJarOverlay();
         }
 
         return directive;
@@ -161,7 +155,7 @@
   };
 
 
-  function JamJar(concertService, $sce, videoService) {
+  function JamJar(concertService, $sce) {
     var self = this;
 
     window.self = self;
@@ -190,9 +184,6 @@
 
     // default volume for videos
     self.volume = 0.5; // 0.5
-      
-                  
-    self.videoService = videoService;
   }
 
   JamJar.prototype.getVideoLength = function(video_id){
