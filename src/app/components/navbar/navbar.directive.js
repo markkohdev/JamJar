@@ -41,7 +41,8 @@
         vm.settings = [
             {
                 state: 'settings.account',
-                name: 'Account'
+                name: 'Account',
+
             },
             {
                 name: 'Log Out',
@@ -61,7 +62,6 @@
             console.error('bad instruction for item: ', item);
           }
         };
-
         vm.searchText = "";
 
         vm.querySearch  = function(query) {
