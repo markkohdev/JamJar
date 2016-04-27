@@ -79,9 +79,6 @@
             link: function(scope, elem, attrs, API) {
                 scope.API = API;
             },
-            scope: {
-              'overlay': '=',
-            },
             controller: JamJarPluginController,
             controllerAs: 'jjp',
             bindToController: true

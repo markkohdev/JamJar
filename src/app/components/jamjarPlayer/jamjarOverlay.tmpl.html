@@ -1,6 +1,4 @@
-<div class='jamjar-layer' ng-show='API.currentState != "play"' ng-cloak>
-<!--<div class='jamjar-layer' ng-show='jjp.overlay.visible' ng-cloak>-->
-<!--<div class='jamjar-layer' ng-cloak>-->
+<div class='jamjar-layer' ng-show='player.overlay.visible' ng-cloak>
     <div layout="column">
         <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}">
             <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
