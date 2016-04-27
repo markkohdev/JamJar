@@ -32,19 +32,29 @@
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, $sce, VideoService);
             vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+
+            vm.overlay = {
+              visible: false,
+            }
+
+            vm.toggleOverlay = function() {
+              vm.overlay.visible = !vm.overlay.visible;
+            }
         }
 
         return directive;
     }
   
-    function jamjarButton (ConcertService) {
+    function jamjarButton () {
         var directive = {
             restrict: "E",
             require: "^videogular",
-            template: "<div class='iconButton' ng-click='jjb.setJamJarOverlay()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
-            link: function(scope, elem, attrs, API, ConcertService) {
+            template: "<div class='iconButton' ng-click='jjb.toggleOverlay()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
+            link: function(scope, elem, attrs, API) {
                 scope.API = API;
-                scope.ConcertService = ConcertService;
+            },
+            scope: {
+              'toggleOverlay': '=',
             },
             controller: JamJarBtnController,
             controllerAs: 'jjb',
@@ -61,45 +71,32 @@
         return directive;
     }
     
-    function jamjarPlugin(ConcertService, VG_STATES) {
+    function jamjarPlugin(VG_STATES) {
         var directive = {
             restrict: "E",
             require: "^videogular",
             templateUrl: 'app/components/jamjarPlayer/jamjarOverlay.tmpl.html',
-            link: function(scope, elem, attrs, API, ConcertService) {
+            link: function(scope, elem, attrs, API) {
                 scope.API = API;
-                scope.ConcertService = ConcertService;
+            },
+            scope: {
+              'overlay': '=',
             },
             controller: JamJarPluginController,
             controllerAs: 'jjp',
             bindToController: true
         }
-        
+
         function JamJarPluginController() {
             var vm = this;
-            
+
             //vm.overlay = new Overlay();
             //vm.showJamJar = overlay.getJamJarOverlay();
         }
-        
+
         return directive;
     }
-    
-    function Overlay($sce) {
-        var self = this;
-        var showJamJarOverlay = false;
-    }
-    
-    Overlay.prototype.setJamJarOverlay = function () {
-        var self = this;
-        self.showJamJarOverlay = !showJamJarOverlay;
-    }
-    
-    Overlay.prototype.getJamJarOverlay = function () {
-        var self = this;
-        return self.showJamJarOverlay;
-    }
-    
+
   function Video(video, edges, $sce) {
     var self = this;
 
@@ -200,7 +197,7 @@
                   
     self.videoService = videoService;
   }
-    
+
   JamJar.prototype.getVideoLength = function(video_id){
       var self = this;
       self.videoService.getVideoById(video_id, function(err, resp) {
