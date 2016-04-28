@@ -28,20 +28,37 @@
     }
 }
 
-.jamjar-player-info {
-    padding: 20px 40px;
+.curr-video-info {
+    padding: 10px 40px;
+    
+    h3 {
+        color: black;
+    }
+    
+    h4 {
+        color: $darkgray; 
+    }
+    
+    .small-btn {
+        min-width: 1%;
+        margin: 2px 5px;
+    }
 }
 
 .concert-info {
-    padding: 20px 40px;
+    padding: 10px 40px;
+    color: $white;
     background-color: $coral;
+    font-weight: 600;
+    line-height: 1.4em;
 }
 
 .recommended-jamjars {
-    padding: 20px 40px;
+    padding: 10px 40px;
     background-color: $darkgray;
     
 }
+
 .videogular-container {
     width: 100%;
     height: auto;

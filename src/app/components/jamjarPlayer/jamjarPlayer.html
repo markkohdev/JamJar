@@ -47,34 +47,44 @@
       </div>
   </div>
     
-  <div layout="row" class="jamjar-player-info">
+  <div layout="row" class="curr-video-info">
     <div flex="50">
       <div layout="column" layout-align="center start">
-        <div layout="row">Title: {{player.jamjar.primaryVideo.video.name}}</div>
-        <div layout="row">Uploaded By: {{player.jamjar.primaryVideo.video.user.username}}</div>
+        <h3>Title: {{player.jamjar.primaryVideo.video.name}}</h3>
+        <h4>Uploaded By: {{player.jamjar.primaryVideo.video.user.username}}</h4>
       </div>
     </div>
     <div flex="50">
       <div layout="column" layout-align="center end">
-        <div flex layout-align="center start">
-          <div layout="row">
-              <img ng-src="assets/images/btns/ic_thumb_up_black_24dp_1x.png" /> #upvotes | 
-              <img ng-src="assets/images/btns/ic_thumb_down_black_24dp_1x.png" /> #downvotes
-              <img ng-src="assets/images/btns/ic_flag_black_24dp_1x.png" /> Report
-          </div>
+        <div layout="row">
+            <md-button class="small-btn">
+                <md-icon md-svg-icon="assets/svgs/ic_thumb_up_black_24px.svg"></md-icon>
+                #upvotes
+            </md-button>
+            <md-button class="small-btn">
+                <md-icon md-svg-icon="assets/svgs/ic_thumb_down_black_24px.svg"></md-icon>
+                #downvotes
+            </md-button>
+        </div>
+        <div layout="row">
+            <md-button class="small-btn">
+                <md-icon md-svg-icon="assets/svgs/ic_flag_black_24px.svg"></md-icon>
+                Report
+            </md-button>
         </div>
       </div>
     </div>
   </div>
     
   <div layout="row" class="concert-info">
-    <div flex>
-      <div layout="column" layout-align="center start">
-          <div>{{player.jamjar.getConcertArtists()}}</div>
+      <div layout="column">
+          <img ng-src="{{player.jamjar.concert.videos[0].artists[0].images[3].url}}" class="mini-circle thumbnail" />
+      </div>
+      <div flex layout="column" layout-align="end start">
+          <div>{{player.jamjar.concert.artists[0].name}}</div>
           <div>{{player.jamjar.concert.venue.name}}</div>
           <div>{{player.jamjar.concert.date}}</div>
       </div>
-    </div>
   </div>
     
     <div layout="row" class="recommended-jamjars">
