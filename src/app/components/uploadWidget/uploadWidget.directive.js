@@ -34,6 +34,16 @@
                 //removeAfterUpload: true
             });
 
+            vm.uploader.onAfterAddingFile = function(item) {
+              // Default privacy = public
+              item.privacy = 'Public';
+
+              // Default name = filename-extension
+              var title = item.file.name;
+              title = title.substring(0,title.lastIndexOf('.'));
+              item.title = title;
+            }
+
             vm.valid = function() {
               var videoDetails = $scope.videoDetails();
 
