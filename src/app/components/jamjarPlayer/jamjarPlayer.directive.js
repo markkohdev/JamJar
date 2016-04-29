@@ -5,8 +5,6 @@
   angular
     .module('jamjar')
     .directive('jamjarPlayer', jamjarPlayer)
-    .directive('jamjarButton', jamjarButton)
-    .directive('jamjarPlugin', jamjarPlugin);
 
     /** @ngInject */
     function jamjarPlayer() {
@@ -55,49 +53,6 @@
         return directive;
     }
   
-    function jamjarButton () {
-        var directive = {
-            restrict: "E",
-            require: "^videogular",
-            template: "<div class='iconButton' ng-click='jjb.toggleOverlay()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
-            link: function(scope, elem, attrs, API) {
-                scope.API = API;
-            },
-            scope: {
-              'toggleOverlay': '=',
-            },
-            controller: JamJarBtnController,
-            controllerAs: 'jjb',
-            bindToController: true
-        }
-        
-        function JamJarBtnController(ConcertService) {
-            var vm = this;
-        }
-        
-        return directive;
-    }
-    
-    function jamjarPlugin(VG_STATES) {
-        var directive = {
-            restrict: "E",
-            require: "^videogular",
-            templateUrl: 'app/components/jamjarPlayer/jamjarOverlay.tmpl.html',
-            link: function(scope, elem, attrs, API) {
-                scope.API = API;
-            },
-            controller: JamJarPluginController,
-            controllerAs: 'jjp',
-            bindToController: true
-        }
-
-        function JamJarPluginController() {
-            var vm = this;
-        }
-
-        return directive;
-    }
-
   function Video(video, edges, $sce) {
     var self = this;
 
