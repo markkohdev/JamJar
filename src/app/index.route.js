@@ -33,6 +33,12 @@
         controller: 'DiscoverController',
         controllerAs: 'vm'
       })
+      .state('dashboard.explore', {
+        url: '/explore?genres?artists?users',
+        templateUrl: 'app/dashboard/explore/explore.html',
+        controller: 'ExploreController',
+        controllerAs: 'vm'
+      })
       .state('dashboard.concert', {
         url: '/concert/:id',
         templateUrl: 'app/dashboard/concert/concert.html',
