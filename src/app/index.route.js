@@ -21,12 +21,6 @@
         controller: 'DashboardController',
         controllerAs: 'vm'
       })
-      .state('dashboard.confirm', {
-        url: '/auth/confirm',
-        templateUrl: 'app/auth/confirm.html',
-        controller: 'SignupConfirmController',
-        controllerAs: 'controller'
-      })
       .state('dashboard.activate', {
         url: '/auth/activate/',
         templateUrl: 'app/auth/activate.html',

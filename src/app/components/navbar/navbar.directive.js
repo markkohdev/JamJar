@@ -50,7 +50,7 @@
                   TokenService.clearToken();
                   $state.go('landing');
                 }
-            }            
+            }
         ];
 
         vm.handleClick = function(item) {
@@ -61,7 +61,6 @@
           } else {
             console.error('bad instruction for item: ', item);
           }
-
         };
         vm.searchText = "";
 

@@ -1,14 +1,14 @@
-<h2>Concerts</h2>
+<h1>Concerts</h1>
 
-<div layout="row" layout-wrap>
-  <div ng-repeat="concert in concerts.concerts" flex="25">
+<div layout="row" layout-align="start start" layout-wrap>
+  <div ng-repeat="concert in concerts.concerts" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
     <div layout="column" class="block">
       <a ui-sref="dashboard.concert({id: concert.id})">
-        <img ng-src="{{concert.thumbs[0][256]}}" class="circle" />
-        <div>{{concerts.concertArtists(concert)}}</div>
-        <div>{{concert.date}}</div>
-        <div>{{concert.venue.name}}</div>
+        <img ng-src="{{concert.thumbs[0][256]}}" class="circle thumbnail" />
+        <h3>{{concerts.concertArtists(concert)}}</h3>
       </a>
+      <h4>{{concert.date}}</h4>
+      <h4>{{concert.venue.name}}</h4>
     </div>
   </div>
 </div>

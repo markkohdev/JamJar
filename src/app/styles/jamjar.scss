@@ -65,11 +65,18 @@ footer {
     width: 100%;
     height: 140px;
     position: absolute;
+    font-size: 14px !important;
     
     h3 {
         -webkit-margin-before: 0 !important;
         -webkit-margin-after: .3em !important;
         text-decoration: underline;
+        margin: 0 0 1px 0;
+        padding: 0 0 2px 0;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.3em;
+        vertical-align: middle;
     }
     
     ul {
@@ -97,6 +104,31 @@ footer {
   border-color: green !important;
 }
 
+/* PAGE THEMES */
+.dark-theme{
+    color: white;
+    background-color: $darkgray;
+    //background: url(../assets/images/wallpaper/grainyBg.jpg) repeat center center scroll;
+}
+
+.light-theme{
+    color: black;
+    background-color: $lightgray;
+    
+    h3 {
+        font-weight: 600;
+        color: $navy !important;
+    }
+    
+    h4 {
+        color: $extradarkgray !important;
+    }
+}
+
+.small-padding {
+    padding: 20px 5%; 
+}
+
 /* CUSTOM VIEWS */
 .text-vertical-center {
     display: table-cell;
@@ -121,11 +153,40 @@ footer {
 }
 
 .content {
-    padding-bottom: 140px; /*height of the footer*/
+    //padding-bottom: 140px; /*height of the footer*/
 }
 
 .logo-banner{
     max-width: 300px;
+}
+
+.rect{
+    margin-bottom: 15px;
+}
+
+.circle{
+    width: 150px; 
+    height: 150px; 
+    margin-bottom: 15px; 
+    border-radius: 50%
+}
+
+.short-bar-div {
+    padding: 0px 10%;
+}
+
+.long-bar-div {
+    padding: 0px 5%;
+}
+
+.collection-gray-bar {
+    border-bottom: medium solid $darkgray;
+    margin-bottom: 3px;
+}
+
+.collection-white-bar {
+    border-bottom: medium solid $white;
+    margin-bottom: 3px;
 }
 
 /* LANDING PAGE - HEADER */
