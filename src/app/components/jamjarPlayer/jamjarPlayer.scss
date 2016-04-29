@@ -89,6 +89,20 @@ videogular jamjar-button a:visited {
     background: #9BD096;
     cursor: pointer;
     z-index: 50;
+
+    -moz-transition: all 1s ease-out;     /* FF4+ */
+    -webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
+    transition: all 1s ease-out;  
+}
+
+.jamjar-bar {
+    -moz-transition: all 1s ease-out;     /* FF4+ */
+    -webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
+    transition: all 1s ease-out;  
+}
+
+.disabled-jam {
+    background: #2a2a2a !important;
 }
 
 .active-jam {

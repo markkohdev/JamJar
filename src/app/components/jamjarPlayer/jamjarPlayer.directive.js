@@ -39,15 +39,6 @@
               vm.overlay.visible = !vm.overlay.visible;
             }
 
-            vm.calcOffsetMargin = function(video) {
-                var offsetMargin = vm.jamjar.getEdge(video).offset;
-                if (offsetMargin < 0){
-                    offsetMargin = Math.max((offsetMargin * -1) - vm.jamjar.primaryVideo.time(), 0);
-                } else {
-                    offsetMargin = 0;
-                }
-                return offsetMargin;
-            }
         }
 
         return directive;
@@ -69,11 +60,35 @@
     self.playable = false;
 
     self.presentation = {
-      offset: 0,
-      width: 0,
+      offset: '10em',
+      width: '20em',
+      playable: false,
     }
 
     self.config = self.getConfig();
+  }
+
+  Video.prototype.updatePresentatonDetails = function(primaryVideo, edgeToPrimary) {
+    var self = this;
+
+    var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
+    self.presentation.offset = offset + 'em';
+    self.presentation.width  = (self.video.length - self.time()) + "em"
+    self.presentation.playable = offset == 0;
+  };
+
+  Video.prototype.calcOffsetMargin = function(primaryVideo, edgeToPrimary) {
+    if (primaryVideo == self) {
+      return 0;
+    }
+
+    var offset = edgeToPrimary.offset * -1;
+    if (offset < 0) {
+      return 0;
+    }
+
+    var margin = offset - primaryVideo.time();
+    return Math.max(margin, 0);
   }
 
   Video.prototype.setAPI = function(API) {
@@ -186,7 +201,7 @@
     self.lastTimeUpdate = null;
 
     // default volume for videos
-    self.volume = 0.0; // 0.5
+    self.volume = 0.5; // 0.5
   }
 
   JamJar.prototype.getVideoLength = function(video_id){
@@ -197,7 +212,6 @@
             return;
           }
           
-          console.log(resp.length);
           return resp.length;
       });
   }
@@ -357,17 +371,19 @@
     }
 
     _.each(self.nowPlaying, function(video) {
-
-      // we don't want to change the startTime for the currently playing video!
-      if (video == self.primaryVideo || !video.API) {
-        return;
-      }
-
       self.lastTimeUpdate = new Date();
 
       var edge = self.getEdge(video);
       var tentativeStartTime = Math.max(playedTime - edge.offset, 0);
-      video.offset(tentativeStartTime);
+
+      // we don't want to change the startTime for the currently playing video!
+      if (video != self.primaryVideo && video.API) {
+        video.offset(tentativeStartTime);
+      }
+
+      // update all videos for the presentation layer
+      video.updatePresentatonDetails(self.primaryVideo, edge);
+
     });
   }
 
