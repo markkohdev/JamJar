@@ -12,7 +12,7 @@
     vm.query = {
       'genres'  : $stateParams.genres,
       'artists' : $stateParams.artists,
-      'users'   : $stateParams.users
+      'uploaders'   : $stateParams.uploaders
     };
 
     vm.videos = [];
