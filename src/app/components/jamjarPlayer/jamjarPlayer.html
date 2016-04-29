@@ -8,7 +8,7 @@
             vg-player-ready="player.jamjar.onPlayerReady($API, video)"
             vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
             vg-change-source="player.jamjar.onUpdateSource($source, video)"
-            vg-update-state="player.jamjar.onUpdateState($state, video)"
+            vg-update-state="player.jamjar.onUpdateState($state, video, video == player.jamjar.primaryVideo)"
             vg-complete="player.jamjar.onComplete(video)"
             vg-cue-points="player.jamjar.cuePoints"
             ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
@@ -38,7 +38,7 @@
       </div>
       <div flex class='player-sidebar'>
         <div layout="column" layout-align="space-around center">
-          <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}" ng-if="video != player.jamjar.primaryVideo">
+          <div ng-repeat="video in player.jamjar.nowPlaying" ng-if="video != player.jamjar.primaryVideo">
             <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
               <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
             </div>

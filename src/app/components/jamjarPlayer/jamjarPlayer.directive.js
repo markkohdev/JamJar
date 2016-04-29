@@ -23,7 +23,7 @@
             var vm = this;
 
             vm.$stateParams = $stateParams;
-            
+
             /*vm.tooltip = {
                 showTooltip : false,
                 tipDirection : 'bottom'
@@ -34,24 +34,20 @@
             vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
 
             vm.overlay = {
-              visible: false,
+              visible: true,
             }
 
             vm.toggleOverlay = function() {
               vm.overlay.visible = !vm.overlay.visible;
             }
-            
+
             vm.calcOffsetMargin = function(video) {
                 var offsetMargin = vm.jamjar.getEdge(video).offset;
-                
                 if (offsetMargin < 0){
-                    offsetMargin *= -1;
-                }
-                
-                else {
+                    offsetMargin = Math.max((offsetMargin * -1) - vm.jamjar.primaryVideo.time(), 0);
+                } else {
                     offsetMargin = 0;
                 }
-                
                 return offsetMargin;
             }
         }
@@ -110,8 +106,17 @@
     self.API = null;
     self.edges = edges;
 
+    self.whenLoaded = [];
+
     self.buffering = true;
+    self.currentState = 'pause';
+    self.ready = false;
     self.playable = false;
+
+    self.presentation = {
+      offset: 0,
+      width: 0,
+    }
 
     self.config = self.getConfig();
   }
@@ -119,8 +124,13 @@
   Video.prototype.setAPI = function(API) {
     var self = this;
 
+    self.ready = true;
     self.API = API;
-    self.playable = true;
+
+    var f;
+    while (f = self.whenLoaded.pop()) {
+      f(self.API);
+    }
   }
 
   Video.prototype.time = function() {
@@ -132,15 +142,22 @@
   Video.prototype.volume = function(vol) {
     var self = this;
 
-    self.API.setVolume(vol);
+    if (self.API)
+      self.API.setVolume(vol);
   };
 
-  Video.prototype.play = function(offset) {
+  Video.prototype.play = function() {
     var self = this;
 
     if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        API.play
+      });
       return;
-    } else {
+    }
+
+    if (self.currentState != 'play') {
+      self.currentState = 'play';
       self.API.play();
     }
   }
@@ -148,11 +165,28 @@
   Video.prototype.pause = function() {
     var self = this;
 
-    self.API.pause();
+    if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        API.pause();
+      })
+      return;
+    }
+
+    if (self.currentState != 'pause') {
+      self.currentState = 'pause';
+      self.API.pause();
+    }
   }
 
   Video.prototype.offset = function(seconds) {
     var self = this;
+
+    if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        API.seekTime(seconds);
+      });
+      return;
+    }
 
     self.API.seekTime(seconds);
   }
@@ -197,7 +231,7 @@
     self.lastTimeUpdate = null;
 
     // default volume for videos
-    self.volume = 0.5; // 0.5
+    self.volume = 0.0; // 0.5
   }
 
   JamJar.prototype.getVideoLength = function(video_id){
@@ -386,12 +420,19 @@
     var self = this;
   }
 
-  JamJar.prototype.onUpdateState = function(state, video) {
+  JamJar.prototype.onUpdateState = function(state, primaryVideo, isPrimary) {
     var self = this;
 
-    if (video.buffering) {
-      video.buffering = false;
-      video.API.pause();
+    if (!isPrimary) return;
+
+    if (state == 'play') {
+      _.each(self.nowPlaying, function(video) {
+        video.play();
+      });
+    } else if (state == 'pause') {
+      _.each(self.nowPlaying, function(video) {
+        video.pause();
+      });
     }
   }
 
@@ -413,6 +454,7 @@
         var removeTime = edge.offset + video.video.length;
 
         self.addPlayerEdge(video, queueTime, removeTime);
+        self.addVideo(video);
       }
     });
 
@@ -429,15 +471,15 @@
          },
          onUpdate: function(currentTime, timeLapse, params) {},
          onLeave: function(currentTime, timeLapse, params) {},
+         onEnter: function(currentTime, timeLapse, params) {
+           params.video.playable = true;
+         },
 
-         onEnter: _.once(function(currentTime, timeLapse, params) {
-           console.log('adding video to queue: ', params.video.video.id);
-           params.self.addVideo(params.video);
-         }),
          onComplete: _.once(function (currentTime, timeLapse, params) {
            console.log('removing video w/ id:', params.video.video.id);
            params.self.removeVideo(params.video);
          }),
+
          params: {
            video: video,
            self: self
