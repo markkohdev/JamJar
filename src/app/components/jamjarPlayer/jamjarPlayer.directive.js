@@ -32,7 +32,7 @@
             vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
 
             vm.overlay = {
-              visible: true,
+              visible: false,
             }
 
             vm.toggleOverlay = function() {
