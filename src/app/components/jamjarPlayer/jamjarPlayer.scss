@@ -90,15 +90,15 @@ videogular jamjar-button a:visited {
     cursor: pointer;
     z-index: 50;
 
-    -moz-transition: all 1s ease-out;     /* FF4+ */
-    -webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
-    transition: all 1s ease-out;  
+    //-moz-transition: all 1s ease-out;     /* FF4+ */
+    //-webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
+    //transition: all 1s ease-out;  
 }
 
 .jamjar-bar {
-    -moz-transition: all 1s ease-out;     /* FF4+ */
-    -webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
-    transition: all 1s ease-out;  
+    //-moz-transition: all 1s ease-out;     /* FF4+ */
+    //-webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
+    //transition: all 1s ease-out;  
 }
 
 .disabled-jam {

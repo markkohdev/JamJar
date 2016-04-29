@@ -60,34 +60,37 @@
     self.playable = false;
 
     self.presentation = {
-      offset: '10em',
-      width: '20em',
+      offset: '0px',
+      width: '0px',
       playable: false,
     }
 
     self.config = self.getConfig();
   }
 
-  Video.prototype.updatePresentatonDetails = function(primaryVideo, edgeToPrimary) {
+  Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
     var self = this;
 
     var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
-    self.presentation.offset = offset + 'em';
-    self.presentation.width  = (self.video.length - self.time()) + "em"
-    self.presentation.playable = offset == 0;
+    self.presentation.offset = 10 * offset + 'px';
+    self.presentation.width  = 10 * (self.video.length - self.time()) + "px"
+    self.presentation.playable = (offset == 0);
   };
 
   Video.prototype.calcOffsetMargin = function(primaryVideo, edgeToPrimary) {
+    var self = this;
+
     if (primaryVideo == self) {
       return 0;
     }
 
-    var offset = edgeToPrimary.offset * -1;
+    var offset = edgeToPrimary.offset;
     if (offset < 0) {
       return 0;
     }
 
     var margin = offset - primaryVideo.time();
+    console.log(self.video.id, self.time(), primaryVideo.time(), edgeToPrimary);
     return Math.max(margin, 0);
   }
 
@@ -118,6 +121,8 @@
 
   Video.prototype.play = function() {
     var self = this;
+
+    console.log("PLAY:", self.video.id);
 
     if (!self.API) {
       self.whenLoaded.push(function(API) {
@@ -258,10 +263,19 @@
     });
   }
 
+  JamJar.prototype.handleSwitch = function(selectedVideo) {
+    var self = this;
+
+    if (!selectedVideo.presentation.playable) {
+      return;
+    } else {
+      return self.switchVideo(selectedVideo);
+    }
+  }
+
   JamJar.prototype.switchVideo = function(selectedVideo) {
     var self = this;
 
-    self.primaryVideo.pause();
     self.muteAll();
 
     var edge = self.getEdge(selectedVideo);
@@ -274,9 +288,14 @@
     self.primaryVideo.volume(self.volume);
 
     self.primaryVideo.offset(offset);
-    self.primaryVideo.play();
 
     self.resetEdges();
+
+    _.each(self.nowPlaying, function(video) {
+      edge = self.getEdge(video);
+      video.updatePresentationDetails(self.primaryVideo, edge);
+    });
+
   }
 
   JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
@@ -288,9 +307,10 @@
     self.primaryVideo.volume(self.volume);
 
     self.primaryVideo.offset(offset);
-    self.primaryVideo.play();
-
     self.resetEdges();
+
+    // hack!!! This probably won't work 100% of the time....
+    _.defer(self.primaryVideo.play.bind(self.primaryVideo));
   }
 
   JamJar.prototype.mouseover = function(selectedVideo) {
@@ -382,7 +402,7 @@
       }
 
       // update all videos for the presentation layer
-      video.updatePresentatonDetails(self.primaryVideo, edge);
+      video.updatePresentationDetails(self.primaryVideo, edge);
 
     });
   }
@@ -393,18 +413,7 @@
 
   JamJar.prototype.onUpdateState = function(state, primaryVideo, isPrimary) {
     var self = this;
-
-    if (!isPrimary) return;
-
-    if (state == 'play') {
-      _.each(self.nowPlaying, function(video) {
-        video.play();
-      });
-    } else if (state == 'pause') {
-      _.each(self.nowPlaying, function(video) {
-        video.pause();
-      });
-    }
+    console.log("STATE:", state);
   }
 
   JamJar.prototype.resetEdges = function () {
@@ -448,7 +457,8 @@
 
          onComplete: _.once(function (currentTime, timeLapse, params) {
            console.log('removing video w/ id:', params.video.video.id);
-           params.self.removeVideo(params.video);
+           params.self.onComplete(params.video);
+           //params.self.removeVideo(params.video);
          }),
 
          params: {
