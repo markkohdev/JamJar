@@ -21,16 +21,6 @@
     function SubNavbarController() {
         var vm = this;
         
-        vm.pages = [
-            {
-              state: 'dashboard.my_videos',
-              name: 'All'
-            },
-            {
-              state: 'dashboard.my_concerts',
-              name: 'Concerts'
-            }
-        ];
     }
   }
 
