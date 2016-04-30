@@ -207,7 +207,7 @@ footer {
 }
 .video-bg video {
   display: none;
-  opacity: .6;
+  opacity: .9;
 }
 
 header.landing-header {
@@ -234,21 +234,23 @@ header.landing-header {
     
     #logo {
       width: 10em;
-      -webkit-animation: load-scale 2.5s ease-out 0s 1;
-              animation: load-scale 2.5s ease-out 0s 1;
+      opacity: 0;
+      -webkit-animation: load-scale 2.0s ease-out 0.8s 1 forwards;
+              animation: load-scale 2.0s ease-out 0.8s 1 forwards;
     }
 
     #logo-text {
       width: 15em;
-      -webkit-animation: load-scale 2.5s ease-out 0s 1;
-              animation: load-scale 2.5s ease-out 0s 1;
+      opacity: 0;
+      -webkit-animation: load-scale 2.0s ease-out 0.8s 1 forwards;
+              animation: load-scale 2.0s ease-out 0.8s 1 forwards;
     }
     
     h2 {
       text-align: center;
       opacity: 0;
-      -webkit-animation: load-popup 2.5s ease-out 2.6s 1 forwards;
-              animation: load-popup 2.5s ease-out 2.6s 1 forwards;
+      -webkit-animation: load-popup 2.5s ease-out 2.8s 1 forwards;
+              animation: load-popup 2.5s ease-out 2.8s 1 forwards;
     }
 }
 

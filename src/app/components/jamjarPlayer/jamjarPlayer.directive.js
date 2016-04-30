@@ -4,33 +4,46 @@
 
   angular
     .module('jamjar')
-    .directive('jamjarPlayer', jamjarPlayer);
-
-  /** @ngInject */
-  function jamjarPlayer() {
-    var directive = {
-      restrict: 'E',
-      templateUrl: 'app/components/jamjarPlayer/jamjarPlayer.html',
-      controller: JamJarPlayerController,
-      controllerAs: 'player',
-      bindToController: true
-    };
+    .directive('jamjarPlayer', jamjarPlayer)
 
     /** @ngInject */
-    function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
-      var vm = this;
+    function jamjarPlayer() {
+        var directive = {
+          restrict: 'E',
+          templateUrl: 'app/components/jamjarPlayer/jamjarPlayer.html',
+          controller: JamJarPlayerController,
+          controllerAs: 'player',
+          bindToController: true
+        };
 
-      vm.$stateParams = $stateParams;
+        /** @ngInject */
+        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
+            var vm = this;
 
-      // this will be a factory with DI
-      vm.jamjar = new JamJar(ConcertService, $sce);
-      vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+            vm.$stateParams = $stateParams;
+
+            /*vm.tooltip = {
+                showTooltip : false,
+                tipDirection : 'bottom'
+            };*/
+
+            // this will be a factory with DI
+            vm.jamjar = new JamJar(ConcertService, $sce);
+            vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+
+            vm.overlay = {
+              visible: false,
+            }
+
+            vm.toggleOverlay = function() {
+              vm.overlay.visible = !vm.overlay.visible;
+            }
+
+        }
+
+        return directive;
     }
-
-    return directive;
-
-  }
-
+  
   function Video(video, edges, $sce) {
     var self = this;
 
@@ -39,17 +52,58 @@
     self.API = null;
     self.edges = edges;
 
+    self.whenLoaded = [];
+
     self.buffering = true;
+    self.currentState = 'pause';
+    self.ready = false;
     self.playable = false;
 
+    self.presentation = {
+      offset: '0px',
+      width: '0px',
+      playable: false,
+    }
+
     self.config = self.getConfig();
+  }
+
+  Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
+    var self = this;
+
+    var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
+    self.presentation.offset = 10 * offset + 'px';
+    self.presentation.width  = 10 * (self.video.length - self.time()) + "px"
+    self.presentation.playable = (offset == 0);
+  };
+
+  Video.prototype.calcOffsetMargin = function(primaryVideo, edgeToPrimary) {
+    var self = this;
+
+    if (primaryVideo == self) {
+      return 0;
+    }
+
+    var offset = edgeToPrimary.offset;
+    if (offset < 0) {
+      return 0;
+    }
+
+    var margin = offset - primaryVideo.time();
+    console.log(self.video.id, self.time(), primaryVideo.time(), edgeToPrimary);
+    return Math.max(margin, 0);
   }
 
   Video.prototype.setAPI = function(API) {
     var self = this;
 
+    self.ready = true;
     self.API = API;
-    self.playable = true;
+
+    var f;
+    while (f = self.whenLoaded.pop()) {
+      f(self.API);
+    }
   }
 
   Video.prototype.time = function() {
@@ -61,15 +115,24 @@
   Video.prototype.volume = function(vol) {
     var self = this;
 
-    self.API.setVolume(vol);
+    if (self.API)
+      self.API.setVolume(vol);
   };
 
-  Video.prototype.play = function(offset) {
+  Video.prototype.play = function() {
     var self = this;
 
+    console.log("PLAY:", self.video.id);
+
     if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        API.play
+      });
       return;
-    } else {
+    }
+
+    if (self.currentState != 'play') {
+      self.currentState = 'play';
       self.API.play();
     }
   }
@@ -77,11 +140,28 @@
   Video.prototype.pause = function() {
     var self = this;
 
-    self.API.pause();
+    if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        API.pause();
+      })
+      return;
+    }
+
+    if (self.currentState != 'pause') {
+      self.currentState = 'pause';
+      self.API.pause();
+    }
   }
 
   Video.prototype.offset = function(seconds) {
     var self = this;
+
+    if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        API.seekTime(seconds);
+      });
+      return;
+    }
 
     self.API.seekTime(seconds);
   }
@@ -129,6 +209,18 @@
     self.volume = 0.5; // 0.5
   }
 
+  JamJar.prototype.getVideoLength = function(video_id){
+      var self = this;
+      self.videoService.getVideoById(video_id, function(err, resp) {
+          if (err) {
+            debugger;
+            return;
+          }
+          
+          return resp.length;
+      });
+  }
+
   JamJar.prototype.initialize = function(concert_id, video_id) {
     var self = this;
 
@@ -171,10 +263,19 @@
     });
   }
 
+  JamJar.prototype.handleSwitch = function(selectedVideo) {
+    var self = this;
+
+    if (!selectedVideo.presentation.playable) {
+      return;
+    } else {
+      return self.switchVideo(selectedVideo);
+    }
+  }
+
   JamJar.prototype.switchVideo = function(selectedVideo) {
     var self = this;
 
-    self.primaryVideo.pause();
     self.muteAll();
 
     var edge = self.getEdge(selectedVideo);
@@ -187,9 +288,14 @@
     self.primaryVideo.volume(self.volume);
 
     self.primaryVideo.offset(offset);
-    self.primaryVideo.play();
 
     self.resetEdges();
+
+    _.each(self.nowPlaying, function(video) {
+      edge = self.getEdge(video);
+      video.updatePresentationDetails(self.primaryVideo, edge);
+    });
+
   }
 
   JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
@@ -201,9 +307,10 @@
     self.primaryVideo.volume(self.volume);
 
     self.primaryVideo.offset(offset);
-    self.primaryVideo.play();
-
     self.resetEdges();
+
+    // hack!!! This probably won't work 100% of the time....
+    _.defer(self.primaryVideo.play.bind(self.primaryVideo));
   }
 
   JamJar.prototype.mouseover = function(selectedVideo) {
@@ -284,17 +391,19 @@
     }
 
     _.each(self.nowPlaying, function(video) {
-
-      // we don't want to change the startTime for the currently playing video!
-      if (video == self.primaryVideo || !video.API) {
-        return;
-      }
-
       self.lastTimeUpdate = new Date();
 
       var edge = self.getEdge(video);
       var tentativeStartTime = Math.max(playedTime - edge.offset, 0);
-      video.offset(tentativeStartTime);
+
+      // we don't want to change the startTime for the currently playing video!
+      if (video != self.primaryVideo && video.API) {
+        video.offset(tentativeStartTime);
+      }
+
+      // update all videos for the presentation layer
+      video.updatePresentationDetails(self.primaryVideo, edge);
+
     });
   }
 
@@ -302,13 +411,9 @@
     var self = this;
   }
 
-  JamJar.prototype.onUpdateState = function(state, video) {
+  JamJar.prototype.onUpdateState = function(state, primaryVideo, isPrimary) {
     var self = this;
-
-    if (video.buffering) {
-      video.buffering = false;
-      video.API.pause();
-    }
+    console.log("STATE:", state);
   }
 
   JamJar.prototype.resetEdges = function () {
@@ -329,6 +434,7 @@
         var removeTime = edge.offset + video.video.length;
 
         self.addPlayerEdge(video, queueTime, removeTime);
+        self.addVideo(video);
       }
     });
 
@@ -345,15 +451,16 @@
          },
          onUpdate: function(currentTime, timeLapse, params) {},
          onLeave: function(currentTime, timeLapse, params) {},
+         onEnter: function(currentTime, timeLapse, params) {
+           params.video.playable = true;
+         },
 
-         onEnter: _.once(function(currentTime, timeLapse, params) {
-           console.log('adding video to queue: ', params.video.video.id);
-           params.self.addVideo(params.video);
-         }),
          onComplete: _.once(function (currentTime, timeLapse, params) {
            console.log('removing video w/ id:', params.video.video.id);
-           params.self.removeVideo(params.video);
+           params.self.onComplete(params.video);
+           //params.self.removeVideo(params.video);
          }),
+
          params: {
            video: video,
            self: self
