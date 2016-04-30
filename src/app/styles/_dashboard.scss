@@ -1,5 +1,6 @@
 .dashboard {
     font-size: 12px;
+    word-wrap: break-word;
     
     h1 {
         color: white;
@@ -66,14 +67,7 @@
 }
 
 .video-list {
-    margin: 0 0;
-}
-
-.circle{
-    width: 150px; 
-    height: 150px; 
-    margin-bottom: 5px; 
-    border-radius: 50%
+    margin: 0 10px;
 }
 
 .my-videos-page {
