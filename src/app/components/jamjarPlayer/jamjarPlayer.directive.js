@@ -247,7 +247,7 @@
     });
   };
 
-  JamJar.prototype.loadGraph = function(concert_if, video_id) {
+  JamJar.prototype.loadGraph = function(concert_id, video_id) {
     var self = this;
 
     self.concertService.getGraphById(concert_id, function(err, resp) {
