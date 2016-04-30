@@ -1,7 +1,26 @@
-.concert-section{
+.concert-section {
     margin: 20px auto; 
+    margin-top: 0;
     background-color: #303030; 
-    padding: 15px
+    padding: 15px 30px;
+}
+
+.concert-banner {
+    position: relative;
+    z-index: 5;
+}
+
+.concert-banner-bg {    
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(../assets/images/concert_bg/concert_coral_web_bg_1094x729.png) repeat center center scroll;
+    opacity: .7;
+    width: 100%;
+    height: 100%;
 }
 
 /*.video-thumbnail{
