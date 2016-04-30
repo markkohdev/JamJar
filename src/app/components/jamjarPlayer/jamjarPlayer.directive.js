@@ -17,10 +17,8 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, $sce, $stateParams, $state) {
+        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state) {
             var vm = this;
-
-            vm.$stateParams = $stateParams;
 
             /*vm.tooltip = {
                 showTooltip : false,
@@ -28,8 +26,8 @@
             };*/
 
             // this will be a factory with DI
-            vm.jamjar = new JamJar(ConcertService, $sce);
-            vm.jamjar.initialize(parseInt(vm.$stateParams.concert_id), parseInt(vm.$stateParams.video_id));
+            vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
+            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
 
             vm.overlay = {
               visible: false,
@@ -178,13 +176,14 @@
   };
 
 
-  function JamJar(concertService, $sce) {
+  function JamJar(concertService, videoService, $sce) {
     var self = this;
 
     window.self = self;
 
     // stopgap until this becomes a factory with DI
     self.concertService = concertService;
+    self.videoService = videoService;
     self.$sce = $sce;
 
     // concert information
@@ -221,7 +220,34 @@
       });
   }
 
-  JamJar.prototype.initialize = function(concert_id, video_id) {
+  JamJar.prototype.initialize = function(concert_id, video_id, type) {
+    var self = this;
+
+    self.type = type;
+
+    if (self.type == 'individual') {
+      self.loadVideo(video_id);
+    } else if (self.type == 'jamjar') {
+      self.loadGraph(concert_id, video_id);
+    } else {
+      console.error("Invalid type given: ", type);
+    }
+  };
+
+  JamJar.prototype.loadVideo = function(video_id) {
+    self.videoService.getVideoById(video_id, function(err, video) {
+      if (err) {
+        return console.error(err);
+      }
+
+      self.primaryVideo = new Video(video, {}, self.$sce);
+      self.primaryVideo.buffering = true;
+
+      self.addVideo(self.primaryVideo)
+    });
+  };
+
+  JamJar.prototype.loadGraph = function(concert_if, video_id) {
     var self = this;
 
     self.concertService.getGraphById(concert_id, function(err, resp) {
