@@ -49,7 +49,7 @@
       <div layout="column" class="block">
         <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
         <h3>{{video.name}}</h3>
-        <h4>Uploader: <a href="#">{{video.user.username}}</a></h4>
+        <h4>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id})">{{video.user.username}}</a></h4>
         <h4>Views: {{video.views}}</h4>
       </div>
     </div>

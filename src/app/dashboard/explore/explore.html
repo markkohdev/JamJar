@@ -1,0 +1,45 @@
+<div class="dark-theme small-padding">
+
+  <h1>Explore</h1>
+
+  <div layout="row" class="concert-section">
+    <div layout="column" flex="20">
+      <span>Concerts</span>
+    </div>
+  </div>
+
+  <div layout="row" layout-align="start start" layout-wrap class='video-list'>
+    <div ng-repeat="concert in vm.concerts" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+      <div layout="column" class="block">
+        <a ui-sref="dashboard.concert({id: concert.id})">
+          <img ng-src="{{concert.thumbs[0][256]}}" class="circle thumbnail" />
+          <h3 ng-repeat="artist in concert.artists">
+            <span> {{artist.name}} </span>
+          </h3>
+        </a>
+        <h4>{{concert.date}}</h4>
+        <h4>{{concert.venue.name}}</h4>
+      </div>
+    </div>
+  </div>
+
+  <div layout="row" class="concert-section">
+    <div layout="column" flex="20">
+      <span>Videos</span>
+    </div>
+  </div>
+
+  <div layout="row" layout-align="start start" layout-wrap class="video-list">
+    <div ng-repeat="video in vm.videos" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+      <div layout="column" class="block">
+        <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
+        <h3>{{video.name}}</h3>
+        <h4 ng-repeat="artist in video.artists">
+          <span> {{artist.name}} </span>
+        </h4>
+        <h4>Uploader: <a href="#">{{video.user.username}}</a></h4>
+        <h4>Views: {{video.views}}</h4>
+      </div>
+    </div>
+  </div>
+</div>
