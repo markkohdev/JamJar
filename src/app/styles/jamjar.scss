@@ -5,43 +5,6 @@
 
 // JamJar styles!
 
-/*
-.header {
-    display: table;
-    position: relative;
-    width: 100%;
-    height: auto;
-    background: url(../assets/images/concert_bg/concert_coral_web_bg_1094x729.png) no-repeat center center scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    background-size: cover;
-    -o-background-size: cover;
-    
-    h2 {
-        letter-spacing: 4px;   
-    }
-
-    .panelbox {
-        font-size: 18px;
-        font-weight: bold;
-    }
-    
-    .whitebox {
-        background-color: rgba(139,139,131,0.5);
-        color: white;
-        width: 400px;
-        height: 80px;
-        padding: 10px 30px 10px 30px;
-        margin: 10px;
-        border-radius: 25px;
-        margin-left:auto;
-        margin-right:auto;
-    }
-}
-*/
-
-
-
 /* SETUP */
 html, body {
     font-family: 'Muli', sans-serif;
@@ -125,8 +88,8 @@ footer {
     }
 }
 
-.small-padding {
-    padding: 20px 5%; 
+.coral-bg {
+    background-color: $coral !important;
 }
 
 /* CUSTOM VIEWS */
@@ -144,8 +107,8 @@ footer {
     text-align: right;
 }
 
-.coral-bg {
-    background-color: $coral !important;
+.small-padding {
+    padding: 20px 5%; 
 }
 
 .black-color {
@@ -235,22 +198,22 @@ header.landing-header {
     #logo {
       width: 10em;
       opacity: 0;
-      -webkit-animation: load-scale 2.0s ease-out 0.8s 1 forwards;
-              animation: load-scale 2.0s ease-out 0.8s 1 forwards;
+      -webkit-animation: load-scale 3.0s ease-out 1.0s 1 forwards;
+              animation: load-scale 3.0s ease-out 1.0s 1 forwards;
     }
 
     #logo-text {
       width: 15em;
       opacity: 0;
-      -webkit-animation: load-scale 2.0s ease-out 0.8s 1 forwards;
-              animation: load-scale 2.0s ease-out 0.8s 1 forwards;
+      -webkit-animation: load-scale 3.0s ease-out 1.0s 1 forwards;
+              animation: load-scale 3.0s ease-out 1.0s 1 forwards;
     }
     
     h2 {
       text-align: center;
       opacity: 0;
-      -webkit-animation: load-popup 2.5s ease-out 2.8s 1 forwards;
-              animation: load-popup 2.5s ease-out 2.8s 1 forwards;
+      -webkit-animation: load-popup 3.5s ease-out 3.5s 1 forwards;
+              animation: load-popup 3.5s ease-out 3.5s 1 forwards;
     }
 }
 
@@ -345,81 +308,6 @@ section.sample {
 }
 
 
-/* VIDEO PLACEHOLDERS */
-.wrapper1 {
-    width:250px;
-    height:200px;
-    //border:2px black solid;
-    margin:auto;
-    position: relative;
-}
-
-.wrapper2 {
-    width:250px;
-    height:200px;
-    //border:2px black solid;
-    margin:auto;
-    position: relative;
-}
-
-.wrapper3 {
-    width:250px;
-    height:200px;
-    //border:2px black solid;
-    margin:auto;
-    position: relative;
-}
-
-.wrapper4 {
-    width:250px;
-    height:200px;
-    //border:2px black solid;
-    margin:auto;
-    position: relative;
-}
-
-#song1 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("http://fakeimg.pl/350x200/?text=Song+1");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-#song2 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("http://fakeimg.pl/350x200/?text=Song+2");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-#song3 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("http://fakeimg.pl/350x200/?text=Song+3");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-#song4 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-image: url("http://fakeimg.pl/350x200/?text=Song+4");
-    background-repeat: no-repeat;
-    background-size: contain;
-}
-
-
 /************/
 /** TABLET **/
 /************/
@@ -434,6 +322,7 @@ section.sample {
     width: 100vw;
     overflow: hidden;
   }
+    
   .video-bg video {
     display: block;
     width: 1280px   !important;
@@ -471,6 +360,7 @@ section.sample {
     width: 100%;
     overflow: hidden;
   }
+    
   .video-bg video {
     display: block;
     width: 100% !important;
