@@ -56,7 +56,7 @@
 }
 
 .block{
-    padding: 0px 25px 40px 25px;
+    padding: 0px 25px 30px 25px;
 }
 
 .thumbnail {
@@ -66,7 +66,7 @@
 }
 
 .video-list {
-    margin: 0 5%;
+    margin: 0 0;
 }
 
 .circle{
@@ -74,21 +74,6 @@
     height: 150px; 
     margin-bottom: 5px; 
     border-radius: 50%
-}
-
-.dark-theme{
-    color: white;
-    background-color: $darkgray;
-    padding: 30px 10%; 
-}
-
-.light-theme{
-    color: black;
-    background-color: $lightgray;
-    
-    h3{
-        color: black !important;
-    }
 }
 
 .my-videos-page {
