@@ -62,6 +62,7 @@
             console.error('bad instruction for item: ', item);
           }
         };
+        
         vm.searchText = "";
 
         vm.querySearch  = function(query) {
