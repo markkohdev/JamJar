@@ -1,4 +1,51 @@
 /*----------VIDEOGULAR----------*/
+
+/* Video Player Sizing based on 16:9 aspect ratio */
+.videogular-container {
+  width: 100%;
+  //height: 320px;
+  height: auto;
+  margin: auto;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .videogular-container {
+    width: 728px;
+    height: 409.5px;
+  }
+
+  .videogular-container.audio {
+    width: 728px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1370px) {
+  .videogular-container {
+    width: 940px;
+    height: 528.75px;
+  }
+
+  .videogular-container.audio {
+    width: 940px;
+    height: 50px;
+  }
+}
+
+@media (min-width: 1371px) {
+  .videogular-container {
+    width: 1270px;
+    height: 714.375px;
+  }
+
+  .videogular-container.audio {
+    width: 1270px;
+    height: 50px;
+  }
+}
+
+/* Landing page sample video styling */
 .videobox {
   padding: 0;
 }
@@ -11,13 +58,6 @@
 
 .videobox .videoContentBox {
   position: relative;
-  overflow: hidden;
-}
-
-.videogular-container {
-  width: 100%;
-  height: auto;
-  margin: auto;
   overflow: hidden;
 }
 
@@ -41,36 +81,6 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  .videogular-container {
-    width: 728px;
-    height: 409.5px;
-  }
-
-  .videogular-container.audio {
-    width: 728px;
-    height: 50px;
-  }
-}
-
-@media (min-width: 992px) and (max-width: 1199px) {
-  .videogular-container {
-    width: 940px;
-    height: 528.75px;
-  }
-
-  .videogular-container.audio {
-    width: 940px;
-    height: 50px;
-  }
-}
-
-@media screen and (max-width: 1199px) {
-  .videogular-container {
-    width: 100% !important;
-  }
-}
-
 @media screen and (min-width: 1120px) {
   .videobox {
     margin: 0;
@@ -78,18 +88,6 @@
 
   .owl-carousel .owl-item img {
     height: 147px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .videogular-container {
-    width: auto;
-    height: 650.125px;
-  }
-
-  .videogular-container.audio {
-    width: auto;
-    height: 50px;
   }
 }
 
