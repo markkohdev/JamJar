@@ -5,13 +5,13 @@
         <a href="">
             <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
         </a>
-        <h3>{{video.name}}</h3>
-        <h4>
+        <h2>{{video.name}}</h2>
+        <h3>
           <span ng-repeat="artist in video.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h4>
+        </h3>
         <h4>{{ video.concert.date }}</h4>
         <h4>{{ video.concert.venue.name }}</h4>
       </div>
