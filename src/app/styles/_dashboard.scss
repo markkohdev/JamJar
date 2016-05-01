@@ -2,46 +2,6 @@
     font-size: 12px;
     word-wrap: break-word;
     
-    h1 {
-        color: white;
-        padding-bottom: 16px;
-        font-size: 18px;
-        font-weight: 500;
-        line-height: 1.3em;
-        vertical-align: middle;
-    }
-    
-    h2 {
-        font-size: 15px;
-    }
-    
-    h3 {
-        color: white;
-        margin: 0 0 1px 0;
-        padding: 0 0 2px 0;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.3em;
-        vertical-align: middle;
-        /*white-space: nowrap;
-        word-wrap: normal;
-        overflow: hidden;
-        -o-text-overflow: ellipsis;
-        text-overflow: ellipsis;*/
-    }
-    
-    h4 {
-        color: $mediumgray;
-        margin: 0;
-        padding: 0;
-        font-size: 12px;
-        font-weight: 500;
-        line-height: 1.3em;
-        vertical-align: top;
-        white-space: normal;
-        word-wrap: break-word;
-    }
-    
     a {
         color: white !important;
         text-decoration: none !important;
@@ -60,38 +20,11 @@
     padding: 0px 25px 30px 25px;
 }
 
-.thumbnail {
-    display: block;
-    width: 100%;
-    height: auto;
-}
-
 .video-list {
-    margin: 0 10px;
-}
-
-.my-videos-page {
-    padding: 30px 10%; 
+    margin: 0 3%;
 }
 
 .upload-page {
     padding: 20px !important;
 }
 
-.short-bar-div {
-    padding: 0px 10%;
-}
-
-.long-bar-div {
-    padding: 0px 5%;
-}
-
-.collection-bar {
-    border-bottom: medium solid $darkgray;
-    margin-bottom: 3px;
-}
-
-.collection-jamjar-bar {
-    border-bottom: medium solid $white;
-    margin-bottom: 3px;
-}

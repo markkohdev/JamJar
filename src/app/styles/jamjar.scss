@@ -16,6 +16,43 @@ h1, h2 {
     font-weight: 500;
     color: white;
 }
+   
+h1 {
+    font-size: 18px;
+    line-height: 1.3em;
+    vertical-align: middle;
+}
+
+h2 {
+    font-size: 15px;
+}
+
+h3 {
+    color: white;
+    margin: 0 0 1px 0;
+    padding: 0 0 2px 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.3em;
+    vertical-align: middle;
+    /*white-space: nowrap;
+    word-wrap: normal;
+    overflow: hidden;
+    -o-text-overflow: ellipsis;
+    text-overflow: ellipsis;*/
+}
+
+h4 {
+    color: $mediumgray;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.3em;
+    vertical-align: top;
+    white-space: normal;
+    word-wrap: break-word;
+}
 
 footer {
     background-color: $coral;
@@ -62,6 +99,7 @@ footer {
   border-color: green !important;
 }
 
+
 /* PAGE THEMES */
 .dark-theme{
     color: white;
@@ -87,12 +125,8 @@ footer {
     background-color: $coral !important;
 }
 
+
 /* CUSTOM VIEWS */
-.text-vertical-center {
-    display: table-cell;
-    text-align: center;
-    padding-top: 50px;
-}
 
 .left-align{
     text-align: left;
@@ -106,16 +140,8 @@ footer {
     padding: 1% 3%; 
 }
 
-.black-color {
-    color: black !important;
-}
-
 .content {
     //padding-bottom: 140px; /*height of the footer*/
-}
-
-.logo-banner{
-    max-width: 300px;
 }
 
 .rect{
@@ -148,6 +174,68 @@ footer {
 }
 
 
+.thumbnail {
+    display: block;
+    width: 100%;
+    height: auto;
+}
 
+/* Playlist/Concert Thumbnail CSS*/
+.pl-thumb {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    overflow: hidden;
+    
+    img {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+    
+    .sidebar {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 40%;
+        background: rgba(0,0,0,.8);
+    }
+    
+    .pl-sidebar-content {
+        height: 100%;
+        color: #cfcfcf;
+        display: block;
+        opacity: .9;
+        text-align: center;
+    }
+    
+    .formatted-video-count-label {
+        display: block;
+        margin: 0 .75em;
+        font-size: 10px;
+        line-height: 1.5em;
+        word-break: break-word;
+        white-space: normal;
+        text-transform: uppercase;
+    }
+    
+    .formatted-video-count-label b {
+        display: block;
+        font-weight: normal;
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+.valign::before {
+    content: '';
+    height: 100%;
+}
+
+.valign::before, .valign-container {
+    vertical-align: middle;
+    display: inline-block;
+}
 
 // Yeoman generated stuff
