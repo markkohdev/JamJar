@@ -15,15 +15,15 @@
                   md-menu-class="navbar-search-results"
                   placeholder="Search...">
                 <md-item-template>
-                  <span class="item-title">
-                    <md-icon>{{item.icon}}</md-icon>
-                    <span class='item-title-name' md-highlight-text="vm.search" md-highlight-flags="^i"> {{item.name}} </span>
-                  </span>
-                  <span class="item-metadata">
-                    <span class="item-metastat" md-highlight-text="vm.search" md-highlight-flags="^i">
-                      {{item.details}}
-                    </span>
-                  </span>
+                    <div layout="row" layout-align="center center">
+                      <span class="item-title" flex="5" >
+                        <md-icon>{{item.icon}}</md-icon>
+                      </span>
+                      <span class="item-metadata" flex="95" layout="column" layout-align="center start">
+                        <div class="search-name" md-highlight-text="vm.search" md-highlight-flags="^i">{{item.name}}</div>
+                        <div class="search-details" md-highlight-text="vm.search" md-highlight-flags="^i">{{item.details}}</div>
+                      </span>
+                    </div>
                 </md-item-template>
                 <md-not-found>
                   <span>no results found</span>
