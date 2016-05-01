@@ -33,7 +33,7 @@ h3 {
     padding: 0 0 2px 0;
     font-size: 14px;
     font-weight: 500;
-    line-height: 1.3em;
+    line-height: 1.1em;
     vertical-align: middle;
     /*white-space: nowrap;
     word-wrap: normal;
@@ -111,8 +111,13 @@ footer {
     color: black;
     background-color: $lightgray;
     
-    h3 {
+    h2 {
+        color: $navy !important;
         font-weight: 600;
+        margin: 0;
+    }
+    
+    h3 {
         color: $navy !important;
     }
     
@@ -145,7 +150,7 @@ footer {
 }
 
 .rect{
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .circle{
