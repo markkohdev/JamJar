@@ -91,8 +91,66 @@
       </div>
   </a>
     
-  <div layout="row" class="recommended-jamjars">
+    <div layout="row" class="recommended-jamjars rec-title">
+        <div flex>
+          <h3>Recommended JamJars</h3>
+        </div>
+    </div>
 
+    <div layout="row" layout-align="start start" layout-wrap class="recommended-jamjars rec-list">
+        <div ng-repeat="jamjar in vm.recommended.jamjars" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+          <div layout="column" class="block">
+            <a ui-sref="dashboard.player({concert_id: jamjar.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
+                <div class="short-bar-div"><div class="collection-white-bar"></div></div>
+                <div class="long-bar-div"><div class="collection-white-bar"></div></div> 
+                <img ng-src="{{vm.getThumbForJamJar(jamjar.start_id)}}" class="rect thumbnail"/>
+                <h3>{{jamjar.concert.artist}} Artist</h3>
+                <h4>{{jamjar.concert.date}} Date</h4>
+                <h4>{{jamjar.concert.venue.name}} Venue</h4>
+                <h4>{{jamjar.count}} # videos</h4>
+            </a>
+          </div>
+        </div>
+    </div>
 
-  </div>
+    <div layout="row" class="recommended-jamjars rec-title">
+        <div flex>
+          <h3>Recommended Concerts</h3>
+        </div>
+    </div>
+
+    <div layout="row" layout-align="start start" layout-wrap class='recommended-jamjars rec-list'>
+        <div ng-repeat="concert in vm.recommended.concerts" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+          <div layout="column" class="block">
+            <a ui-sref="dashboard.concert({id: concert.id})">
+              <div class="pl-thumb rect">
+                <img ng-src="{{concert.thumbs[0][256]}}">
+                <span class="sidebar">
+                    <span class="pl-sidebar-content valign">
+                        <span class="valign-container">
+                            <span class="formatted-video-count-label">
+                                <b>#{{concert.graph.length}}</b> 
+                                jamjars
+                                <b>-</b>
+                                <b>{{concert.videos_count}}</b> 
+                                videos
+                            </span>
+                        </span>
+                    </span>
+                </span>
+              </div>
+              <h3>
+                <span ng-repeat="artist in concert.artists">
+                    {{ artist.name }}
+                    {{$last ? '' : ', '}}
+                </span>
+              </h3>
+            </a>
+            <h4>{{concert.date}}</h4>
+            <h4>{{concert.venue.name}}</h4>
+          </div>
+        </div>
+    </div>
+    
+    
 </div>
