@@ -33,6 +33,12 @@
         controller: 'DiscoverController',
         controllerAs: 'vm'
       })
+      .state('dashboard.explore', {
+        url: '/explore?genres?artists?uploaders',
+        templateUrl: 'app/dashboard/explore/explore.html',
+        controller: 'ExploreController',
+        controllerAs: 'vm'
+      })
       .state('dashboard.concert', {
         url: '/concert/:id',
         templateUrl: 'app/dashboard/concert/concert.html',
@@ -52,16 +58,25 @@
         controller: 'UploadController',
         controllerAs: 'vm'
       })
-      .state('dashboard.my_videos', {
-        url: '/myvideos',
-        templateUrl: 'app/dashboard/my_videos/my_videos.html',
-        controller: 'MyVideosController',
+      .state('dashboard.profile', {
+        url: '/profile',
+        templateUrl: 'app/dashboard/profile/profile.html',
+        controller: 'MyProfileController',
+        controllerAs: 'vm',
+        abstract: true
+      })
+      .state('dashboard.profile.videos', {
+        url: '/videos',
+        templateUrl: 'app/dashboard/profile/profile.html',
+        controller: 'MyProfileController',
+        params: { tab: 0 },
         controllerAs: 'vm'
       })
-      .state('dashboard.my_concerts', {
-        url: '/myconcerts',
-        templateUrl: 'app/dashboard/my_videos/my_concerts.html',
-        controller: 'MyConcertsController',
+      .state('dashboard.profile.concerts', {
+        url: '/concerts',
+        templateUrl: 'app/dashboard/profile/profile.html',
+        controller: 'MyProfileController',
+        params: { tab:1 },
         controllerAs: 'vm'
       });
 

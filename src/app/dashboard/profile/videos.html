@@ -1,0 +1,20 @@
+<div class="light-theme small-padding">
+  <div layout="row" layout-align="start start" layout-wrap class='video-list'>
+    <div ng-repeat="video in vm.profile.videos" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+      <div layout="column" class="block">
+        <a ui-sref="dashboard.player({concert_id: vm.concert.id, video_id: video.id, type: 'individual'})">
+            <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
+            <h2>{{video.name}}</h2>
+        </a>
+        <h3>
+          <span ng-repeat="artist in video.artists">
+            {{ artist.name }}
+            {{$last ? '' : ', '}}
+          </span>
+        </h3>
+        <h4>{{ video.concert.date }}</h4>
+        <h4>{{ video.concert.venue.name }}</h4>
+      </div>
+    </div>
+  </div>
+</div>

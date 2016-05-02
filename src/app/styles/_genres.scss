@@ -1,0 +1,40 @@
+
+$genreTagHeight: 100px;
+
+.genres-section {
+
+  .genre {
+    height: $genreTagHeight;
+    border-radius: 5px;
+  }
+
+  .genre-text {
+    color: #000 !important;
+    text-align: center;
+    line-height: $genreTagHeight;
+    vertical-align: middle;
+    font-size: 18px;
+  }
+}
+    
+.genre-name {
+    text-transform: uppercase;
+}
+
+.genre-banner {
+    position: relative;
+    z-index: 5;
+}
+
+.genre-banner-bg {    
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: url(../assets/images/wallpaper/darkCloudBg.jpg) repeat center center scroll;
+    opacity: .7;
+    width: 100%;
+    height: 100%;
+}

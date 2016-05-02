@@ -1,60 +1,159 @@
-<div layout="column">
-  <div layout="row" ng-if="player.jamjar.primaryVideo" class='jamjar-player'>
+<div layout="column" class="theatre-bg">
+  <div layout="column" ng-if="player.jamjar.primaryVideo" class='jamjar-player videogular-container'>
       <div ng-repeat="video in player.jamjar.nowPlaying">
-        <videogular flex="80" 
-                    vg-theme="player.config.theme"
-                    vg-auto-play="true"
-                    vg-preload="preload"
-                    vg-player-ready="player.jamjar.onPlayerReady($API, video)"
-                    vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
-                    vg-change-source="player.jamjar.onUpdateSource($source, video)"
-                    vg-update-state="player.jamjar.onUpdateState($state, video)"
-                    vg-complete="player.jamjar.onComplete(video)"
-                    vg-cue-points="player.jamjar.cuePoints"
-                    ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
-          <vg-media vg-src="video.config.sources"></vg-media>
-          <vg-controls>
-            <vg-play-pause-button></vg-play-pause-button>
-            <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
-            <vg-scrub-bar>
-              <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-            </vg-scrub-bar>
-            <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
-            <vg-volume>
-              <vg-mute-button></vg-mute-button>
-              <vg-volume-bar></vg-volume-bar>
-            </vg-volume>
-            <vg-fullscreen-button></vg-fullscreen-button>
-          </vg-controls>
-          <vg-overlay-play></vg-overlay-play>
+        <videogular flex
+            vg-theme="player.config.theme"
+            vg-auto-play="false"
+            vg-preload="preload"
+            vg-player-ready="player.jamjar.onPlayerReady($API, video)"
+            vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
+            vg-change-source="player.jamjar.onUpdateSource($source, video)"
+            vg-update-state="player.jamjar.onUpdateState($state, video, video == player.jamjar.primaryVideo)"
+            vg-complete="player.jamjar.onComplete(video)"
+            vg-cue-points="player.jamjar.cuePoints"
+            ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
+            
+            <vg-media vg-src="video.config.sources"></vg-media>
+            
+            <vg-controls class="high-z">
+                <jamjar-button toggle-overlay="player.toggleOverlay"></jamjar-button>
+                
+                <vg-play-pause-button></vg-play-pause-button>
+                <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                <vg-scrub-bar>
+                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                </vg-scrub-bar>
+                <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                <vg-volume>
+                    <vg-mute-button></vg-mute-button>
+                    <vg-volume-bar></vg-volume-bar>
+                </vg-volume>
+                <vg-fullscreen-button></vg-fullscreen-button>
+            </vg-controls>
+            
+            <vg-buffering></vg-buffering>
+            <vg-overlay-play></vg-overlay-play>
+            
+            <jamjar-plugin></jamjar-plugin>
         </videogular>
       </div>
-      <div flex="20" class='player-sidebar'>
+<!--
+      <div flex class='player-sidebar'>
         <div layout="column" layout-align="space-around center">
-          <div ng-repeat="video in player.jamjar.nowPlaying | filter:{playable: true}" ng-if="video != player.jamjar.primaryVideo">
+          <div ng-repeat="video in player.jamjar.nowPlaying" ng-if="video != player.jamjar.primaryVideo">
             <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
               <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
             </div>
           </div>
         </div>
       </div>
+-->
   </div>
-  <div layout="row" class="jamjar-player-info">
-    <div flex="5"></div>
-    <div flex="45">
+    
+  <div layout="row" class="curr-video-info">
+    <div flex="50">
       <div layout="column" layout-align="center start">
-        <div layout="row">Title: {{player.jamjar.primaryVideo.video.name}}</div>
-        <div layout="row">Uploaded By: {{player.jamjar.primaryVideo.video.user.username}}</div>
-      </div>
-    </div>
-    <div flex="45">
-      <div layout="column" layout-align="center end">
-        <div flex layout-align="center start">
-          <div layout="row"># Likes</div>
-          <div layout="row"># upvotes / # downvotes</div>
+        <div class="primary-video-title">Title: {{player.jamjar.primaryVideo.video.name}}</div>
+        <div class="user-info">
+            Uploaded by <a ui-sref="dashboard.explore({uploaders: video.user.id})">{{player.jamjar.primaryVideo.video.user.username}}</a>
         </div>
       </div>
     </div>
-    <div flex="5"></div>
+    <div flex="50">
+      <div layout="column" layout-align="center end">
+        <div layout="row">
+            <div class="video-views">{{player.jamjar.primaryVideo.video.views}} views</div>
+        </div>
+        <div layout="row">
+            <md-button>
+                <md-icon md-svg-icon="assets/images/btns/ic_thumb_up_black_24px.svg"></md-icon>
+                #upvotes
+            </md-button>
+            <md-button>
+                <md-icon md-svg-icon="assets/images/btns/ic_thumb_down_black_24px.svg"></md-icon>
+                #downvotes
+            </md-button>
+            <md-button>
+                <md-icon md-svg-icon="assets/images/btns/ic_flag_black_24px.svg"></md-icon>
+                Report
+            </md-button>  
+        </div>
+      </div>
+    </div>
   </div>
+    
+  <a ui-sref="dashboard.concert({id: player.jamjar.concert.id})">
+      <div layout="row" class="concert-info">
+          <div layout="column">
+              <img ng-src="{{player.jamjar.concert.videos[0].artists[0].images[3].url}}" class="mini-circle" />
+          </div>
+          <div flex layout="column" layout-align="center start">
+              <div class="artist">{{player.jamjar.concert.artists[0].name}}</div>
+              <div>at {{player.jamjar.concert.venue.name}} on {{player.jamjar.concert.date}}</div>
+          </div>
+      </div>
+  </a>
+    
+    <div layout="row" class="recommended-jamjars rec-title">
+        <div flex>
+          <h3>Recommended JamJars</h3>
+        </div>
+    </div>
+
+    <div layout="row" layout-align="start start" layout-wrap class="recommended-jamjars rec-list">
+        <div ng-repeat="jamjar in vm.recommended.jamjars" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+          <div layout="column" class="block">
+            <a ui-sref="dashboard.player({concert_id: jamjar.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
+                <div class="short-bar-div"><div class="collection-white-bar"></div></div>
+                <div class="long-bar-div"><div class="collection-white-bar"></div></div> 
+                <img ng-src="{{vm.getThumbForJamJar(jamjar.start_id)}}" class="rect thumbnail"/>
+                <h3>{{jamjar.concert.artist}} Artist</h3>
+                <h4>{{jamjar.concert.date}} Date</h4>
+                <h4>{{jamjar.concert.venue.name}} Venue</h4>
+                <h4>{{jamjar.count}} # videos</h4>
+            </a>
+          </div>
+        </div>
+    </div>
+
+    <div layout="row" class="recommended-jamjars rec-title">
+        <div flex>
+          <h3>Recommended Concerts</h3>
+        </div>
+    </div>
+
+    <div layout="row" layout-align="start start" layout-wrap class='recommended-jamjars rec-list'>
+        <div ng-repeat="concert in vm.recommended.concerts" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+          <div layout="column" class="block">
+            <a ui-sref="dashboard.concert({id: concert.id})">
+              <div class="pl-thumb rect">
+                <img ng-src="{{concert.thumbs[0][256]}}">
+                <span class="sidebar">
+                    <span class="pl-sidebar-content valign">
+                        <span class="valign-container">
+                            <span class="formatted-video-count-label">
+                                <b>#{{concert.graph.length}}</b> 
+                                jamjars
+                                <b>-</b>
+                                <b>{{concert.videos_count}}</b> 
+                                videos
+                            </span>
+                        </span>
+                    </span>
+                </span>
+              </div>
+              <h3>
+                <span ng-repeat="artist in concert.artists">
+                    {{ artist.name }}
+                    {{$last ? '' : ', '}}
+                </span>
+              </h3>
+            </a>
+            <h4>{{concert.date}}</h4>
+            <h4>{{concert.venue.name}}</h4>
+          </div>
+        </div>
+    </div>
+    
+    
 </div>
