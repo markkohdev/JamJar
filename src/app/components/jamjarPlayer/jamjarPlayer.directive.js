@@ -331,6 +331,7 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
     });
 
+    _.defer(self.primaryVideo.play.bind(self.primaryVideo));
   }
 
   JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
@@ -483,8 +484,10 @@
         // remove it when the video ends!
         var removeTime = default_offset + edge.offset + video.video.length;
 
-        self.addPlayerEdge(video, queueTime, removeTime);
-        self.addVideo(video);
+        if (removeTime > 2.0) {
+          self.addPlayerEdge(video, queueTime, removeTime);
+          self.addVideo(video);
+        }
 
         var new_edge = {
           confidence: edge.confidence,

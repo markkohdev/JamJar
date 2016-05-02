@@ -6,8 +6,8 @@
                 <img class="thumbnail-preview" ng-src="{{player.jamjar.primaryVideo.video.thumb_src[128]}}" />
                 <div flex class="jamjar-line active-jam" ng-style="{width: player.jamjar.primaryVideo.presentation.width}"></div>
                 <md-tooltip><!--md-visible="player.tooltip.showTooltip" md-direction="{{player.tooltip.tipDirection}}">-->
-                    <div flex>{{player.jamjar.primaryVideo.video.name}}</div>
-                    <div flex>{{player.jamjar.primaryVideo.video.user.username}}</div>
+                    <span>{{player.jamjar.primaryVideo.video.name}}</span>
+                    <span>{{player.jamjar.primaryVideo.video.user.username}}</span>
                 </md-tooltip>
             </md-button>
         </div>
