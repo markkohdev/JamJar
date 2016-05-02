@@ -5,6 +5,7 @@
     .module('jamjar')
     .directive('jamjarPlugin', jamjarPlugin);
 
+    /** @ngInject */
     function jamjarPlugin(VG_STATES) {
         var directive = {
             restrict: "E",
@@ -18,6 +19,7 @@
             bindToController: true
         }
 
+        /** @ngInject */
         function JamJarPluginController() {
             var vm = this;
         }
