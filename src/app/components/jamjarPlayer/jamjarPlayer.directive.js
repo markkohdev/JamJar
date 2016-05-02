@@ -61,6 +61,7 @@
       offset: '0px',
       width: '0px',
       playable: false,
+      preload: 'none',
     }
 
     self.config = self.getConfig();
@@ -73,6 +74,10 @@
     self.presentation.offset = 10 * offset + 'px';
     self.presentation.width  = 10 * (self.video.length - self.time()) + "px"
     self.presentation.playable = (offset == 0);
+
+    if (self.presentation.playable) {
+      self.presentation.preload = 'preload';
+    }
   };
 
   Video.prototype.calcOffsetMargin = function(primaryVideo, edgeToPrimary) {
@@ -88,7 +93,6 @@
     }
 
     var margin = offset - primaryVideo.time();
-    console.log(self.video.id, self.time(), primaryVideo.time(), edgeToPrimary);
     return Math.max(margin, 0);
   }
 
@@ -107,7 +111,11 @@
   Video.prototype.time = function() {
     var self = this;
 
-    return self.API.currentTime / 1000.0;
+    if (self.API) {
+      return self.API.currentTime / 1000.0;
+    } else {
+      return 0; //hack
+    }
   };
 
   Video.prototype.volume = function(vol) {
@@ -275,6 +283,7 @@
       // promoted to be the new primary video.
       self.primaryVideo = self.videos[video_id];
       self.primaryVideo.buffering = true; // start playing immediately!
+      self.primaryVideo.playable = true;
 
       self.addVideo(self.primaryVideo);
 
@@ -332,6 +341,9 @@
     self.primaryVideo = selectedVideo;
     self.primaryVideo.volume(self.volume);
 
+    // hack
+    self.primaryVideoEdges = {};
+
     self.primaryVideo.offset(offset);
     self.resetEdges();
 
@@ -346,7 +358,8 @@
   JamJar.prototype.getEdge = function(other) {
     var self = this;
 
-    var edge = _.find(self.primaryVideo.edges, {video: other.video.id});
+    //var edge = _.find(self.primaryVideo.edges, {video: other.video.id});
+    var edge = self.primaryVideoEdges[other.video.id];
 
     return edge || {};
   }
@@ -445,25 +458,49 @@
   JamJar.prototype.resetEdges = function () {
     var self = this;
 
+    // clear all existing cuepoints without deleting the reference to the object
     _.each(self.cuePoints, function(cue, index) {
       delete self.cuePoints[index];
     });
 
-    _.each(self.primaryVideo.edges, function(edge) {
-      var video = self.videos[edge.video];
 
-      if (edge.confidence > 20) {
+    var all_edges = {}; // video_id --> adjusted_edge
+
+    function recursiveAddEdges(source_video, default_offset) {
+      var video_id = source_video.video.id;
+
+      _.each(source_video.edges, function(edge) {
+        // if we've already recorded this video or it's a low quality match, skip it!
+        if (all_edges[edge.video] || edge.confidence <= 20) {
+          return;
+        }
+
+        var video = self.videos[edge.video];
+
         // if the edge video starts before current, then queue it immediately!
-        var queueTime = Math.max(0, edge.offset);
+        var queueTime = Math.max(0, default_offset + edge.offset);
 
         // remove it when the video ends!
-        var removeTime = edge.offset + video.video.length;
+        var removeTime = default_offset + edge.offset + video.video.length;
 
         self.addPlayerEdge(video, queueTime, removeTime);
         self.addVideo(video);
-      }
-    });
 
+        var new_edge = {
+          confidence: edge.confidence,
+          video: edge.video,
+          offset: edge.offset + default_offset
+        };
+
+        all_edges[video.video.id] = new_edge;
+
+        recursiveAddEdges(video, default_offset + edge.offset);
+      });
+    };
+
+    self.primaryVideoEdges = all_edges;
+
+    recursiveAddEdges(self.primaryVideo, 0);
   };
 
   JamJar.prototype.addPlayerEdge = function (video, queueTime, removeTime) {
@@ -477,9 +514,10 @@
          },
          onUpdate: function(currentTime, timeLapse, params) {},
          onLeave: function(currentTime, timeLapse, params) {},
-         onEnter: function(currentTime, timeLapse, params) {
+         onEnter: _.once(function(currentTime, timeLapse, params) {
+           console.log("ON ENTER: ", params.video.video.id);
            params.video.playable = true;
-         },
+         }),
 
          onComplete: _.once(function (currentTime, timeLapse, params) {
            console.log('removing video w/ id:', params.video.video.id);
