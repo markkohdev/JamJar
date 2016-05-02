@@ -1,13 +1,14 @@
 <div class='dark-theme'>
     
-  <div layout="row" class="small-padding">
+  <div layout="row" class="concert-banner small-padding">
+    <div class="concert-banner-bg"></div>
     <div layout="column">
       <img ng-src="{{vm.concert.videos[0].artists[0].images[2].url}}" class="circle thumbnail" />
     </div>
       
-    <div layout="column" layout-align="end start">
-      <h3>{{vm.getConcertArtists()}}</h3>
-      <h3>{{vm.concert.venue.name}}</h3>
+    <div layout="column" layout-align="end start" class="small-padding">
+      <h1>{{vm.getConcertArtists()}}</h1>
+      <h2>{{vm.concert.venue.name}}</h2>
       <h3>{{vm.concert.date}}</h3>
     </div>
   </div>
