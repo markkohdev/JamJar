@@ -1,6 +1,6 @@
-<div class='jamjar-layer' ng-show='player.overlay.visible' ng-cloak>
-    <div layout="column">
-
+<div ng-show='player.overlay.visible'>
+    <div class='jamjar-layer-bg'></div>
+    <div layout="column" class="jamjar-layer">
         <div class='jamjar-bar'>
             <md-button layout="row">
                 <img class="thumbnail-preview" ng-src="{{player.jamjar.primaryVideo.video.thumb_src[128]}}" />
@@ -14,7 +14,6 @@
 
         <div ng-repeat="video in player.jamjar.nowPlaying" ng-if="video != player.jamjar.primaryVideo" >
             <div ng-click="player.jamjar.handleSwitch(video)">
-
                 <div class='jamjar-bar' ng-style="{'margin-left': video.presentation.offset}">
                     <md-button layout="row">
                         <img class="thumbnail-preview" ng-src="{{video.video.thumb_src[128]}}" />
@@ -25,21 +24,6 @@
                         </md-tooltip>
                     </md-button>
                 </div>
-
-                <!--<div ng-if="video != player.jamjar.primaryVideo" 
-                     class="jamjar-box" 
-                     style="width: {{video.video.length}}em;
-                            margin-left: {{player.jamjar.primaryVideo.offset}}">
-                    <div layout="row">
-                        <img class='thumbnail-preview' ng-src="{{video.video.thumb_src[128]}}" />
-                        <div flex layout="column" class="jamjar-preview-info">
-                            <div flex>{{video.video.name}}</div>
-                            <div flex>{{video.video.user.username}}</div>
-                            <div>{{video.edges[0].video}}</div>
-                        </div>
-                    </div>
-                </div>-->
-
             </div>
         </div>
     </div>
