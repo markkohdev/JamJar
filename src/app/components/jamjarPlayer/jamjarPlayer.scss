@@ -85,7 +85,7 @@ videogular div.jamjar-layer {
     margin: 5px 5px 5px -5px;
     min-width: 100px;
     height: 10px;
-    background: #9BD096;
+    background: $green;
     cursor: pointer;
     z-index: 50;
 
@@ -102,10 +102,20 @@ videogular div.jamjar-layer {
 
 .disabled-jam {
     background: #2a2a2a !important;
+    cursor: not-allowed !important;
+}
+
+.disabled-jam-btn {
+    cursor: not-allowed !important;
 }
 
 .active-jam {
-    background: #7976B4 !important;
+    background: $coral !important;
+    cursor: not-allowed !important;
+}
+
+.primary-video-btn {
+    cursor: not-allowed !important;
 }
 
 .thumbnail-preview {

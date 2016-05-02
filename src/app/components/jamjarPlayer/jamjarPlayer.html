@@ -3,6 +3,8 @@
       <div ng-repeat="video in player.jamjar.nowPlaying">
         <videogular flex
             vg-theme="player.config.theme"
+            vg-auto-play="true"
+            vg-preload="preload"
             vg-player-ready="player.jamjar.onPlayerReady($API, video)"
             vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
             vg-change-source="player.jamjar.onUpdateSource($source, video)"
@@ -34,7 +36,7 @@
             </vg-controls>
             
             <vg-buffering></vg-buffering>
-            <vg-overlay-play></vg-overlay-play>
+            <!--<vg-overlay-play></vg-overlay-play>-->
             
             <jamjar-plugin></jamjar-plugin>
         </videogular>
