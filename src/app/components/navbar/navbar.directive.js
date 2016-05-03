@@ -77,15 +77,15 @@
           var type = vm.selectedItem.type;
 
           if (type == 'user') {
-            $state.go('dashboard.explore', {uploaders: vm.selectedItem.id});
+            $state.go('dashboard.explore', {uploaders: vm.selectedItem.id, name: vm.selectedItem.name}, {inherit: false});
           } else if (type == 'video') {
             $state.go('dashboard.player', {concert_id: vm.selectedItem.concert_id, video_id: vm.selectedItem.id, type:'individual'});
           } else if (type == 'concert') {
             $state.go('dashboard.concert', {id: vm.selectedItem.id});
           } else if (type == 'artist') {
-            $state.go('dashboard.explore', {artists: vm.selectedItem.id});
+            $state.go('dashboard.explore', {artists: vm.selectedItem.id, name: vm.selectedItem.name}, {inherit: false});
           } else if (type == 'venue') {
-            $state.go('dashboard.explore', {venues: vm.selectedItem.id});
+            $state.go('dashboard.explore', {venues: vm.selectedItem.id, name: vm.selectedItem.name}, {inherit: false});
           } else {
             console.error("unsupported search type:", type);
           }

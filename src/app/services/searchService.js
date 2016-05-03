@@ -45,6 +45,7 @@ function handleArtist(artist) {
   return {
     type: 'artist',
     icon: 'mic',
+    id: artist.id,
     name: artist.name,
     details: null
   }
