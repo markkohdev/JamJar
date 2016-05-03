@@ -61,10 +61,23 @@
       offset: '0px',
       width: '0px',
       playable: false,
+      preload: 'none',
     }
 
     self.config = self.getConfig();
   }
+
+  Video.prototype.onLoad = function(fn) {
+    var self = this;
+
+    if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        fn(API);
+      });
+    } else {
+      fn(API);
+    }
+  };
 
   Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
     var self = this;
@@ -73,6 +86,10 @@
     self.presentation.offset = 10 * offset + 'px';
     self.presentation.width  = 10 * (self.video.length - self.time()) + "px"
     self.presentation.playable = (offset == 0);
+
+    if (self.presentation.playable) {
+      self.presentation.preload = 'preload';
+    }
   };
 
   Video.prototype.calcOffsetMargin = function(primaryVideo, edgeToPrimary) {
@@ -88,7 +105,6 @@
     }
 
     var margin = offset - primaryVideo.time();
-    console.log(self.video.id, self.time(), primaryVideo.time(), edgeToPrimary);
     return Math.max(margin, 0);
   }
 
@@ -98,16 +114,22 @@
     self.ready = true;
     self.API = API;
 
-    var f;
-    while (f = self.whenLoaded.pop()) {
-      f(self.API);
-    }
+    _.defer(function() {
+      var f;
+      while (f = self.whenLoaded.pop()) {
+        f(self.API);
+      }
+    });
   }
 
   Video.prototype.time = function() {
     var self = this;
 
-    return self.API.currentTime / 1000.0;
+    if (self.API) {
+      return self.API.currentTime / 1000.0;
+    } else {
+      return 0; //hack
+    }
   };
 
   Video.prototype.volume = function(vol) {
@@ -226,7 +248,7 @@
     self.type = type;
 
     if (self.type == 'individual') {
-      self.loadVideo(video_id);
+      self.loadVideo(concert_id, video_id);
     } else if (self.type == 'jamjar') {
       self.loadGraph(concert_id, video_id);
     } else {
@@ -234,14 +256,19 @@
     }
   };
 
-  JamJar.prototype.loadVideo = function(video_id) {
+  JamJar.prototype.loadVideo = function(concert_id, video_id) {
     self.videoService.getVideoById(video_id, function(err, video) {
       if (err) {
         return console.error(err);
       }
 
       self.primaryVideo = new Video(video, {}, self.$sce);
+      self.primaryVideoEdges = {};
       self.primaryVideo.buffering = true;
+
+      self.primaryVideo.onLoad(function(API) {
+        API.play();
+      });
 
       self.addVideo(self.primaryVideo)
     });
@@ -275,10 +302,16 @@
       // promoted to be the new primary video.
       self.primaryVideo = self.videos[video_id];
       self.primaryVideo.buffering = true; // start playing immediately!
+      self.primaryVideo.playable = true;
 
       self.addVideo(self.primaryVideo);
 
       self.resetEdges();
+
+      self.primaryVideo.onLoad(function(API) {
+        API.play();
+      });
+
     });
   };
 
@@ -310,6 +343,8 @@
     //var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
     var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
+    var previousState = self.primaryVideo.API.currentState;
+
     self.primaryVideo = selectedVideo;
     self.primaryVideo.volume(self.volume);
 
@@ -322,6 +357,11 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
     });
 
+    if (previousState == 'pause') {
+      _.defer(self.primaryVideo.pause.bind(self.primaryVideo));
+    } else {
+      _.defer(self.primaryVideo.play.bind(self.primaryVideo));
+    }
   }
 
   JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
@@ -331,6 +371,9 @@
 
     self.primaryVideo = selectedVideo;
     self.primaryVideo.volume(self.volume);
+
+    // hack
+    self.primaryVideoEdges = {};
 
     self.primaryVideo.offset(offset);
     self.resetEdges();
@@ -346,7 +389,8 @@
   JamJar.prototype.getEdge = function(other) {
     var self = this;
 
-    var edge = _.find(self.primaryVideo.edges, {video: other.video.id});
+    //var edge = _.find(self.primaryVideo.edges, {video: other.video.id});
+    var edge = self.primaryVideoEdges[other.video.id];
 
     return edge || {};
   }
@@ -401,7 +445,10 @@
 
     // primary video ended, have to reconcile everything here
     if (self.nowPlaying.length > 0) {
-      var next = self.nowPlaying[0];
+      // pick the first video which is playable
+      var next = _.find(self.nowPlaying, function(vid) {
+        return vid.presentation.playable && vid.video.id != self.primaryVideo.video.id;
+      });
       var edge = self.getEdge(next);
       var offset = video.video.length - edge.offset;
       self.switchVideoDirect(next, offset);
@@ -445,25 +492,51 @@
   JamJar.prototype.resetEdges = function () {
     var self = this;
 
+    // clear all existing cuepoints without deleting the reference to the object
     _.each(self.cuePoints, function(cue, index) {
       delete self.cuePoints[index];
     });
 
-    _.each(self.primaryVideo.edges, function(edge) {
-      var video = self.videos[edge.video];
 
-      if (edge.confidence > 20) {
+    var all_edges = {}; // video_id --> adjusted_edge
+
+    function recursiveAddEdges(source_video, default_offset) {
+      var video_id = source_video.video.id;
+
+      _.each(source_video.edges, function(edge) {
+        // if we've already recorded this video or it's a low quality match, skip it!
+        if (all_edges[edge.video] || edge.confidence <= 20) {
+          return;
+        }
+
+        var video = self.videos[edge.video];
+
         // if the edge video starts before current, then queue it immediately!
-        var queueTime = Math.max(0, edge.offset);
+        var queueTime = Math.max(0, default_offset + edge.offset - 2);
 
         // remove it when the video ends!
-        var removeTime = edge.offset + video.video.length;
+        var removeTime = default_offset + edge.offset + video.video.length;
 
-        self.addPlayerEdge(video, queueTime, removeTime);
-        self.addVideo(video);
-      }
-    });
+        if (removeTime > 2.0) {
+          self.addPlayerEdge(video, queueTime, removeTime);
+          self.addVideo(video);
+        }
 
+        var new_edge = {
+          confidence: edge.confidence,
+          video: edge.video,
+          offset: edge.offset + default_offset
+        };
+
+        all_edges[video.video.id] = new_edge;
+
+        recursiveAddEdges(video, default_offset + edge.offset);
+      });
+    };
+
+    self.primaryVideoEdges = all_edges;
+
+    recursiveAddEdges(self.primaryVideo, 0);
   };
 
   JamJar.prototype.addPlayerEdge = function (video, queueTime, removeTime) {
@@ -477,9 +550,10 @@
          },
          onUpdate: function(currentTime, timeLapse, params) {},
          onLeave: function(currentTime, timeLapse, params) {},
-         onEnter: function(currentTime, timeLapse, params) {
+         onEnter: _.once(function(currentTime, timeLapse, params) {
+           console.log("ON ENTER: ", params.video.video.id);
            params.video.playable = true;
-         },
+         }),
 
          onComplete: _.once(function (currentTime, timeLapse, params) {
            console.log('removing video w/ id:', params.video.video.id);
