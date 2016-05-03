@@ -26,6 +26,7 @@
             var vm = this;
 
             vm.privacySettings = [{value: 'Public'}, {value: 'Private'}];
+            
             vm.uploader = new FileUploader({
                 url: APIService.apiRootUrl + 'videos/',
                 headers: {
@@ -58,12 +59,6 @@
 
               return validDetails && validArtists && validFiles;
             }
-
-            vm.pause = function(doc) {
-            };
-
-            vm.cancel = function(doc) {
-            };
 
             vm.uploadStatus = function(item) {
               if (item.isError) {
@@ -110,6 +105,10 @@
 
                 vm.uploadAll(concert, videoDetails.artists);
               });
+            };
+            
+            vm.removeVideoFromQueue = function() {
+                
             };
 
             vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {

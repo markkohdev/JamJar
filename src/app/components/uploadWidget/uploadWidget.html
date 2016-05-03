@@ -33,7 +33,7 @@
                     {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB | {{ upload.uploadStatus(item) }}
                 </div>
                 <div flex="20" class="right-align">
-                    <md-button class="md-icon-button close-btn" ng-click="cancel()">
+                    <md-button class="md-icon-button close-btn" ng-click="upload.removeVideoFromQueue()">
                         <md-icon md-svg-src="assets/images/btns/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
                     </md-button>
                 </div>
