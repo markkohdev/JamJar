@@ -7,8 +7,9 @@
              layout="column" 
              layout-align="center center">
             
+            <div class="upload-bg"></div>
             <div>
-                <label class="myLabel md-raised md-button md-default-theme">
+                <label class="myLabel md-raised md-button md-default-theme coral-btn">
                     <input type="file" 
                            nv-file-select=""
                            multiple 
@@ -27,27 +28,24 @@
     
     <div ng-repeat="item in upload.uploader.queue" layout-fill>
         <md-content layout="column" class="md-padding">
-            <div layout="row" layout-align="space-between start">
-                <div flex="33" layout="column" layout-padding layout-fill>
-                    <img src="http://fakeimg.pl/250x150/?text={{item.file.name}}" class="rect" />
-                    
-                  <!--
-                    <div layout="row" layout-align="space-between start" layout-padding>
-                        <md-button ng-click="item.pause()" flex class="md-small">Pause</md-button>
-                        <md-button ng-click="item.cancel()" flex class="md-small">Cancel</md-button>
-                    </div>
-                    -->
+            <div layout="row" layout-align="center center" class="file-info">
+                <div flex="80" ng-class="{red: item.isError}" title="{{item.file.name}}">
+                    {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB | {{ upload.uploadStatus(item) }}
                 </div>
- 
-                <div flex="66" layout="column" layout-padding layout-fill>
-                    <p ng-class="{red: item.isError}"  title="{{item.file.name}}" class="namebox">
-                      {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB | {{ upload.uploadStatus(item) }}
-                    </p>
-                    
+                <div flex="20" class="right-align">
+                    <md-button class="md-icon-button close-btn" ng-click="cancel()">
+                        <md-icon md-svg-src="assets/images/btns/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
+                    </md-button>
+                </div>
+            </div>
+            
+            <div layout="row" layout-align="space-between start">
+                <div flex="80" layout="column" layout-padding layout-fill>                    
                     <md-input-container class="md-block" flex-gt-sm>
                         <input ng-model="item.title" placeholder="Video Name" ng-disabled="item.isUploaded && !item.isError">
                     </md-input-container>
-                    
+                </div>
+                <div flex="20" layout="column" layout-padding layout-fill>                    
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Sharing</label>
                         <md-select ng-model="item.privacy" ng-disabled="item.isUploaded">
@@ -62,14 +60,13 @@
             <div>
                 <md-progress-linear md-mode="determinate" value="{{item.progress}}"></md-progress-linear>
             </div>
-            
         </md-content>
         
         <md-divider></md-divider>
     </div>    
     
     <div layout="row" layout-align="end center">
-        <md-button ng-disabled="!upload.valid()" ng-click="upload.doUpload()" class="md-small">Upload</md-button>
+        <md-button ng-disabled="!upload.valid()" ng-click="upload.doUpload()" class="md-small coral-btn">Upload</md-button>
     </div>
     
 </div>
