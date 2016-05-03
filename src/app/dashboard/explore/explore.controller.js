@@ -12,12 +12,14 @@
     vm.query = {
       'genres'  : $stateParams.genres,
       'artists' : $stateParams.artists,
-      'uploaders'   : $stateParams.uploaders
+      'uploaders'   : $stateParams.uploaders,
+      'venues'   : $stateParams.venues
     };
 
     vm.genrename = '';
     vm.videos = [];
     vm.concerts = [];
+    vm.venues = [];
 
     VideoService.getVideos(vm.query, function(err, resp) {
       vm.videos = resp;

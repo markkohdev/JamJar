@@ -34,7 +34,7 @@
         controllerAs: 'vm'
       })
       .state('dashboard.explore', {
-        url: '/explore?genres?artists?uploaders',
+        url: '/explore?genres?artists?uploaders?venues',
         templateUrl: 'app/dashboard/explore/explore.html',
         controller: 'ExploreController',
         controllerAs: 'vm'
