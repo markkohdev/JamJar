@@ -248,7 +248,7 @@
     self.type = type;
 
     if (self.type == 'individual') {
-      self.loadVideo(video_id);
+      self.loadVideo(concert_id, video_id);
     } else if (self.type == 'jamjar') {
       self.loadGraph(concert_id, video_id);
     } else {
@@ -256,13 +256,14 @@
     }
   };
 
-  JamJar.prototype.loadVideo = function(video_id) {
+  JamJar.prototype.loadVideo = function(concert_id, video_id) {
     self.videoService.getVideoById(video_id, function(err, video) {
       if (err) {
         return console.error(err);
       }
 
       self.primaryVideo = new Video(video, {}, self.$sce);
+      self.primaryVideoEdges = {};
       self.primaryVideo.buffering = true;
 
       self.primaryVideo.onLoad(function(API) {
