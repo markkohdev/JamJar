@@ -14,7 +14,7 @@
               md-items="item in vm.artistSearch(vm.searchText)"
               md-item-text="item.name"
               md-delay="200"
-              placeholder="Add Artist">
+              placeholder="Add Artist(s)">
             <span md-highlight-text="vm.searchText">{{item.name}}</span>
           </md-autocomplete>
           <md-chip-template>
@@ -25,13 +25,18 @@
         </md-chips>
       </md-input-container>
 
-      <md-input-container class="md-block">
+    <div layout="row">
+      <md-datepicker flex="20" ng-model="vm.concertDate" md-placeholder="Concert Date" ng-required="true"></md-datepicker>
+        
+      <md-input-container flex="80">
         <input class='venue-search' type="text" ng-autocomplete ng-model="vm.concertInput" details="vm.concertVenue"/>
       </md-input-container>
-
+    </div>
+<!--
       <md-input-container class="md-block">
         <input class='venue-search' ng-model="vm.concertDate" type="date" placeholder="Concert Date" ng-required="true">
       </md-input-container>
+-->
 
       <div layout="row" layout-align="end center" ng-show="!showDetails">
           <md-button ng-disabled="!vm.canContinue()" ng-click="showDetails = ! showDetails">Continue</md-button>
