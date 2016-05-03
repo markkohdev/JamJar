@@ -25,25 +25,19 @@
         </md-chips>
       </md-input-container>
 
-    <div layout="row">
-      <md-datepicker flex="20" ng-model="vm.concertDate" md-placeholder="Concert Date" ng-required="true"></md-datepicker>
+      <div layout="row">
+        <md-datepicker flex="20" ng-model="vm.concertDate" md-placeholder="Concert Date" ng-required="true"></md-datepicker>
         
-      <md-input-container flex="80">
-        <input class='venue-search' type="text" ng-autocomplete ng-model="vm.concertInput" details="vm.concertVenue"/>
-      </md-input-container>
-    </div>
+        <md-input-container flex="80">
+          <input class='venue-search' type="text" ng-autocomplete ng-model="vm.concertInput" details="vm.concertVenue"/>
+        </md-input-container>
+      </div>
 <!--
       <md-input-container class="md-block">
         <input class='venue-search' ng-model="vm.concertDate" type="date" placeholder="Concert Date" ng-required="true">
       </md-input-container>
 -->
 
-      <div layout="row" layout-align="end center" ng-show="!showDetails">
-          <md-button ng-disabled="!vm.canContinue()" ng-click="showDetails = ! showDetails">Continue</md-button>
-      </div>
-
-<!--      <div ng-show="showDetails">-->
-        <upload-widget edit-mode="showDetails = ! showDetails" video-details="vm.videoDetails()"></upload-widget>
-<!--      </div>-->
+      <upload-widget video-details="vm.videoDetails()"></upload-widget>
     </div>
 </div>

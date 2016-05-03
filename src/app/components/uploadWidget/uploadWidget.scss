@@ -1,6 +1,4 @@
 .upload-container {
-    margin: 10px;
-
     // hide default "Choose File No file chosen"
     label.myLabel input[type="file"] {
         position: fixed;
@@ -30,12 +28,12 @@
         height: 100%;
     }
     
-    .md-divider {
+    md-divider {
         border-top-width: 5px !important;
         border-top-color: $lightgray !important;
     }
     
-    .md-input-container {
+    md-input-container {
         margin: 18px 0 1px 0 !important;
     }
     

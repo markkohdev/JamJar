@@ -30,10 +30,6 @@
       return ArtistService.search(query);
     }
 
-    vm.canContinue = function() {
-      return vm.selectedArtists.length > 0 && vm.concertVenue && vm.concertDate;
-    }
-
     vm.videoDetails = function() {
       return function() {
         return {
