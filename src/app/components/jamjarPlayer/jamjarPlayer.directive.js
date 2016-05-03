@@ -444,7 +444,10 @@
 
     // primary video ended, have to reconcile everything here
     if (self.nowPlaying.length > 0) {
-      var next = self.nowPlaying[0];
+      // pick the first video which is playable
+      var next = _.find(self.nowPlaying, function(vid) {
+        return vid.presentation.playable && vid.video.id != self.primaryVideo.video.id;
+      });
       var edge = self.getEdge(next);
       var offset = video.video.length - edge.offset;
       self.switchVideoDirect(next, offset);
@@ -508,7 +511,7 @@
         var video = self.videos[edge.video];
 
         // if the edge video starts before current, then queue it immediately!
-        var queueTime = Math.max(0, default_offset + edge.offset);
+        var queueTime = Math.max(0, default_offset + edge.offset - 2);
 
         // remove it when the video ends!
         var removeTime = default_offset + edge.offset + video.video.length;
