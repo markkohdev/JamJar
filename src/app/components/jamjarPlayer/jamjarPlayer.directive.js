@@ -67,6 +67,18 @@
     self.config = self.getConfig();
   }
 
+  Video.prototype.onLoad = function(fn) {
+    var self = this;
+
+    if (!self.API) {
+      self.whenLoaded.push(function(API) {
+        fn(API);
+      });
+    } else {
+      fn(API);
+    }
+  };
+
   Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
     var self = this;
 
@@ -102,10 +114,12 @@
     self.ready = true;
     self.API = API;
 
-    var f;
-    while (f = self.whenLoaded.pop()) {
-      f(self.API);
-    }
+    _.defer(function() {
+      var f;
+      while (f = self.whenLoaded.pop()) {
+        f(self.API);
+      }
+    });
   }
 
   Video.prototype.time = function() {
@@ -251,6 +265,10 @@
       self.primaryVideo = new Video(video, {}, self.$sce);
       self.primaryVideo.buffering = true;
 
+      self.primaryVideo.onLoad(function(API) {
+        API.play();
+      });
+
       self.addVideo(self.primaryVideo)
     });
   };
@@ -288,6 +306,11 @@
       self.addVideo(self.primaryVideo);
 
       self.resetEdges();
+
+      self.primaryVideo.onLoad(function(API) {
+        API.play();
+      });
+
     });
   };
 
@@ -319,6 +342,8 @@
     //var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
     var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
+    var previousState = self.primaryVideo.API.currentState;
+
     self.primaryVideo = selectedVideo;
     self.primaryVideo.volume(self.volume);
 
@@ -331,7 +356,11 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
     });
 
-    _.defer(self.primaryVideo.play.bind(self.primaryVideo));
+    if (previousState == 'pause') {
+      _.defer(self.primaryVideo.pause.bind(self.primaryVideo));
+    } else {
+      _.defer(self.primaryVideo.play.bind(self.primaryVideo));
+    }
   }
 
   JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
