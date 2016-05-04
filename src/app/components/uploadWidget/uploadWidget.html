@@ -33,7 +33,7 @@
                     {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB | {{ upload.uploadStatus(item) }}
                 </div>
                 <div flex="20" class="right-align">
-                    <md-button class="md-icon-button close-btn" ng-click="upload.removeVideoFromQueue()">
+                    <md-button class="md-icon-button close-btn" ng-click="upload.delete(item.id)" ng-hide="item.isUploaded && !item.isError">
                         <md-icon md-svg-src="assets/images/btns/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
                     </md-button>
                 </div>
@@ -48,7 +48,7 @@
                 <div flex="20" layout="column" layout-padding layout-fill>                    
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Sharing</label>
-                        <md-select ng-model="item.privacy" ng-disabled="item.isUploaded">
+                        <md-select ng-model="item.privacy" ng-disabled="item.isUploaded && !item.isError">
                             <md-option ng-repeat="ps in upload.privacySettings" value="{{ps.value}}">
                                 {{ps.value}}
                             </md-option>

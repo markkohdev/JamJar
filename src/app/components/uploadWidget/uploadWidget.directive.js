@@ -49,6 +49,7 @@
               var videoDetails = $scope.videoDetails();
 
               var validDetails = _.get(videoDetails, 'venue.place_id') && videoDetails.date;
+                
               var validArtists = _.every(videoDetails.artists, function(artist) {
                 return !!artist.id;
               });
@@ -107,8 +108,8 @@
               });
             };
             
-            vm.removeVideoFromQueue = function() {
-                
+            vm.delete = function(item) {
+                //TODO
             };
 
             vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {
