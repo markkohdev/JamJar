@@ -3,14 +3,13 @@
       <div ng-repeat="video in player.jamjar.nowPlaying">
         <videogular flex
             vg-theme="player.config.theme"
-            vg-auto-play="false"
-            vg-preload="preload"
+            vg-auto-play="(player.jamjar.primaryVideo == video) ? true : false"
             vg-player-ready="player.jamjar.onPlayerReady($API, video)"
+            vg-can-play="player.jamjar.onPlayerCanPlay(video)"
             vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
             vg-change-source="player.jamjar.onUpdateSource($source, video)"
             vg-update-state="player.jamjar.onUpdateState($state, video, video == player.jamjar.primaryVideo)"
             vg-complete="player.jamjar.onComplete(video)"
-            vg-cue-points="player.jamjar.cuePoints"
             ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
             
             <vg-media

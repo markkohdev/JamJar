@@ -28,6 +28,7 @@
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
             vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+            window.jamjar = vm.jamjar;
 
             vm.overlay = {
               visible: false,
@@ -53,7 +54,6 @@
     self.whenLoaded = [];
 
     self.buffering = true;
-    self.currentState = 'pause';
     self.ready = false;
     self.playable = false;
 
@@ -151,10 +151,7 @@
       return;
     }
 
-    if (self.currentState != 'play') {
-      self.currentState = 'play';
-      self.API.play();
-    }
+    self.API.play();
   }
 
   Video.prototype.pause = function() {
@@ -167,10 +164,7 @@
       return;
     }
 
-    if (self.currentState != 'pause') {
-      self.currentState = 'pause';
-      self.API.pause();
-    }
+    self.API.pause();
   }
 
   Video.prototype.offset = function(seconds) {
@@ -219,9 +213,6 @@
 
     // list of videos that should be rendered in the view
     self.nowPlaying = [];
-
-    // used by Videogular to emit events at certain times
-    self.cuePoints = {};
 
     // performance hack
     self.lastTimeUpdate = null;
@@ -335,32 +326,38 @@
   JamJar.prototype.switchVideo = function(selectedVideo) {
     var self = this;
 
-    self.muteAll();
-
     var edge = self.getEdge(selectedVideo);
 
     // this seems to work well, but it breaks if the video is paused!!
     //var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
     var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
+    self.muteAll();
+
     var previousState = self.primaryVideo.API.currentState;
 
-    self.primaryVideo = selectedVideo;
-    self.primaryVideo.volume(self.volume);
+    selectedVideo.volume(self.volume);
+    selectedVideo.offset(offset);
+    self.primaryVideo.volume(0.0);
+    self.primaryVideo.pause();
 
-    self.primaryVideo.offset(offset);
+    self.primaryVideo = selectedVideo;
 
     self.resetEdges();
 
     _.each(self.nowPlaying, function(video) {
       edge = self.getEdge(video);
       video.updatePresentationDetails(self.primaryVideo, edge);
+
+      if (video != self.primaryVideo) {
+        video.pause()
+      }
     });
 
-    if (previousState == 'pause') {
-      _.defer(self.primaryVideo.pause.bind(self.primaryVideo));
+    if (previousState == 'play') {
+      self.primaryVideo.play();
     } else {
-      _.defer(self.primaryVideo.play.bind(self.primaryVideo));
+      self.primaryVideo.pause();
     }
   }
 
@@ -398,6 +395,7 @@
   JamJar.prototype.getBufferInfo = function(video) {
     var self = this;
 
+    if (!video.API) return "none";
     var buffered = video.API.buffered;
 
     return _.map(_.range(buffered.length), function(i) {
@@ -423,20 +421,28 @@
     }
   };
 
-  JamJar.prototype.onPlayerReady = function(API, video) {
+  JamJar.prototype.onPlayerCanPlay = function(video) {
     var self = this;
 
-    video.setAPI(API);
     if (video == self.primaryVideo) {
       video.volume(self.volume);
     } else {
       video.volume(0.0);
+      video.pause();
     }
+  }
+
+
+  JamJar.prototype.onPlayerReady = function(API, video) {
+    var self = this;
+
+    video.setAPI(API);
   }
 
   JamJar.prototype.onComplete = function(video) {
     var self = this;
 
+    console.log("COMPLETE:", video.video.id);
     self.removeVideo(video);
 
     if (video != self.primaryVideo) {
@@ -493,11 +499,6 @@
     var self = this;
 
     // clear all existing cuepoints without deleting the reference to the object
-    _.each(self.cuePoints, function(cue, index) {
-      delete self.cuePoints[index];
-    });
-
-
     var all_edges = {}; // video_id --> adjusted_edge
 
     function recursiveAddEdges(source_video, default_offset) {
@@ -518,7 +519,6 @@
         var removeTime = default_offset + edge.offset + video.video.length;
 
         if (removeTime > 2.0) {
-          self.addPlayerEdge(video, queueTime, removeTime);
           self.addVideo(video);
         }
 
@@ -538,38 +538,6 @@
 
     recursiveAddEdges(self.primaryVideo, 0);
   };
-
-  JamJar.prototype.addPlayerEdge = function (video, queueTime, removeTime) {
-    var self = this;
-
-    var cuePoint = [
-      {
-         timeLapse:{
-           start: queueTime,
-           end: removeTime
-         },
-         onUpdate: function(currentTime, timeLapse, params) {},
-         onLeave: function(currentTime, timeLapse, params) {},
-         onEnter: _.once(function(currentTime, timeLapse, params) {
-           console.log("ON ENTER: ", params.video.video.id);
-           params.video.playable = true;
-         }),
-
-         onComplete: _.once(function (currentTime, timeLapse, params) {
-           console.log('removing video w/ id:', params.video.video.id);
-           params.self.onComplete(params.video);
-           //params.self.removeVideo(params.video);
-         }),
-
-         params: {
-           video: video,
-           self: self
-         }
-      }
-    ];
-
-    self.cuePoints[video.video.id] = cuePoint;
-  }
 
 })();
 
