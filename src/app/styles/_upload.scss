@@ -7,8 +7,8 @@
         margin-left: 0;
     }
     
-    .md-input-container {
-        margin: 10px 0 !important;    
+    md-input-container {
+        margin: 15px 0 !important;    
     }
     
     .artist-search {
@@ -20,6 +20,11 @@
         font-size: 14px !important;
     }
 
+    .venue-container {
+        padding-top: 6px;
+        margin-left: 15px !important;
+    }
+    
     .venue-search {
         font-family: 'Muli', sans-serif;
         font-size: 14px;
