@@ -58,7 +58,16 @@
     }
 
     .red {
-      color: red;
+        color: red;
+    }
+    
+    .green {
+        color: green;
+    }
+    
+    .err-msg {
+        color: red;
+        padding: 0 10px;    
     }
     
     .file-info {

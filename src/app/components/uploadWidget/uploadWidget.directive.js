@@ -24,26 +24,10 @@
         /** @ngInject */ 
         function uploadController(FileUploader, $scope, APIService, TokenService, ConcertService) {
             var vm = this;
+            
+            vm.showErrMsg = false;
 
             vm.privacySettings = [{value: 'Public'}, {value: 'Private'}];
-            
-            vm.uploader = new FileUploader({
-                url: APIService.apiRootUrl + 'videos/',
-                headers: {
-                  Authorization: 'Token ' + TokenService.getToken()
-                },
-                //removeAfterUpload: true
-            });
-
-            vm.uploader.onAfterAddingFile = function(item) {
-              // Default privacy = public
-              item.privacy = 'Public';
-
-              // Default name = filename-extension
-              var title = item.file.name;
-              title = title.substring(0,title.lastIndexOf('.'));
-              item.title = title;
-            }
 
             vm.valid = function() {
               var videoDetails = $scope.videoDetails();
@@ -59,7 +43,37 @@
               });
 
               return validDetails && validArtists && validFiles;
-            }
+            };
+            
+            vm.uploader = new FileUploader({
+                url: APIService.apiRootUrl + 'videos/',
+                headers: {
+                  Authorization: 'Token ' + TokenService.getToken()
+                },
+                //removeAfterUpload: true
+            });
+            
+            vm.uploader.filters.push({
+                name: 'videoFilter',
+                fn: function(item) {
+                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                    return '|mov|mpeg4|mp4|avi|wmv|mpegps|flv'.indexOf(type) !== -1;
+                }
+            });
+            
+            vm.uploader.onWhenAddingFileFailed = function(item, filter) {
+                return alert('You can upload only .mov, .mpeg4, .mp4, .avi, .wmv, .mpegps, .flv files');
+            };
+
+            vm.uploader.onAfterAddingFile = function(item) {
+              // Default privacy = public
+              item.privacy = 'Public';
+
+              // Default name = filename-extension
+              var title = item.file.name;
+              title = title.substring(0,title.lastIndexOf('.'));
+              item.title = title;
+            };
 
             vm.uploadStatus = function(item) {
               if (item.isError) {
@@ -72,25 +86,34 @@
                 return "Ready to upload";
               }
               return "Ready to upload";
-            }
+            };
 
             vm.uploadAll = function(concert, artists) {
               _.each(vm.uploader.queue, function(item) {
 
-                // clear previous errors if any
-                item.file.error = null;
+                if(!item.isUploaded) {
+                    // clear previous errors if any
+                    item.file.error = null;
 
-                var is_private = (item.privacy == 'Private');
-                var videoInformation = [{name: item.title, concert: concert.id, is_private: is_private}];
-                // include multiple `artists` keys if multiple artists are given
-                var artistInformation = _.map(artists, function(artist) { return {artists: artist.id} });
-                item.formData = videoInformation.concat(artistInformation);
-                item.upload();
+                    var is_private = (item.privacy == 'Private');
+                    var videoInformation = [{name: item.title, concert: concert.id, is_private: is_private}];
+                    // include multiple `artists` keys if multiple artists are given
+                    var artistInformation = _.map(artists, function(artist) { return {artists: artist.id} });
+                    item.formData = videoInformation.concat(artistInformation);
+
+                    item.upload();
+                }
               });
-
-            },
+            };
 
             vm.doUpload = function() {
+              if(!vm.valid()){
+                  vm.showErrMsg = true;
+                  return;
+              }
+                
+              vm.showErrMsg = false;
+                
               var videoDetails = $scope.videoDetails();
 
               var concertData = {
@@ -106,10 +129,6 @@
 
                 vm.uploadAll(concert, videoDetails.artists);
               });
-            };
-            
-            vm.delete = function(item) {
-                //TODO
             };
 
             vm.uploader.onSuccessItem = function(fileItem, response, status, headers) {

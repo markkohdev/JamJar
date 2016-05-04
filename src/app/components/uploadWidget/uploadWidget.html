@@ -4,6 +4,7 @@
              nv-file-drop 
              multiple 
              uploader="upload.uploader" 
+             filters="videoFilter"
              layout="column" 
              layout-align="center center">
             
@@ -29,11 +30,11 @@
     <div ng-repeat="item in upload.uploader.queue" layout-fill>
         <md-content layout="column" class="md-padding">
             <div layout="row" layout-align="center center" class="file-info">
-                <div flex="80" ng-class="{red: item.isError}" title="{{item.file.name}}">
+                <div flex="80" ng-class="{red: item.isError, green: item.isUploaded}" title="{{item.file.name}}">
                     {{ item.file.name }} | {{ item.file.size/1024/1024|number:2 }} MB | {{ upload.uploadStatus(item) }}
                 </div>
                 <div flex="20" class="right-align">
-                    <md-button class="md-icon-button close-btn" ng-click="upload.delete(item.id)" ng-hide="item.isUploaded && !item.isError">
+                    <md-button class="md-icon-button close-btn" ng-click="item.remove()" ng-hide="item.isUploaded && !item.isError">
                         <md-icon md-svg-src="assets/images/btns/ic_close_black_24px.svg" aria-label="Close dialog"></md-icon>
                     </md-button>
                 </div>
@@ -42,13 +43,13 @@
             <div layout-gt-xs="row" layout-align="space-between start">
                 <div flex="80" layout="column" layout-padding layout-fill>                    
                     <md-input-container class="md-block" flex-gt-sm>
-                        <input ng-model="item.title" placeholder="Video Name" ng-disabled="item.isUploaded && !item.isError">
+                        <input ng-model="item.title" placeholder="Video Name" ng-disabled="item.isUploaded && !item.isError" required>
                     </md-input-container>
                 </div>
                 <div flex="20" layout="column" layout-padding layout-fill>                    
                     <md-input-container class="md-block" flex-gt-sm>
                         <label>Sharing</label>
-                        <md-select ng-model="item.privacy" ng-disabled="item.isUploaded && !item.isError">
+                        <md-select ng-model="item.privacy" ng-disabled="item.isUploaded && !item.isError" required>
                             <md-option ng-repeat="ps in upload.privacySettings" value="{{ps.value}}">
                                 {{ps.value}}
                             </md-option>
@@ -66,7 +67,8 @@
     </div>    
     
     <div layout="row" layout-align="end center">
-        <md-button ng-disabled="!upload.valid()" ng-click="upload.doUpload()" class="md-small coral-btn">Upload</md-button>
+        <div class="err-msg" ng-show="upload.showErrMsg">Artist, Concert Date, Concert Venue, and video names are required fields.</div>
+        <md-button ng-click="upload.doUpload()" class="md-small coral-btn">Upload</md-button>
     </div>
     
 </div>
