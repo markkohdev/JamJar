@@ -1,0 +1,45 @@
+<md-dialog aria-label="Flag Video" ng-cloak>
+    <form name="flagForm" class="flag-form" ng-submit="flagForm.$valid">
+        <md-toolbar class="dialog-toolbar">
+            <div class="md-toolbar-tools">
+                <h2>Flag Video</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="cancel()">
+                    <md-icon md-svg-src="assets/images/btns/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+            <div class="md-dialog-content">
+                <div layout="row">
+                    <md-input-container class="md-block" flex-gt-sm>
+                        <label>Reason</label>
+                        <md-select ng-model="flag.flag_type" required>
+                            <md-option ng-repeat="ft in flagTypes" value="{{ft.value}}">
+                                {{ft.text}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                </div>
+
+                <div layout="row">
+                    <md-input-container class="md-block">
+                      <label>Notes</label>
+                      <textarea ng-model="flag.notes" md-maxlength="200" rows="5" md-select-on-focus></textarea>
+                    </md-input-container>
+                </div>
+                
+                <div ng-if="flagSent">
+                    <p layout="row" layout-align="center center" class="md-padding">
+                        We got your report and will look into it!
+                    </p>
+                </div>
+            </div>
+        </md-dialog-content>
+        
+        <md-dialog-actions layout="row" class="dialog-btn-band">
+            <md-button type="submit" ng-if="!flagSent" ng-disabled="flagSent" class="md-raised coral-bg submit-btn">Submit</md-button>
+            <md-button type="button" ng-if="flagSent" ng-click="cancel()" class="md-raised okay-btn">Okay</md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

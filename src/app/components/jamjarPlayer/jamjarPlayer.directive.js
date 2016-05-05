@@ -17,7 +17,7 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state) {
+        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $mdDialog, $mdMedia) {
             var vm = this;
 
             /*vm.tooltip = {
@@ -31,11 +31,24 @@
 
             vm.overlay = {
               visible: false,
-            }
+            };
+            
+            vm.showFlagForm = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+                
+                $mdDialog.show({
+                    controller: FlagDialogController,
+                    templateUrl: 'app/components/jamjarPlayer/flag.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false,
+                    fullscreen: useFullScreen
+                });
+            };
 
             vm.toggleOverlay = function() {
               vm.overlay.visible = !vm.overlay.visible;
-            }
+            };
 
         }
 
@@ -570,6 +583,40 @@
 
     self.cuePoints[video.video.id] = cuePoint;
   }
+  
+  function FlagDialogController($scope, $mdDialog) {
+      var vm = $scope;
+
+      vm.flagSent = false;
+      
+      vm.flagTypes = [{value: 'A', text: 'Accuracy'}, {value: 'I', text: 'Inappropriate'}, {value: 'Q', text: 'Quality'}];
+      
+      vm.flag = {
+          video_id: '',
+          flag_type: '',
+          notes: ''
+      };
+      
+      vm.hide = function() {
+          $mdDialog.hide();
+      };
+      
+      vm.cancel = function() {
+          $mdDialog.cancel();
+      };
+      
+      vm.submitReport = function(){
+          /*vm.flagService.flag(function(err, resp) {
+              if (err){
+                  alert("An error occurred :(");
+                  return;
+              }
+              
+              
+          });*/
+          
+          vm.flagSent = true;
+      };
+  }
 
 })();
-

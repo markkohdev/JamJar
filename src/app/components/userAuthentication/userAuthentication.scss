@@ -38,31 +38,3 @@
         margin-right: 25px !important;
     }
 }
-
-.sign-up-form {    
-    .md-button.submit-btn {
-        margin-right:20px;
-        color: white !important;
-    }
-    
-    .md-button.okay-btn {
-        margin-right:20px;
-    }
-    
-    md-input-container {
-        margin-right: 15px !important;
-    }
-    
-    md-input-container .md-errors-spacer {
-        min-height: 0; //Removes default space allocated for input's error msg
-    }
-    
-    .dialog-toolbar, .dialog-btn-band {
-        background-color: $extradarkgray;
-    }
-    
-    label, input {
-        color: black !important;
-    }
-}
-
