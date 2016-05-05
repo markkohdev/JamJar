@@ -4,6 +4,7 @@
   angular
     .module('jamjar')
     .config(config);
+    .config(turnOffDebugging);
 
   /** @ngInject */
   function config($logProvider, toastrConfig) {
@@ -16,6 +17,12 @@
     toastrConfig.positionClass = 'toast-top-right';
     toastrConfig.preventDuplicates = true;
     toastrConfig.progressBar = true;
+  }
+
+
+  /** @ngInject */
+  function turnOffDebugging($compileProvider) {
+    $compileProvider.debugInfoEnabled(false);
   }
 
 })();
