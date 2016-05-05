@@ -8,7 +8,7 @@
 
     /** @ngInject */
     
-    function MainController($anchorScroll, $location, $scope, $state, TokenService, AuthService) {
+    function MainController($anchorScroll, $location, $scope, $state, $window, $document, TokenService, AuthService) {
         var vm = this;
 
         // if a 401 Unauthorized response is returned, then the token and user are 
@@ -17,6 +17,25 @@
         if (TokenService.getToken() && AuthService.getUser()) {
           return $state.go('dashboard.discover');
         }
+        
+        console.log("window height: " + $(window).height());
+        
+        $document.on('scroll', function() {
+            console.log($window.scrollY);
+            
+            if ($window.scrollY > $(window).height()) {
+                vm.doStickToTop = true;
+                console.log(vm.doStickToTop);
+            }
+            else {
+                vm.doStickToTop = false;
+            }
+
+//            // or pass this to the scope
+//            $scope.$apply(function() {
+//                $scope.pixelsScrolled = $window.scrollY;
+//            })
+        });
 
         /*$scope.gotoExplore = function(){
             if($location.hash() !== 'explore') {

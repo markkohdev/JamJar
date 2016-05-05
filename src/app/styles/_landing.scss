@@ -45,7 +45,6 @@ header.landing-header {
     
     #logo {
       width: 10em;
-      //filter: drop-shadow(0 0 7px black);
       opacity: 0;
       -webkit-animation: load-scale 3.0s ease-out 1.0s 1 forwards;
               animation: load-scale 3.0s ease-out 1.0s 1 forwards;
@@ -53,7 +52,6 @@ header.landing-header {
 
     #logo-text {
       width: 15em;
-      //filter: drop-shadow(0 0 7px black);
       opacity: 0;
       -webkit-animation: load-scale 3.0s ease-out 1.0s 1 forwards;
               animation: load-scale 3.0s ease-out 1.0s 1 forwards;
@@ -61,7 +59,6 @@ header.landing-header {
     
     h2 {
       text-align: center;
-      //filter: drop-shadow(0 0 7px black);
       opacity: 0;
       -webkit-animation: load-popup 3.5s ease-out 3.5s 1 forwards;
               animation: load-popup 3.5s ease-out 3.5s 1 forwards;
@@ -83,7 +80,7 @@ nav.main-nav {
     font-size: 14px;
     text-decoration:none;
     display:inline-block;
-    padding:7px 0;
+    padding:15px 0;
     color:$white;
 }
 
