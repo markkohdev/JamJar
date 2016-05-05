@@ -1,5 +1,5 @@
 <div class="light-theme upload-page">
-    <h3>Upload your concert videos</h3>
+    <h3>UPLOAD YOUR CONCERT VIDEOS</h3>
     
     <div class='upload-details'>
       <md-input-container class="md-block" md-no-float>
@@ -14,7 +14,7 @@
               md-items="item in vm.artistSearch(vm.searchText)"
               md-item-text="item.name"
               md-delay="200"
-              placeholder="Add Artist">
+              placeholder="Add Artist(s)">
             <span md-highlight-text="vm.searchText">{{item.name}}</span>
           </md-autocomplete>
           <md-chip-template>
@@ -24,21 +24,16 @@
           </md-chip-template>
         </md-chips>
       </md-input-container>
-
-      <md-input-container class="md-block">
-        <input class='venue-search' type="text" ng-autocomplete ng-model="vm.concertInput" details="vm.concertVenue"/>
-      </md-input-container>
-
-      <md-input-container class="md-block">
-        <input class='venue-search' ng-model="vm.concertDate" type="date" placeholder="Concert Date" ng-required="true">
-      </md-input-container>
-
-      <div layout="row" layout-align="end center" ng-show="!showDetails">
-          <md-button ng-disabled="!vm.canContinue()" ng-click="showDetails = ! showDetails">Continue</md-button>
+    
+        
+      <div layout-gt-xs="row">
+        <md-datepicker ng-model="vm.concertDate" md-placeholder="Concert Date" ng-required="true"></md-datepicker>
+          
+        <md-input-container class="md-block venue-container" flex-gt-xs>
+          <input class='venue-search' type="text" ng-autocomplete ng-model="vm.concertInput" details="vm.concertVenue" aria-label="Concert Location" ng-required="true"/>
+        </md-input-container>
       </div>
-
-      <div ng-show="showDetails">
-        <upload-widget edit-mode="showDetails = ! showDetails" video-details="vm.videoDetails()"></upload-widget>
-      </div>
+        
+      <upload-widget video-details="vm.videoDetails()"></upload-widget>
     </div>
 </div>

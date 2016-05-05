@@ -4,7 +4,7 @@
   angular
     .module('jamjar', ['ngAnimate',
                         'ngCookies',
-                        'ngTouch',
+//                        'ngTouch',
                         'ngSanitize',
                         'ngMessages',
                         'ngResource',
