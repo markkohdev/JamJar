@@ -51,8 +51,6 @@
     self.API = null;
     self.edges = edges;
 
-    self.whenLoaded = [];
-
     self.buffering = true;
     self.ready = false;
     self.playable = false;
@@ -66,18 +64,6 @@
 
     self.config = self.getConfig();
   }
-
-  Video.prototype.onLoad = function(fn) {
-    var self = this;
-
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        fn(API);
-      });
-    } else {
-      fn(API);
-    }
-  };
 
   Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
     var self = this;
@@ -113,13 +99,6 @@
 
     self.ready = true;
     self.API = API;
-
-    _.defer(function() {
-      var f;
-      while (f = self.whenLoaded.pop()) {
-        f(self.API);
-      }
-    });
   }
 
   Video.prototype.time = function() {
@@ -142,40 +121,29 @@
   Video.prototype.play = function() {
     var self = this;
 
-    console.log("PLAY:", self.video.id);
+    if (!self.API)
+      return
 
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        API.play
-      });
-      return;
-    }
-
-    self.API.play();
+    if (self.API.currentState != 'play')
+      _.defer(self.API.play.bind(self.API));
   }
 
-  Video.prototype.pause = function() {
+  Video.prototype.pause = function(reason) {
     var self = this;
 
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        API.pause();
-      })
-      return;
-    }
+    if (!self.API)
+      return
 
-    self.API.pause();
+    if (self.API.currentState != 'pause' && self.API.currentState != 'stop') {
+      console.log("pausing, reason: ", reason, self.video.id);
+      _.defer(self.API.pause.bind(self.API));
+    }
   }
 
   Video.prototype.offset = function(seconds) {
     var self = this;
 
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        API.seekTime(seconds);
-      });
-      return;
-    }
+    if (!self.API) return;
 
     self.API.seekTime(seconds);
   }
@@ -257,10 +225,6 @@
       self.primaryVideoEdges = {};
       self.primaryVideo.buffering = true;
 
-      self.primaryVideo.onLoad(function(API) {
-        API.play();
-      });
-
       self.addVideo(self.primaryVideo)
     });
   };
@@ -299,10 +263,6 @@
 
       self.resetEdges();
 
-      self.primaryVideo.onLoad(function(API) {
-        API.play();
-      });
-
     });
   };
 
@@ -319,11 +279,11 @@
     if (!selectedVideo.presentation.playable) {
       return;
     } else {
-      return self.switchVideo(selectedVideo);
+      return self.switchVideo(selectedVideo, false);
     }
   }
 
-  JamJar.prototype.switchVideo = function(selectedVideo) {
+  JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
     var self = this;
 
     var edge = self.getEdge(selectedVideo);
@@ -333,15 +293,23 @@
     var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
     self.muteAll();
-
-    var previousState = self.primaryVideo.API.currentState;
-
     selectedVideo.volume(self.volume);
     selectedVideo.offset(offset);
-    self.primaryVideo.volume(0.0);
-    self.primaryVideo.pause();
+
+    var previousState;
+    if (isDirect) {
+      previousState = 'play';
+    } else {
+      previousState = self.primaryVideo.API.currentState;
+    }
 
     self.primaryVideo = selectedVideo;
+
+    if (previousState == 'play') {
+      self.primaryVideo.play();
+    } else {
+      self.primaryVideo.pause('playback was previously paused');
+    }
 
     self.resetEdges();
 
@@ -350,33 +318,10 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
 
       if (video != self.primaryVideo) {
-        video.pause()
+        video.pause('non-primary other video?')
       }
     });
 
-    if (previousState == 'play') {
-      self.primaryVideo.play();
-    } else {
-      self.primaryVideo.pause();
-    }
-  }
-
-  JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
-    var self = this;
-
-    self.muteAll();
-
-    self.primaryVideo = selectedVideo;
-    self.primaryVideo.volume(self.volume);
-
-    // hack
-    self.primaryVideoEdges = {};
-
-    self.primaryVideo.offset(offset);
-    self.resetEdges();
-
-    // hack!!! This probably won't work 100% of the time....
-    _.defer(self.primaryVideo.play.bind(self.primaryVideo));
   }
 
   JamJar.prototype.mouseover = function(selectedVideo) {
@@ -424,12 +369,6 @@
   JamJar.prototype.onPlayerCanPlay = function(video) {
     var self = this;
 
-    if (video == self.primaryVideo) {
-      video.volume(self.volume);
-    } else {
-      video.volume(0.0);
-      video.pause();
-    }
   }
 
 
@@ -437,6 +376,13 @@
     var self = this;
 
     video.setAPI(API);
+
+    if (video == self.primaryVideo) {
+      video.volume(self.volume);
+    } else {
+      video.volume(0.0);
+      video.pause("PLAYER CAN PLAY");
+    }
   }
 
   JamJar.prototype.onComplete = function(video) {
@@ -455,9 +401,7 @@
       var next = _.find(self.nowPlaying, function(vid) {
         return vid.presentation.playable && vid.video.id != self.primaryVideo.video.id;
       });
-      var edge = self.getEdge(next);
-      var offset = video.video.length - edge.offset;
-      self.switchVideoDirect(next, offset);
+      self.switchVideo(next, true);
     }
   }
 
@@ -490,15 +434,15 @@
     var self = this;
   }
 
-  JamJar.prototype.onUpdateState = function(state, primaryVideo, isPrimary) {
+  JamJar.prototype.onUpdateState = function(state, video) {
     var self = this;
-    console.log("STATE:", state);
+
+    console.log("STATE:", video.video.id, video.video.name, video.API.currentState, state);
   }
 
   JamJar.prototype.resetEdges = function () {
     var self = this;
 
-    // clear all existing cuepoints without deleting the reference to the object
     var all_edges = {}; // video_id --> adjusted_edge
 
     function recursiveAddEdges(source_video, default_offset) {
@@ -511,9 +455,6 @@
         }
 
         var video = self.videos[edge.video];
-
-        // if the edge video starts before current, then queue it immediately!
-        var queueTime = Math.max(0, default_offset + edge.offset - 2);
 
         // remove it when the video ends!
         var removeTime = default_offset + edge.offset + video.video.length;
