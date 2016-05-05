@@ -302,6 +302,7 @@
     if (isDirect) {
       self.primaryVideo = selectedVideo;
       self.primaryVideo.play();
+      _.defer(self.primaryVideo.play.bind(self.primaryVideo));
     } else {
       var previousState = self.primaryVideo.API.currentState;
       self.primaryVideo = selectedVideo;
@@ -317,6 +318,10 @@
     _.each(self.nowPlaying, function(video) {
       edge = self.getEdge(video);
       video.updatePresentationDetails(self.primaryVideo, edge);
+
+      if (video != self.nowPlaying) {
+        video.pause();
+      }
     });
 
   }
