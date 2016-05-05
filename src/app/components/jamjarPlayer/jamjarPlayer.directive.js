@@ -135,7 +135,7 @@
       return
 
     if (self.API.currentState != 'pause' && self.API.currentState != 'stop') {
-      console.log("pausing, reason: ", reason, self.video.id);
+      //console.log("pausing, reason: ", reason, self.video.id);
       _.defer(self.API.pause.bind(self.API));
     }
   }
@@ -390,7 +390,7 @@
   JamJar.prototype.onComplete = function(video) {
     var self = this;
 
-    console.log("COMPLETE:", video.video.id);
+    //console.log("COMPLETE:", video.video.id);
     self.removeVideo(video);
 
     if (video != self.primaryVideo) {
@@ -439,7 +439,7 @@
   JamJar.prototype.onUpdateState = function(state, video) {
     var self = this;
 
-    console.log("STATE:", video.video.id, video.video.name, video.API.currentState, state);
+    //console.log("STATE:", video.video.id, video.video.name, video.API.currentState, state);
   }
 
   JamJar.prototype.resetEdges = function () {
