@@ -495,6 +495,7 @@
     recursiveAddEdges(self.primaryVideo, 0);
   };
 
+  /** @ngInject */
   function FlagDialogController($scope, $mdDialog) {
       var vm = $scope;
 
