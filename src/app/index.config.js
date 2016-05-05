@@ -3,7 +3,7 @@
 
   angular
     .module('jamjar')
-    .config(config);
+    .config(config)
     .config(turnOffDebugging);
 
   /** @ngInject */
