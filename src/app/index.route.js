@@ -14,6 +14,12 @@
         controller: 'MainController',
         controllerAs: 'vm'
       })
+      .state('support', {
+        url: '/support',
+        templateUrl: 'app/main/support/support.html',
+        controller: 'SupportController',
+        controllerAs: 'vm'
+      })
       .state('dashboard', {
         url: '/dashboard',
         abstract: true,
