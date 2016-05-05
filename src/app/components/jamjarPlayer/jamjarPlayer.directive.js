@@ -292,23 +292,24 @@
     //var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
     var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
-    self.muteAll();
-    selectedVideo.volume(self.volume);
     selectedVideo.offset(offset);
+    selectedVideo.volume(self.volume);
 
-    var previousState;
-    if (isDirect) {
-      previousState = 'play';
-    } else {
-      previousState = self.primaryVideo.API.currentState;
+    if (!isDirect) {
+      self.primaryVideo.volume(0.0);
     }
 
-    self.primaryVideo = selectedVideo;
-
-    if (previousState == 'play') {
+    if (isDirect) {
+      self.primaryVideo = selectedVideo;
       self.primaryVideo.play();
     } else {
-      self.primaryVideo.pause('playback was previously paused');
+      var previousState = self.primaryVideo.API.currentState;
+      self.primaryVideo = selectedVideo;
+      if (previousState == 'pause') {
+        self.primaryVideo.pause();
+      } else {
+        self.primaryVideo.play();
+      }
     }
 
     self.resetEdges();
@@ -316,10 +317,6 @@
     _.each(self.nowPlaying, function(video) {
       edge = self.getEdge(video);
       video.updatePresentationDetails(self.primaryVideo, edge);
-
-      if (video != self.primaryVideo) {
-        video.pause('non-primary other video?')
-      }
     });
 
   }
