@@ -23,6 +23,7 @@
     vm.autocompleteRequireMatch = false;
     //vm.searchResults = [];
 
+    vm.concertInput = null;
     vm.concertVenue = null;
     vm.concertDate = null;
 
@@ -33,6 +34,7 @@
     vm.videoDetails = function() {
       return function() {
         return {
+          'venueString' : vm.concertInput,
           'venue': vm.concertVenue,
           'date': vm.concertDate,
           'artists': vm.selectedArtists
