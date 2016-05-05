@@ -33,6 +33,19 @@
             vm.overlay = {
               visible: false,
             };
+
+            vm.vote = function(voteType) {
+              if (!vm.jamjar.primaryVideo) return;
+
+              // fuck
+            }
+
+            vm.getVotes = function(voteType) {
+              if (!vm.jamjar.primaryVideo) return;
+
+              var vote = _.find(vm.jamjar.primaryVideo, {'vote': voteType});
+              return _.get(vote, 'total', 0);
+            }
             
             vm.showFlagForm = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;

@@ -8,6 +8,21 @@ angular
     service.model = 'videos';
 
     return {
+
+      vote: function(video_id, vote, callback) {
+        var data = {
+          video: video_id,
+          vote: vote
+        }
+
+        APIService.postPath(service.model + '/vote/', data, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
       getVideoById: function(id, callback) {
 
         APIService.get(service.model, id, function(err, resp) {
