@@ -32,17 +32,23 @@
             vm.valid = function() {
               var videoDetails = $scope.videoDetails();
 
-              var validDetails = _.get(videoDetails, 'venue.place_id') && videoDetails.date;
+              var validVenueInput = !!(videoDetails.venueString && videoDetails.venueString.length > 0);
+
+              var validVenue = _.get(videoDetails, 'venue.place_id', false);
+              
+              var validDate = videoDetails.date;
+
+              var hasArtists = videoDetails.artists.length > 0;
                 
               var validArtists = _.every(videoDetails.artists, function(artist) {
                 return !!artist.id;
               });
 
               var validFiles = _.every(vm.uploader.queue, function(item) {
-                return item.title && item.privacy;
+                return item.title && item.title.length > 0 && item.privacy;
               });
 
-              return validDetails && validArtists && validFiles;
+              return hasArtists && validVenue && validDate && validArtists && validFiles && validVenueInput;
             };
             
             vm.uploader = new FileUploader({

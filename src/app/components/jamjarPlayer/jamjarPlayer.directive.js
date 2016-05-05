@@ -28,6 +28,7 @@
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
             vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+            window.jamjar = vm.jamjar;
 
             vm.overlay = {
               visible: false,
@@ -63,10 +64,7 @@
     self.API = null;
     self.edges = edges;
 
-    self.whenLoaded = [];
-
     self.buffering = true;
-    self.currentState = 'pause';
     self.ready = false;
     self.playable = false;
 
@@ -79,18 +77,6 @@
 
     self.config = self.getConfig();
   }
-
-  Video.prototype.onLoad = function(fn) {
-    var self = this;
-
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        fn(API);
-      });
-    } else {
-      fn(API);
-    }
-  };
 
   Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
     var self = this;
@@ -126,13 +112,6 @@
 
     self.ready = true;
     self.API = API;
-
-    _.defer(function() {
-      var f;
-      while (f = self.whenLoaded.pop()) {
-        f(self.API);
-      }
-    });
   }
 
   Video.prototype.time = function() {
@@ -155,46 +134,29 @@
   Video.prototype.play = function() {
     var self = this;
 
-    console.log("PLAY:", self.video.id);
+    if (!self.API)
+      return
 
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        API.play
-      });
-      return;
-    }
-
-    if (self.currentState != 'play') {
-      self.currentState = 'play';
-      self.API.play();
-    }
+    if (self.API.currentState != 'play')
+      _.defer(self.API.play.bind(self.API));
   }
 
-  Video.prototype.pause = function() {
+  Video.prototype.pause = function(reason) {
     var self = this;
 
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        API.pause();
-      })
-      return;
-    }
+    if (!self.API)
+      return
 
-    if (self.currentState != 'pause') {
-      self.currentState = 'pause';
-      self.API.pause();
+    if (self.API.currentState != 'pause' && self.API.currentState != 'stop') {
+      //console.log("pausing, reason: ", reason, self.video.id);
+      _.defer(self.API.pause.bind(self.API));
     }
   }
 
   Video.prototype.offset = function(seconds) {
     var self = this;
 
-    if (!self.API) {
-      self.whenLoaded.push(function(API) {
-        API.seekTime(seconds);
-      });
-      return;
-    }
+    if (!self.API) return;
 
     self.API.seekTime(seconds);
   }
@@ -232,9 +194,6 @@
 
     // list of videos that should be rendered in the view
     self.nowPlaying = [];
-
-    // used by Videogular to emit events at certain times
-    self.cuePoints = {};
 
     // performance hack
     self.lastTimeUpdate = null;
@@ -279,10 +238,6 @@
       self.primaryVideoEdges = {};
       self.primaryVideo.buffering = true;
 
-      self.primaryVideo.onLoad(function(API) {
-        API.play();
-      });
-
       self.addVideo(self.primaryVideo)
     });
   };
@@ -321,10 +276,6 @@
 
       self.resetEdges();
 
-      self.primaryVideo.onLoad(function(API) {
-        API.play();
-      });
-
     });
   };
 
@@ -341,14 +292,12 @@
     if (!selectedVideo.presentation.playable) {
       return;
     } else {
-      return self.switchVideo(selectedVideo);
+      return self.switchVideo(selectedVideo, false);
     }
   }
 
-  JamJar.prototype.switchVideo = function(selectedVideo) {
+  JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
     var self = this;
-
-    self.muteAll();
 
     var edge = self.getEdge(selectedVideo);
 
@@ -356,43 +305,38 @@
     //var diff = (new Date() - self.lastTimeUpdate) / 1000.0;
     var offset = self.primaryVideo.time() - edge.offset;// + diff;
 
-    var previousState = self.primaryVideo.API.currentState;
+    selectedVideo.offset(offset);
+    selectedVideo.volume(self.volume);
 
-    self.primaryVideo = selectedVideo;
-    self.primaryVideo.volume(self.volume);
+    if (!isDirect) {
+      self.primaryVideo.volume(0.0);
+    }
 
-    self.primaryVideo.offset(offset);
+    if (isDirect) {
+      self.primaryVideo = selectedVideo;
+      self.primaryVideo.play();
+      _.defer(self.primaryVideo.play.bind(self.primaryVideo));
+    } else {
+      var previousState = self.primaryVideo.API.currentState;
+      self.primaryVideo = selectedVideo;
+      if (previousState == 'pause') {
+        self.primaryVideo.pause();
+      } else {
+        self.primaryVideo.play();
+      }
+    }
 
     self.resetEdges();
 
     _.each(self.nowPlaying, function(video) {
       edge = self.getEdge(video);
       video.updatePresentationDetails(self.primaryVideo, edge);
+
+      if (video != self.nowPlaying) {
+        video.pause();
+      }
     });
 
-    if (previousState == 'pause') {
-      _.defer(self.primaryVideo.pause.bind(self.primaryVideo));
-    } else {
-      _.defer(self.primaryVideo.play.bind(self.primaryVideo));
-    }
-  }
-
-  JamJar.prototype.switchVideoDirect = function(selectedVideo, offset) {
-    var self = this;
-
-    self.muteAll();
-
-    self.primaryVideo = selectedVideo;
-    self.primaryVideo.volume(self.volume);
-
-    // hack
-    self.primaryVideoEdges = {};
-
-    self.primaryVideo.offset(offset);
-    self.resetEdges();
-
-    // hack!!! This probably won't work 100% of the time....
-    _.defer(self.primaryVideo.play.bind(self.primaryVideo));
   }
 
   JamJar.prototype.mouseover = function(selectedVideo) {
@@ -411,6 +355,7 @@
   JamJar.prototype.getBufferInfo = function(video) {
     var self = this;
 
+    if (!video.API) return "none";
     var buffered = video.API.buffered;
 
     return _.map(_.range(buffered.length), function(i) {
@@ -436,20 +381,29 @@
     }
   };
 
+  JamJar.prototype.onPlayerCanPlay = function(video) {
+    var self = this;
+
+  }
+
+
   JamJar.prototype.onPlayerReady = function(API, video) {
     var self = this;
 
     video.setAPI(API);
+
     if (video == self.primaryVideo) {
       video.volume(self.volume);
     } else {
       video.volume(0.0);
+      video.pause("PLAYER CAN PLAY");
     }
   }
 
   JamJar.prototype.onComplete = function(video) {
     var self = this;
 
+    //console.log("COMPLETE:", video.video.id);
     self.removeVideo(video);
 
     if (video != self.primaryVideo) {
@@ -462,9 +416,7 @@
       var next = _.find(self.nowPlaying, function(vid) {
         return vid.presentation.playable && vid.video.id != self.primaryVideo.video.id;
       });
-      var edge = self.getEdge(next);
-      var offset = video.video.length - edge.offset;
-      self.switchVideoDirect(next, offset);
+      self.switchVideo(next, true);
     }
   }
 
@@ -497,19 +449,14 @@
     var self = this;
   }
 
-  JamJar.prototype.onUpdateState = function(state, primaryVideo, isPrimary) {
+  JamJar.prototype.onUpdateState = function(state, video) {
     var self = this;
-    console.log("STATE:", state);
+
+    //console.log("STATE:", video.video.id, video.video.name, video.API.currentState, state);
   }
 
   JamJar.prototype.resetEdges = function () {
     var self = this;
-
-    // clear all existing cuepoints without deleting the reference to the object
-    _.each(self.cuePoints, function(cue, index) {
-      delete self.cuePoints[index];
-    });
-
 
     var all_edges = {}; // video_id --> adjusted_edge
 
@@ -524,14 +471,10 @@
 
         var video = self.videos[edge.video];
 
-        // if the edge video starts before current, then queue it immediately!
-        var queueTime = Math.max(0, default_offset + edge.offset - 2);
-
         // remove it when the video ends!
         var removeTime = default_offset + edge.offset + video.video.length;
 
         if (removeTime > 2.0) {
-          self.addPlayerEdge(video, queueTime, removeTime);
           self.addVideo(video);
         }
 
@@ -552,38 +495,6 @@
     recursiveAddEdges(self.primaryVideo, 0);
   };
 
-  JamJar.prototype.addPlayerEdge = function (video, queueTime, removeTime) {
-    var self = this;
-
-    var cuePoint = [
-      {
-         timeLapse:{
-           start: queueTime,
-           end: removeTime
-         },
-         onUpdate: function(currentTime, timeLapse, params) {},
-         onLeave: function(currentTime, timeLapse, params) {},
-         onEnter: _.once(function(currentTime, timeLapse, params) {
-           console.log("ON ENTER: ", params.video.video.id);
-           params.video.playable = true;
-         }),
-
-         onComplete: _.once(function (currentTime, timeLapse, params) {
-           console.log('removing video w/ id:', params.video.video.id);
-           params.self.onComplete(params.video);
-           //params.self.removeVideo(params.video);
-         }),
-
-         params: {
-           video: video,
-           self: self
-         }
-      }
-    ];
-
-    self.cuePoints[video.video.id] = cuePoint;
-  }
-  
   function FlagDialogController($scope, $mdDialog) {
       var vm = $scope;
 
