@@ -19,7 +19,7 @@
         }
         
         vmMain.doStickToTop = false;
-        vmMain.winHeight = $window.innerHeight - 55; //minus height of authentication navbar
+        vmMain.winHeight = $window.innerHeight - 85; //minus height+padding of authentication navbar
         vmMain.navTop = vmMain.winHeight + ".px";
         
         $document.on('scroll', function() {
