@@ -20,7 +20,7 @@
         
         vmMain.doStickToTop = false;
         vmMain.winHeight = $window.innerHeight - 85; //minus height+padding of authentication navbar
-        vmMain.navTop = vmMain.winHeight + ".px";
+        vmMain.navTop = vmMain.winHeight + " px";
         
         $document.on('scroll', function() {
             if ($window.scrollY > $window.innerHeight) {
