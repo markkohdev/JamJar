@@ -31,9 +31,6 @@
             }
             
             $scope.$digest(); //$scope.$apply();
-//            $scope.$apply(function() {
-//                vmMain.doStickToTop = false;
-//            })
         });
 
         /*$scope.gotoExplore = function(){

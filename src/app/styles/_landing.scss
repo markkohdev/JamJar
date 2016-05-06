@@ -60,6 +60,7 @@ header.landing-header {
     }
     
     h2 {
+      font-size: 18px;
       text-align: center;
       opacity: 0;
       -webkit-animation: load-popup 3.5s ease-out 3.5s 1 forwards;
@@ -174,7 +175,7 @@ section.sample {
       
       h2 {
         text-align: center;
-        //font-size: 24px;
+        font-size: 20px;
         margin-top: 0;
         margin-bottom: .75em;
       }
@@ -199,7 +200,7 @@ section.sample {
       
       h2 {
         text-align: center;
-        //font-size: 42px;
+        font-size: 22px;
         margin-top: 0;
         margin-bottom: .75em;
       }
