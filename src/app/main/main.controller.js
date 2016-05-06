@@ -9,8 +9,8 @@
     /** @ngInject */
     
     function MainController($anchorScroll, $location, $scope, $state, $window, $document, TokenService, AuthService) {
-        var vm = this;
-
+        var vmMain = this;
+        
         // if a 401 Unauthorized response is returned, then the token and user are 
         // cleared from local storage. This ensures that the user won't fall into an
         // infinite loop! If they are already authed, just redirect to discover
@@ -18,22 +18,21 @@
           return $state.go('dashboard.discover');
         }
         
-        console.log("window height: " + $(window).height());
+        vmMain.doStickToTop = false;
+        vmMain.winHeight = $window.innerHeight - 55; //minus height of authentication navbar
+        vmMain.navTop = vmMain.winHeight + ".px";
         
         $document.on('scroll', function() {
-            console.log($window.scrollY);
-            
-            if ($window.scrollY > $(window).height()) {
-                vm.doStickToTop = true;
-                console.log(vm.doStickToTop);
+            if ($window.scrollY > $window.innerHeight) {
+                vmMain.doStickToTop = true;
             }
             else {
-                vm.doStickToTop = false;
+                vmMain.doStickToTop = false;
             }
-
-//            // or pass this to the scope
+            
+            $scope.$digest(); //$scope.$apply();
 //            $scope.$apply(function() {
-//                $scope.pixelsScrolled = $window.scrollY;
+//                vmMain.doStickToTop = false;
 //            })
         });
 
@@ -104,6 +103,4 @@
             $timeout(vm.API.play.bind(vm.API), 100);
         };
     }
-    
-    
 })();

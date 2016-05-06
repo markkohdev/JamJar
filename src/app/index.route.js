@@ -12,7 +12,8 @@
         url: '/',
         templateUrl: 'app/main/main.html',
         controller: 'MainController',
-        controllerAs: 'vm'
+        controllerAs: 'vmMain',
+        bindToController: true
       })
       .state('support', {
         url: '/support',
