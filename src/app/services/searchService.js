@@ -5,6 +5,7 @@ function handleVenue(venue) {
     type: 'venue',
     icon: 'home',
     name: venue.name,
+    id: venue.id,
     details: venue.formatted_address,
   }
 }
@@ -14,6 +15,7 @@ function handleUser(user) {
     type: 'user',
     icon: 'person',
     name: user.username,
+    id: user.id,
     details: null
   }
 }
@@ -23,6 +25,8 @@ function handleVideo(video) {
     type: 'video',
     icon: 'videocam',
     name: video.name,
+    id: video.id,
+    concert_id: video.concert,
     details: 'Uploaded by ' + video.user.username
   }
 }
@@ -32,6 +36,7 @@ function handleConcert(concert) {
     type: 'concert',
     icon: 'local_play',
     name: concert.venue.name + ' on ' + concert.date,
+    id: concert.id,
     details: "Featuring " + _.map(concert.artists, 'name').join(", ")
   }
 }
@@ -40,6 +45,7 @@ function handleArtist(artist) {
   return {
     type: 'artist',
     icon: 'mic',
+    id: artist.id,
     name: artist.name,
     details: null
   }

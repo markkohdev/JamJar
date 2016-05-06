@@ -1,0 +1,30 @@
+.sign-up-form, .flag-form {    
+    .md-button.submit-btn {
+        //margin-right: 10px;
+        color: white !important;
+    }
+    
+    .md-button.okay-btn {
+        //margin-right: 10px;
+    }
+    
+    md-input-container {
+        //margin-right: 15px !important;
+    }
+    
+    md-input-container .md-errors-spacer {
+        min-height: 0; //Removes default space allocated for input's error msg
+    }
+    
+    .dialog-toolbar, .dialog-btn-band {
+        background-color: $extradarkgray;
+    }
+    
+    md-select .md-select-value.md-select-placeholder {
+        color: black;
+    }
+    
+    label, input {
+        color: black !important;
+    }
+}

@@ -64,7 +64,7 @@ videogular div.jamjar-layer {
 }
 
 .high-z {
-    z-index: 100;
+    z-index: 70;
 }
 
 
@@ -85,7 +85,7 @@ videogular div.jamjar-layer {
     margin: 5px 5px 5px -5px;
     min-width: 100px;
     height: 10px;
-    background: #9BD096;
+    background: $green;
     cursor: pointer;
     z-index: 50;
 
@@ -102,10 +102,20 @@ videogular div.jamjar-layer {
 
 .disabled-jam {
     background: #2a2a2a !important;
+    cursor: not-allowed !important;
+}
+
+.disabled-jam-btn {
+    cursor: not-allowed !important;
 }
 
 .active-jam {
-    background: #7976B4 !important;
+    background: $coral !important;
+    cursor: not-allowed !important;
+}
+
+.primary-video-btn {
+    cursor: not-allowed !important;
 }
 
 .thumbnail-preview {
@@ -115,7 +125,7 @@ videogular div.jamjar-layer {
     width: auto; 
     max-width: 100px; 
     max-height: 50px;
-    z-index: 100;
+    z-index: 70;
 }
 
 //.jamjar-preview-info {
@@ -140,7 +150,7 @@ videogular div.jamjar-layer {
     }
     
     .user-info { 
-        font-size: 13px;
+        font-size: 14px;
         color: $darkgray;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -170,7 +180,7 @@ videogular div.jamjar-layer {
     .md-button {
         color: $darkgray !important;
         font-weight: 500;
-        font-size: 13px !important;
+        font-size: 14px !important;
         line-height: 25px !important;
         padding: 1px 6px !important;
         margin: 2px 0 2px 4px !important;
@@ -209,3 +219,10 @@ videogular div.jamjar-layer {
     padding: 10px 40px;
 }
 
+.vote-active-up {
+    background-color: #9BD096 !important;
+}
+
+.vote-active-down {
+    background-color: #F5A95F !important;
+}

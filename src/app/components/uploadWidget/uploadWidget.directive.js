@@ -24,8 +24,33 @@
         /** @ngInject */ 
         function uploadController(FileUploader, $scope, APIService, TokenService, ConcertService) {
             var vm = this;
+            
+            vm.showErrMsg = false;
 
             vm.privacySettings = [{value: 'Public'}, {value: 'Private'}];
+
+            vm.valid = function() {
+              var videoDetails = $scope.videoDetails();
+
+              var validVenueInput = !!(videoDetails.venueString && videoDetails.venueString.length > 0);
+
+              var validVenue = _.get(videoDetails, 'venue.place_id', false);
+              
+              var validDate = videoDetails.date;
+
+              var hasArtists = videoDetails.artists.length > 0;
+                
+              var validArtists = _.every(videoDetails.artists, function(artist) {
+                return !!artist.id;
+              });
+
+              var validFiles = _.every(vm.uploader.queue, function(item) {
+                return item.title && item.title.length > 0 && item.privacy;
+              });
+
+              return hasArtists && validVenue && validDate && validArtists && validFiles && validVenueInput;
+            };
+            
             vm.uploader = new FileUploader({
                 url: APIService.apiRootUrl + 'videos/',
                 headers: {
@@ -33,6 +58,18 @@
                 },
                 //removeAfterUpload: true
             });
+            
+            vm.uploader.filters.push({
+                name: 'videoFilter',
+                fn: function(item) {
+                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+                    return '|mov|mpeg4|mp4|avi|wmv|mpegps|flv'.indexOf(type) !== -1;
+                }
+            });
+            
+            vm.uploader.onWhenAddingFileFailed = function(item, filter) {
+                return alert('You can upload only .mov, .mpeg4, .mp4, .avi, .wmv, .mpegps, .flv files');
+            };
 
             vm.uploader.onAfterAddingFile = function(item) {
               // Default privacy = public
@@ -42,27 +79,6 @@
               var title = item.file.name;
               title = title.substring(0,title.lastIndexOf('.'));
               item.title = title;
-            }
-
-            vm.valid = function() {
-              var videoDetails = $scope.videoDetails();
-
-              var validDetails = _.get(videoDetails, 'venue.place_id') && videoDetails.date;
-              var validArtists = _.every(videoDetails.artists, function(artist) {
-                return !!artist.id;
-              });
-
-              var validFiles = _.every(vm.uploader.queue, function(item) {
-                return item.title && item.privacy;
-              });
-
-              return validDetails && validArtists && validFiles;
-            }
-
-            vm.pause = function(doc) {
-            };
-
-            vm.cancel = function(doc) {
             };
 
             vm.uploadStatus = function(item) {
@@ -76,25 +92,34 @@
                 return "Ready to upload";
               }
               return "Ready to upload";
-            }
+            };
 
             vm.uploadAll = function(concert, artists) {
               _.each(vm.uploader.queue, function(item) {
 
-                // clear previous errors if any
-                item.file.error = null;
+                if(!item.isUploaded) {
+                    // clear previous errors if any
+                    item.file.error = null;
 
-                var is_private = (item.privacy == 'Private');
-                var videoInformation = [{name: item.title, concert: concert.id, is_private: is_private}];
-                // include multiple `artists` keys if multiple artists are given
-                var artistInformation = _.map(artists, function(artist) { return {artists: artist.id} });
-                item.formData = videoInformation.concat(artistInformation);
-                item.upload();
+                    var is_private = (item.privacy == 'Private');
+                    var videoInformation = [{name: item.title, concert: concert.id, is_private: is_private}];
+                    // include multiple `artists` keys if multiple artists are given
+                    var artistInformation = _.map(artists, function(artist) { return {artists: artist.id} });
+                    item.formData = videoInformation.concat(artistInformation);
+
+                    item.upload();
+                }
               });
-
-            },
+            };
 
             vm.doUpload = function() {
+              if(!vm.valid()){
+                  vm.showErrMsg = true;
+                  return;
+              }
+                
+              vm.showErrMsg = false;
+                
               var videoDetails = $scope.videoDetails();
 
               var concertData = {

@@ -6,6 +6,7 @@
     .module('jamjar')
     .directive('jamjarButton', jamjarButton)
 
+    /** @ngInject */
     function jamjarButton () {
         var directive = {
             restrict: "E",
@@ -22,6 +23,7 @@
             bindToController: true
         }
 
+        /** @ngInject */
         function JamJarBtnController(ConcertService) {
             var vm = this;
         }
