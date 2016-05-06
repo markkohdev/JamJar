@@ -1,16 +1,17 @@
 
 /* LANDING PAGE - HEADER */
 .header-wrap {
-  height: 90vh;
+  height: 100vh;
 }
 
 .video-bg {
-  height: 90vh;
+  height: 100vh;
   width: 100%;
   overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
+  right: 0;
   z-index: 1;
   background: url(../assets/images/stripe-25.png) 0 0 repeat;
   background-color: rgba(241,95,78,0.5); //coral tint
@@ -22,7 +23,7 @@
 }
 
 header.landing-header {
-  height: 90%;
+  height: 100vh;
   position: relative;
   z-index: 2;
   display: -webkit-box;
@@ -45,7 +46,7 @@ header.landing-header {
     
     #logo {
       width: 10em;
-      //filter: drop-shadow(0 0 7px black);
+      margin-top: 5em;
       opacity: 0;
       -webkit-animation: load-scale 3.0s ease-out 1.0s 1 forwards;
               animation: load-scale 3.0s ease-out 1.0s 1 forwards;
@@ -53,15 +54,14 @@ header.landing-header {
 
     #logo-text {
       width: 15em;
-      //filter: drop-shadow(0 0 7px black);
       opacity: 0;
       -webkit-animation: load-scale 3.0s ease-out 1.0s 1 forwards;
               animation: load-scale 3.0s ease-out 1.0s 1 forwards;
     }
     
     h2 {
+      font-size: 18px;
       text-align: center;
-      //filter: drop-shadow(0 0 7px black);
       opacity: 0;
       -webkit-animation: load-popup 3.5s ease-out 3.5s 1 forwards;
               animation: load-popup 3.5s ease-out 3.5s 1 forwards;
@@ -70,21 +70,21 @@ header.landing-header {
 
 /* LANDING PAGE - STICKY NAV */
 nav.main-nav {
+    color:$white;
     background: $extradarkgray;
+    width:100%;
     height:55px;
     z-index:200;
     margin:0 auto;
-    width:100%;
-    /*position:fixed;
-    top:0;
-    left:0;
-    right:0;*/
+    padding:15px 0;
     text-align: center;
     font-size: 14px;
     text-decoration:none;
     display:inline-block;
-    padding:7px 0;
-    color:$white;
+    left:0;
+    right:0;
+    
+    position:absolute;
 }
 
 .nav-container {
@@ -92,23 +92,23 @@ nav.main-nav {
     margin:0 auto;
 }
 
-nav.main-nav.stickytop {
-    position:fixed;
-    top:0;
+.stickytop {
+    position:fixed !important;
+    top:0 !important;
 }
 
-@media all and (min-width: 360px) and (max-width: 480px) {
-    .nav-container {
-        margin:0 auto;
-        width:50%;
-    }
-}
-
-@media screen and (max-width: 480px) { 
-    .nav-container {
-        width:92%;
-    }
-}
+//@media all and (min-width: 360px) and (max-width: 480px) {
+//    .nav-container {
+//        margin:0 auto;
+//        width:50%;
+//    }
+//}
+//
+//@media screen and (max-width: 480px) { 
+//    .nav-container {
+//        width:92%;
+//    }
+//}
 
 /* LANDING PAGE - ABOUT */
 section.presentation {
@@ -146,7 +146,6 @@ section.presentation {
 section.sample {
     background: url(../assets/images/wallpaper/darkCloudBg.jpg) no-repeat center center scroll;
     color: $white;
-    font: 400 1em;
     letter-spacing: .5em;
     padding: 50px 0px 100px 0px;
     
@@ -162,18 +161,7 @@ section.sample {
 /************/
 /** TABLET **/
 /************/
-@media screen and (min-width: 768px) {
-  .header-wrap {
-    height: 768px;
-    width: 100%;
-  }
-
-  .video-bg {
-    height: auto;
-    width: 100vw;
-    overflow: hidden;
-  }
-    
+@media screen and (min-width: 768px) {    
   .video-bg video {
     display: block;
     width: 1280px   !important;
@@ -181,16 +169,13 @@ section.sample {
   }
 
   header.landing-header {
-      height: 90%;
-      
       #logo {
         width: 15em;
-        margin-top: 5em;
       }
       
       h2 {
         text-align: center;
-        //font-size: 24px;
+        font-size: 20px;
         margin-top: 0;
         margin-bottom: .75em;
       }
@@ -202,16 +187,6 @@ section.sample {
 /** COMPUTER SCREEN **/
 /*********************/
 @media screen and (min-width: 1280px) {
-  .header-wrap {
-    height: 90vh;
-  }
-
-  .video-bg {
-    height: 90%;
-    width: 100%;
-    overflow: hidden;
-  }
-    
   .video-bg video {
     display: block;
     width: 100% !important;
@@ -219,16 +194,13 @@ section.sample {
   }
 
   header.landing-header {
-      height: 90%;
-      
       #logo {
         width: 15em;
-        margin-top: 5em;
       }
       
       h2 {
         text-align: center;
-        //font-size: 42px;
+        font-size: 22px;
         margin-top: 0;
         margin-bottom: .75em;
       }

@@ -14,14 +14,14 @@
     </section>
 </div>      
 
-<nav class="main-nav">
+<nav class="main-nav" ng-class="{'stickytop': vmMain.doStickToTop}" ng-style="!vmMain.doStickToTop && {'top': vmMain.navTop} ">
     <div class="nav-container">
         <user-authentication></user-authentication>
     </div>
 </nav>
 
 <div class="landing-content">
-    <section class="presentation">
+    <section class="presentation" ng-controller="MainController">
         <h1>About JamJar</h1>
         <p>
             Re-live the concert experience with JamJar! By combining crowdsourced concert videos, JamJar lets you replay live performances from anywhere in the crowd. Just post your concert videos to JamJar and we'll do the rest! JamJar provides a unique viewing experience that rivals being at the show – and best of all it’s free for everyone!
@@ -77,16 +77,3 @@
 <footer>
     <footbar></footbar>
 </footer>
-
-<script>
-    $(function(){
-        $(window).scroll(function() {
-            if ($(this).scrollTop() >= 550) {
-                $('nav.main-nav').addClass('stickytop');
-            }
-            else {
-                $('nav.main-nav').removeClass('stickytop');
-            }
-        });
-    });
-</script>
