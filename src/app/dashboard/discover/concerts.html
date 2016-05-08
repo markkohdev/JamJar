@@ -5,7 +5,9 @@
     <div layout="column" class="block">
       <a ui-sref="dashboard.concert({id: concert.id})">
           <div class="pl-thumb rect">
-            <img ng-src="{{concert.thumbs[0][256]}}">
+            <div class="video-thumbnail-img" 
+                ng-style="{'background-image':'url('+concert.thumbs[0][256]+')'}">
+            </div>
             <span class="sidebar">
                 <span class="pl-sidebar-content valign">
                     <span class="valign-container">
