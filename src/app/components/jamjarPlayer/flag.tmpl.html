@@ -23,14 +23,14 @@
                 </div>
 
                 <div layout="row">
-                    <md-input-container class="md-block">
+                    <md-input-container class="md-block" flex-gt-sm>
                       <label>Notes</label>
                       <textarea ng-model="flag.notes" md-maxlength="200" rows="5" md-select-on-focus></textarea>
                     </md-input-container>
                 </div>
                 
-                <div ng-if="flagSent">
-                    <p layout="row" layout-align="center center" class="md-padding">
+                <div ng-if="flagSent" layout="row" layout-align="center center">
+                    <p class="md-padding" flex-gt-sm>
                         We got your report and will look into it!
                     </p>
                 </div>
