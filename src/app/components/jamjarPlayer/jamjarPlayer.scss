@@ -69,22 +69,12 @@ videogular div.jamjar-layer {
 
 
 /* JamJar Bars */
-.jamjar-box {
-    border-radius: 7px;
-    padding: 2px;
-    margin: 5px;
-    min-width: 100px;
-    height: 50px;
-    background: #9BD096;
-    cursor: pointer;
-}
-
 .jamjar-line {
-    border-radius: 7px;
+    border-radius: 15px;
     padding: 2px;
-    margin: 5px 5px 5px -5px;
+    margin: 5px 5px 5px -15px;
     min-width: 100px;
-    height: 10px;
+    height: 30px;
     background: $green;
     cursor: pointer;
     z-index: 50;
@@ -118,20 +108,18 @@ videogular div.jamjar-layer {
     cursor: not-allowed !important;
 }
 
-.thumbnail-preview {
-    border-radius: 50%;
-    padding: 0 !important;
-    height: auto; 
-    width: auto; 
-    max-width: 100px; 
-    max-height: 50px;
+.ol-thumbnail-img {
+    background-color    : #000;
+    //background-image    : url(); //passed in by ng-style
+    background-repeat   : no-repeat;
+    background-position : 50% 50%;
+    //background-size     : 100% auto;
+    //background-size     : contain;
+    width               : 65px;
+    height              : 65px;
+    border-radius       : 50%;
     z-index: 70;
 }
-
-//.jamjar-preview-info {
-//    margin-left: 10px;
-//    color: $white;
-//}
 
 
 /* Styling for area under main video player */

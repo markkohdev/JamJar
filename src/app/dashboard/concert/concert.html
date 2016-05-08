@@ -3,7 +3,9 @@
   <div layout="row" class="concert-banner small-padding">
     <div class="concert-banner-bg"></div>
     <div layout="column">
-      <img ng-src="{{vm.concert.videos[0].artists[0].images[2].url}}" class="circle thumbnail" />
+        <div class="artist-thumbnail-img" 
+             ng-style="{'background-image':'url('+vm.concert.videos[0].artists[0].images[2].url+')'}">
+        </div>
     </div>
       
     <div layout="column" layout-align="end start" class="small-padding">
