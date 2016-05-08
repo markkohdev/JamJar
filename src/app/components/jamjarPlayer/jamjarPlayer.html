@@ -1,5 +1,7 @@
 <div layout="column" class="theatre-bg">
-  <div layout="column" ng-if="player.jamjar.primaryVideo" class='jamjar-player videogular-container'>
+  <div layout="column" ng-if="player.jamjar.primaryVideo"
+      class='jamjar-player videogular-container'
+      ng-mousemove="player.onHover($event)">
       <div ng-repeat="video in player.jamjar.nowPlaying track by video.video.id">
         <videogular flex
             vg-theme="player.config.theme"

@@ -17,7 +17,7 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $mdDialog, $mdMedia) {
+        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $mdDialog, $mdMedia, $timeout) {
             var vm = this;
 
             /*vm.tooltip = {
@@ -32,7 +32,45 @@
 
             vm.overlay = {
               visible: false,
+              timeout: null,
+              mouse: {pageX: 0, pageY: 0},
             };
+
+            vm.onHoverOut = function(event) {
+              if (vm.overlay.timeout) {
+                $timeout.cancel(vm.overlay.timeout);
+                vm.overlay.timeout = null;
+              }
+
+              vm.overlay.visible = false;
+            }
+
+            vm.onHover = function(event) {
+              // make overlay visible
+              var timeoutMs = 3000;
+
+              if (event.pageX == vm.overlay.mouse.pageX && event.pageY == vm.overlay.mouse.pageY) {
+                return;
+              } else {
+                vm.overlay.mouse.pageX = event.pageX;
+                vm.overlay.mouse.pageY = event.pageY;
+              }
+
+              vm.overlay.visible = true;
+
+              // set timeout to make it invisible
+              var timeout = $timeout(function() {
+                vm.overlay.visible = false;
+                vm.overlay.timeout = null;
+              }, timeoutMs);
+
+              // if timeout already exists
+              // delete it and create a new one
+              if (vm.overlay.timeout) {
+                $timeout.cancel(vm.overlay.timeout);
+              }
+              vm.overlay.timeout = timeout;
+            }
 
             vm.vote = function(voteType) {
               if (!vm.jamjar.primaryVideo) return;
