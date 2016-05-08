@@ -56,9 +56,11 @@
   <div layout="row" class="curr-video-info">
     <div flex="50">
       <div layout="column" layout-align="center start">
-        <div class="primary-video-title">Title: {{player.jamjar.primaryVideo.video.name}}</div>
+        <div class="primary-video-title">{{player.jamjar.primaryVideo.video.name}}</div>
         <div class="user-info">
-            Uploaded by <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">{{player.jamjar.primaryVideo.video.user.username}}</a>
+            <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
+                {{player.jamjar.primaryVideo.video.user.username}}
+            </a>
         </div>
       </div>
     </div>

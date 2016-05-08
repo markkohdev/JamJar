@@ -290,6 +290,10 @@
 
       self.addVideo(self.primaryVideo)
     });
+    
+    self.concertService.getConcertById(concert_id, function(err, resp) {
+        self.concert = resp;
+    });
   };
 
   JamJar.prototype.loadGraph = function(concert_id, video_id) {
