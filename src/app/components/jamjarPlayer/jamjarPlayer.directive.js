@@ -33,7 +33,55 @@
             vm.overlay = {
               visible: false,
             };
-            
+
+            vm.vote = function(voteType) {
+              if (!vm.jamjar.primaryVideo) return;
+
+              var votes = vm.jamjar.primaryVideo.video.votes;
+              var vote = _.find(votes.video_votes, {'vote': voteType});
+
+              if (!vote) {
+                vote = {vote: voteType, total: 0}
+                votes.video_votes.push(vote);
+              }
+
+              var voteDelta = 1;
+
+              if (voteType === votes.user_vote) {
+                voteType = null;
+                voteDelta = -1;
+              } else if (voteType !== votes.user_vote && votes.user_vote !== null) {
+                // if it's the opposite of before, then subtract from before vote total
+                var oldVote = _.find(votes.video_votes, function(vote) { return vote['vote'] !== voteType });
+                if (oldVote)
+                  oldVote.total -= 1;
+              }
+
+              vote.total += voteDelta;
+              votes.user_vote = voteType;
+
+              // then send vote to API
+              var video_id = vm.jamjar.primaryVideo.video.id;
+              VideoService.vote(video_id, voteType, function(err, resp) {
+                console.log(err, resp);
+              });
+            }
+
+            vm.getVotes = function(voteType) {
+              if (!vm.jamjar.primaryVideo) return;
+
+              var votes = vm.jamjar.primaryVideo.video.votes.video_votes;
+              var vote = _.find(votes, {'vote': voteType});
+              return _.get(vote, 'total', 0);
+            }
+
+            vm.userVote = function(voteType) {
+              if (!vm.jamjar.primaryVideo) return;
+
+              var vote = vm.jamjar.primaryVideo.video.votes.user_vote;
+              return vote == voteType;
+            }
+
             vm.showFlagForm = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
                 

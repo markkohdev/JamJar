@@ -68,13 +68,13 @@
             <div class="video-views">{{player.jamjar.primaryVideo.video.views}} views</div>
         </div>
         <div layout="row">
-            <md-button>
-                <md-icon md-svg-icon="assets/images/btns/ic_thumb_up_black_24px.svg"></md-icon>
-                #upvotes
+            <md-button ng-class="{'vote-active-up': player.userVote(true)}" ng-click="player.vote(true)">
+              <md-icon md-svg-icon="assets/images/btns/ic_thumb_up_black_24px.svg" ></md-icon>
+                {{ player.getVotes(true) }}
             </md-button>
-            <md-button>
-                <md-icon md-svg-icon="assets/images/btns/ic_thumb_down_black_24px.svg"></md-icon>
-                #downvotes
+            <md-button ng-class="{'vote-active-down': player.userVote(false)}" ng-click="player.vote(false)">
+              <md-icon md-svg-icon="assets/images/btns/ic_thumb_down_black_24px.svg"></md-icon>
+                {{ player.getVotes(false) }}
             </md-button>
             <md-button ng-click="player.showFlagForm($event)">
                 <md-icon md-svg-icon="assets/images/btns/ic_flag_black_24px.svg"></md-icon>
