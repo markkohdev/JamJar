@@ -38,7 +38,7 @@
         </md-dialog-content>
         
         <md-dialog-actions layout="row" class="dialog-btn-band">
-            <md-button type="submit" ng-if="!flagSent" ng-disabled="flagSent" class="md-raised coral-bg submit-btn">Submit</md-button>
+            <md-button type="submit" ng-if="!flagSent" ng-click="submitReport()" ng-disabled="flagSent" class="md-raised coral-bg submit-btn">Submit</md-button>
             <md-button type="button" ng-if="flagSent" ng-click="cancel()" class="md-raised okay-btn">Okay</md-button>
         </md-dialog-actions>
     </form>

@@ -84,8 +84,10 @@
 
             vm.showFlagForm = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+                var video_id = _.get(vm.jamjar, 'primaryVideo.video.id', null);
                 
                 $mdDialog.show({
+                    locals: {video_id: video_id},
                     controller: FlagDialogController,
                     templateUrl: 'app/components/jamjarPlayer/flag.tmpl.html',
                     parent: angular.element(document.body),
@@ -544,15 +546,13 @@
   };
 
   /** @ngInject */
-  function FlagDialogController($scope, $mdDialog) {
+  function FlagDialogController($scope, $mdDialog, VideoService, video_id) {
       var vm = $scope;
 
-      vm.flagSent = false;
-      
       vm.flagTypes = [{value: 'A', text: 'Accuracy'}, {value: 'I', text: 'Inappropriate'}, {value: 'Q', text: 'Quality'}];
       
       vm.flag = {
-          video_id: '',
+          video: video_id,
           flag_type: '',
           notes: ''
       };
@@ -566,16 +566,9 @@
       };
       
       vm.submitReport = function(){
-          /*vm.flagService.flag(function(err, resp) {
-              if (err){
-                  alert("An error occurred :(");
-                  return;
-              }
-              
-              
-          });*/
-          
-          vm.flagSent = true;
+          VideoService.submitFlag(vm.flag, function(err, resp) {
+            vm.flagSent = true;
+          });
       };
   }
 

@@ -9,6 +9,15 @@ angular
 
     return {
 
+      submitFlag: function(data, callback) {
+        APIService.postPath(service.model + '/flags/', data, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
       vote: function(video_id, vote, callback) {
         var data = {
           video: video_id,
