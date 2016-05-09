@@ -43,9 +43,18 @@ videogular jamjar-button a:visited {
 }
 
 
+videogular div.jamjar-layer-bg-container {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+
+videogular div.jamjar-layer-bg-container.ng-hide {
+    opacity: 0;
+}
+
 /* Custom overlay */
 videogular div.jamjar-layer-bg {
-    background-color: white;
+    background-color: black;
     width: 100%;
     height: 100%;
     position: absolute;
