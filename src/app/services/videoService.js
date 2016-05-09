@@ -9,6 +9,16 @@ angular
 
     return {
 
+      listJampicks: function(callback) {
+
+        APIService.getPath(service.model + "/jampicks/", function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
       submitFlag: function(data, callback) {
         APIService.postPath(service.model + '/flags/', data, function(err, resp) {
           if (err) return callback(err);
