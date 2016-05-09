@@ -28,6 +28,13 @@
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
             vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+            vm.jamjar.onPlay = function(video) {
+              video.views += 1;
+              VideoService.view(video.id, function(err, resp) {
+                console.log(err, resp);
+              });
+            }
+
             window.jamjar = vm.jamjar;
 
             vm.overlay = {
@@ -245,6 +252,9 @@
 
     // performance hack
     self.lastTimeUpdate = null;
+
+    self.onPlay = function() { }; // override this!
+    self.onPlayRecorded = {};
 
     // default volume for videos
     self.volume = 0.5; // 0.5
@@ -491,6 +501,13 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
 
     });
+
+    // update view count
+    var video = self.primaryVideo.video;
+    if (!self.onPlayRecorded[video.id]) {
+      self.onPlayRecorded[video.id] = true
+      self.onPlay(video);
+    }
   }
 
   JamJar.prototype.onUpdateSource = function(source, video) {

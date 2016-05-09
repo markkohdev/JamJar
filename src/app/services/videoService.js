@@ -23,6 +23,16 @@ angular
 
       },
 
+      view: function(video_id, callback) {
+        var path = service.model + '/' + video_id + '/' + 'watching/';
+        APIService.postPath(path, {}, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
       getVideoById: function(id, callback) {
 
         APIService.get(service.model, id, function(err, resp) {
