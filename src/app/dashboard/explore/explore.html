@@ -16,7 +16,9 @@
       <div layout="column" class="block">
         <a ui-sref="dashboard.concert({id: concert.id})">
           <div class="pl-thumb rect">
-            <img ng-src="{{concert.thumbs[0][256]}}">
+            <div class="video-thumbnail-img" 
+                 ng-style="{'background-image':'url('+concert.thumbs[0][256]+')'}">
+            </div>
             <span class="sidebar">
                 <span class="pl-sidebar-content valign">
                     <span class="valign-container">
@@ -54,7 +56,9 @@
     <div ng-repeat="video in vm.videos" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
       <div layout="column" class="block">
         <a ui-sref="dashboard.player({concert_id: video.concert.id, video_id: video.id, type: 'individual'})">
-            <img ng-src="{{video.thumb_src[256]}}" class="rect thumbnail"/>
+            <div class="video-thumbnail-img" 
+                 ng-style="{'background-image':'url('+video.thumb_src[256]+')'}">
+            </div>
             <h2>{{video.name}}</h2>
         </a>
         <h3>
