@@ -58,9 +58,11 @@
   <div layout="row" class="curr-video-info">
     <div flex="50">
       <div layout="column" layout-align="center start">
-        <div class="primary-video-title">Title: {{player.jamjar.primaryVideo.video.name}}</div>
+        <div class="primary-video-title">{{player.jamjar.primaryVideo.video.name}}</div>
         <div class="user-info">
-            Uploaded by <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">{{player.jamjar.primaryVideo.video.user.username}}</a>
+            <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
+                {{player.jamjar.primaryVideo.video.user.username}}
+            </a>
         </div>
       </div>
     </div>
@@ -90,7 +92,9 @@
   <a ui-sref="dashboard.concert({id: player.jamjar.concert.id})">
       <div layout="row" class="concert-info">
           <div layout="column">
-              <img ng-src="{{player.jamjar.concert.videos[0].artists[0].images[3].url}}" class="mini-circle" />
+            <div class="mini-artist-thumbnail-img" 
+                 ng-style="{'background-image':'url('+player.jamjar.concert.videos[0].artists[0].images[3].url+')'}">
+            </div>
           </div>
           <div flex layout="column" layout-align="center start">
               <div class="artist">{{player.jamjar.concert.artists[0].name}}</div>

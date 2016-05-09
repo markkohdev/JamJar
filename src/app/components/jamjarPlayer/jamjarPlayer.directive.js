@@ -28,6 +28,13 @@
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
             vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+            vm.jamjar.onPlay = function(video) {
+              video.views += 1;
+              VideoService.view(video.id, function(err, resp) {
+                console.log(err, resp);
+              });
+            }
+
             window.jamjar = vm.jamjar;
 
             vm.overlay = {
@@ -122,8 +129,10 @@
 
             vm.showFlagForm = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+                var video_id = _.get(vm.jamjar, 'primaryVideo.video.id', null);
                 
                 $mdDialog.show({
+                    locals: {video_id: video_id},
                     controller: FlagDialogController,
                     templateUrl: 'app/components/jamjarPlayer/flag.tmpl.html',
                     parent: angular.element(document.body),
@@ -284,6 +293,9 @@
     // performance hack
     self.lastTimeUpdate = null;
 
+    self.onPlay = function() { }; // override this!
+    self.onPlayRecorded = {};
+
     // default volume for videos
     self.volume = 0.5; // 0.5
   }
@@ -325,6 +337,10 @@
       self.primaryVideo.buffering = true;
 
       self.addVideo(self.primaryVideo)
+    });
+    
+    self.concertService.getConcertById(concert_id, function(err, resp) {
+        self.concert = resp;
     });
   };
 
@@ -529,6 +545,13 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
 
     });
+
+    // update view count
+    var video = self.primaryVideo.video;
+    if (!self.onPlayRecorded[video.id]) {
+      self.onPlayRecorded[video.id] = true
+      self.onPlay(video);
+    }
   }
 
   JamJar.prototype.onUpdateSource = function(source, video) {
@@ -582,15 +605,13 @@
   };
 
   /** @ngInject */
-  function FlagDialogController($scope, $mdDialog) {
+  function FlagDialogController($scope, $mdDialog, VideoService, video_id) {
       var vm = $scope;
 
-      vm.flagSent = false;
-      
       vm.flagTypes = [{value: 'A', text: 'Accuracy'}, {value: 'I', text: 'Inappropriate'}, {value: 'Q', text: 'Quality'}];
       
       vm.flag = {
-          video_id: '',
+          video: video_id,
           flag_type: '',
           notes: ''
       };
@@ -604,16 +625,9 @@
       };
       
       vm.submitReport = function(){
-          /*vm.flagService.flag(function(err, resp) {
-              if (err){
-                  alert("An error occurred :(");
-                  return;
-              }
-              
-              
-          });*/
-          
-          vm.flagSent = true;
+          VideoService.submitFlag(vm.flag, function(err, resp) {
+            vm.flagSent = true;
+          });
       };
   }
 
