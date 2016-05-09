@@ -1,9 +1,9 @@
-<div layout="column" class="theatre-bg">
-  <div layout="column" ng-if="player.jamjar.primaryVideo"
-      class='jamjar-player videogular-container'
+<div class="theatre-bg">
+  <div ng-if="player.jamjar.primaryVideo"
+      class='videogular-container'
       ng-mousemove="player.onHover($event)">
       <div ng-repeat="video in player.jamjar.nowPlaying track by video.video.id">
-        <videogular flex
+        <videogular
             vg-theme="player.config.theme"
             vg-auto-play="(video == player.jamjar.primaryVideo)"
             vg-player-ready="player.jamjar.onPlayerReady($API, video)"
@@ -39,6 +39,8 @@
             <!--<vg-overlay-play></vg-overlay-play>-->
             
             <jamjar-plugin ng-if="!player.individual"></jamjar-plugin>
+            
+            <next-video vg-src="'app/components/jamjarPlayer/media-files.json'" vg-time="3000"></next-video>
         </videogular>
       </div>
 <!--
@@ -162,6 +164,4 @@
           </div>
         </div>
     </div>
-    
-    
 </div>
