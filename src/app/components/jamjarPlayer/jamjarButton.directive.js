@@ -11,7 +11,7 @@
         var directive = {
             restrict: "E",
             require: "^videogular",
-            template: "<div class='iconButton' ng-click='jjb.toggleOverlay()'><img ng-src='assets/images/jamjar_logo_transparent/jamjar_logo_transparent_29x29.png'/></div>",
+            template: "<div class='iconButton' ng-click='jjb.toggleOverlay()'><img ng-src='assets/images/overlay_btns/jamjar_auto_25x25.png'/></div>",
             link: function(scope, elem, attrs, API) {
                 scope.API = API;
             },
