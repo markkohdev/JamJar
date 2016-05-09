@@ -27,7 +27,7 @@
                     <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
                 </vg-scrub-bar>
                 <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                <jamjar-button toggle-overlay="player.toggleOverlay"></jamjar-button>
+                <jamjar-button toggle-overlay="player.toggleOverlay" ng-if="!player.individual"></jamjar-button>
                 <vg-volume>
                     <vg-mute-button></vg-mute-button>
                     <vg-volume-bar></vg-volume-bar>
@@ -38,7 +38,7 @@
             <!--<vg-buffering></vg-buffering>-->
             <!--<vg-overlay-play></vg-overlay-play>-->
             
-            <jamjar-plugin></jamjar-plugin>
+            <jamjar-plugin ng-if="!player.individual"></jamjar-plugin>
         </videogular>
       </div>
 <!--
