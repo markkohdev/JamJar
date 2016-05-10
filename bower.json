@@ -20,7 +20,7 @@
     "animate.css": "~3.4.0",
     "angular": "~1.4.2",
     "angular-file-upload": "~2.1.4",
-    "angular-svg-round-progressbar": "~0.2.10",
+    "angular-svg-round-progressbar": "~0.4.4",
     "videogular": "*",
     "videogular-themes-default": "*",
     "videogular-controls": "*",
