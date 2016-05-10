@@ -1,8 +1,6 @@
-'use strict';
-
 angular
     .module("jamjar")
-    .service("nextVideoService", ["$http", "$q", "$sce",
+    .service("NextVideoService", ["$http", "$q", "$sce",
         function($http, $q, $sce) {
             var deferred = $q.defer();
 
@@ -17,7 +15,6 @@ angular
 
             this.onLoadData = function(response) {
                 var result = [];
-
 
                 for (var i=0, l=response.data.length; i<l; i++) {
                     var mediaSources = [];

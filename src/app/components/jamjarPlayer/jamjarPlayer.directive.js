@@ -525,7 +525,7 @@
   JamJar.prototype.onComplete = function(video) {
     var self = this;
 
-    //console.log("COMPLETE:", video.video.id);
+    console.log("COMPLETE:", video.video.id);
     self.removeVideo(video);
 
     if (video != self.primaryVideo) {

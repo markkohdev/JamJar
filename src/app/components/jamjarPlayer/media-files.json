@@ -1,10 +1,8 @@
 [
   [
-    {"src": "http://static.videogular.com/assets/videos/videogular.mp4", "type": "video/mp4"},
-    {"src": "http://static.videogular.com/assets/videos/videogular.webm", "type": "video/webm"}
+    {"src": "https://s3.amazonaws.com/jamjar-videos/prod/8d298b0d-7b1a-4249-af18-9d69111da722/video.mp4", "type": "video/mp4"}
   ],
   [
-    {"src": "http://static.videogular.com/assets/videos/big_buck_bunny_720p_h264.mov", "type": "video/mp4"},
-    {"src": "http://static.videogular.com/assets/videos/big_buck_bunny_720p_stereo.ogg", "type": "video/ogg"}
+    {"src": "https://s3.amazonaws.com/jamjar-videos/prod/97246f50-0126-4093-bfb3-c8ea90d2b835/video.mp4", "type": "video/mp4"}
   ]
 ]

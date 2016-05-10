@@ -14,11 +14,14 @@
             vg-complete="player.jamjar.onComplete(video)"
             ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
             
+<!--
             <vg-media
               ng-if="video.presentation.playable || player.jamjar.primaryVideo == video"
-              vg-preload="preload" vg-src="video.config.sources">
+              vg-preload="preload" 
+              vg-src="video.config.sources">
             </vg-media>
-            
+-->
+            <vg-media></vg-media>
             
             <vg-controls class="high-z">                
                 <vg-play-pause-button></vg-play-pause-button>
