@@ -17,7 +17,7 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $mdDialog, $mdMedia) {
+        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $mdDialog, $mdMedia, $timeout) {
             var vm = this;
 
             /*vm.tooltip = {
@@ -28,11 +28,64 @@
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
             vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+
+            vm.individual = $stateParams.type == 'individual';
+
+            vm.jamjar.onPlay = function(video) {
+              video.views += 1;
+              VideoService.view(video.id, function(err, resp) {
+                console.log(err, resp);
+              });
+            }
+
             window.jamjar = vm.jamjar;
 
             vm.overlay = {
               visible: false,
+              timeout: null,
+              mouse: {pageX: 0, pageY: 0},
+              state: null,
             };
+
+            vm.onHoverOut = function(event) {
+              if (vm.overlay.timeout) {
+                $timeout.cancel(vm.overlay.timeout);
+                vm.overlay.timeout = null;
+              }
+
+              vm.overlay.visible = false;
+            }
+
+            vm.onHover = function(event) {
+
+              if (vm.overlay.state != 'auto')
+                return
+
+              // make overlay visible
+              var timeoutMs = 3000;
+
+              if (event.pageX == vm.overlay.mouse.pageX && event.pageY == vm.overlay.mouse.pageY) {
+                return;
+              } else {
+                vm.overlay.mouse.pageX = event.pageX;
+                vm.overlay.mouse.pageY = event.pageY;
+              }
+
+              vm.overlay.visible = true;
+
+              // set timeout to make it invisible
+              var timeout = $timeout(function() {
+                vm.overlay.visible = false;
+                vm.overlay.timeout = null;
+              }, timeoutMs);
+
+              // if timeout already exists
+              // delete it and create a new one
+              if (vm.overlay.timeout) {
+                $timeout.cancel(vm.overlay.timeout);
+              }
+              vm.overlay.timeout = timeout;
+            }
 
             vm.vote = function(voteType) {
               if (!vm.jamjar.primaryVideo) return;
@@ -84,8 +137,10 @@
 
             vm.showFlagForm = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+                var video_id = _.get(vm.jamjar, 'primaryVideo.video.id', null);
                 
                 $mdDialog.show({
+                    locals: {video_id: video_id},
                     controller: FlagDialogController,
                     templateUrl: 'app/components/jamjarPlayer/flag.tmpl.html',
                     parent: angular.element(document.body),
@@ -95,8 +150,20 @@
                 });
             };
 
-            vm.toggleOverlay = function() {
-              vm.overlay.visible = !vm.overlay.visible;
+            vm.toggleOverlay = function(state) {
+              if (state == 'off') {
+                vm.overlay.visible = false;
+                vm.overlay.state = null;
+              } else if (state == 'on') {
+                vm.overlay.state = null;
+                vm.overlay.visible = true;
+                if (vm.overlay.timeout) {
+                  $timeout.cancel(vm.overlay.timeout);
+                }
+              } else if (state == 'auto') {
+                vm.overlay.visible = true;
+                vm.overlay.state = 'auto';
+              }
             };
 
         }
@@ -246,6 +313,9 @@
     // performance hack
     self.lastTimeUpdate = null;
 
+    self.onPlay = function() { }; // override this!
+    self.onPlayRecorded = {};
+
     // default volume for videos
     self.volume = 0.5; // 0.5
   }
@@ -287,6 +357,10 @@
       self.primaryVideo.buffering = true;
 
       self.addVideo(self.primaryVideo)
+    });
+    
+    self.concertService.getConcertById(concert_id, function(err, resp) {
+        self.concert = resp;
     });
   };
 
@@ -491,6 +565,13 @@
       video.updatePresentationDetails(self.primaryVideo, edge);
 
     });
+
+    // update view count
+    var video = self.primaryVideo.video;
+    if (!self.onPlayRecorded[video.id]) {
+      self.onPlayRecorded[video.id] = true
+      self.onPlay(video);
+    }
   }
 
   JamJar.prototype.onUpdateSource = function(source, video) {
@@ -544,15 +625,13 @@
   };
 
   /** @ngInject */
-  function FlagDialogController($scope, $mdDialog) {
+  function FlagDialogController($scope, $mdDialog, VideoService, video_id) {
       var vm = $scope;
 
-      vm.flagSent = false;
-      
       vm.flagTypes = [{value: 'A', text: 'Accuracy'}, {value: 'I', text: 'Inappropriate'}, {value: 'Q', text: 'Quality'}];
       
       vm.flag = {
-          video_id: '',
+          video: video_id,
           flag_type: '',
           notes: ''
       };
@@ -566,16 +645,9 @@
       };
       
       vm.submitReport = function(){
-          /*vm.flagService.flag(function(err, resp) {
-              if (err){
-                  alert("An error occurred :(");
-                  return;
-              }
-              
-              
-          });*/
-          
-          vm.flagSent = true;
+          VideoService.submitFlag(vm.flag, function(err, resp) {
+            vm.flagSent = true;
+          });
       };
   }
 

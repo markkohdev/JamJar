@@ -5,16 +5,18 @@
     <div layout="column" class="block">
       <a ui-sref="dashboard.concert({id: concert.id})">
           <div class="pl-thumb rect">
-            <img ng-src="{{concert.thumbs[0][256]}}">
+            <div class="video-thumbnail-img" 
+                ng-style="{'background-image':'url('+concert.thumbs[0][256]+')'}">
+            </div>
             <span class="sidebar">
                 <span class="pl-sidebar-content valign">
                     <span class="valign-container">
                         <span class="formatted-video-count-label">
-                            <b>#{{concert.graph.length}}</b> 
-                            jamjars
+                            <b>{{concert.jamjars_count}}</b> 
+                            jamjar<span ng-if="concert.jamjars_count > 1">s</span>
                             <b>-</b>
                             <b>{{concert.videos_count}}</b> 
-                            videos
+                            video<span ng-if="concert.videos_count > 1">s</span>
                         </span>
                     </span>
                 </span>

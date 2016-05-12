@@ -1,5 +1,7 @@
 <div layout="column" class="theatre-bg">
-  <div layout="column" ng-if="player.jamjar.primaryVideo" class='jamjar-player videogular-container'>
+  <div layout="column" ng-if="player.jamjar.primaryVideo"
+      class='jamjar-player videogular-container'
+      ng-mousemove="player.onHover($event)">
       <div ng-repeat="video in player.jamjar.nowPlaying track by video.video.id">
         <videogular flex
             vg-theme="player.config.theme"
@@ -18,15 +20,14 @@
             </vg-media>
             
             
-            <vg-controls class="high-z">
-                <jamjar-button toggle-overlay="player.toggleOverlay"></jamjar-button>
-                
+            <vg-controls class="high-z">                
                 <vg-play-pause-button></vg-play-pause-button>
                 <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
                 <vg-scrub-bar>
                     <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
                 </vg-scrub-bar>
                 <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                <jamjar-button toggle-overlay="player.toggleOverlay" ng-if="!player.individual"></jamjar-button>
                 <vg-volume>
                     <vg-mute-button></vg-mute-button>
                     <vg-volume-bar></vg-volume-bar>
@@ -37,7 +38,7 @@
             <!--<vg-buffering></vg-buffering>-->
             <!--<vg-overlay-play></vg-overlay-play>-->
             
-            <jamjar-plugin></jamjar-plugin>
+            <jamjar-plugin ng-if="!player.individual"></jamjar-plugin>
         </videogular>
       </div>
 <!--
@@ -56,9 +57,11 @@
   <div layout="row" class="curr-video-info">
     <div flex="50">
       <div layout="column" layout-align="center start">
-        <div class="primary-video-title">Title: {{player.jamjar.primaryVideo.video.name}}</div>
+        <div class="primary-video-title">{{player.jamjar.primaryVideo.video.name}}</div>
         <div class="user-info">
-            Uploaded by <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">{{player.jamjar.primaryVideo.video.user.username}}</a>
+            <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
+                {{player.jamjar.primaryVideo.video.user.username}}
+            </a>
         </div>
       </div>
     </div>
@@ -88,7 +91,9 @@
   <a ui-sref="dashboard.concert({id: player.jamjar.concert.id})">
       <div layout="row" class="concert-info">
           <div layout="column">
-              <img ng-src="{{player.jamjar.concert.videos[0].artists[0].images[3].url}}" class="mini-circle" />
+            <div class="mini-artist-thumbnail-img" 
+                 ng-style="{'background-image':'url('+player.jamjar.concert.videos[0].artists[0].images[3].url+')'}">
+            </div>
           </div>
           <div flex layout="column" layout-align="center start">
               <div class="artist">{{player.jamjar.concert.artists[0].name}}</div>
