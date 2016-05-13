@@ -116,7 +116,7 @@ nav.main-nav {
 
 /* LANDING PAGE - ABOUT */
 section.presentation {
-    padding: 100px 70px;
+    padding: 230px 70px 100px 70px;
     background: white;
     //background: url(../assets/images/wallpaper/whiteCloudBg.jpg) no-repeat center center scroll;
     text-align: center;
@@ -190,6 +190,10 @@ section.sample {
         z-index:100;
 
         position:absolute;
+    }
+    
+    section.presentation {
+        padding: 100px 70px !important;
     }
 }
 
