@@ -120,6 +120,8 @@ videogular div.jamjar-layer {
     cursor: not-allowed;
     min-width: 5px !important;
     max-width: 100px !important;
+    display: block;
+    float: right;
 }
 
 .primary-video-btn {

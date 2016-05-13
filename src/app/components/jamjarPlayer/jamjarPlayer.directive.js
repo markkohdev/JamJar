@@ -186,6 +186,7 @@
     self.presentation = {
       offset: '0px',
       doneWidth: '0px',
+      paddingOffset: '100px',
       width: '0px',
       playable: false,
       preload: 'none',
@@ -198,9 +199,12 @@
     var self = this;
 
     var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
-    self.presentation.offset = (offset + 100) + 'px';
+    self.presentation.offset = (offset) + 'px';
     //console.log("TIME:" + self.time());
+    
     self.presentation.doneWidth = (self.time()) + "px";
+    self.presentation.paddingOffset = (100 - self.time()) + "px";
+        
     self.presentation.width  = (self.video.length - self.time()) + "px";
     self.presentation.playable = (offset == 0);
 
