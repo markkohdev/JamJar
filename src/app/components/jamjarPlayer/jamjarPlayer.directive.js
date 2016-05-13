@@ -198,7 +198,7 @@
     var self = this;
 
     var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
-    self.presentation.offset = (offset) + 'px';
+    self.presentation.offset = (offset + 100) + 'px';
     //console.log("TIME:" + self.time());
     self.presentation.doneWidth = (self.time()) + "px";
     self.presentation.width  = (self.video.length - self.time()) + "px";

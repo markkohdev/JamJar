@@ -3,7 +3,7 @@
     <div layout="column" class="jamjar-layer">
         <div class='jamjar-bar' ng-style="{'margin-left': video.presentation.offset}">
             <md-button layout="row" class="primary-video-btn">
-                <div flex class="jamjar-line past-jam" 
+                <div class="jamjar-line past-jam" 
                      ng-style="{width: player.jamjar.primaryVideo.presentation.doneWidth}"></div>
                 
                 <div class="ol-thumbnail-img" 
@@ -23,7 +23,7 @@
             <div ng-click="player.jamjar.handleSwitch(video)">
                 <div class='jamjar-bar' ng-style="{'margin-left': video.presentation.offset}">
                     <md-button layout="row" ng-class="{'disabled-jam-btn': !video.presentation.playable}">
-                        <div flex class='jamjar-line past-jam' 
+                        <div class='jamjar-line past-jam' 
                              ng-style="{width: video.presentation.doneWidth}" 
                              ng-show="video.presentation.playable"></div>
                         
