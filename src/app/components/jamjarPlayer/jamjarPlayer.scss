@@ -60,7 +60,7 @@ videogular div.jamjar-layer-bg {
     position: absolute;
     top: 0;
     z-index: 4;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 videogular div.jamjar-layer {
@@ -82,7 +82,7 @@ videogular div.jamjar-layer {
     border-radius: 15px;
     padding: 2px;
     margin: 5px 5px 5px -6px;
-    min-width: 5px !important;
+    min-width: 15px !important;
     height: 15px;
     background: $green;
     cursor: pointer;
@@ -110,7 +110,7 @@ videogular div.jamjar-layer {
 }
 
 .active-jam {
-    background: $coral !important;
+    background: $blue !important;
     cursor: not-allowed !important;
 }
 
