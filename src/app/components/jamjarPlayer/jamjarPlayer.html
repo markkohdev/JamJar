@@ -57,10 +57,10 @@
   <div layout="row" class="curr-video-info">
     <div flex="50">
       <div layout="column" layout-align="center start">
-        <div class="primary-video-title">{{player.jamjar.primaryVideo.video.name}}</div>
+        <div class="primary-video-title">{{player.jamjar.nowPlaying.video.name}}</div>
         <div class="user-info">
             <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
-                {{player.jamjar.primaryVideo.video.user.username}}
+                {{player.jamjar.nowPlaying.video.user.username}}
             </a>
         </div>
       </div>
@@ -68,7 +68,7 @@
     <div flex="50">
       <div layout="column" layout-align="center end">
         <div layout="row">
-            <div class="video-views">{{player.jamjar.primaryVideo.video.views}} views</div>
+            <div class="video-views">{{player.jamjar.nowPlaying.video.views}} views</div>
         </div>
         <div layout="row">
           <jamjar-vote jamjar="player.jamjar"></jamjar-vote>
