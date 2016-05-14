@@ -13,7 +13,7 @@
         vm.concert_graph = {};
 
         vm.gotoUpload = function(artists, concertDate, concertVenue){
-            $state.go('dashboard.upload', {artists: artists, concert_date: concertDate, concert_venue:'individual'});
+            $state.go('dashboard.upload', {artists: artists, date: concertDate, venue: concertVenue});
         }
         
         vm.getConcertArtists = function() {

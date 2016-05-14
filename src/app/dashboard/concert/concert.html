@@ -17,8 +17,10 @@
       
     <div flex></div>
       
-    <div layout="column" layout-align="end start" class="small-padding">
-      <md-button ng-click="vm.gotoUpload(vm.concert.artists, vm.concert.venue.name, vm.concert.date)" class="md-small coral-btn">Upload To This Concert</md-button>
+    <div layout="column" layout-align="end start">
+      <md-button ng-click="vm.gotoUpload(vm.getConcertArtists(), vm.concert.date, vm.concert.venue.name)" class="coral-btn">
+          Upload To This Concert
+      </md-button>
     </div>
   </div>
 

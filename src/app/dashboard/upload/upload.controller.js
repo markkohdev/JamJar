@@ -4,31 +4,47 @@
       .module('jamjar')
       .controller('UploadController', UploadController);
 
-  function UploadController (ArtistService, $scope) {
+  function UploadController (ArtistService, $scope, $stateParams) {
     var vm = this;
-
-    var showUpload = false;
       
-    function showUploadWidget(){
-        showUpload = true;
-    }
-      
-    function canShowUpload(){
-        return showUpload;
-    }
+    vm.concertValues = {
+      'artists' : $stateParams.artists,
+      'date'    : $stateParams.date,
+      'venue'   : $stateParams.venue
+    };
       
     vm.selectedItem = null;
     vm.searchText = null;
     vm.selectedArtists = [];
     vm.autocompleteRequireMatch = false;
-    //vm.searchResults = [];
 
     vm.concertInput = null;
     vm.concertVenue = null;
-    vm.concertDate = null;
-
+    vm.concertDate = null;  
+    
     vm.artistSearch = function(query) {
       return ArtistService.search(query);
+    }
+    
+    if($stateParams.artists != null) {
+        var artistArr = vm.concertValues.artists.split(', ');
+        
+        _.each(artistArr, function(artistStr) {
+            console.log("artistStr: " + artistStr);
+            var artist = ArtistService.search(artistStr);//[0];
+            
+            console.log("ARTIST: " + JSON.stringify(artist));
+            vm.selectedArtists.push(artist);
+        })
+    }
+    if($stateParams.date != null) {
+        vm.concertInput = vm.concertValues.venue;
+        //vm.concertVenue = vm.concertValues.venue;
+    }
+    if($stateParams.venue != null) {
+        var rawDate = new Date(vm.concertValues.date);
+        //normalize the date and eliminate unwanted offset
+        vm.concertDate = new Date(rawDate.getTime() + rawDate.getTimezoneOffset()*60000)
     }
 
     vm.videoDetails = function() {

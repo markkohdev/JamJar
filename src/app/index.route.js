@@ -60,7 +60,7 @@
         reloadOnSearch: false
       })
       .state('dashboard.upload', {
-        url: '/upload',
+        url: '/upload?artists?date?venue?',
         templateUrl: 'app/dashboard/upload/upload.html',
         controller: 'UploadController',
         controllerAs: 'vm'
