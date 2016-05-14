@@ -1,5 +1,5 @@
 <div layout="column" class="theatre-bg">
-  <div layout="column" ng-if="player.jamjar.primaryVideo"
+  <div layout="column" ng-show="player.jamjar.primaryVideo"
       class='jamjar-player videogular-container'
       ng-mousemove="player.onHover($event)">
       <div ng-repeat="video in player.jamjar.nowPlaying track by video.video.id">
@@ -71,18 +71,7 @@
             <div class="video-views">{{player.jamjar.primaryVideo.video.views}} views</div>
         </div>
         <div layout="row">
-            <md-button ng-class="{'vote-active-up': player.userVote(true)}" ng-click="player.vote(true)">
-              <md-icon md-svg-icon="assets/images/btns/ic_thumb_up_black_24px.svg" ></md-icon>
-                {{ player.getVotes(true) }}
-            </md-button>
-            <md-button ng-class="{'vote-active-down': player.userVote(false)}" ng-click="player.vote(false)">
-              <md-icon md-svg-icon="assets/images/btns/ic_thumb_down_black_24px.svg"></md-icon>
-                {{ player.getVotes(false) }}
-            </md-button>
-            <md-button ng-click="player.showFlagForm($event)">
-                <md-icon md-svg-icon="assets/images/btns/ic_flag_black_24px.svg"></md-icon>
-                Report
-            </md-button>  
+          <jamjar-vote jamjar="player.jamjar"></jamjar-vote>
         </div>
       </div>
     </div>

@@ -6,6 +6,7 @@
     .module('jamjar')
     .directive('jamjarPlayer', jamjarPlayer)
 
+
     /** @ngInject */
     function jamjarPlayer() {
         var directive = {
@@ -47,22 +48,13 @@
               state: null,
             };
 
-            vm.onHoverOut = function(event) {
-              if (vm.overlay.timeout) {
-                $timeout.cancel(vm.overlay.timeout);
-                vm.overlay.timeout = null;
-              }
-
-              vm.overlay.visible = false;
-            }
-
             vm.onHover = function(event) {
 
               if (vm.overlay.state != 'auto')
                 return
 
               // make overlay visible
-              var timeoutMs = 3000;
+              var timeoutMs = 2000;
 
               if (event.pageX == vm.overlay.mouse.pageX && event.pageY == vm.overlay.mouse.pageY) {
                 return;
@@ -87,69 +79,6 @@
               vm.overlay.timeout = timeout;
             }
 
-            vm.vote = function(voteType) {
-              if (!vm.jamjar.primaryVideo) return;
-
-              var votes = vm.jamjar.primaryVideo.video.votes;
-              var vote = _.find(votes.video_votes, {'vote': voteType});
-
-              if (!vote) {
-                vote = {vote: voteType, total: 0}
-                votes.video_votes.push(vote);
-              }
-
-              var voteDelta = 1;
-
-              if (voteType === votes.user_vote) {
-                voteType = null;
-                voteDelta = -1;
-              } else if (voteType !== votes.user_vote && votes.user_vote !== null) {
-                // if it's the opposite of before, then subtract from before vote total
-                var oldVote = _.find(votes.video_votes, function(vote) { return vote['vote'] !== voteType });
-                if (oldVote)
-                  oldVote.total -= 1;
-              }
-
-              vote.total += voteDelta;
-              votes.user_vote = voteType;
-
-              // then send vote to API
-              var video_id = vm.jamjar.primaryVideo.video.id;
-              VideoService.vote(video_id, voteType, function(err, resp) {
-                console.log(err, resp);
-              });
-            }
-
-            vm.getVotes = function(voteType) {
-              if (!vm.jamjar.primaryVideo) return;
-
-              var votes = vm.jamjar.primaryVideo.video.votes.video_votes;
-              var vote = _.find(votes, {'vote': voteType});
-              return _.get(vote, 'total', 0);
-            }
-
-            vm.userVote = function(voteType) {
-              if (!vm.jamjar.primaryVideo) return;
-
-              var vote = vm.jamjar.primaryVideo.video.votes.user_vote;
-              return vote == voteType;
-            }
-
-            vm.showFlagForm = function(ev) {
-                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
-                var video_id = _.get(vm.jamjar, 'primaryVideo.video.id', null);
-                
-                $mdDialog.show({
-                    locals: {video_id: video_id},
-                    controller: FlagDialogController,
-                    templateUrl: 'app/components/jamjarPlayer/flag.tmpl.html',
-                    parent: angular.element(document.body),
-                    targetEvent: ev,
-                    clickOutsideToClose: false,
-                    fullscreen: useFullScreen
-                });
-            };
-
             vm.toggleOverlay = function(state) {
               if (state == 'off') {
                 vm.overlay.visible = false;
@@ -170,7 +99,8 @@
 
         return directive;
     }
-  
+
+
   function Video(video, edges, $sce) {
     var self = this;
 
@@ -179,13 +109,12 @@
     self.API = null;
     self.edges = edges;
 
-    self.buffering = true;
     self.ready = false;
-    self.playable = false;
 
+    self.offset = 0;
     self.presentation = {
-      offset: '0px',
-      width: '0px',
+      offset: 0,
+      width: 0,
       playable: false,
       preload: 'none',
     }
@@ -193,13 +122,22 @@
     self.config = self.getConfig();
   }
 
-  Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
+  Video.prototype.updatePlayable = function(currentOffset) {
     var self = this;
 
-    var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
-    self.presentation.offset = 10 * offset + 'px';
-    self.presentation.width  = 10 * (self.video.length - self.time()) + "px"
-    self.presentation.playable = (offset == 0);
+    self.presentation.playable = self.offset <= currentOffset && self.video.length > currentOffset;
+  }
+
+
+  Video.prototype.setPresentationDetails = function(primaryVideo, edgeToPrimary, currentOffset, maxOffset) {
+    var self = this;
+
+    var screen_width = $('.jamjar-player').width() - 75; // TODO : don't hardcode this!!
+
+    self.offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
+    self.presentation.offset = (self.offset / maxOffset) * screen_width;
+    self.presentation.width  = (self.video.length / maxOffset) * screen_width;
+    self.presentation.playable = self.offset <= currentOffset && self.video.length > currentOffset;
 
     if (self.presentation.playable) {
       self.presentation.preload = 'preload';
@@ -354,7 +292,6 @@
 
       self.primaryVideo = new Video(video, {}, self.$sce);
       self.primaryVideoEdges = {};
-      self.primaryVideo.buffering = true;
 
       self.addVideo(self.primaryVideo)
     });
@@ -391,12 +328,19 @@
       // relative to this video until the primary video ends. Then, an adjacent video will be
       // promoted to be the new primary video.
       self.primaryVideo = self.videos[video_id];
-      self.primaryVideo.buffering = true; // start playing immediately!
-      self.primaryVideo.playable = true;
 
       self.addVideo(self.primaryVideo);
 
-      self.resetEdges();
+      self.primaryVideoEdges = self.getPrimaryVideoEdges();
+      
+      var lastVideoEdge = _.maxBy(_.values(self.primaryVideoEdges), 'offset');
+      var lastVideo = self.videos[lastVideoEdge.video];
+      var maxWidth = lastVideoEdge.offset + lastVideo.video.length;
+
+      _.each(self.nowPlaying, function(video) {
+        var edge = self.getEdge(video);
+        video.setPresentationDetails(self.primaryVideo, edge, 0, maxWidth);
+      });
 
     });
   };
@@ -448,21 +392,15 @@
       }
     }
 
-    self.resetEdges();
-
     _.each(self.nowPlaying, function(video) {
       edge = self.getEdge(video);
-      video.updatePresentationDetails(self.primaryVideo, edge);
+      //video.updatePresentationDetails(self.primaryVideo, edge);
 
       if (video != self.nowPlaying) {
         video.pause();
       }
     });
 
-  }
-
-  JamJar.prototype.mouseover = function(selectedVideo) {
-    var self = this;
   }
 
   JamJar.prototype.getEdge = function(other) {
@@ -562,7 +500,8 @@
       }
 
       // update all videos for the presentation layer
-      video.updatePresentationDetails(self.primaryVideo, edge);
+      //video.updatePresentationDetails(self.primaryVideo, edge);
+      video.updatePlayable(self.primaryVideo.time() + self.primaryVideoEdges[video.video.id].offset);
 
     });
 
@@ -584,7 +523,7 @@
     //console.log("STATE:", video.video.id, video.video.name, video.API.currentState, state);
   }
 
-  JamJar.prototype.resetEdges = function () {
+  JamJar.prototype.getPrimaryVideoEdges = function () {
     var self = this;
 
     var all_edges = {}; // video_id --> adjusted_edge
@@ -610,7 +549,7 @@
         var new_edge = {
           confidence: edge.confidence,
           video: edge.video,
-          offset: edge.offset + default_offset
+          offset: edge.offset + default_offset,
         };
 
         all_edges[video.video.id] = new_edge;
@@ -619,36 +558,9 @@
       });
     };
 
-    self.primaryVideoEdges = all_edges;
-
     recursiveAddEdges(self.primaryVideo, 0);
+
+    return all_edges;
   };
-
-  /** @ngInject */
-  function FlagDialogController($scope, $mdDialog, VideoService, video_id) {
-      var vm = $scope;
-
-      vm.flagTypes = [{value: 'A', text: 'Accuracy'}, {value: 'I', text: 'Inappropriate'}, {value: 'Q', text: 'Quality'}];
-      
-      vm.flag = {
-          video: video_id,
-          flag_type: '',
-          notes: ''
-      };
-      
-      vm.hide = function() {
-          $mdDialog.hide();
-      };
-      
-      vm.cancel = function() {
-          $mdDialog.cancel();
-      };
-      
-      vm.submitReport = function(){
-          VideoService.submitFlag(vm.flag, function(err, resp) {
-            vm.flagSent = true;
-          });
-      };
-  }
 
 })();
