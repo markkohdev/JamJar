@@ -11,9 +11,9 @@
             vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
             vg-change-source="player.jamjar.onUpdateSource($source, video)"
             vg-update-state="player.jamjar.onUpdateState($state, video)"
-            vg-complete="player.jamjar.onComplete(video)"
             ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
             
+<!--            vg-complete="player.jamjar.onComplete(video)"-->
             <vg-media
               ng-if="video.presentation.playable || player.jamjar.primaryVideo == video"
               vg-preload="preload" vg-src="video.config.sources">
@@ -37,8 +37,8 @@
             
             <!--<vg-buffering></vg-buffering>-->
             <!--<vg-overlay-play></vg-overlay-play>-->
-            
             <jamjar-plugin ng-if="!player.individual"></jamjar-plugin>
+            <replay-plugin></replay-plugin>
         </videogular>
       </div>
 <!--
