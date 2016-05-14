@@ -1,21 +1,21 @@
 <div layout="column" class="theatre-bg">
-  <div layout="column" ng-show="player.jamjar.primaryVideo"
+  <div layout="column" ng-show="player.jamjar.nowPlaying"
       class='jamjar-player videogular-container'
       ng-mousemove="player.onHover($event)">
-      <div ng-repeat="video in player.jamjar.nowPlaying track by video.video.id">
+      <div ng-repeat="video in player.jamjar.videos track by video.video.id">
         <videogular flex
             vg-theme="player.config.theme"
-            vg-auto-play="(video == player.jamjar.primaryVideo)"
+            vg-auto-play="(video == player.jamjar.nowPlaying)"
             vg-player-ready="player.jamjar.onPlayerReady($API, video)"
             vg-can-play="player.jamjar.onPlayerCanPlay(video)"
             vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
             vg-change-source="player.jamjar.onUpdateSource($source, video)"
             vg-update-state="player.jamjar.onUpdateState($state, video)"
             vg-complete="player.jamjar.onComplete(video)"
-            ng-style="{display: (player.jamjar.primaryVideo == video) ? 'block' : 'none'}">
+            ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}">
             
             <vg-media
-              ng-if="video.presentation.playable || player.jamjar.primaryVideo == video"
+              ng-if="video.presentation.playable || player.jamjar.nowPlaying == video"
               vg-preload="preload" vg-src="video.config.sources">
             </vg-media>
             
