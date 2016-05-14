@@ -39,11 +39,11 @@
         ];
         
         vm.settings = [
-            {
-                state: 'settings.account',
-                name: 'Account',
-
-            },
+//            {
+//                state: 'settings.account',
+//                name: 'Account',
+//
+//            },
             {
                 name: 'Log Out',
                 onClick: function() {
