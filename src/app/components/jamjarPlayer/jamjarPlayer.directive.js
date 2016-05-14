@@ -38,6 +38,10 @@
               });
             }
 
+            vm.restartJamjar = function(){
+                vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+            };
+            
             window.jamjar = vm.jamjar;
 
             vm.overlay = {
@@ -318,6 +322,8 @@
 
     // default volume for videos
     self.volume = 0.5; // 0.5
+    
+    self.isCompleted = false;
   }
 
   JamJar.prototype.getVideoLength = function(video_id){
@@ -539,6 +545,10 @@
         return vid.presentation.playable && vid.video.id != self.primaryVideo.video.id;
       });
       self.switchVideo(next, true);
+    }
+    else {
+        self.isCompleted = true;
+        //console.log(self.isCompleted);
     }
   }
 
