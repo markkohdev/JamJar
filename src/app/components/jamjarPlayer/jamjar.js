@@ -24,6 +24,8 @@ function JamJar(concertService, videoService, $sce) {
   self.onPlay = function() { }; // override this!
   self.onPlayRecorded = {};
 
+  self.onFinishedJamJar = function() { }; // override this!
+
   // default volume for videos
   self.volume = 0.5; // 0.5
 }
@@ -198,7 +200,12 @@ JamJar.prototype.onComplete = function(video) {
     var next = _.find(self.videos, function(vid) {
       return vid.presentation.playable && vid.video.id != self.nowPlaying.video.id;
     });
-    self.switchVideo(next, true);
+
+    if (next) {
+      self.switchVideo(next, true);
+    } else {
+      self.onFinishedJamJar();
+    }
   }
 }
 

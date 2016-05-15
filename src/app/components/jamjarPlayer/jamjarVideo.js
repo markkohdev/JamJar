@@ -31,7 +31,7 @@ Video.prototype.updatePlayable = function(globalPosition) {
 Video.prototype.setPresentationDetails = function(nowPlaying, edgeToPrimary, currentOffset, maxOffset) {
   var self = this;
 
-  var screen_width = $('.jamjar-player').width() - 75; // TODO : don't hardcode this!!
+  var screen_width = $('.jamjar-player').width() * 0.95;
 
   self.offset = self.calcOffsetMargin(nowPlaying, edgeToPrimary);
   self.presentation.offset = (self.offset / maxOffset) * screen_width;

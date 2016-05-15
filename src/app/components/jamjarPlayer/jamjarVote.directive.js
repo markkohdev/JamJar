@@ -24,9 +24,9 @@
             var vm = this;
 
             vm.vote = function(voteType) {
-              if (!vm.jamjar.primaryVideo) return;
+              if (!vm.jamjar.nowPlaying) return;
 
-              var votes = vm.jamjar.primaryVideo.video.votes;
+              var votes = vm.jamjar.nowPlaying.video.votes;
               var vote = _.find(votes.video_votes, {'vote': voteType});
 
               if (!vote) {
@@ -50,30 +50,30 @@
               votes.user_vote = voteType;
 
               // then send vote to API
-              var video_id = vm.jamjar.primaryVideo.video.id;
+              var video_id = vm.jamjar.nowPlaying.video.id;
               VideoService.vote(video_id, voteType, function(err, resp) {
                 console.log(err, resp);
               });
             }
 
             vm.getVotes = function(voteType) {
-              if (!vm.jamjar.primaryVideo) return;
+              if (!vm.jamjar.nowPlaying) return;
 
-              var votes = vm.jamjar.primaryVideo.video.votes.video_votes;
+              var votes = vm.jamjar.nowPlaying.video.votes.video_votes;
               var vote = _.find(votes, {'vote': voteType});
               return _.get(vote, 'total', 0);
             }
 
             vm.userVote = function(voteType) {
-              if (!vm.jamjar.primaryVideo) return;
+              if (!vm.jamjar.nowPlaying) return;
 
-              var vote = vm.jamjar.primaryVideo.video.votes.user_vote;
+              var vote = vm.jamjar.nowPlaying.video.votes.user_vote;
               return vote == voteType;
             }
 
             vm.showFlagForm = function(ev) {
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
-                var video_id = _.get(vm.jamjar, 'primaryVideo.video.id', null);
+                var video_id = _.get(vm.jamjar, 'nowPlaying.video.id', null);
                 
                 $mdDialog.show({
                     locals: {video_id: video_id},
