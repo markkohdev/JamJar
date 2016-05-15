@@ -30,7 +30,12 @@
         <md-datepicker ng-model="vm.concertDate" md-placeholder="Concert Date" ng-required="true"></md-datepicker>
           
         <md-input-container class="md-block venue-container" flex-gt-xs>
-          <input class='venue-search' type="text" ng-autocomplete ng-model="vm.concertInput" details="vm.concertVenue" aria-label="Concert Location" ng-required="true"/>
+<!--        <input type="text" id="Autocomplete" class="form-control" ng-autocomplete="result1" details="details1" options="options1"/>-->
+
+          <input type="text" class="venue-search" aria-label="Concert Location" ng-required="true" 
+                 ng-autocomplete="vm.concertVenue" 
+                 ng-model="vm.concertInput" 
+                 details="vm.concertVenue"/>
         </md-input-container>
       </div>
         
