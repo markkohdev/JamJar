@@ -35,18 +35,29 @@
             var artistPromise = ArtistService.search(artistStr);
             artistPromise.then(function(artists) {
               vm.selectedArtists.push(artists[0]);
-            });
-            
-        })
+            }); 
+        });
     }
+      
     if($stateParams.date != null) {
-        vm.concertInput = vm.concertValues.venue;
-        //vm.concertVenue = vm.concertValues.venue;
-    }
-    if($stateParams.venue != null) {
         var rawDate = new Date(vm.concertValues.date);
         //normalize the date and eliminate unwanted offset
-        vm.concertDate = new Date(rawDate.getTime() + rawDate.getTimezoneOffset()*60000)
+        vm.concertDate = new Date(rawDate.getTime() + rawDate.getTimezoneOffset()*60000);
+    }
+      
+    if($stateParams.venue != null) {
+        //PlacesService object requires a HTML element to be created
+        var obj = angular.element('<div>').append('</div>');
+        var placesService = new google.maps.places.PlacesService(obj.get(0));
+
+        placesService.getDetails(
+            {placeId: vm.concertValues.venue},
+            function(placeResult, serviceStatus) {
+                console.log(placeResult.name);
+                vm.concertInput = placeResult.name;
+                vm.concertVenue = placeResult;
+            }
+        );
     }
 
     vm.videoDetails = function() {
