@@ -18,6 +18,8 @@
     vm.selectedArtists = [];
     vm.autocompleteRequireMatch = false;
 
+    window.lol = vm;
+
     vm.concertInput = null;
     vm.concertVenue = null;
     vm.concertDate = null;  
@@ -30,11 +32,11 @@
         var artistArr = vm.concertValues.artists.split(', ');
         
         _.each(artistArr, function(artistStr) {
-            console.log("artistStr: " + artistStr);
-            var artist = ArtistService.search(artistStr);//[0];
+            var artistPromise = ArtistService.search(artistStr);
+            artistPromise.then(function(artists) {
+              vm.selectedArtists.push(artists[0]);
+            });
             
-            console.log("ARTIST: " + JSON.stringify(artist));
-            vm.selectedArtists.push(artist);
         })
     }
     if($stateParams.date != null) {
