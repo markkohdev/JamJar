@@ -247,8 +247,8 @@ videogular div.jamjar-layer {
 
   margin-left: 40px;
 
-  -webkit-transition:all linear 0.75s;
-  transition:all linear 0.75s;
+  -webkit-transition: visibility 0.5s, opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.5s linear;
 }
 
 .vline.ng-hide {

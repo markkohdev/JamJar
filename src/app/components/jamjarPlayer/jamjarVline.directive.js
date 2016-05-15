@@ -28,7 +28,7 @@
             var vm = this;
 
             vm.offset = function() {
-              var screen_width = $('.jamjar-player').width() - 75; // TODO : don't hardcode this!!
+              var screen_width = $('.jamjar-player').width() - 50; // TODO : don't hardcode this!!
               var relOffset = (vm.overlay.line.offset / vm.overlay.maxOffset) * screen_width;
               return relOffset;
             }

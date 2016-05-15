@@ -119,6 +119,8 @@ JamJar.prototype.handleSwitch = function(selectedVideo) {
 JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
   var self = this;
 
+  debugger
+
   var edge = self.getEdge(selectedVideo);
 
   // this seems to work well, but it breaks if the video is paused!!
