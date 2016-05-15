@@ -26,9 +26,19 @@
                 tipDirection : 'bottom'
             };*/
 
+            vm.overlay = {
+              visible: false,
+              timeout: null,
+              mouse: {pageX: 0, pageY: 0},
+              state: null,
+              maxOffset: 1,
+              line: {offset: 0}
+            };
+
+
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
-            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type);
+            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay);
 
             vm.individual = $stateParams.type == 'individual';
 
@@ -40,13 +50,6 @@
             }
 
             window.jamjar = vm.jamjar;
-
-            vm.overlay = {
-              visible: false,
-              timeout: null,
-              mouse: {pageX: 0, pageY: 0},
-              state: null,
-            };
 
             vm.onHover = function(event) {
 

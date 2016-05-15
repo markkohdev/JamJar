@@ -28,10 +28,11 @@ function JamJar(concertService, videoService, $sce) {
   self.volume = 0.5; // 0.5
 }
 
-JamJar.prototype.initialize = function(concert_id, video_id, type) {
+JamJar.prototype.initialize = function(concert_id, video_id, type, overlay) {
   var self = this;
 
   self.type = type;
+  self.overlay = overlay;
 
   if (self.type == 'individual') {
     self.loadVideo(concert_id, video_id);
@@ -94,6 +95,8 @@ JamJar.prototype.loadGraph = function(concert_id, video_id) {
     var lastVideoEdge = _.maxBy(_.values(self.relativeEdges), 'offset');
     var lastVideo = self.videosMap[lastVideoEdge.video];
     var maxWidth = lastVideoEdge.offset + lastVideo.video.length;
+
+    self.overlay.maxOffset = maxWidth;
 
     _.each(self.videos, function(video) {
       var edge = self.getEdge(video);
@@ -217,6 +220,8 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     // update all videos for the presentation layer
     //video.updatePresentationDetails(self.nowPlaying, edge);
     video.updatePlayable(self.nowPlaying.time() + self.relativeEdges[video.video.id].offset);
+
+    self.overlay.line.offset = self.nowPlaying.time();
 
   });
 

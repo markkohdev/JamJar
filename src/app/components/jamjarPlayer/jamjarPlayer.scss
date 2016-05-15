@@ -93,6 +93,11 @@ videogular div.jamjar-layer {
     //transition: all 1s ease-out;  
 }
 
+.jamjar-line-text {
+  line-height: 30px;
+
+}
+
 .jamjar-bar {
     //-moz-transition: all 1s ease-out;     /* FF4+ */
     //-webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
@@ -222,4 +227,30 @@ videogular div.jamjar-layer {
 
 .vote-active-down {
     background-color: #F5A95F !important;
+}
+
+.vline-overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 90%;
+}
+
+.vline {
+  position: absolute;
+  z-index: 80;
+  height: 100%;
+  width: 1px;
+  background-color: transparent;
+  border-right: 5px dashed $coral;
+
+  margin-left: 40px;
+
+  -webkit-transition:all linear 0.75s;
+  transition:all linear 0.75s;
+}
+
+.vline.ng-hide {
+    opacity: 0;
 }

@@ -1,14 +1,16 @@
 <div ng-show='player.overlay.visible' class='jamjar-layer-bg-container'>
     <div class='jamjar-layer-bg'></div>
     <div layout="column" class="jamjar-layer">
-        <div ng-repeat="video in player.jamjar.videos | orderBy:'offset' track by video.video.id " >
+        <div ng-repeat="video in player.jamjar.videos | orderBy:'offset' track by video.video.id" >
             <div ng-click="player.jamjar.handleSwitch(video)">
                 <div class='jamjar-bar' ng-style="{'margin-left': video.presentation.offset + 'px'}">
                     <md-button layout="row" ng-class="{'disabled-jam-btn': !video.presentation.playable, 'primary-video-btn': video == player.jamjar.nowPlaying}">
                         <div class="ol-thumbnail-img" 
                              ng-style="{'background-image':'url('+video.video.thumb_src[128]+')'}">
                         </div>
-                        <div flex class='jamjar-line' ng-style="{width: video.presentation.width + 'px'}" ng-class="{'disabled-jam': !video.presentation.playable, 'active-jam': video == player.jamjar.nowPlaying}"></div>
+                        <div flex class='jamjar-line' ng-style="{width: video.presentation.width + 'px'}" ng-class="{'disabled-jam': !video.presentation.playable, 'active-jam': video == player.jamjar.nowPlaying}">
+                          <div class='jamjar-line-text' ng-if="video == player.jamjar.nowPlaying">Now Playing</div>
+                        </div>
                         <md-tooltip>
                         <div flex>'{{video.video.name}}' uploaded by {{video.video.user.username}}</div>
                         </md-tooltip>

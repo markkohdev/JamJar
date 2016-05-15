@@ -38,7 +38,8 @@
             <!--<vg-buffering></vg-buffering>-->
             <!--<vg-overlay-play></vg-overlay-play>-->
             
-            <jamjar-plugin ng-if="!player.individual"></jamjar-plugin>
+            <jamjar-vline ng-if="!player.individaul" overlay="player.overlay"></jamjar-vline>
+            <jamjar-plugin ng-if="!player.individual" overlay="player.overlay"></jamjar-plugin>
         </videogular>
       </div>
 <!--
