@@ -20,10 +20,11 @@ function Video(video, edges, $sce) {
   self.config = self.getConfig();
 }
 
-Video.prototype.updatePlayable = function(currentOffset) {
+Video.prototype.updatePlayable = function(globalPosition) {
   var self = this;
 
-  self.presentation.playable = self.offset <= currentOffset && (self.offset + self.video.length) > currentOffset;
+  // add 0.5 to remove flicker when video ends
+  self.presentation.playable = self.offset <= globalPosition && (self.offset + self.video.length) > (globalPosition + 0.5);
 }
 
 

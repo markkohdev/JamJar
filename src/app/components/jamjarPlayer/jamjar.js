@@ -189,6 +189,9 @@ JamJar.prototype.onComplete = function(video) {
     return;
   }
 
+  // change this immediately!
+  video.presentation.playable = false;
+
   // primary video ended, have to reconcile everything here
   if (self.videos.length > 0) {
     // pick the first video which is playable
@@ -222,7 +225,8 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
 
     // update all videos for the presentation layer
     //video.updatePresentationDetails(self.nowPlaying, edge);
-    video.updatePlayable(self.nowPlaying.time() + self.relativeEdges[video.video.id].offset);
+    //video.updatePlayable(self.nowPlaying.time() + self.relativeEdges[video.video.id].offset);
+    video.updatePlayable(self.overlay.line.offset);
   });
 
   // update view count
