@@ -23,7 +23,7 @@ function Video(video, edges, $sce) {
 Video.prototype.updatePlayable = function(currentOffset) {
   var self = this;
 
-  self.presentation.playable = self.offset <= currentOffset && self.video.length > currentOffset;
+  self.presentation.playable = self.offset <= currentOffset && (self.offset + self.video.length) > currentOffset;
 }
 
 

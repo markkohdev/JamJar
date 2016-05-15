@@ -119,8 +119,6 @@ JamJar.prototype.handleSwitch = function(selectedVideo) {
 JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
   var self = this;
 
-  debugger
-
   var edge = self.getEdge(selectedVideo);
 
   // this seems to work well, but it breaks if the video is paused!!
@@ -150,7 +148,7 @@ JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
   _.each(self.videos, function(video) {
     edge = self.getEdge(video);
 
-    if (video != self.videos) {
+    if (video != self.nowPlaying) {
       video.pause();
     }
   });
@@ -209,6 +207,9 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     return;
   }
 
+  var edgeToNowPlaying = self.getEdge(self.nowPlaying);
+  self.overlay.line.offset = self.nowPlaying.time() + edgeToNowPlaying.offset;
+
   _.each(self.videos, function(video) {
 
     var edge = self.getEdge(video);
@@ -222,9 +223,6 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     // update all videos for the presentation layer
     //video.updatePresentationDetails(self.nowPlaying, edge);
     video.updatePlayable(self.nowPlaying.time() + self.relativeEdges[video.video.id].offset);
-
-    self.overlay.line.offset = self.nowPlaying.time();
-
   });
 
   // update view count

@@ -35,7 +35,7 @@
 
             var base_path = "/assets/images/overlay_btns"
             var states = ["auto", "off", "on"];
-            var stateIndex = 0;
+            var stateIndex = 2; // 0
 
             vm.click = function() {
               stateIndex = (stateIndex + 1) % states.length;
