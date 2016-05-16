@@ -37,8 +37,8 @@
             
             <!--<vg-buffering></vg-buffering>-->
             <!--<vg-overlay-play></vg-overlay-play>-->
-            
             <jamjar-plugin ng-if="!player.individual"></jamjar-plugin>
+            <replay-plugin ng-show="player.jamjar.isCompleted"></replay-plugin>
         </videogular>
       </div>
 <!--
@@ -57,7 +57,7 @@
   <div layout="row" class="curr-video-info">
     <div flex="50">
       <div layout="column" layout-align="center start">
-        <div class="primary-video-title">{{player.jamjar.primaryVideo.video.name}}</div>
+        <div class="primary-video-title">{{player.jamjar.isCompleted}} {{player.jamjar.primaryVideo.video.name}}</div>
         <div class="user-info">
             <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
                 {{player.jamjar.primaryVideo.video.user.username}}
