@@ -62,7 +62,7 @@ footer {
     //height: 140px;
     //position: absolute;
     font-size: 14px !important;
-    padding: 20px 5px;
+    padding: 20px 40px;
     
     h3 {
         -webkit-margin-before: 0 !important;
@@ -76,12 +76,9 @@ footer {
     }
     
     a {
+        margin-bottom: 10px;
         color: white !important;
         text-decoration: none !important;
-    }
-    
-    .foot-block {
-        margin: 0 25px 10px 25px;
     }
 }
 

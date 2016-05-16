@@ -1,15 +1,13 @@
-<div class="authenticationBox" id="popupContainer" ng-cloak="">
+<div class="authenticationBox" id="popupContainer">
     <div ng-show="vm.isSet(1)">
         <form name="logInForm" ng-submit="logInForm.$valid && vm.logIn()">            
             <div layout="row" layout-align="center" layout-wrap>
-                <md-button flex-xs="100" flex-sm="10" flex-md="10" flex-gt-md="5" 
-                           type="button" class="md-raised" ng-click="vm.showSignUp($event)">
-                    Sign Up
-                </md-button>
+                <md-button flex-xs="100" flex-gt-xs="10"
+                           type="button" class="md-raised" ng-click="vm.showSignUp($event)">Sign Up</md-button>
                 
                 <div flex></div>
                 
-                <div flex-xs="100" flex-sm="25" flex-md="25" flex-gt-md="20" layout="column" class="form-padding">
+                <div flex-xs="100" flex-gt-xs="20" layout="column" class="form-padding">
                     <md-input-container>
                         <input ng-model="vm.login.username" type="text" placeholder="Username" ng-required="true">
                     </md-input-container>
@@ -17,7 +15,7 @@
                     <div ng-show="vm.errorMessage" class="error-msg left-align">Error: {{vm.errorMessage}}</div>
                 </div>
 
-                <div flex-xs="100" flex-sm="25" flex-md="25" flex-gt-md="20" layout="column" class="form-padding">
+                <div flex-xs="100" flex-gt-xs="20" layout="column" class="form-padding">
                     <md-input-container>
                         <input ng-model="vm.login.password" type="password" placeholder="Password" ng-required="true">
                     </md-input-container>
@@ -25,23 +23,23 @@
                     <a href="" ng-click="vm.setTab(3)" class="forgot-link right-align">Forgot?</a>
                 </div>
                 
-                <md-button flex-xs="100" flex-sm="10" flex-md="10" flex-gt-md="5" 
-                           type="submit" class="md-raised coral-bg">
-                    Log In
-                </md-button>
+                <md-button flex-xs="100" flex-gt-xs="10" 
+                           type="submit" class="md-raised coral-bg">Log In</md-button>
             </div>
         </form>
     </div>
     
     <div ng-show="vm.isSet(3)">
         <form name="resetPwForm" ng-submit="resetPwForm.$valid && vm.resetPw()">
-            <div layout="row" layout-align="center">
-                <md-button type="button" class="md-raised" ng-click="vm.showSignUp($event)">Sign Up</md-button>
-                <md-button type="button" class="md-raised" ng-click="vm.setTab(1)">Log In</md-button>
+            <div layout-gt-xs="row" layout-align="center" layout-wrap>
+                <md-button flex-xs="100" flex-sm="10" flex-md="10" flex-gt-md="5"
+                           type="button" class="md-raised" ng-click="vm.showSignUp($event)">Sign Up</md-button>
+                <md-button flex-xs="100" flex-sm="10" flex-md="10" flex-gt-md="5"
+                           type="button" class="md-raised" ng-click="vm.setTab(1)">Log In</md-button>
                 
                 <div flex></div>
                 
-                <div layout="column">       
+                <div flex-xs="100" flex-gt-xs="20" layout="column">       
                     <md-input-container>
                         <input ng-model="vm.email" type="email" placeholder="Email" ng-required="true">
                     </md-input-container>
@@ -49,7 +47,8 @@
                     <div ng-show="vm.errorMessage" class="error-msg left-align">Error: {{vm.errorMessage}}</div>
                 </div>
 
-                <md-button type="submit" class="md-raised coral-bg">Reset Password</md-button>
+                <md-button flex-xs="100" flex-gt-xs="20"
+                           type="submit" class="md-raised coral-bg">Reset Password</md-button>
             </div>
         </form>
     </div>    

@@ -1,32 +1,27 @@
-<div layout="row" layout-wrap>
-    <div flex-xs="100" flex-gt-sm="20" 
-         layout="row" layout-align="center center">
-        <img ng-src="assets/images/jamjar_logo_transparent/jamjar_logo_transparent_40x40@3x.png" alt="logo"/>
+<div layout-gt-xs="row" layout-align="space-between start" layout-wrap>
+    <div layout="column" layout-align="center center">
+        <img ng-src="assets/images/jamjar_logo_transparent/jamjar_logo_transparent_40x40@2x.png" alt="logo"/>
     </div>
 
-    <div flex-xs="100" flex-gt-sm="20" 
-         layout="column" layout-align="start start">
-       <h3 class="foot-block">Learn more</h3>
-       <a class="foot-block" href="/about">About us</a>
-       <a class="foot-block" ui-sref="support">Support</a>
+    <div layout="column" layout-align="center start">
+       <h3>Learn more</h3>
+       <a ui-sref="about">About us</a>
+       <a ui-sref="support">Contact</a>
     </div>
 
-    <div flex-xs="100" flex-gt-sm="20" 
-         layout="column" layout-align="start start">
-        <h3 class="foot-block">Company</h3>
-        <a class="foot-block" href="/team">Our team</a>
+    <div layout="column" layout-align="center start">
+        <h3>Company</h3>
+        <a ui-sref="team">Our team</a>
     </div>
 
-    <div flex-xs="100" flex-gt-sm="20" 
-         layout="column" layout-align="start start">
-        <h3 class="foot-block">Terms</h3>
-        <a class="foot-block" href="/legal">Legal</a>
-        <a class="foot-block" href="/privacy">Privacy</a>
+    <div layout="column" layout-align="center start">
+        <h3>Terms</h3>
+        <a ui-sref="legal">Legal</a>
+        <a ui-sref="privacy">Privacy</a>
     </div>
 
-    <div flex-xs="100" flex-gt-sm="20" 
-         layout="row" layout-align="center center">
-        <a href="">
+    <div layout="column" layout-align="center center">
+        <a ui-sref="appstore">
             <img ng-src="assets/images/Download_on_the_App_Store_Badge_US-UK_135x40.svg"/>
         </a>
     </div>           
