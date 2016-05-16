@@ -23,7 +23,7 @@
         vmMain.navTop = vmMain.winHeight;
         
         $document.on('scroll', function() {
-            if ($window.scrollY > $window.innerHeight) {
+            if ($window.scrollY > vmMain.navTop) {
                 vmMain.doStickToTop = true;
             }
             else {
