@@ -10,7 +10,7 @@
     vm.concertValues = {
       'artists' : $stateParams.artists,
       'date'    : $stateParams.date,
-      'venue'   : $stateParams.venue
+      'venueId' : $stateParams.venueId
     };
       
     vm.selectedItem = null;
@@ -18,12 +18,14 @@
     vm.selectedArtists = [];
     vm.autocompleteRequireMatch = false;
 
-    window.lol = vm;
-
-    vm.concertInput = null;
-    vm.concertVenue = null;
-    vm.concertDate = null;  
+    vm.concertDate = null;
+      
+    vm.venueName = null;
+    vm.venueId = null;  
+    vm.venueDetails = null;
     
+    window.lol = vm;
+      
     vm.artistSearch = function(query) {
       return ArtistService.search(query);
     }
@@ -45,28 +47,33 @@
         vm.concertDate = new Date(rawDate.getTime() + rawDate.getTimezoneOffset()*60000);
     }
       
-    if($stateParams.venue != null) {
+    if($stateParams.venueId != null) {
+        vm.venueId = $stateParams.venueId;
+        
         //PlacesService object requires a HTML element to be created
         var obj = angular.element('<div>').append('</div>');
         var placesService = new google.maps.places.PlacesService(obj.get(0));
 
         placesService.getDetails(
-            {placeId: vm.concertValues.venue},
+            {placeId: vm.concertValues.venueId},
             function(placeResult, serviceStatus) {
-                console.log(placeResult.name);
-                vm.concertInput = placeResult.name;
-                vm.concertVenue = placeResult;
+                vm.venueName = placeResult.name;
+                vm.venueDetails = placeResult;
             }
         );
     }
 
     vm.videoDetails = function() {
       return function() {
+        if (vm.venueDetails != null ) {
+            vm.venueId = vm.venueDetails.place_id;
+        }
+          
         return {
-          'venueString' : vm.concertInput,
-          'venue': vm.concertVenue,
-          'date': vm.concertDate,
-          'artists': vm.selectedArtists
+          'venueName'   : vm.venueName,
+          'venueId'     : vm.venueId,
+          'date'        : vm.concertDate,
+          'artists'     : vm.selectedArtists
         }
       }
     }
