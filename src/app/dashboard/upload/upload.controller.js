@@ -62,10 +62,26 @@
             }
         );
     }
+      
+    vm.populateSpringJam = function() {
+        vm.selectedArtists = [];
+        
+        var artistPromise = ArtistService.search("Steve Aoki");
+            artistPromise.then(function(artists) {
+            vm.selectedArtists.push(artists[0]);
+        });
+        
+        var rawDate = new Date("2016-05-21");
+        //normalize the date and eliminate unwanted offset
+        vm.concertDate = new Date(rawDate.getTime() + rawDate.getTimezoneOffset()*60000);
+        
+        vm.venueId = "ChIJKcBHSE7GxokR8DA8BOQt8w4";
+        vm.venueName = "Drexel University, Chestnut Street, Philadelphia, PA, United States";
+    }
 
     vm.videoDetails = function() {
       return function() {
-        if (vm.venueDetails != null ) {
+        if (vm.venueDetails != null) {
             vm.venueId = vm.venueDetails.place_id;
         }
           
