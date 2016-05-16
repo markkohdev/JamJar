@@ -1,14 +1,112 @@
 .about-body {
-    height: 500px;
-    min-height:100%;
-    padding: 100px 70px 100px 70px;
-    
     h1, h2, h3 {
-        text-align: center;
         color: black !important;
     }
 }
 
+section.title {
+    padding: 10px 30px;
+    background-color: rgba(39, 39, 39, 1);
+    text-align: center;
+    
+    h1 {
+        font-size: 25px;
+        color: white !important;
+    }
+}
+
+section.dictionary {
+    padding: 30px;
+    //color: white;
+    //background-color: rgba(39, 39, 39, 1);
+}
+
+section.how-it-works {
+    padding: 10px 30px;
+    height: 300px;
+    color: white;
+    background-color: rgba(39, 39, 39, 1);
+    text-align: center;
+    
+    h1 {
+        font-size: 25px;
+        color: white !important;
+    }
+}
+
+section.our-story {
+    padding: 10px 30px;
+    height: 300px;
+    //color: white;
+    //background-color: rgba(39, 39, 39, 1);
+}
+
 .hr-coral {
     border-bottom: 3px dotted #F15F4E;
+}
+
+.about-jamjar-line {
+    border-radius: 15px;
+    padding: 2px;
+    margin-top: 0;
+    margin-bottom: 15px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.title-line {
+    //background-color: rgba(241, 95, 78, 0.8) !important;
+    background: $coral;
+    margin-left: -80px;
+    width: 500px;
+}
+
+.sub-title-line {
+    background: $blue;
+    margin-left: -80px;
+    width: 250px;
+}
+
+.def-line-xs {
+    background: $green;
+    margin-left: -5px;
+    width: 150px;
+}
+.def-line-s {
+    background: $green;
+    margin-left: -5px;
+    width: 400px;
+}
+.def-line-m {
+    background: $green;
+    margin-left: -5px;
+    width: 600px;
+}
+.def-line-l {
+    background: $green;
+    margin-left: -5px;
+    width: 700px;
+}
+.def-line-xl {
+    background: $green;
+    margin-left: -5px;
+    width: 850px;
+}
+
+.def-text {
+    margin-left: 10px;
+    font-size: 13px;
+}
+
+.number-circle {
+    font-size: 12px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
+    padding: 5px;
+    z-index: 10;
+    background: $darkgray;
+    color: $white;
+    text-align: center;
 }
