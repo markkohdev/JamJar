@@ -80,6 +80,10 @@ JamJar.prototype.loadGraph = function(concert_id, video_id) {
         return !!subgraph.adjacencies[video.id];
       });
 
+      if (!graph) {
+          return;
+      }
+
       var edges = graph.adjacencies[video.id];
       self.videosMap[video.id] = new Video(video, edges, self.$sce);
     });
