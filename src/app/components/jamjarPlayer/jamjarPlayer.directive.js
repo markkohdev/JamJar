@@ -185,6 +185,8 @@
 
     self.presentation = {
       offset: '0px',
+      doneWidth: '0px',
+      paddingOffset: '0px',
       width: '0px',
       playable: false,
       preload: 'none',
@@ -196,9 +198,15 @@
   Video.prototype.updatePresentationDetails = function(primaryVideo, edgeToPrimary) {
     var self = this;
 
+    var maxWidthOfPastBar = 100; //class: past-jam
+      
     var offset = self.calcOffsetMargin(primaryVideo, edgeToPrimary);
-    self.presentation.offset = 10 * offset + 'px';
-    self.presentation.width  = 10 * (self.video.length - self.time()) + "px"
+    self.presentation.offset = (offset) + 'px';    
+    self.presentation.width  = (self.video.length - self.time()) + "px";
+      
+    self.presentation.paddingOffset = (maxWidthOfPastBar - self.time()) + "px";
+    self.presentation.doneWidth = (self.time()) + "px";
+      
     self.presentation.playable = (offset == 0);
 
     if (self.presentation.playable) {

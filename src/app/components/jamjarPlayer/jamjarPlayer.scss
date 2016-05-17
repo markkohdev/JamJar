@@ -1,26 +1,26 @@
-.jamjar-player {
-    background-color: #000;
-
-    .player-sidebar {
-        color: white;
-
-        .player-thumbnail {
-            max-width: 100%;
-            background: rgba(0,255,255, 0.5);
-        }
-
-        .player-thumbnail-info {
-            position:relative;
-            top:-30px;
-            height: 30px;
-            width: 100%;
-            color: white;
-            text-align: center;
-            line-height: 30px;
-            background-color: rgba(0,0,0,0.5)
-        }
-    }
-}
+//.jamjar-player {
+//    background-color: #000;
+//
+//    .player-sidebar {
+//        color: white;
+//
+//        .player-thumbnail {
+//            max-width: 100%;
+//            background: rgba(0,255,255, 0.5);
+//        }
+//
+//        .player-thumbnail-info {
+//            position:relative;
+//            top:-30px;
+//            height: 30px;
+//            width: 100%;
+//            color: white;
+//            text-align: center;
+//            line-height: 30px;
+//            background-color: rgba(0,0,0,0.5)
+//        }
+//    }
+//}
 
 .theatre-bg {
     background-color: #000;
@@ -60,7 +60,7 @@ videogular div.jamjar-layer-bg {
     position: absolute;
     top: 0;
     z-index: 4;
-    opacity: 0.4;
+    opacity: 0.5;
 }
 
 videogular div.jamjar-layer {
@@ -81,12 +81,13 @@ videogular div.jamjar-layer {
 .jamjar-line {
     border-radius: 15px;
     padding: 2px;
-    margin: 5px 5px 5px -15px;
-    min-width: 100px;
-    height: 30px;
+    margin: 5px 5px 5px -6px;
+    min-width: 15px !important;
+    height: 15px;
     background: $green;
     cursor: pointer;
     z-index: 50;
+    opacity: .7;
 
     //-moz-transition: all 1s ease-out;     /* FF4+ */
     //-webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
@@ -109,8 +110,18 @@ videogular div.jamjar-layer {
 }
 
 .active-jam {
-    background: $coral !important;
+    background: $blue !important;
     cursor: not-allowed !important;
+}
+
+.past-jam {
+    margin-right: -6px !important;
+    background: #2a2a2a;
+    cursor: not-allowed;
+    min-width: 5px !important;
+    max-width: 100px !important;
+    display: block;
+    float: right;
 }
 
 .primary-video-btn {
@@ -128,6 +139,7 @@ videogular div.jamjar-layer {
     height              : 65px;
     border-radius       : 50%;
     z-index: 70;
+    opacity: 1;
 }
 
 
