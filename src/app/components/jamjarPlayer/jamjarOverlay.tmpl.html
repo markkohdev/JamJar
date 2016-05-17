@@ -11,7 +11,6 @@
                         <div flex class='jamjar-line'
                              ng-style="{width: (video.presentation.width - 45) + 'px'}"
                              ng-class="{'disabled-jam': !video.presentation.playable, 'active-jam': video.presentation.playable && (video == player.jamjar.nowPlaying)}">
-                          <div class='jamjar-line-text' ng-if="video.presentation.playable && video == player.jamjar.nowPlaying">Now Playing</div>
                         </div>
                         <md-tooltip>
                         <div flex>'{{video.video.name}}' uploaded by {{video.video.user.username}}</div>
