@@ -26,6 +26,9 @@ function JamJar(concertService, videoService, $sce) {
 
   self.onFinishedJamJar = function() { }; // override this!
 
+  self.type = null;
+  self.overlay = null;
+
   // default volume for videos
   self.volume = 0.5; // 0.5
 }
@@ -239,7 +242,7 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     // update all videos for the presentation layer
     //video.updatePresentationDetails(self.nowPlaying, edge);
     //video.updatePlayable(self.nowPlaying.time() + self.relativeEdges[video.video.id].offset);
-    video.updatePlayable(self.overlay.line.offset);
+    video.updatePlayable(self.overlay.line.offset, self.overlay.maxOffset);
   });
 
   // update view count

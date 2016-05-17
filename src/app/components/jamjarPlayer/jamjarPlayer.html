@@ -1,58 +1,50 @@
 <div layout="column" class="theatre-bg">
-  <div layout="column" ng-show="player.jamjar.nowPlaying"
-      class='jamjar-player videogular-container'
+  <div layout="column" 
+      ng-show="player.jamjar.nowPlaying"
       ng-mousemove="player.onHover($event)">
       <div ng-repeat="video in player.jamjar.videos track by video.video.id">
-        <videogular flex
-            vg-theme="player.config.theme"
-            vg-auto-play="(video == player.jamjar.nowPlaying)"
-            vg-player-ready="player.jamjar.onPlayerReady($API, video)"
-            vg-can-play="player.jamjar.onPlayerCanPlay(video)"
-            vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
-            vg-change-source="player.jamjar.onUpdateSource($source, video)"
-            vg-update-state="player.jamjar.onUpdateState($state, video)"
-            vg-complete="player.jamjar.onComplete(video)"
-            ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}">
-            
-            <vg-media
-              ng-if="video.presentation.playable || player.jamjar.nowPlaying == video"
-              vg-preload="preload" vg-src="video.config.sources">
-            </vg-media>
-            
-            
-            <vg-controls class="high-z">                
-                <vg-play-pause-button></vg-play-pause-button>
-                <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                <vg-scrub-bar>
-                    <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                </vg-scrub-bar>
-                <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                <jamjar-button jamjar-button="player.jamjarButton" toggle-overlay="player.toggleOverlay" ng-if="!player.individual"></jamjar-button>
-                <vg-volume>
-                    <vg-mute-button></vg-mute-button>
-                    <vg-volume-bar></vg-volume-bar>
-                </vg-volume>
-                <!--<vg-fullscreen-button></vg-fullscreen-button>-->
-            </vg-controls>
-            
-            <!--<vg-buffering></vg-buffering>-->
-            <!--<vg-overlay-play></vg-overlay-play>-->
-            
-            <jamjar-vline ng-if="!player.individaul" overlay="player.overlay"></jamjar-vline>
-            <jamjar-plugin ng-if="!player.individual" overlay="player.overlay"></jamjar-plugin>
-        </videogular>
-      </div>
-<!--
-      <div flex class='player-sidebar'>
-        <div layout="column" layout-align="space-around center">
-          <div ng-repeat="video in player.jamjar.nowPlaying" ng-if="video != player.jamjar.primaryVideo">
-            <div ng-class="{'player-thumbnail-disabled': true}" ng-click="player.jamjar.switchVideo(video)">
-              <img class='player-thumbnail' ng-src="{{video.video.thumb_src[256]}}" />
-            </div>
-          </div>
+        <div class="videogular-container" ng-hide="video != player.jamjar.nowPlaying">
+            <videogular flex
+                vg-theme="player.config.theme"
+                vg-auto-play="(video == player.jamjar.nowPlaying)"
+                vg-player-ready="player.jamjar.onPlayerReady($API, video)"
+                vg-can-play="player.jamjar.onPlayerCanPlay(video)"
+                vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
+                vg-change-source="player.jamjar.onUpdateSource($source, video)"
+                vg-update-state="player.jamjar.onUpdateState($state, video)"
+                vg-complete="player.jamjar.onComplete(video)"
+                ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}"
+                ng-class="{'now-playing-video': (player.jamjar.nowPlaying == video)}">
+
+                <vg-media
+                  ng-if="video.presentation.playable || player.jamjar.nowPlaying == video"
+                  vg-preload="preload" vg-src="video.config.sources">
+                </vg-media>
+
+
+                <vg-controls class="high-z">                
+                    <vg-play-pause-button></vg-play-pause-button>
+                    <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                    <vg-scrub-bar>
+                        <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                    </vg-scrub-bar>
+                    <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
+                    <jamjar-button jamjar-button="player.jamjarButton" toggle-overlay="player.toggleOverlay" ng-if="!player.individual"></jamjar-button>
+                    <vg-volume>
+                        <vg-mute-button></vg-mute-button>
+                        <vg-volume-bar></vg-volume-bar>
+                    </vg-volume>
+                    <!--<vg-fullscreen-button></vg-fullscreen-button>-->
+                </vg-controls>
+
+                <!--<vg-buffering></vg-buffering>-->
+                <!--<vg-overlay-play></vg-overlay-play>-->
+
+                <jamjar-vline ng-if="!player.individaul" overlay="player.overlay"></jamjar-vline>
+                <jamjar-plugin ng-if="!player.individual" overlay="player.overlay"></jamjar-plugin>
+            </videogular>
         </div>
       </div>
--->
   </div>
     
   <div layout="row" class="curr-video-info">
