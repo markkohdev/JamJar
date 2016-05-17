@@ -12,8 +12,6 @@ html, body {
 
 h1, h2 {
     font-family: 'Comfortaa', sans-serif;
-    font-style: normal;
-    font-weight: 500;
     color: white;
 }
    
@@ -62,25 +60,21 @@ footer {
     //height: 140px;
     //position: absolute;
     font-size: 14px !important;
+    padding: 20px 40px;
     
     h3 {
         -webkit-margin-before: 0 !important;
         -webkit-margin-after: .3em !important;
         text-decoration: underline;
-        margin: 0 0 1px 0;
-        padding: 0 0 2px 0;
+        padding: 5px 0 8px 0;
         font-size: 14px;
         font-weight: 500;
         line-height: 1.3em;
         vertical-align: middle;
     }
     
-    ul {
-        list-style-type: none;
-        line-height: 2em;
-    }
-    
     a {
+        margin-bottom: 10px;
         color: white !important;
         text-decoration: none !important;
     }
@@ -127,6 +121,17 @@ footer {
     background-color: $coral !important;
 }
 
+.coral-btn {
+    padding: 5px 15px;
+    margin: 6px 0;
+    background-color: rgba(241, 95, 78, .7) !important;
+    color: white !important;
+}
+
+.coral-btn:not([disabled]):hover {
+    background-color: rgba(241, 95, 78, 1) !important
+}
+
 
 /* CUSTOM VIEWS */
 
@@ -143,11 +148,12 @@ footer {
 }
 
 .short-bar-div {
-    padding: 0px 10%;
+    width: 170px;
+    padding-left: 15px;
 }
 
 .long-bar-div {
-    padding: 0px 5%;
+    width: 200px;
 }
 
 .collection-gray-bar {

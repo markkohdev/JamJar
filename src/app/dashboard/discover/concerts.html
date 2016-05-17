@@ -12,11 +12,11 @@
                 <span class="pl-sidebar-content valign">
                     <span class="valign-container">
                         <span class="formatted-video-count-label">
-                            <b>#{{concert.graph.length}}</b> 
-                            jamjars
+                            <b>{{concert.jamjars_count}}</b> 
+                            jamjar<span ng-if="concert.jamjars_count > 1">s</span>
                             <b>-</b>
                             <b>{{concert.videos_count}}</b> 
-                            videos
+                            video<span ng-if="concert.videos_count > 1">s</span>
                         </span>
                     </span>
                 </span>
