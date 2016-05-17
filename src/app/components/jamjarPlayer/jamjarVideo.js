@@ -20,24 +20,25 @@ function Video(video, edges, $sce) {
   self.config = self.getConfig();
 }
 
-Video.prototype.updatePlayable = function(globalPosition) {
+Video.prototype.updatePlayable = function(globalPosition, maxOffset) {
   var self = this;
+
+  var screen_width = $(".now-playing-video").width() * 0.95;
 
   // add 0.5 to remove flicker when video ends
   self.presentation.playable = self.offset <= globalPosition && (self.offset + self.video.length) > (globalPosition + 0.5);
+
+  self.presentation.offset = (self.offset / maxOffset) * screen_width;
+  self.presentation.width  = (self.video.length / maxOffset) * screen_width;
 }
 
 
 Video.prototype.setPresentationDetails = function(nowPlaying, edgeToPrimary, currentOffset, maxOffset) {
   var self = this;
 
-  var screen_width = $('.jamjar-player').width() * 0.95;
 
   self.offset = self.calcOffsetMargin(nowPlaying, edgeToPrimary);
-  self.presentation.offset = (self.offset / maxOffset) * screen_width;
-  self.presentation.width  = (self.video.length / maxOffset) * screen_width;
-
-  self.updatePlayable(currentOffset);
+  self.updatePlayable(currentOffset, maxOffset);
 
   if (self.presentation.playable) {
     self.presentation.preload = 'preload';
