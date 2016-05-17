@@ -47,11 +47,28 @@ videogular div.jamjar-layer {
     z-index: 5;
     opacity: 1;
     
+    overflow-x: hidden;
     overflow-y: auto;
 }
 
 .high-z {
     z-index: 70;
+}
+
+
+/* Custom scrollbar styling (firefox doesn't support this :[)*/
+.jamjar-layer::-webkit-scrollbar {
+	width: 8px;
+	background-color: #F5F5F5;
+}
+    
+.jamjar-layer::-webkit-scrollbar-thumb {
+	background-color: $blue;
+}
+    
+.jamjar-layer::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 7px rgba(0,0,0,0.2);
+	background-color: white;
 }
 
 
