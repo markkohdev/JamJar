@@ -12,6 +12,10 @@
         vm.concert = {};
         vm.concert_graph = {};
 
+        vm.gotoUpload = function(artists, concertDate, concertVenueId){
+            $state.go('dashboard.upload', {artists: artists, date: concertDate, venueId: concertVenueId});
+        }
+        
         vm.getConcertArtists = function() {
           return _.map(vm.concert.artists, 'name').join(", ");
         }

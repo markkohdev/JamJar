@@ -2,6 +2,7 @@
     
   <div layout="row" class="concert-banner small-padding">
     <div class="concert-banner-bg"></div>
+      
     <div layout="column">
         <div class="artist-thumbnail-img" 
              ng-style="{'background-image':'url('+vm.concert.videos[0].artists[0].images[2].url+')'}">
@@ -12,6 +13,14 @@
       <h1>{{vm.getConcertArtists()}}</h1>
       <h2>{{vm.concert.venue.name}}</h2>
       <h3>{{vm.concert.date}}</h3>
+    </div>
+      
+    <div flex></div>
+      
+    <div layout="column" layout-align="end start">
+      <md-button ng-click="vm.gotoUpload(vm.getConcertArtists(), vm.concert.date, vm.concert.venue.place_id)" class="coral-btn">
+          Upload To This Concert
+      </md-button>
     </div>
   </div>
 

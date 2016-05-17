@@ -32,9 +32,9 @@
             vm.valid = function() {
               var videoDetails = $scope.videoDetails();
 
-              var validVenueInput = !!(videoDetails.venueString && videoDetails.venueString.length > 0);
+              var validVenueInput = !!(videoDetails.venueName && videoDetails.venueName.length > 0);
 
-              var validVenue = _.get(videoDetails, 'venue.place_id', false);
+              //var validVenue = _.get(videoDetails, 'venue.place_id', false);
               
               var validDate = videoDetails.date;
 
@@ -48,7 +48,7 @@
                 return item.title && item.title.length > 0 && item.privacy;
               });
 
-              return hasArtists && validVenue && validDate && validArtists && validFiles && validVenueInput;
+              return hasArtists && validArtists && validDate && validVenueInput && validFiles;
             };
             
             vm.uploader = new FileUploader({
@@ -127,7 +127,8 @@
               var videoDetails = $scope.videoDetails();
 
               var concertData = {
-                venue_place_id: videoDetails.venue.place_id,
+                //venue_place_id: videoDetails.venue.place_id,
+                venue_place_id: videoDetails.venueId,
                 date: moment(videoDetails.date).format('YYYY-MM-DD')
               }
 
