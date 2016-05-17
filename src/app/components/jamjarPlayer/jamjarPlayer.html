@@ -27,7 +27,7 @@
                     <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
                 </vg-scrub-bar>
                 <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                <jamjar-button toggle-overlay="player.toggleOverlay" ng-if="!player.individual"></jamjar-button>
+                <jamjar-button jamjar-button="player.jamjarButton" toggle-overlay="player.toggleOverlay" ng-if="!player.individual"></jamjar-button>
                 <vg-volume>
                     <vg-mute-button></vg-mute-button>
                     <vg-volume-bar></vg-volume-bar>

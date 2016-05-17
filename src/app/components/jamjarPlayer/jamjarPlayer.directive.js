@@ -35,6 +35,11 @@
               line: {offset: 0}
             };
 
+            vm.jamjarButton = {
+              stateIndex: 0,
+              icon: null,
+            }
+
 
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
