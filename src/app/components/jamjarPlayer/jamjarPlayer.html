@@ -1,6 +1,5 @@
 <div layout="column" class="theatre-bg">
   <div layout="column" 
-      class="jamjar-player"
       ng-show="player.jamjar.nowPlaying"
       ng-mousemove="player.onHover($event)">
       <div ng-repeat="video in player.jamjar.videos track by video.video.id">

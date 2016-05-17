@@ -31,7 +31,7 @@ Video.prototype.updatePlayable = function(globalPosition) {
 Video.prototype.setPresentationDetails = function(nowPlaying, edgeToPrimary, currentOffset, maxOffset) {
   var self = this;
 
-  var screen_width = $('.jamjar-player').width() * 0.95;
+  var screen_width = $('.videogular-container').width() * 0.95;
   console.log(angular.element(document.querySelectorAll(".videogular-container")[0]).clientWidth);
 
   self.offset = self.calcOffsetMargin(nowPlaying, edgeToPrimary);
