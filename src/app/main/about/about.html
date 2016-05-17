@@ -1,3 +1,4 @@
+<!--
 <md-toolbar class="navbar" layout="row" layout-align="space-between center">
     <span flex="65" layout="row" layout-align="start center">
         <a ui-sref="landing">
@@ -5,19 +6,32 @@
         </a>  
     </span>
 </md-toolbar>
+-->
+<header>
+    <navbar></navbar>
+</header>
 
 <div class="about-body">
     <section class="dictionary" layout="column">
-        <h1>JAMJAR</h1>
-        <div class="about-jamjar-line title-line"></div>
+        <div layout="row">
+            <div layout="column">
+                <h1>JAMJAR</h1>
+                <div class="about-jamjar-line title-line"></div>
+            </div>
+        </div>
         
-        <h2>[jam&bull;jar] | (noun)</h2>
-        <div class="about-jamjar-line sub-title-line"></div>
+        <div layout="row">
+            <div layout="column">
+                <h2>[jam&bull;jar] | (noun)</h2>
+                <div class="about-jamjar-line sub-title-line"></div>
+            </div>
+        </div>
+        
 
         <div layout="row">
             <div class="number-circle">1</div>
             <div layout="column">
-                <div class="def-text">Collection of auto-stitched crowdsourced concert videos.</div>
+                <div class="def-text">Collection of auto-stitched crowdsourced concert videos</div>
                 <div class="about-jamjar-line def-line-s"></div>
             </div>
         </div>
@@ -25,7 +39,7 @@
         <div layout="row">
             <div class="number-circle">2</div>
             <div layout="column">
-                <div class="def-text">Tool that lets you watch concert performances from anywhere in the crowd on the fly.</div>
+                <div class="def-text">App that lets you watch concert performances from anywhere in the crowd on the fly</div>
                 <div class="about-jamjar-line def-line-m"></div>
             </div>
         </div>
@@ -33,7 +47,7 @@
         <div layout="row">
             <div class="number-circle">3</div>
             <div layout="column">
-                <div class="def-text">A Jar of Jams :).</div>
+                <div class="def-text">A Jar of Jams :)</div>
                 <div class="about-jamjar-line def-line-xs"></div>
             </div>
         </div>
@@ -41,8 +55,8 @@
         <div layout="row">
             <div class="number-circle">4</div>
             <div layout="column">
-                <div class="def-text">A Drexel University Senior Design Project, created by 5 dope Computer Science students.</div>
-                <div class="about-jamjar-line def-line-m"></div>
+                <div class="def-text">A Drexel University Senior Design Project, created by 5 dope Computer Science students</div>
+                <div class="about-jamjar-line def-line-l"></div>
             </div>
         </div>
     </section>
@@ -51,7 +65,7 @@
     <section class="how-it-works">
         <div layout="row" layout-align="center center">
             <div layout="column" layout-align="center center">
-                <div class="how-it-works-icon">
+                <div class="how-it-works-icon how-it-works-jamjar">
                     <object id="logo" data="../../assets/svgs/jamjar-logo-optimised.svg" type="image/svg+xml"></object>
                 </div>
 
@@ -61,14 +75,14 @@
             </div>
         </div>
         
-        <div layout="row" layout-align="space-between start">
-            <div layout="column" layout-align="center center">
+        <div layout="row" layout-align="space-between start" layout-wrap>
+            <div layout="column" layout-align="center center" class="block">
                 <div class="how-it-works-icon">
-                    <object id="logo" data="../../assets/images/btns/ic_file_upload_white_48px.svg" type="image/svg+xml"></object>
+                    <object data="../../assets/images/btns/ic_file_upload_white_48px.svg" type="image/svg+xml"></object>
                 </div>
 
                 <div>
-                    <h4>Upload Videos!</h4>
+                    <h4>Get Uploaded Videos!</h4>
                 </div>
                 
                 <div>
@@ -76,9 +90,9 @@
                 </div>
             </div>
             
-            <div layout="column" layout-align="center center">
+            <div layout="column" layout-align="center center" class="block">
                 <div class="how-it-works-icon">
-                    <object id="logo" data="../../assets/images/btns/ic_fingerprint_white_48px.svg" type="image/svg+xml"></object>
+                    <object data="../../assets/images/btns/ic_fingerprint_white_48px.svg" type="image/svg+xml"></object>
                 </div>
 
                 <div>
@@ -90,9 +104,9 @@
                 </div>
             </div>
             
-            <div layout="column" layout-align="center center">
+            <div layout="column" layout-align="center center" class="block">
                 <div class="how-it-works-icon">
-                    <object id="logo" data="../../assets/images/btns/ic_transform_white_48px.svg" type="image/svg+xml"></object>
+                    <object data="../../assets/images/btns/ic_transform_white_48px.svg" type="image/svg+xml"></object>
                 </div>
 
                 <div>
@@ -104,9 +118,9 @@
                 </div>
             </div>
             
-            <div layout="column" layout-align="center center">
+            <div layout="column" layout-align="center center" class="block">
                 <div class="how-it-works-icon">
-                    <object id="logo" data="../../assets/images/btns/ic_switch_video_white_48px.svg" type="image/svg+xml"></object>
+                    <object data="../../assets/images/btns/ic_switch_video_white_48px.svg" type="image/svg+xml"></object>
                 </div>
 
                 <div>

@@ -18,6 +18,7 @@ section.title {
 section.dictionary {
     padding: 40px 30px 50px 30px;
     font-size: 14px;
+    background: white;
     
     h1 {
         font-size: 24px;
@@ -33,7 +34,7 @@ section.dictionary {
 section.how-it-works {
     padding: 10px 50px;
     color: white;
-    background: $indigo;
+    background: $skyblue2;
     text-align: center;
     
     h1 {
@@ -93,39 +94,28 @@ section.our-story {
 .title-line {
     background: $coral;
     margin-left: -80px;
-    width: 200px;
 }
 
 .sub-title-line {
     background: $blue;
     margin-left: -80px;
-    width: 250px;
 }
 
 .def-line-xs {
     background: $green;
     margin-left: -5px;
-    width: 150px;
 }
 .def-line-s {
     background: $green;
     margin-left: -5px;
-    width: 450px;
 }
 .def-line-m {
     background: $green;
     margin-left: -5px;
-    width: 700px;
 }
 .def-line-l {
     background: $green;
     margin-left: -5px;
-    width: 900px;
-}
-.def-line-xl {
-    background: $green;
-    margin-left: -5px;
-    width: 1000px;
 }
 
 .def-text {
@@ -133,18 +123,16 @@ section.our-story {
 }
 
 .how-it-works-icon {
-    background-color: rgba(1, 1, 1, 0.4) !important;
+    background-color: rgba(255,255,255,0.4) !important;
     border-radius: 50%;
     color: white;
     display: block;
     width: 6rem;
     height: 6rem;
-    padding: 0.5rem;
+    padding: 1.5rem;
     margin-top: 20px;
 }
 
-.icon {
-    display: inline-block;
-    position: relative;
-    max-width: 100%;
+.how-it-works-jamjar {
+    padding: .8rem !important;
 }
