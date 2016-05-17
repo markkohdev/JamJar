@@ -13,7 +13,8 @@
                 vg-change-source="player.jamjar.onUpdateSource($source, video)"
                 vg-update-state="player.jamjar.onUpdateState($state, video)"
                 vg-complete="player.jamjar.onComplete(video)"
-                ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}">
+                ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}"
+                ng-class="{'now-playing-video': (player.jamjar.nowPlaying == video)}">
 
                 <vg-media
                   ng-if="video.presentation.playable || player.jamjar.nowPlaying == video"
