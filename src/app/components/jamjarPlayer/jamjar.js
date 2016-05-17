@@ -97,10 +97,12 @@ JamJar.prototype.loadGraph = function(concert_id, video_id) {
     var edgeData = self.getRelativeEdges(self.referenceVideo);
     self.relativeEdges = edgeData.edges;
     self.videos = edgeData.videos;
-    
-    var lastVideoEdge = _.maxBy(_.values(self.relativeEdges), 'offset');
-    var lastVideo = self.videosMap[lastVideoEdge.video];
-    var maxWidth = lastVideoEdge.offset + lastVideo.video.length;
+
+    var widths = _.map(self.relativeEdges, function(edge) {
+      var video = self.videosMap[edge.video];
+      return edge.offset + video.video.length;
+    });
+    var maxWidth = _.max(widths);
 
     self.overlay.maxOffset = maxWidth;
 
