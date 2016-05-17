@@ -46,6 +46,8 @@ JamJar.prototype.initialize = function(concert_id, video_id, type, overlay) {
 };
 
 JamJar.prototype.loadVideo = function(concert_id, video_id) {
+  var self = this;
+
   self.videoService.getVideoById(video_id, function(err, video) {
     if (err) {
       return console.error(err);
@@ -217,7 +219,7 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
   var self = this;
 
   // queued videos get an initial onUpdateTime -- ignore that
-  if (updatedVideo != self.nowPlaying) {
+  if (updatedVideo != self.nowPlaying || self.type == 'individual') {
     return;
   }
 
