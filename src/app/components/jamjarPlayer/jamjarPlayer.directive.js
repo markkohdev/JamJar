@@ -47,6 +47,10 @@
 
             vm.individual = $stateParams.type == 'individual';
 
+            vm.fullscreen = {
+              isFullscreen: false
+            }
+
             vm.jamjar.onPlay = function(video) {
               video.views += 1;
               VideoService.view(video.id, function(err, resp) {

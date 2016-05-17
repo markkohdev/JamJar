@@ -12,7 +12,9 @@
             vg-change-source="player.jamjar.onUpdateSource($source, video)"
             vg-update-state="player.jamjar.onUpdateState($state, video)"
             vg-complete="player.jamjar.onComplete(video)"
-            ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}">
+            ng-style="{display: (player.jamjar.nowPlaying == video) ? 'block' : 'none'}"
+            ng-class="{'now-playing-video': (player.jamjar.nowPlaying == video), 'entire-screen': (player.fullscreen.isFullscreen)}"
+            >
             
             <vg-media
               ng-if="video.presentation.playable || player.jamjar.nowPlaying == video"
@@ -32,7 +34,7 @@
                     <vg-mute-button></vg-mute-button>
                     <vg-volume-bar></vg-volume-bar>
                 </vg-volume>
-                <jamjar-fullscreen></jamjar-fullscreen>
+                <jamjar-fullscreen fullscreen="player.fullscreen"></jamjar-fullscreen>
                 <!--<vg-fullscreen-button></vg-fullscreen-button>-->
             </vg-controls>
             
