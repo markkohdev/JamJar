@@ -46,6 +46,8 @@ videogular div.jamjar-layer {
     top: 0;
     z-index: 5;
     opacity: 1;
+    
+    overflow-y: auto;
 }
 
 .high-z {
