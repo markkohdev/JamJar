@@ -62,7 +62,7 @@
                 return
 
               // make overlay visible
-              var timeoutMs = 2000;
+              var timeoutMs = 1000;
 
               if (event.pageX == vm.overlay.mouse.pageX && event.pageY == vm.overlay.mouse.pageY) {
                 return;
