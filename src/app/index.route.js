@@ -15,6 +15,12 @@
         controllerAs: 'vmMain',
         bindToController: true
       })
+      .state('about', {
+        url: '/about',
+        templateUrl: 'app/main/about/about.html',
+        controller: 'AboutController',
+        controllerAs: 'vm'
+      })
       .state('support', {
         url: '/support',
         templateUrl: 'app/main/support/support.html',
