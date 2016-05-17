@@ -1,0 +1,12 @@
+<md-button ng-class="{'vote-active-up': votes.userVote(true)}" ng-click="votes.vote(true)">
+  <md-icon md-svg-icon="assets/images/btns/ic_thumb_up_black_24px.svg" ></md-icon>
+    {{ votes.getVotes(true) }}
+</md-button>
+<md-button ng-class="{'vote-active-down': votes.userVote(false)}" ng-click="votes.vote(false)">
+  <md-icon md-svg-icon="assets/images/btns/ic_thumb_down_black_24px.svg"></md-icon>
+    {{ votes.getVotes(false) }}
+</md-button>
+<md-button ng-click="votes.showFlagForm($event)">
+    <md-icon md-svg-icon="assets/images/btns/ic_flag_black_24px.svg"></md-icon>
+    Report
+</md-button>

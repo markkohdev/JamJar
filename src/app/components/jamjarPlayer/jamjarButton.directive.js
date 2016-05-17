@@ -11,12 +11,13 @@
         var directive = {
             restrict: "E",
             require: "^videogular",
-            template: "<div class='iconButton' ng-click='jjb.click()'><img ng-src='{{jjb.icon}}'/></div>",
+            template: "<div class='iconButton' ng-click='jjb.click()'><img ng-src='{{jjb.jamjarButton.icon}}'/></div>",
             link: function(scope, elem, attrs, API) {
                 scope.API = API;
             },
             scope: {
               'toggleOverlay': '=',
+              'jamjarButton': '=',
             },
             controller: JamJarBtnController,
             controllerAs: 'jjb',
@@ -35,19 +36,19 @@
 
             var base_path = "/assets/images/overlay_btns"
             var states = ["auto", "off", "on"];
-            var stateIndex = 0;
+            vm.jamjarButton.stateIndex = 0;
 
             vm.click = function() {
-              stateIndex = (stateIndex + 1) % states.length;
+              vm.jamjarButton.stateIndex = (vm.jamjarButton.stateIndex + 1) % states.length;
 
-              var state = states[stateIndex];
-              vm.icon = base_path + "/" + icon_map[state];
+              var state = states[vm.jamjarButton.stateIndex];
+              vm.jamjarButton.icon = base_path + "/" + icon_map[state];
 
               vm.toggleOverlay(state);
             }
 
-            var initialState = states[stateIndex];
-            vm.icon = base_path + "/" + icon_map[initialState];
+            var initialState = states[vm.jamjarButton.stateIndex];
+            vm.jamjarButton.icon = base_path + "/" + icon_map[initialState];
             vm.toggleOverlay(initialState); // inform overlay of what the initial state is!
         }
 
