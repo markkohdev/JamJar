@@ -1,4 +1,6 @@
 .about-body {
+    overflow: hidden;
+    
     h1, h2, h3 {
         color: black !important;
     }
@@ -16,9 +18,11 @@ section.title {
 }
 
 section.dictionary {
-    padding: 40px 30px 50px 30px;
+    padding: 40px 50px;
     font-size: 14px;
     background: white;
+    text-align: center;
+    position: relative;
     
     h1 {
         font-size: 24px;
@@ -61,8 +65,23 @@ section.how-it-works {
 }
 
 section.our-story {
-    padding: 10px 30px;
-    height: 300px;
+    padding: 10px 50px;
+    backgound: white;
+    text-align: left;
+    
+    h1 {
+        border-bottom: 3px solid;
+        color: black !important;
+        font-size: 25px;
+        line-height: 1.2;
+    }
+    
+    p {
+        font-size: 14px;
+        margin: 0 auto 1em;   
+        margin-left: 0;
+    }
+    
 }
 
 .hr-coral {
@@ -88,34 +107,37 @@ section.our-story {
     margin-top: 0;
     margin-bottom: 15px;
     height: 1px;
-    overflow: hidden;
 }
 
 .title-line {
     background: $coral;
-    margin-left: -80px;
+    margin-left: -1000px;
 }
 
 .sub-title-line {
     background: $blue;
-    margin-left: -80px;
+    margin-left: -1000px;
 }
 
 .def-line-xs {
     background: $green;
     margin-left: -5px;
+    margin-right: -1000px;
 }
 .def-line-s {
     background: $green;
     margin-left: -5px;
+    margin-right: -1000px;
 }
 .def-line-m {
     background: $green;
     margin-left: -5px;
+    margin-right: -1000px;
 }
 .def-line-l {
     background: $green;
     margin-left: -5px;
+    margin-right: -1000px;
 }
 
 .def-text {
@@ -135,4 +157,39 @@ section.our-story {
 
 .how-it-works-jamjar {
     padding: .8rem !important;
+}
+
+.quote {
+    margin-bottom: 20px;
+}
+
+.our-story-image {
+    margin-top: -40px;
+    margin-bottom: -8px;
+}
+
+.desktopImage {
+    display: none;
+    overflow: hidden;
+}
+
+.mobileImage {
+    display: block;
+    overflow: hidden;
+}
+
+@media screen and (min-width: 1280px) {
+    .our-story-image {
+        margin-top: -80px;
+    }
+    
+    .desktopImage {
+        display: block;
+        overflow: hidden;
+    }
+    
+    .mobileImage {
+        display: none;
+        overflow: hidden;
+    }
 }
