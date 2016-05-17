@@ -42,6 +42,21 @@ videogular jamjar-button a:visited {
     text-decoration: none;
 }
 
+videogular jamjar-fullscreen {
+    display: table-cell;
+    width: 50px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+}
+
+videogular jamjar-fullscreen a,
+videogular jamjar-fullscreen a:hover,
+videogular jamjar-fullscreen a:visited {
+    color: white;
+    text-decoration: none;
+}
+
 
 videogular div.jamjar-layer-bg-container {
     -webkit-transition:all linear 0.5s;
