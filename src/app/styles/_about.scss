@@ -5,44 +5,80 @@
 }
 
 section.title {
-    padding: 10px 30px;
-    background-color: rgba(39, 39, 39, 1);
     text-align: center;
     
     h1 {
-        font-size: 25px;
-        color: white !important;
+        border-bottom: 3px solid;
+        color: #000;
+        font-size: 30px;
+        line-height: 1.2;
     }
 }
 
 section.dictionary {
-    padding: 30px;
-    //color: white;
-    //background-color: rgba(39, 39, 39, 1);
+    padding: 40px 30px 50px 30px;
+    font-size: 14px;
+    
+    h1 {
+        font-size: 24px;
+        margin: 5px 0;
+    }
+    
+    h2 {
+        font-size: 18px;
+        margin: 5px 0;
+    }
 }
 
 section.how-it-works {
-    padding: 10px 30px;
-    height: 300px;
+    padding: 10px 50px;
     color: white;
-    background-color: rgba(39, 39, 39, 1);
+    background: $indigo;
     text-align: center;
     
     h1 {
-        font-size: 25px;
+        border-bottom: 3px solid;
         color: white !important;
+        font-size: 30px;
+        line-height: 1.2;
+    }
+    
+    h4 {
+        color: white;
+        font-weight: bold;
+        padding: 0.35em 0;
+        margin: 1em 0 2em;
+        border-bottom: 2px solid;
+        display: inline-block;
+    }
+    
+    p {
+        font-size: 14px;
+        max-width: 17em;
+        margin: 0 auto 1em;
     }
 }
 
 section.our-story {
     padding: 10px 30px;
     height: 300px;
-    //color: white;
-    //background-color: rgba(39, 39, 39, 1);
 }
 
 .hr-coral {
     border-bottom: 3px dotted #F15F4E;
+}
+
+.number-circle {
+    font-size: 12px;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    margin-top: 2px;
+    padding: 5px;
+    z-index: 10;
+    background: $darkgray;
+    color: $white;
+    text-align: center;
 }
 
 .about-jamjar-line {
@@ -55,10 +91,9 @@ section.our-story {
 }
 
 .title-line {
-    //background-color: rgba(241, 95, 78, 0.8) !important;
     background: $coral;
     margin-left: -80px;
-    width: 500px;
+    width: 200px;
 }
 
 .sub-title-line {
@@ -75,38 +110,41 @@ section.our-story {
 .def-line-s {
     background: $green;
     margin-left: -5px;
-    width: 400px;
+    width: 450px;
 }
 .def-line-m {
     background: $green;
     margin-left: -5px;
-    width: 600px;
+    width: 700px;
 }
 .def-line-l {
     background: $green;
     margin-left: -5px;
-    width: 700px;
+    width: 900px;
 }
 .def-line-xl {
     background: $green;
     margin-left: -5px;
-    width: 850px;
+    width: 1000px;
 }
 
 .def-text {
     margin-left: 10px;
-    font-size: 13px;
 }
 
-.number-circle {
-    font-size: 12px;
+.how-it-works-icon {
+    background-color: rgba(1, 1, 1, 0.4) !important;
     border-radius: 50%;
-    width: 15px;
-    height: 15px;
-    margin-top: 2px;
-    padding: 5px;
-    z-index: 10;
-    background: $darkgray;
-    color: $white;
-    text-align: center;
+    color: white;
+    display: block;
+    width: 6rem;
+    height: 6rem;
+    padding: 0.5rem;
+    margin-top: 20px;
+}
+
+.icon {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
 }
