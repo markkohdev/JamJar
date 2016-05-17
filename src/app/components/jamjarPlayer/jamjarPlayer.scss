@@ -243,7 +243,8 @@ videogular div.jamjar-layer {
   height: 100%;
   width: 1px;
   background-color: transparent;
-  border-right: 5px dashed $coral;
+  border-right: 2px solid #fff;
+  opacity: 0.25;
 
   margin-left: 15px;
 
