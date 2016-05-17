@@ -98,19 +98,16 @@ videogular div.jamjar-layer {
     padding: 2px;
     margin: 5px 5px 5px -15px;
     min-width: 100px;
-    height: 30px;
+    height: 15px;
     background: $green;
     cursor: pointer;
     z-index: 50;
 
+    opacity: 0.5;
+
     //-moz-transition: all 1s ease-out;     /* FF4+ */
     //-webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
     //transition: all 1s ease-out;  
-}
-
-.jamjar-line-text {
-  line-height: 30px;
-
 }
 
 .jamjar-bar {
@@ -254,7 +251,7 @@ videogular div.jamjar-layer {
 
 .vline {
   position: absolute;
-  z-index: 80;
+  z-index: 75;
   height: 100%;
   width: 1px;
   background-color: transparent;
@@ -269,4 +266,9 @@ videogular div.jamjar-layer {
 
 .vline.ng-hide {
     opacity: 0;
+}
+
+
+.md-select-menu-container {
+  z-index: 151 !important;
 }
