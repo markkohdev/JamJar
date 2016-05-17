@@ -20,7 +20,7 @@
         }
 
         /** @ngInject */
-        function JamJarVoteController(VideoService) {
+        function JamJarVoteController(VideoService, $mdMedia, $mdDialog) {
             var vm = this;
 
             vm.vote = function(voteType) {

@@ -18,7 +18,7 @@
         };
 
         /** @ngInject */
-        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $mdDialog, $mdMedia, $timeout) {
+        function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $timeout) {
             var vm = this;
 
             /*vm.tooltip = {

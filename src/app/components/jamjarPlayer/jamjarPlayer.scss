@@ -239,7 +239,7 @@ videogular div.jamjar-layer {
 
 .vline {
   position: absolute;
-  z-index: 80;
+  z-index: 75;
   height: 100%;
   width: 1px;
   background-color: transparent;
@@ -254,4 +254,9 @@ videogular div.jamjar-layer {
 
 .vline.ng-hide {
     opacity: 0;
+}
+
+
+.md-select-menu-container {
+  z-index: 151 !important;
 }
