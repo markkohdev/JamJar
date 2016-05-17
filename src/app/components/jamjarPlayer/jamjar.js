@@ -125,10 +125,10 @@ JamJar.prototype.handleSwitch = function(selectedVideo) {
 JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
   var self = this;
 
-  var edge = self.getEdge(selectedVideo);
+  var fromEdge = self.getEdge(self.nowPlaying);
+  var toEdge = self.getEdge(selectedVideo);
 
-  // this seems to work well, but it breaks if the video is paused!!
-  var offset = self.nowPlaying.time() - edge.offset;// + diff;
+  var offset = self.nowPlaying.time() + fromEdge.offset - toEdge.offset;
 
   selectedVideo.setOffset(offset);
   selectedVideo.volume(self.volume);
@@ -152,8 +152,6 @@ JamJar.prototype.switchVideo = function(selectedVideo, isDirect) {
   }
 
   _.each(self.videos, function(video) {
-    edge = self.getEdge(video);
-
     if (video != self.nowPlaying) {
       video.pause();
     }
