@@ -1,5 +1,5 @@
 
-function Video(video, edges, $sce) {
+function Video(video, edges, $sce, $document, $element) {
   var self = this;
 
   self.$sce = $sce;
@@ -32,6 +32,7 @@ Video.prototype.setPresentationDetails = function(nowPlaying, edgeToPrimary, cur
   var self = this;
 
   var screen_width = $('.jamjar-player').width() * 0.95;
+  console.log(angular.element(document.querySelectorAll(".videogular-container")[0]).clientWidth);
 
   self.offset = self.calcOffsetMargin(nowPlaying, edgeToPrimary);
   self.presentation.offset = (self.offset / maxOffset) * screen_width;
