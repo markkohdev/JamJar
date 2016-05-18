@@ -5,19 +5,12 @@
         color: black !important;
     }
     
+    h1 {
+        margin: 5px 0;
+    }
+    
     .block{
         padding: 0px 10px 20px 10px;
-    }
-}
-
-section.title {
-    text-align: center;
-    
-    h1 {
-        border-bottom: 3px solid;
-        color: #000;
-        font-size: 30px;
-        line-height: 1.2;
     }
 }
 
@@ -28,13 +21,7 @@ section.dictionary {
     text-align: center;
     position: relative;
     
-    h1 {
-        font-size: 24px;
-        margin: 5px 0;
-    }
-    
     h2 {
-        font-size: 18px;
         margin: 5px 0;
     }
 }
@@ -44,13 +31,6 @@ section.how-it-works {
     color: white;
     background: $skyblue2;
     text-align: center;
-    
-    h1 {
-        border-bottom: 3px solid;
-        color: white !important;
-        font-size: 30px;
-        line-height: 1.2;
-    }
     
     h4 {
         color: white;
@@ -76,8 +56,6 @@ section.our-story {
     h1 {
         border-bottom: 3px solid;
         color: black !important;
-        font-size: 25px;
-        line-height: 1.2;
     }
     
     p {
