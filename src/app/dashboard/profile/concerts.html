@@ -1,5 +1,5 @@
 <div class="light-theme small-padding">
-  <div layout="row" layout-align="start start" layout-wrap>
+  <div layout="row" layout-align="start start" layout-wrap class="video-list">
     <div ng-repeat="concert in vm.profile.concerts" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
       <div layout="column" class="block">
         <a ui-sref="dashboard.concert({id: concert.id})">
@@ -11,7 +11,7 @@
                 <span class="pl-sidebar-content valign">
                     <span class="valign-container">
                         <span class="formatted-video-count-label">
-                            <b>#{{concert.graph.length}}</b> 
+                            <b>{{concert.jamjars_count}}</b> 
                             jamjars
                             <b>-</b>
                             <b>{{concert.videos_count}}</b> 

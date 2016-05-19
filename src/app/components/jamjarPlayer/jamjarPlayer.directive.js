@@ -20,7 +20,9 @@
         /** @ngInject */
         function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $timeout) {
             var vm = this;
-
+            
+            vm.concert = {};
+            
             /*vm.tooltip = {
                 showTooltip : false,
                 tipDirection : 'bottom'
@@ -103,6 +105,25 @@
               }
             };
 
+            vm.getThumbForJamJar = function(videoId) {
+              var video = _.find(vm.concert.videos, {id: videoId});
+              return video.thumb_src[256];
+            }
+            
+            ConcertService.getConcertById($stateParams.concert_id, function(err, res) {
+                vm.concert = res;
+
+//                _.each(vm.concert.graph, function(jamjar){
+//                    var video_ids = _.keys(jamjar.adjacencies);
+//
+//                    jamjar.thumbnails = _.map(video_ids, function(videoId){
+//                        var video = _.find(vm.concert.videos, {id:parseInt(videoId)});
+//                        if (video) {
+//                            return video.thumb_src;
+//                        }
+//                    });
+//                });
+            });
         }
 
         return directive;

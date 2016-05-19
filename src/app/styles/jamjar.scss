@@ -134,7 +134,13 @@ footer {
 
 /* CUSTOM VIEWS */
 .section-bottom-border {
-    border-bottom:  1px solid #ceced2;
+    border-bottom: 1px solid #ceced2;
+    margin-bottom: 10px;
+}
+
+.section-top-border {
+    border-top: 1px solid #ceced2;
+    margin-bottom: 30px;
 }
 
 .left-align{
