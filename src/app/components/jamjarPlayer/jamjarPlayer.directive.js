@@ -46,9 +46,22 @@
               jamjarCompleted: false
             }
 
+            vm.concertId = $stateParams.concert_id;
+            vm.videoId = $stateParams.video_id;
+            vm.type = $stateParams.type;
+            if(vm.concertId == null) {
+                vm.concertId = 2;
+            }
+            if(vm.videoId == null){
+                vm.videoId = 13;
+            }
+            if(vm.type == null){
+                vm.type = "jamjar";
+            }
+            
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
-            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay, vm.replay);
+            vm.jamjar.initialize(parseInt(vm.concertId), parseInt(vm.videoId), vm.type, vm.overlay, vm.replay);
 
             vm.individual = $stateParams.type == 'individual';
 

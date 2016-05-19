@@ -140,12 +140,12 @@ section.presentation {
 
 /* LANDING PAGE - SAMPLE VIDEO SECTION */
 section.sample {
-    background: url(../assets/images/wallpaper/darkCloudBg.jpg) no-repeat center center scroll;
-    color: $white;
-    letter-spacing: .5em;
+    background: black;
     padding: 50px 0px 100px 0px;
     
     h1 {
+        color: $white;
+        letter-spacing: .5em;
         text-align: center;
         padding-bottom: 30px;
         margin-bottom: 15px;
