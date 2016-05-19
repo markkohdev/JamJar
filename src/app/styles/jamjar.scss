@@ -22,23 +22,29 @@ h1 {
 h2 {
     font-size: 18px;
     margin: 5px 0;
+    letter-spacing: .05em;
 }
 
 h3 {
     margin: 0 0 1px 0;
     padding: 0 0 2px 0;
     font-size: 14px;
-    font-weight: 500;
+    font-weight: bold;
     line-height: 1.1em;
+    letter-spacing: .03em;
     vertical-align: middle;
-    /*white-space: nowrap;
-    word-wrap: normal;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;*/
 }
 
 h4 {
+    margin: 0 0 1px 0;
+    padding: 0 0 2px 0;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.1em;
+    vertical-align: middle;
+}
+
+h5 {
     color: $mediumgray;
     margin: 0;
     padding: 0;
@@ -64,9 +70,7 @@ footer {
         -webkit-margin-after: .3em !important;
         text-decoration: underline;
         padding: 5px 0 8px 0;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.3em;
+        letter-spacing: .1em;
         vertical-align: middle;
     }
     
@@ -103,11 +107,11 @@ footer {
     color: black;
     background-color: $lightgray;
     
-    h2, h3 {
+    h2, h3, h4 {
         color: $navy !important;
     }
     
-    h4 {
+    h5 {
         color: $extradarkgray !important;
     }
 }

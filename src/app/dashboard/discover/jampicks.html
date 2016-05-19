@@ -11,14 +11,14 @@
             </div>
             <!--<h2>{{video.name}}</h2>-->
         </a>
-        <h3>
+        <h4>
           <span ng-repeat="artist in video.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h3>
-        <h4>{{video.concert.date}}</h4>
-        <h4>{{video.concert.venue.name}}</h4>
+        </h4>
+        <h5>{{video.concert.date}}</h5>
+        <h5>{{video.concert.venue.name}}</h5>
     </div>
   </div>
 </div>

@@ -12,7 +12,7 @@
     <div layout="column" layout-align="end start" class="small-padding">
       <h2>{{vm.getConcertArtists()}}</h2>
       <h3>{{vm.concert.venue.name}}</h3>
-      <h3>{{vm.concert.date}}</h3>
+      <h4>{{vm.concert.date}}</h4>
     </div>
       
     <div flex></div>
@@ -28,10 +28,6 @@
     <div layout="column" flex="20">
       <span>JamJars</span>
     </div>
-      
-    <div layout="column" flex="80" layout-align="center end">
-      <span>See more</span>
-    </div>
   </div>
 
   <div layout="row" layout-align="start start" layout-wrap class="video-list">
@@ -43,7 +39,7 @@
             <div class="video-thumbnail-img" 
                  ng-style="{'background-image':'url('+vm.getThumbForJamJar(jamjar.start_id)+')'}">
             </div>
-            <h3>{{jamjar.count}} videos</h3>
+            <h4>{{jamjar.count}} videos</h4>
         </a>
       </div>
     </div>
@@ -52,9 +48,6 @@
   <div layout="row" class="concert-section">
     <div layout="column" flex="20">
       <span>All Videos</span>
-    </div>
-    <div layout="column" flex="80" layout-align="center end">
-      <span>See more</span>
     </div>
   </div>
 
@@ -65,10 +58,10 @@
           <div class="video-thumbnail-img" 
              ng-style="{'background-image':'url('+video.thumb_src[256]+')'}">
           </div>
-          <h3>{{video.name}}</h3>
+          <h4>{{video.name}}</h4>
         </a>
-        <h4>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">{{video.user.username}}</a></h4>
-        <h4>Views: {{video.views}}</h4>
+        <h5>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">{{video.user.username}}</a></h5>
+        <h5>Views: {{video.views}}</h5>
       </div>
     </div>
   </div>
@@ -76,9 +69,6 @@
   <div layout="row" class="concert-section">
     <div layout="column" flex="20">
       <span>My Videos</span>
-    </div>
-    <div layout="column" flex="80" layout-align="center end">
-      <span>See more</span>
     </div>
   </div>
   <div layout="row" layout-align="start start" layout-wrap class="video-list">
@@ -88,10 +78,10 @@
           <div class="video-thumbnail-img" 
              ng-style="{'background-image':'url('+video.thumb_src[256]+')'}">
           </div>
-          <h3>{{video.name}}</h3>
+          <h4>{{video.name}}</h4>
         </a>
-        <h4>Uploader: <a href="#">{{video.user.username}}</a></h4>
-        <h4>Views: {{video.views}}</h4>
+        <h5>Uploader: <a href="#">{{video.user.username}}</a></h5>
+        <h5>Views: {{video.views}}</h5>
       </div>
     </div>
   </div>

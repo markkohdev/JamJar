@@ -22,14 +22,14 @@
             </span>
           </div>
         </a>
-        <h3>
+        <h4>
           <span ng-repeat="artist in concert.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h3>
-        <h4>{{concert.date}}</h4>
-        <h4>{{concert.venue.name}}</h4>
+        </h4>
+        <h5>{{concert.date}}</h5>
+        <h5>{{concert.venue.name}}</h5>
       </div>
     </div>
   </div>

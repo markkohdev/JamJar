@@ -29,7 +29,7 @@ section.dictionary {
 section.how-it-works {
     padding: 10px 50px;
     color: white;
-    background: $skyblue2;
+    background: $blue;
     text-align: center;
     
     h4 {
@@ -50,12 +50,14 @@ section.how-it-works {
 
 section.our-story {
     padding: 10px 50px;
-    backgound: white;
+    backgound: $white;
     text-align: left;
     
     h1 {
         border-bottom: 3px solid;
         color: black !important;
+        padding: 0.35em 0;
+        margin: 1em 0;
     }
     
     p {

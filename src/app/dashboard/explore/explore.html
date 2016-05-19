@@ -33,15 +33,15 @@
                 </span>
             </span>
           </div>
-        <h3>
+        <h4>
           <span ng-repeat="artist in concert.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h3>
+        </h4>
         </a>
-        <h4>{{concert.date}}</h4>
-        <h4>{{concert.venue.name}}</h4>
+        <h5>{{concert.date}}</h5>
+        <h5>{{concert.venue.name}}</h5>
       </div>
     </div>
   </div>
@@ -61,14 +61,14 @@
             </div>
             <h3>{{video.name}}</h3>
         </a>
-        <h3>
+        <h4>
           <span ng-repeat="artist in video.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h3>
-        <h4>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})" ui-sref-opts="{inherit: false}">{{video.user.username}}</a></h4>
-        <h4>Views: {{video.views}}</h4>
+        </h4>
+        <h5>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})" ui-sref-opts="{inherit: false}">{{video.user.username}}</a></h5>
+        <h5>Views: {{video.views}}</h5>
       </div>
     </div>
   </div>
