@@ -40,8 +40,11 @@
                 <!--<vg-buffering></vg-buffering>-->
                 <!--<vg-overlay-play></vg-overlay-play>-->
 
-                <jamjar-vline ng-if="!player.individaul" overlay="player.overlay"></jamjar-vline>
-                <jamjar-plugin ng-if="!player.individual" overlay="player.overlay"></jamjar-plugin>
+                <jamjar-vline ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-vline>
+                <jamjar-plugin ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-plugin>
+                
+<!--                <replay-plugin replay="player.replay"></replay-plugin>-->
+                
             </videogular>
         </div>
       </div>

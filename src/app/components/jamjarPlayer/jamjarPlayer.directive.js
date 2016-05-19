@@ -42,10 +42,13 @@
               icon: null,
             }
 
+            vm.replay = {
+              jamjarCompleted: false
+            }
 
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
-            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay);
+            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay, vm.replay);
 
             vm.individual = $stateParams.type == 'individual';
 

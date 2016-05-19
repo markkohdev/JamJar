@@ -205,10 +205,6 @@ videogular div.jamjar-layer {
         font-weight: 600;
     }
 }
-//
-//.rec-title {
-//    background-color: #303030;
-//}
 
 .recommended-jamjars {
     padding: 30px 40px 0 40px;
@@ -252,4 +248,34 @@ videogular div.jamjar-layer {
 
 .md-select-menu-container {
   z-index: 151 !important;
+}
+
+/* Replay overlay styles */
+replay-plugin {
+	position: absolute;
+	//z-index: 80;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+ 
+replay-plugin div {
+	background-color: rgba(241,95,78,0.4);
+	width: 100%;
+	height: 100%;
+}
+ 
+replay-plugin div span {
+	color: white;
+	cursor: pointer;
+	font-size: 36px;
+	display: table;
+	position: absolute;
+	text-align: center;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 75;
 }

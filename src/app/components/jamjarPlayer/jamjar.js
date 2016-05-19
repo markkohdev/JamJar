@@ -24,21 +24,25 @@ function JamJar(concertService, videoService, $sce) {
   self.onPlay = function() { }; // override this!
   self.onPlayRecorded = {};
 
-  self.onFinishedJamJar = function() { }; // override this!
-
   self.type = null;
   self.overlay = null;
+  self.replay = null;
 
   // default volume for videos
   self.volume = 0.5; // 0.5
+
+  self.onFinishedJamJar = function() {
+    self.replay.jamjarCompleted = true;
+  }; // override this!
 }
 
-JamJar.prototype.initialize = function(concert_id, video_id, type, overlay) {
+JamJar.prototype.initialize = function(concert_id, video_id, type, overlay, replay) {
   var self = this;
 
   self.type = type;
   self.overlay = overlay;
-
+  self.replay = replay;
+    
   if (self.type == 'individual') {
     self.loadVideo(concert_id, video_id);
   } else if (self.type == 'jamjar') {
