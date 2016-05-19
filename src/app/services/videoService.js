@@ -9,6 +9,25 @@ angular
 
     return {
 
+      listJampicks: function(callback) {
+
+        APIService.getPath(service.model + "/jampicks/", function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
+      submitFlag: function(data, callback) {
+        APIService.postPath(service.model + '/flags/', data, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
       vote: function(video_id, vote, callback) {
         var data = {
           video: video_id,
@@ -16,6 +35,16 @@ angular
         }
 
         APIService.postPath(service.model + '/vote/', data, function(err, resp) {
+          if (err) return callback(err);
+
+          callback(null, resp);
+        });
+
+      },
+
+      view: function(video_id, callback) {
+        var path = service.model + '/' + video_id + '/' + 'watching/';
+        APIService.postPath(path, {}, function(err, resp) {
           if (err) return callback(err);
 
           callback(null, resp);

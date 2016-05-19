@@ -18,10 +18,19 @@
     return directive;
 
     /** @ngInject */
-    function JampicksController(AuthService, $state) {
+    function JampicksController(VideoService) {
         var vm = this;
 
-        vm.videos = _.range(2);
+        vm.videos = [];
+
+
+        VideoService.listJampicks(function(err, resp) {
+            if (err) {
+              return console.error(err);
+            }
+
+            vm.videos = resp;
+        });
     }
   }
 

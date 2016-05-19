@@ -1,38 +1,29 @@
-<div class="container">
-    <div layout="row" flex>
-        <div flex layout="row" layout-align="center center">
-            <img ng-src="assets/images/jamjar_logo_transparent/jamjar_logo_transparent_40x40@3x.png" alt="logo"/>
-        </div>
-        
-        <div flex layout="row" layout-align="center start">
-           <ul>
-                <li><h3>Learn more</h3></li>
-                <li><a href="/about">About us</a></li>
-                <li><a ui-sref="support">Support</a>
-               </li>
-            </ul>
-        </div>
-        
-        <div flex layout="row" layout-align="center start">
-            <ul>
-                <li><h3>Company</h3></li>
-                <li><a href="/team">Our team</a></li>
-           </ul>
-        </div>
-        
-        <div flex layout="row" layout-align="center start">
-            <ul>
-                <li><h3>Terms</h3></li>
-                <li><a href="/legal">Legal</a></li>
-                <li><a href="/privacy">Privacy</a></li>
-            </ul>
-        </div>
-        
-        <div flex layout="row" layout-align="center center">
-            <a href="">
-                <img ng-src="assets/images/Download_on_the_App_Store_Badge_US-UK_135x40.svg"/>
-            </a>
-        </div>           
+<div layout-gt-xs="row" layout-align="space-between start" layout-wrap>
+    <div layout="column" layout-align="center center">
+        <img ng-src="assets/images/jamjar_logo_transparent/jamjar_logo_transparent_40x40@2x.png" alt="logo"/>
     </div>
+
+    <div layout="column" layout-align="center start">
+       <h3>Learn more</h3>
+       <a ui-sref="about">About us</a>
+       <a ui-sref="support">Contact</a>
+    </div>
+
+    <div layout="column" layout-align="center start">
+        <h3>Company</h3>
+        <a ui-sref="team">Our team</a>
+    </div>
+
+    <div layout="column" layout-align="center start">
+        <h3>Terms</h3>
+        <a ui-sref="legal">Legal</a>
+        <a ui-sref="privacy">Privacy</a>
+    </div>
+
+    <div layout="column" layout-align="center center">
+        <a href="https://itunes.apple.com/us/app/jamjar-re-live-concert-experience/id1109898072?mt=8&ign-mpt=uo%3D4">
+            <img ng-src="assets/images/Download_on_the_App_Store_Badge_US-UK_135x40.svg"/>
+        </a>
+    </div>           
 </div>
  

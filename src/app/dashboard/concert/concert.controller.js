@@ -5,13 +5,17 @@
         .controller('ConcertController', ConcertController);
 
     /** @ngInject */
-    function ConcertController(ConcertService, $state) {
+    function ConcertController(ConcertService, $state, AuthService) {
         var vm = this;
 
         vm.concert_id = $state.params.id;
         vm.concert = {};
         vm.concert_graph = {};
 
+        vm.gotoUpload = function(artists, concertDate, concertVenueId){
+            $state.go('dashboard.upload', {artists: artists, date: concertDate, venueId: concertVenueId});
+        }
+        
         vm.getConcertArtists = function() {
           return _.map(vm.concert.artists, 'name').join(", ");
         }
@@ -19,6 +23,14 @@
         vm.getThumbForJamJar = function(videoId) {
           var video = _.find(vm.concert.videos, {id: videoId});
           return video.thumb_src[256];
+        }
+
+        vm.myVideos = function() {
+          var user = AuthService.getUser();
+
+          return _.filter(vm.concert.videos, function(video) {
+              return video.user.id == user.id;
+          });
         }
 
         ConcertService.getConcertById(vm.concert_id, function(err, res) {

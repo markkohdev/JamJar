@@ -32,9 +32,9 @@
             vm.valid = function() {
               var videoDetails = $scope.videoDetails();
 
-              var validVenueInput = !!(videoDetails.venueString && videoDetails.venueString.length > 0);
+              var validVenueInput = !!(videoDetails.venueName && videoDetails.venueName.length > 0);
 
-              var validVenue = _.get(videoDetails, 'venue.place_id', false);
+              //var validVenue = _.get(videoDetails, 'venue.place_id', false);
               
               var validDate = videoDetails.date;
 
@@ -48,7 +48,7 @@
                 return item.title && item.title.length > 0 && item.privacy;
               });
 
-              return hasArtists && validVenue && validDate && validArtists && validFiles && validVenueInput;
+              return hasArtists && validArtists && validDate && validVenueInput && validFiles;
             };
             
             vm.uploader = new FileUploader({
@@ -58,17 +58,21 @@
                 },
                 //removeAfterUpload: true
             });
-            
+
             vm.uploader.filters.push({
                 name: 'videoFilter',
                 fn: function(item) {
-                    var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-                    return '|mov|mpeg4|mp4|avi|wmv|mpegps|flv'.indexOf(type) !== -1;
+
+                    // application/kitchen-sink
+                    var valid_mimetypes = ["x-flv",  "mp4",  "x-mpegURL", "3gpp", "quicktime", "x-msvideo", 'mpeg',
+                                           "x-ms-wmv", "avi", "wmv", "flv", "mov", "mpeg4", "webm"];
+                    var item_type = item.type.slice(item.type.lastIndexOf('/') + 1);
+                    return _.indexOf(valid_mimetypes, item_type) !== -1;
                 }
             });
-            
+
             vm.uploader.onWhenAddingFileFailed = function(item, filter) {
-                return alert('You can upload only .mov, .mpeg4, .mp4, .avi, .wmv, .mpegps, .flv files');
+                return alert('You can upload only .mov, .mpeg, .mp4, .avi, .wmv, and .flv files');
             };
 
             vm.uploader.onAfterAddingFile = function(item) {
@@ -123,7 +127,8 @@
               var videoDetails = $scope.videoDetails();
 
               var concertData = {
-                venue_place_id: videoDetails.venue.place_id,
+                //venue_place_id: videoDetails.venue.place_id,
+                venue_place_id: videoDetails.venueId,
                 date: moment(videoDetails.date).format('YYYY-MM-DD')
               }
 

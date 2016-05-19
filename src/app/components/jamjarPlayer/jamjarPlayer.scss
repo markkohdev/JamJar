@@ -1,29 +1,10 @@
-.jamjar-player {
-    background-color: #000;
-
-    .player-sidebar {
-        color: white;
-
-        .player-thumbnail {
-            max-width: 100%;
-            background: rgba(0,255,255, 0.5);
-        }
-
-        .player-thumbnail-info {
-            position:relative;
-            top:-30px;
-            height: 30px;
-            width: 100%;
-            color: white;
-            text-align: center;
-            line-height: 30px;
-            background-color: rgba(0,0,0,0.5)
-        }
-    }
-}
-
 .theatre-bg {
+    color: white;
     background-color: #000;
+    
+    h1, h2, h3 {
+        color: white;
+    }
 }
 
 /* Custom jamjar button */
@@ -43,9 +24,18 @@ videogular jamjar-button a:visited {
 }
 
 
+videogular div.jamjar-layer-bg-container {
+    -webkit-transition:all linear 0.5s;
+    transition:all linear 0.5s;
+}
+
+videogular div.jamjar-layer-bg-container.ng-hide {
+    opacity: 0;
+}
+
 /* Custom overlay */
 videogular div.jamjar-layer-bg {
-    background-color: white;
+    background-color: black;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -61,6 +51,9 @@ videogular div.jamjar-layer {
     top: 0;
     z-index: 5;
     opacity: 1;
+    padding-bottom: 50px;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .high-z {
@@ -68,26 +61,34 @@ videogular div.jamjar-layer {
 }
 
 
-/* JamJar Bars */
-.jamjar-box {
-    border-radius: 7px;
-    padding: 2px;
-    margin: 5px;
-    min-width: 100px;
-    height: 50px;
-    background: #9BD096;
-    cursor: pointer;
+/* Custom scrollbar styling (firefox doesn't support this :[)*/
+.jamjar-layer::-webkit-scrollbar {
+	width: 8px;
+	background-color: #F5F5F5;
+}
+    
+.jamjar-layer::-webkit-scrollbar-thumb {
+	background-color: $blue;
+}
+    
+.jamjar-layer::-webkit-scrollbar-track {
+	-webkit-box-shadow: inset 0 0 7px rgba(0,0,0,0.2);
+	background-color: white;
 }
 
+
+/* JamJar Bars */
 .jamjar-line {
-    border-radius: 7px;
+    border-radius: 15px;
     padding: 2px;
-    margin: 5px 5px 5px -5px;
+    margin: 5px 5px 5px -15px;
     min-width: 100px;
-    height: 10px;
+    height: 15px;
     background: $green;
     cursor: pointer;
     z-index: 50;
+
+    opacity: 0.5;
 
     //-moz-transition: all 1s ease-out;     /* FF4+ */
     //-webkit-transition: all 1s ease-out;  /* Saf3.2+, Chrome */
@@ -118,20 +119,18 @@ videogular div.jamjar-layer {
     cursor: not-allowed !important;
 }
 
-.thumbnail-preview {
-    border-radius: 50%;
-    padding: 0 !important;
-    height: auto; 
-    width: auto; 
-    max-width: 100px; 
-    max-height: 50px;
+.ol-thumbnail-img {
+    background-color    : #000;
+    //background-image    : url(); //passed in by ng-style
+    background-repeat   : no-repeat;
+    background-position : 50% 50%;
+    //background-size     : 100% auto;
+    //background-size     : contain;
+    width               : 65px;
+    height              : 65px;
+    border-radius       : 50%;
     z-index: 70;
 }
-
-//.jamjar-preview-info {
-//    margin-left: 10px;
-//    color: $white;
-//}
 
 
 /* Styling for area under main video player */
@@ -207,16 +206,8 @@ videogular div.jamjar-layer {
     }
 }
 
-.rec-title {
-    background-color: #303030;
-}
-
-.rec-list {
-    background-color: #272727;
-}
-
 .recommended-jamjars {
-    padding: 10px 40px;
+    padding: 30px 40px 0 40px;
 }
 
 .vote-active-up {
@@ -225,4 +216,66 @@ videogular div.jamjar-layer {
 
 .vote-active-down {
     background-color: #F5A95F !important;
+}
+
+.vline-overlay {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 100%;
+  height: 90%;
+}
+
+.vline {
+  position: absolute;
+  z-index: 75;
+  height: 100%;
+  width: 1px;
+  background-color: transparent;
+  border-right: 2px solid #fff;
+  opacity: 0.25;
+
+  margin-left: 15px;
+
+  -webkit-transition: visibility 0.5s, opacity 0.5s linear;
+  transition: visibility 0.5s, opacity 0.5s linear;
+}
+
+.vline.ng-hide {
+    opacity: 0;
+}
+
+
+.md-select-menu-container {
+  z-index: 151 !important;
+}
+
+/* Replay overlay styles */
+replay-plugin {
+	position: absolute;
+	//z-index: 80;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+ 
+replay-plugin div {
+	background-color: rgba(241,95,78,0.4);
+	width: 100%;
+	height: 100%;
+}
+ 
+replay-plugin div span {
+	color: white;
+	cursor: pointer;
+	font-size: 36px;
+	display: table;
+	position: absolute;
+	text-align: center;
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	width: 100%;
+	z-index: 75;
 }
