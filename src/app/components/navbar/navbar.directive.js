@@ -45,6 +45,14 @@
 //
 //            },
             {
+              state: 'about',
+              name: 'About Us'
+            },
+            {
+              state: 'team',
+              name: 'Our Team'
+            },
+            {
                 name: 'Log Out',
                 onClick: function() {
                   TokenService.clearToken();
