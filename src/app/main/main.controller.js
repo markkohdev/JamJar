@@ -43,7 +43,6 @@
         
 
         vmMain.landing = {
-            isLanding: true,
             concertId: 2,
             videoId: 13,
             type: "jamjar"

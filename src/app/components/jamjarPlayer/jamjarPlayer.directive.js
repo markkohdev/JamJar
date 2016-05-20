@@ -53,13 +53,14 @@
             vm.videoId = $stateParams.video_id;
             vm.type = $stateParams.type;
             
-//            if(vm.landing.isLanding){
-//                console.log(vm.landing);
-//                
-//                vm.concertId = vm.landing.concertId;
-//                vm.videoId = vm.landing.videoId;
-//                vm.type = vm.landing.type;
-//            }
+            // Set JamPick values for Landing Page Demo JamJar
+            if(vm.landing != null){
+                console.log(vm.landing);
+
+                vm.concertId = vm.landing.concertId;
+                vm.videoId = vm.landing.videoId;
+                vm.type = vm.landing.type;
+            }
             
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
