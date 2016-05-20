@@ -20,7 +20,9 @@
         /** @ngInject */
         function JamJarPlayerController(ConcertService, VideoService, $sce, $stateParams, $state, $timeout) {
             var vm = this;
-
+            
+            vm.concert = {};
+            
             /*vm.tooltip = {
                 showTooltip : false,
                 tipDirection : 'bottom'
@@ -40,10 +42,13 @@
               icon: null,
             }
 
+            vm.replay = {
+              jamjarCompleted: false
+            }
 
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
-            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay);
+            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay, vm.replay);
 
             vm.individual = $stateParams.type == 'individual';
 
@@ -103,6 +108,14 @@
               }
             };
 
+            vm.getThumbForJamJar = function(videoId) {
+              var video = _.find(vm.concert.videos, {id: videoId});
+              return video.thumb_src[256];
+            }
+            
+            ConcertService.getConcertById($stateParams.concert_id, function(err, res) {
+                vm.concert = res;
+            });
         }
 
         return directive;

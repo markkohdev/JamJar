@@ -2,7 +2,7 @@
     
   <div layout="row" class="genre-banner small-padding">
     <div class="genre-banner-bg"></div>
-    <h1>Explore: <span class="genre-name">{{vm.name}}</span></h1>
+    <h2>Explore: <span class="genre-name">{{vm.name}}</span></h2>
   </div>
 
   <div layout="row" class="concert-section">
@@ -23,7 +23,7 @@
                 <span class="pl-sidebar-content valign">
                     <span class="valign-container">
                         <span class="formatted-video-count-label">
-                            <b>#{{concert.graph.length}}</b> 
+                            <b>{{concert.jamjars_count}}</b> 
                             jamjars
                             <b>-</b>
                             <b>{{concert.videos_count}}</b> 
@@ -33,15 +33,15 @@
                 </span>
             </span>
           </div>
-        <h3>
+        <h4>
           <span ng-repeat="artist in concert.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h3>
+        </h4>
         </a>
-        <h4>{{concert.date}}</h4>
-        <h4>{{concert.venue.name}}</h4>
+        <h5>{{concert.date}}</h5>
+        <h5>{{concert.venue.name}}</h5>
       </div>
     </div>
   </div>
@@ -59,16 +59,16 @@
             <div class="video-thumbnail-img" 
                  ng-style="{'background-image':'url('+video.thumb_src[256]+')'}">
             </div>
-            <h2>{{video.name}}</h2>
+            <h3>{{video.name}}</h3>
         </a>
-        <h3>
+        <h4>
           <span ng-repeat="artist in video.artists">
             {{ artist.name }}
             {{$last ? '' : ', '}}
           </span>
-        </h3>
-        <h4>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})" ui-sref-opts="{inherit: false}">{{video.user.username}}</a></h4>
-        <h4>Views: {{video.views}}</h4>
+        </h4>
+        <h5>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})" ui-sref-opts="{inherit: false}">{{video.user.username}}</a></h5>
+        <h5>Views: {{video.views}}</h5>
       </div>
     </div>
   </div>

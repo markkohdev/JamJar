@@ -40,8 +40,11 @@
                 <!--<vg-buffering></vg-buffering>-->
                 <!--<vg-overlay-play></vg-overlay-play>-->
 
-                <jamjar-vline ng-if="!player.individaul" overlay="player.overlay"></jamjar-vline>
-                <jamjar-plugin ng-if="!player.individual" overlay="player.overlay"></jamjar-plugin>
+                <jamjar-vline ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-vline>
+                <jamjar-plugin ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-plugin>
+                
+<!--                <replay-plugin replay="player.replay"></replay-plugin>-->
+                
             </videogular>
         </div>
       </div>
@@ -70,8 +73,9 @@
     </div>
   </div>
     
-  <a ui-sref="dashboard.concert({id: player.jamjar.concert.id})">
-      <div layout="row" class="concert-info">
+  
+    <div layout="row" class="concert-info">
+      <a ui-sref="dashboard.concert({id: player.jamjar.concert.id})" layout="row">
           <div layout="column">
             <div class="mini-artist-thumbnail-img" 
                  ng-style="{'background-image':'url('+player.jamjar.concert.videos[0].artists[0].images[3].url+')'}">
@@ -81,69 +85,41 @@
               <div class="artist">{{player.jamjar.concert.artists[0].name}}</div>
               <div>at {{player.jamjar.concert.venue.name}} on {{player.jamjar.concert.date}}</div>
           </div>
-      </div>
-  </a>
-    
-    <div layout="row" class="recommended-jamjars rec-title">
-        <div flex>
-          <h3>Recommended JamJars</h3>
+      </a>
+      <div flex></div>
+    </div>
+
+    <div layout="row" class="recommended-jamjars dark-theme">
+        <div flex class="section-bottom-border">
+          <h3>More From This Concert</h3>
         </div>
     </div>
 
-    <div layout="row" layout-align="start start" layout-wrap class="recommended-jamjars rec-list">
-        <div ng-repeat="jamjar in vm.recommended.jamjars" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+    <div layout="row" layout-align="start start" layout-wrap class='recommended-jamjars dark-theme rec-list'>
+        <div ng-repeat="jamjar in player.concert.graph" ng-if="jamjar.count > 1" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
           <div layout="column" class="block">
-            <a ui-sref="dashboard.player({concert_id: jamjar.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
+            <a ui-sref="dashboard.player({concert_id: player.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
                 <div class="short-bar-div"><div class="collection-white-bar"></div></div>
-                <div class="long-bar-div"><div class="collection-white-bar"></div></div> 
-                <img ng-src="{{vm.getThumbForJamJar(jamjar.start_id)}}" class="rect thumbnail"/>
-                <h3>{{jamjar.concert.artist}} Artist</h3>
-                <h4>{{jamjar.concert.date}} Date</h4>
-                <h4>{{jamjar.concert.venue.name}} Venue</h4>
-                <h4>{{jamjar.count}} # videos</h4>
+                <div class="long-bar-div"><div class="collection-white-bar"></div></div>
+                <div class="video-thumbnail-img" 
+                     ng-style="{'background-image':'url('+player.getThumbForJamJar(jamjar.start_id)+')'}">
+                </div>
+                <h4>{{jamjar.count}} videos</h4>
             </a>
           </div>
         </div>
-    </div>
-
-    <div layout="row" class="recommended-jamjars rec-title">
-        <div flex>
-          <h3>Recommended Concerts</h3>
-        </div>
-    </div>
-
-    <div layout="row" layout-align="start start" layout-wrap class='recommended-jamjars rec-list'>
-        <div ng-repeat="concert in vm.recommended.concerts" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+        
+        <div ng-repeat="video in player.concert.videos" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
           <div layout="column" class="block">
-            <a ui-sref="dashboard.concert({id: concert.id})">
-              <div class="pl-thumb rect">
-                <img ng-src="{{concert.thumbs[0][256]}}">
-                <span class="sidebar">
-                    <span class="pl-sidebar-content valign">
-                        <span class="valign-container">
-                            <span class="formatted-video-count-label">
-                                <b>#{{concert.graph.length}}</b> 
-                                jamjars
-                                <b>-</b>
-                                <b>{{concert.videos_count}}</b> 
-                                videos
-                            </span>
-                        </span>
-                    </span>
-                </span>
+            <a ui-sref="dashboard.player({concert_id: player.concert.id, video_id: video.id, type: 'individual'})">
+              <div class="video-thumbnail-img" 
+                 ng-style="{'background-image':'url('+video.thumb_src[256]+')'}">
               </div>
-              <h3>
-                <span ng-repeat="artist in concert.artists">
-                    {{ artist.name }}
-                    {{$last ? '' : ', '}}
-                </span>
-              </h3>
+              <h4>{{video.name}}</h4>
             </a>
-            <h4>{{concert.date}}</h4>
-            <h4>{{concert.venue.name}}</h4>
+            <h5>Uploader: <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">{{video.user.username}}</a></h5>
+            <h5>Views: {{video.views}}</h5>
           </div>
         </div>
     </div>
-    
-    
 </div>

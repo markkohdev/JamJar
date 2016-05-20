@@ -10,38 +10,41 @@ html, body {
     font-family: 'Muli', sans-serif;
 }
 
-h1, h2 {
-    font-family: 'Comfortaa', sans-serif;
-    color: white;
-}
-   
 h1 {
-    font-size: 18px;
-    line-height: 1.3em;
+    font-family: 'Comfortaa', sans-serif;
     vertical-align: middle;
+    font-size: 20px;
+    line-height: 1.0;
+    letter-spacing: .2em;
+    text-transform: uppercase;
 }
 
 h2 {
-    font-size: 15px;
+    font-size: 18px;
     margin: 5px 0;
+    letter-spacing: .05em;
 }
 
 h3 {
-    color: white;
+    margin: 0 0 1px 0;
+    padding: 0 0 2px 0;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.1em;
+    letter-spacing: .03em;
+    vertical-align: middle;
+}
+
+h4 {
     margin: 0 0 1px 0;
     padding: 0 0 2px 0;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.1em;
     vertical-align: middle;
-    /*white-space: nowrap;
-    word-wrap: normal;
-    overflow: hidden;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;*/
 }
 
-h4 {
+h5 {
     color: $mediumgray;
     margin: 0;
     padding: 0;
@@ -67,9 +70,7 @@ footer {
         -webkit-margin-after: .3em !important;
         text-decoration: underline;
         padding: 5px 0 8px 0;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.3em;
+        letter-spacing: .1em;
         vertical-align: middle;
     }
     
@@ -95,6 +96,10 @@ footer {
 .dark-theme{
     color: white;
     background-color: $darkgray;
+    
+    h1, h2, h3 {
+        color: white;
+    }
     //background: url(../assets/images/wallpaper/grainyBg.jpg) repeat center center scroll;
 }
 
@@ -102,17 +107,11 @@ footer {
     color: black;
     background-color: $lightgray;
     
-    h2 {
-        color: $navy !important;
-        font-weight: 600;
-        margin: 0;
-    }
-    
-    h3 {
+    h2, h3, h4 {
         color: $navy !important;
     }
     
-    h4 {
+    h5 {
         color: $extradarkgray !important;
     }
 }
@@ -134,6 +133,15 @@ footer {
 
 
 /* CUSTOM VIEWS */
+.section-bottom-border {
+    border-bottom: 1px solid #ceced2;
+    margin-bottom: 10px;
+}
+
+.section-top-border {
+    border-top: 1px solid #ceced2;
+    margin-bottom: 30px;
+}
 
 .left-align{
     text-align: left;
