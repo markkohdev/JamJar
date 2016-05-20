@@ -1,3 +1,69 @@
+.team-page {
+    min-width: 1300px !important;
+}
+
+section.team-photos {
+    padding-bottom: 50px;
+    backgound: $white;
+    text-align: left;
+    
+    h1 {
+        //border-bottom: 3px solid;
+        //color: black !important;
+        padding: 0.35em 0;
+        margin: 1em 0;
+    }
+    
+    p {
+        font-size: 14px;
+        margin: 0 auto 1em;   
+        margin-left: 0;
+    }
+    
+    .desc {
+        color: white;
+        text-align: center;
+        width: 1280px;
+        
+        h1, h2, h3 {
+            color: white;
+        }
+    }
+    
+    hr {
+        background-color: #fff;
+        border-style: solid;
+        width: 50px;
+    }
+}
+
+#jamjar-desc {
+    display: block;
+    padding: 30px 40px;
+    background: black;
+}
+
+#drew-desc, #jess-desc, #mark-desc, #sanjana-desc, #ethan-desc {
+    display: none;
+    padding: 30px 40px;
+}
+
+#drew-desc {
+    background: $blue;
+}
+#jess-desc {
+    background: $coral;
+}
+#mark-desc {
+    background: $green;
+}
+#sanjana-desc {
+    background: $purple;
+}
+#ethan-desc {
+    background: $yellow;
+}
+
 #drew-container {
     background: url(../../assets/images/team/drew-front.png) 0 0 repeat;
     width: 256px;
@@ -27,101 +93,3 @@
     width: 256px;
     height: 256px;
 }
-
-//
-//#drew-container:hover {
-//    background: url(../../assets/images/team/drew.gif) 0 0 repeat;
-//    width: 256px;
-//    height: 256px;
-//    
-//    ~#jess-container {
-//        background: url(../../assets/images/team/jess-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//
-//    ~#mark-container {
-//        background: url(../../assets/images/team/mark-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px; 
-//    }
-//
-//    ~#sanjana-container {
-//        background: url(../../assets/images/team/sanjana-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//
-//    ~#ethan-container {
-//        background: url(../../assets/images/team/ethan-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//}
-//
-//#jess-container:hover {
-//    background: url(../../assets/images/team/jess.gif) 0 0 repeat;
-//    width: 256px;
-//    height: 256px;
-//
-//    ~#mark-container {
-//        background: url(../../assets/images/team/mark-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px; 
-//    }
-//
-//    ~#sanjana-container {
-//        background: url(../../assets/images/team/sanjana-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px; 
-//    }
-//
-//    ~#ethan-container {
-//        background: url(../../assets/images/team/ethan-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//}
-//
-//#jess-container:hover #drew-container {
-//    background: url(../../assets/images/team/drew-right.png) 0 0 repeat;
-//    width: 256px;
-//    height: 256px;
-//}
-//
-//#mark-container:hover {
-//    background: url(../../assets/images/team/mark.gif) 0 0 repeat;
-//    width: 256px;
-//    height: 256px;
-//
-//    ~#sanjana-container {
-//        background: url(../../assets/images/team/sanjana-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//
-//    ~#ethan-container {
-//        background: url(../../assets/images/team/ethan-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//}
-//
-//#sanjana-container:hover {
-//    background: url(../../assets/images/team/sanjana.gif) 0 0 repeat;
-//    width: 256px;
-//    height: 256px;    
-//    
-//
-//    ~#ethan-container {
-//        background: url(../../assets/images/team/ethan-left.png) 0 0 repeat;
-//        width: 256px;
-//        height: 256px;
-//    }
-//}
-//
-//#ethan-container:hover {
-//    background: url(../../assets/images/team/ethan.gif) 0 0 repeat;
-//    width: 256px;
-//    height: 256px;    
-//}
