@@ -14,7 +14,10 @@
           templateUrl: 'app/components/jamjarPlayer/jamjarPlayer.html',
           controller: JamJarPlayerController,
           controllerAs: 'player',
-          bindToController: true
+          bindToController: true,
+          scope: {
+              'landing': '='
+          }
         };
 
         /** @ngInject */
@@ -49,15 +52,14 @@
             vm.concertId = $stateParams.concert_id;
             vm.videoId = $stateParams.video_id;
             vm.type = $stateParams.type;
-            if(vm.concertId == null) {
-                vm.concertId = 2;
-            }
-            if(vm.videoId == null){
-                vm.videoId = 13;
-            }
-            if(vm.type == null){
-                vm.type = "jamjar";
-            }
+            
+//            if(vm.landing.isLanding){
+//                console.log(vm.landing);
+//                
+//                vm.concertId = vm.landing.concertId;
+//                vm.videoId = vm.landing.videoId;
+//                vm.type = vm.landing.type;
+//            }
             
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
