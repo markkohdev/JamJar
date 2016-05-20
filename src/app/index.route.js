@@ -27,6 +27,12 @@
         controller: 'SupportController',
         controllerAs: 'vm'
       })
+      .state('team', {
+        url: '/team',
+        templateUrl: 'app/main/team/team.html',
+        controller: 'TeamController',
+        controllerAs: 'vm'
+      })
       .state('dashboard', {
         url: '/dashboard',
         abstract: true,

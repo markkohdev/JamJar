@@ -37,10 +37,10 @@
             $scope.$digest();
         });
         
-
+        // Selena's JamJar
         vmMain.landing = {
-            concertId: 2,
-            videoId: 13,
+            concertId: 10,
+            videoId: 46,
             type: "jamjar"
         };
         
