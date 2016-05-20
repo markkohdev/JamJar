@@ -8,8 +8,6 @@ section.team-photos {
     text-align: left;
     
     h1 {
-        //border-bottom: 3px solid;
-        //color: black !important;
         padding: 0.35em 0;
         margin: 1em 0;
     }
@@ -61,7 +59,7 @@ section.team-photos {
     background: $purple;
 }
 #ethan-desc {
-    background: $yellow;
+    background: $yellow2;
 }
 
 #drew-container {
@@ -92,4 +90,9 @@ section.team-photos {
     background: url(../../assets/images/team/ethan-front.png) 0 0 repeat;
     width: 256px;
     height: 256px;
+}
+
+.bloop {
+    padding-top: 30px;
+    padding-bottom: 50px;
 }

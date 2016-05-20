@@ -31,7 +31,8 @@
         url: '/team',
         templateUrl: 'app/main/team/team.html',
         controller: 'TeamController',
-        controllerAs: 'vm'
+        controllerAs: 'vm',
+        bindToController: true
       })
       .state('dashboard', {
         url: '/dashboard',

@@ -1,14 +1,12 @@
-<md-toolbar ng-if="!vm.showDashboardNav" class="navbar" layout="row" layout-align="space-between center">
-    <span flex="65" layout="row" layout-align="start center">
-        <a ui-sref="landing">
-            <img class="logo" ng-src="assets/images/jamjar_text_logo/jamjar_text_transparent_200x77.png" alt="logo"/>
-        </a>  
-    </span>
-</md-toolbar>
-
 <header ng-if="vm.showDashboardNav">
     <navbar></navbar>
 </header>
+
+<div ng-if="!vm.showDashboardNav" class="theatre-bg footer-nav coral-line">
+    <div class="nav-container">
+        <user-authentication></user-authentication>
+    </div>
+</div>
 
 <div class="about-body">
     <section class="dictionary" layout="column" layout-align="center center">

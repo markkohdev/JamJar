@@ -6,7 +6,7 @@
         .controller('TeamController', TeamController);
 
     /** @ngInject */
-    function TeamController($scope, $state, TokenService, AuthService) {
+    function TeamController($scope, $state, $sce, TokenService, AuthService) {
         var vm = this;
         
         vm.showDashboardNav = false;
@@ -14,6 +14,16 @@
         if (TokenService.getToken() && AuthService.getUser()) {
             vm.showDashboardNav = true;
         }
+
+        vm.config = {
+            preload: "none",
+            sources: [
+                {src: $sce.trustAsResourceUrl("projectjamjar.com/assets/videos/team.mp4"), type: "video/mp4"}
+            ],
+            theme: {
+                url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
+            }
+        };
         
         var jamjarDesc = document.getElementById("jamjar-desc");
         
