@@ -1,0 +1,98 @@
+.team-page {
+    min-width: 1300px !important;
+}
+
+section.team-photos {
+    padding-bottom: 50px;
+    backgound: $white;
+    text-align: left;
+    
+    h1 {
+        padding: 0.35em 0;
+        margin: 1em 0;
+    }
+    
+    p {
+        font-size: 14px;
+        margin: 0 auto 1em;   
+        margin-left: 0;
+    }
+    
+    .desc {
+        color: white;
+        text-align: center;
+        width: 1280px;
+        
+        h1, h2, h3 {
+            color: white;
+        }
+    }
+    
+    hr {
+        background-color: #fff;
+        border-style: solid;
+        width: 50px;
+    }
+}
+
+#jamjar-desc {
+    display: block;
+    padding: 30px 40px;
+    background: black;
+}
+
+#drew-desc, #jess-desc, #mark-desc, #sanjana-desc, #ethan-desc {
+    display: none;
+    padding: 30px 40px;
+}
+
+#drew-desc {
+    background: $blue;
+}
+#jess-desc {
+    background: $coral;
+}
+#mark-desc {
+    background: $green;
+}
+#sanjana-desc {
+    background: $purple;
+}
+#ethan-desc {
+    background: $yellow2;
+}
+
+#drew-container {
+    background: url(../../assets/images/team/drew-front.png) 0 0 repeat;
+    width: 256px;
+    height: 256px;
+}
+
+#jess-container {
+    background: url(../../assets/images/team/jess-front.png) 0 0 repeat;
+    width: 256px;
+    height: 256px; 
+}
+
+#mark-container {
+    background: url(../../assets/images/team/mark-front.png) 0 0 repeat;
+    width: 256px;
+    height: 256px; 
+}
+
+#sanjana-container {
+    background: url(../../assets/images/team/sanjana-front.png) 0 0 repeat;
+    width: 256px;
+    height: 256px; 
+}
+
+#ethan-container {
+    background: url(../../assets/images/team/ethan-front.png) 0 0 repeat;
+    width: 256px;
+    height: 256px;
+}
+
+.bloop {
+    padding-top: 30px;
+    padding-bottom: 50px;
+}

@@ -81,6 +81,13 @@ footer {
     }
 }
 
+.footer-nav {
+    padding-top: 10px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    font-size: 14px;
+    text-decoration: none;
+}
 
 /* FORM INPUTS */
 .ng-invalid.ng-dirty{
@@ -133,6 +140,10 @@ footer {
 
 
 /* CUSTOM VIEWS */
+.coral-line {
+    border-bottom: 5px solid $coral;
+}
+
 .section-bottom-border {
     border-bottom: 1px solid #ceced2;
     margin-bottom: 10px;
