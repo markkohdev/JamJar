@@ -14,7 +14,7 @@
     </section>
 </div>      
 
-<nav class="main-nav" ng-class="{'stickytop': vmMain.doStickToTop}" ng-style="!vmMain.doStickToTop && {'top': vmMain.navTop} ">
+<nav class="main-nav" ng-class="{'stickytop': vmMain.doStickToTop}" ng-style="!vmMain.doStickToTop && {'top': vmMain.winHeight} ">
     <div class="nav-container">
         <user-authentication></user-authentication>
     </div>
@@ -28,48 +28,14 @@
         </p>
     </section>
 
-    <div ng-controller="VideoController">
-        <section class="sample">
-            <div layout="row">
-              <h1 flex>CHECKOUT OUR FEATURED JAMJAR</h1>
-            </div>
-            <div layout="row">
-              <div flex layout="column">
-                 <section class="videobox">
-                        <div class="videoContentBox">
-                            <div class="videogular-container">
-                                <videogular vg-player-ready="vm.onPlayerReady($API)" 
-                                            vg-complete="vm.onCompleteVideo()"
-                                            vg-theme="vm.config.theme">
-                                    
-                                    <vg-media vg-src="vm.config.sources"
-                                              vg-tracks="vm.config.tracks">
-                                    </vg-media>
-
-                                    <vg-controls class="high-z">                
-                                        <vg-play-pause-button></vg-play-pause-button>
-                                        <vg-time-display>{{ currentTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                                        <vg-scrub-bar>
-                                            <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
-                                        </vg-scrub-bar>
-                                        <vg-time-display>{{ totalTime | date:'mm:ss':'+0000' }}</vg-time-display>
-                                        <jamjar-button></jamjar-button>
-                                        <vg-volume>
-                                            <vg-mute-button></vg-mute-button>
-                                            <vg-volume-bar></vg-volume-bar>
-                                        </vg-volume>
-                                        <vg-fullscreen-button></vg-fullscreen-button>
-                                    </vg-controls>
-
-                                    <jamjar-plugin></jamjar-plugin>
-                                </videogular>
-                            </div>
-                        </div>
-                </section>
-              </div>
-            </div>
-        </section>
-    </div>
+    <section class="sample">
+        <div layout="row">
+          <h1 flex>CHECKOUT OUR FEATURED JAMJAR</h1>
+        </div>
+        <div layout="row">
+            <jamjar-player flex landing="vmMain.landing"></jamjar-player>
+        </div>
+    </section>
 </div>
 
 <footer>

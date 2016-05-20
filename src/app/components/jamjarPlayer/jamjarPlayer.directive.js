@@ -14,7 +14,10 @@
           templateUrl: 'app/components/jamjarPlayer/jamjarPlayer.html',
           controller: JamJarPlayerController,
           controllerAs: 'player',
-          bindToController: true
+          bindToController: true,
+          scope: {
+              'landing': '='
+          }
         };
 
         /** @ngInject */
@@ -46,9 +49,22 @@
               jamjarCompleted: false
             }
 
+            vm.concertId = $stateParams.concert_id;
+            vm.videoId = $stateParams.video_id;
+            vm.type = $stateParams.type;
+            
+            // Set JamPick values for Landing Page Demo JamJar
+            if(vm.landing != null){
+                console.log(vm.landing);
+
+                vm.concertId = vm.landing.concertId;
+                vm.videoId = vm.landing.videoId;
+                vm.type = vm.landing.type;
+            }
+            
             // this will be a factory with DI
             vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
-            vm.jamjar.initialize(parseInt($stateParams.concert_id), parseInt($stateParams.video_id), $stateParams.type, vm.overlay, vm.replay);
+            vm.jamjar.initialize(parseInt(vm.concertId), parseInt(vm.videoId), vm.type, vm.overlay, vm.replay);
 
             vm.individual = $stateParams.type == 'individual';
 
