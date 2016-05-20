@@ -19,10 +19,9 @@
         
         vmMain.doStickToTop = false;
         vmMain.winHeight = $window.innerHeight - 85; //minus height+padding of authentication navbar
-        vmMain.navTop = vmMain.winHeight;
         
         $document.on('scroll', function() {
-            if ($window.scrollY > vmMain.navTop) {
+            if ($window.scrollY > vmMain.winHeight) {
                 vmMain.doStickToTop = true;
             }
             else {
@@ -31,15 +30,12 @@
             
             $scope.$digest(); //$scope.$apply();
         });
-
-        /*$scope.gotoExplore = function(){
-            if($location.hash() !== 'explore') {
-                $location.hash('explore');   
-            }
-            else {
-                $anchorScroll();   
-            }
-        };*/
+        
+        angular.element($window).bind('resize', function(){
+            vmMain.winHeight = $window.innerHeight - 85;
+             
+            $scope.$digest();
+        });
         
 
         vmMain.landing = {

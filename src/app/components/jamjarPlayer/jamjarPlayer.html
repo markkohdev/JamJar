@@ -98,7 +98,7 @@
 </div>
 
 <div layout="row" layout-align="start start" layout-wrap class='recommended-jamjars dark-theme rec-list'>
-    <div ng-repeat="jamjar in player.concert.graph" ng-if="jamjar.count > 1" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
+    <div ng-repeat="jamjar in player.concert.graph" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
       <div layout="column" class="block">
         <a ui-sref="dashboard.player({concert_id: player.concert.id, video_id: jamjar.start_id, type: 'jamjar'})">
             <div class="short-bar-div"><div class="collection-white-bar"></div></div>
