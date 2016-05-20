@@ -18,7 +18,7 @@
         vm.config = {
             preload: "none",
             sources: [
-                {src: $sce.trustAsResourceUrl("projectjamjar.com/assets/videos/team.mp4"), type: "video/mp4"}
+                {src: $sce.trustAsResourceUrl("/assets/videos/team.mp4"), type: "video/mp4"}
             ],
             theme: {
                 url: "http://www.videogular.com/styles/themes/default/latest/videogular.css"
