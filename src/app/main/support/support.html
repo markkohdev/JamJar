@@ -25,15 +25,17 @@
         <div layout="column" flex="50" class="contact-input">
             <md-input-container>
                 <input ng-model="vm.contactData.email" type="email" placeholder="Email" ng-required="true">
-                <div ng-messages="vm.contactData.email.$error">
+                <div ng-messages="vm.contactData.email.$error" md-auto-hide="false">
                     <div ng-message="required">This is required!</div>
+                    <div ng-message="email">Enter valid email address.</div>
                 </div>
             </md-input-container>
 
             <md-input-container>
                 <input ng-model="vm.contactData.name" type="text" placeholder="Name" ng-required="true">
-                <div ng-messages="vm.contactData.name.$error">
+                <div ng-messages="vm.contactData.name.$error" md-auto-hide="false">
                     <div ng-message="required">This is required!</div>
+                    <div ng-message="url">Enter valid email address.</div>
                 </div>
             </md-input-container>
 
@@ -43,10 +45,11 @@
 
             <md-input-container class="md-block" flex-gt-sm>
               <label>Feedback</label>
-              <textarea ng-model="vm.contactData.feedback" md-maxlength="1000" rows="5" md-select-on-focus></textarea>
-                <div ng-messages="vm.contactData.feedback.$error">
-                    <div ng-message="required">This is required!</div>
-                </div>
+              <textarea ng-model="vm.contactData.feedback" md-maxlength="1000" rows="5" md-select-on-focus ng-required="true"></textarea>
+              <div ng-messages="vm.contactData.feedback.$error" md-auto-hide="false">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="md-maxlength">You exceeded the max length!</div>
+              </div>
             </md-input-container>
 
             <div ng-if="vm.msgSent" layout="row" layout-align="center center">
