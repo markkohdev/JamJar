@@ -270,6 +270,13 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     self.started = true;
   }
 
+  // update view count
+  var now_playing_video = self.nowPlaying.video;
+  if (!self.onPlayRecorded[now_playing_video.id]) {
+    self.onPlayRecorded[now_playing_video.id] = true
+    self.onPlay(now_playing_video);
+  }
+
   // note that playback has started whenever we get the first update time
   // subsequent updates are idemotent
   // queued videos get an initial onUpdateTime -- ignore that
@@ -296,12 +303,6 @@ JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
     video.updatePlayable(self.overlay.line.offset, self.overlay.maxOffset);
   });
 
-  // update view count
-  var video = self.nowPlaying.video;
-  if (!self.onPlayRecorded[video.id]) {
-    self.onPlayRecorded[video.id] = true
-    self.onPlay(video);
-  }
 }
 
 JamJar.prototype.onUpdateSource = function(source, video) {}
