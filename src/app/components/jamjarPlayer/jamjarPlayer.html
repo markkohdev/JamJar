@@ -6,7 +6,7 @@
         <div class="videogular-container" ng-hide="video != player.jamjar.nowPlaying">
             <videogular flex
                 vg-theme="player.config.theme"
-                vg-auto-play="(video == player.jamjar.nowPlaying)"
+                vg-auto-play="player.isAutoPlay(video)"
                 vg-player-ready="player.jamjar.onPlayerReady($API, video)"
                 vg-can-play="player.jamjar.onPlayerCanPlay(video)"
                 vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"
@@ -42,10 +42,14 @@
 
                 <jamjar-vline ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-vline>
                 <jamjar-plugin ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-plugin>
-                
-<!--                <replay-plugin replay="player.replay"></replay-plugin>-->
-                
+
+                <div class='replay'>
+                  <div ng-show='player.replay.jamjarCompleted'>
+                    <a ng-click="player.onReplay()">REPLAY!</a>
+                  </div>
+                </div>
             </videogular>
+
         </div>
       </div>
   </div>
@@ -57,7 +61,7 @@
       <div layout="column" layout-align="center start">
         <div class="primary-video-title">{{player.jamjar.nowPlaying.video.name}}</div>
         <div class="user-info">
-            <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
+            <a ui-sref="dashboard.explore({uploaders: player.jamjar.nowPlaying.video.user.id, name: player.jamjar.nowPlaying.video.user.username})">          
                 {{player.jamjar.nowPlaying.video.user.username}}
             </a>
         </div>
