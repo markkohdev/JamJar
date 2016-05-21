@@ -1,18 +1,60 @@
-<md-toolbar class="navbar" layout="row" layout-align="space-between center">
-    <span flex="65" layout="row" layout-align="start center">
-        <a ui-sref="landing">
-            <img class="logo" ng-src="assets/images/jamjar_text_logo/jamjar_text_transparent_200x77.png" alt="logo"/>
-        </a>  
-    </span>
-</md-toolbar>
+<header ng-if="vm.showDashboardNav">
+    <navbar></navbar>
+</header>
+
+<div ng-if="!vm.showDashboardNav" class="theatre-bg footer-nav coral-line">
+    <div class="nav-container">
+        <user-authentication></user-authentication>
+    </div>
+</div>
 
 <div class="support-body">
-    <section class="presentation">
-        <h1>Get in Touch</h1>
-        <p>
-            <a href="mailto:support@projectjamjar.com" class="md-raised">Email Us</a>
-        </p>
-    </section>
+    <h1>Get in Touch</h1>
+
+    <p>
+        <a href="mailto:support@projectjamjar.com" class="md-raised">Email Us</a>
+    </p>
+
+<!--
+    <div layout="row" layout="center center">
+        <div layout="column" flex="50" class="contact-blurb">
+            <h1 class="coral-line">We'll love to hear from you!</h1>
+            
+            <p>
+            </p>
+        </div>
+
+        <div layout="column" flex="50" class="contact-input">
+            <md-input-container>
+                <input ng-model="vm.email" type="email" placeholder="Email" ng-required="true">
+            </md-input-container>
+
+            <md-input-container>
+                <input ng-model="vm.name" type="text" placeholder="Name" ng-required="true">
+            </md-input-container>
+
+            <md-input-container>
+                <input ng-model="vm.url" type="url" placeholder="URL" ng-required="false">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Feedback</label>
+              <textarea ng-model="vm.feedback" md-maxlength="200" rows="5" md-select-on-focus></textarea>
+            </md-input-container>
+
+            <div ng-if="flagSent" layout="row" layout-align="center center">
+                <p class="md-padding" flex-gt-sm>
+                    We got your report and will look into it!
+                </p>
+            </div>
+
+            <md-button type="submit" ng-if="!flagSent" ng-click="submitReport()" ng-disabled="flagSent" class="md-raised coral-bg submit-btn">
+                Submit
+            </md-button>
+            <md-button type="button" ng-if="flagSent" ng-click="cancel()" class="md-raised okay-btn">Okay</md-button>
+        </div>
+    </div>
+-->
 </div>
 
 <footer>

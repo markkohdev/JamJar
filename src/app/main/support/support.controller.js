@@ -6,7 +6,13 @@
         .controller('SupportController', SupportController);
 
     /** @ngInject */
-    function SupportController($scope, $state) {
+    function SupportController($scope, $state, TokenService, AuthService) {
         var vm = this;
+        
+        vm.showDashboardNav = false;
+        
+        if (TokenService.getToken() && AuthService.getUser()) {
+            vm.showDashboardNav = true;
+        }
     }
 })();
