@@ -1,18 +1,67 @@
-<md-toolbar class="navbar" layout="row" layout-align="space-between center">
-    <span flex="65" layout="row" layout-align="start center">
-        <a ui-sref="landing">
-            <img class="logo" ng-src="assets/images/jamjar_text_logo/jamjar_text_transparent_200x77.png" alt="logo"/>
-        </a>  
-    </span>
-</md-toolbar>
+<header ng-if="vm.showDashboardNav">
+    <navbar></navbar>
+</header>
 
-<div class="support-body">
-    <section class="presentation">
+<div ng-if="!vm.showDashboardNav" class="theatre-bg signup-nav coral-line">
+    <div class="nav-container">
+        <user-authentication></user-authentication>
+    </div>
+</div>
+
+<div>
+    <div layout="column" layout="center center" layout-fill class="contact-bg">
         <h1>Get in Touch</h1>
-        <p>
-            <a href="mailto:support@projectjamjar.com" class="md-raised">Email Us</a>
-        </p>
-    </section>
+    </div>
+
+    <div layout="row" layout="center center" class="support-body">
+        <div layout="column" flex="50" class="contact-blurb">
+            <h1 class="coral-line">We'll love to hear from you!</h1>
+            <h2>Say hi :D!</h2>
+            <h2>Give us feedback ;)</h2>
+            <h2>Report bugs :(</h2>
+            <h2>Make requests :3</h2>
+        </div>
+        
+        <div layout="column" flex="50" class="contact-input">
+            <md-input-container>
+                <input ng-model="vm.contactData.email" type="email" placeholder="Email" ng-required="true">
+                <div ng-messages="vm.contactData.email.$error" md-auto-hide="false">
+                    <div ng-message="required">This is required!</div>
+                    <div ng-message="email">Enter valid email address.</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <input ng-model="vm.contactData.name" type="text" placeholder="Name" ng-required="true">
+                <div ng-messages="vm.contactData.name.$error" md-auto-hide="false">
+                    <div ng-message="required">This is required!</div>
+                </div>
+            </md-input-container>
+
+            <md-input-container>
+                <input ng-model="vm.contactData.relevant_url" type="url" placeholder="URL" ng-required="false">
+            </md-input-container>
+
+            <md-input-container class="md-block" flex-gt-sm>
+              <label>Feedback</label>
+              <textarea ng-model="vm.contactData.feedback" md-maxlength="1000" rows="5" md-select-on-focus ng-required="true"></textarea>
+              <div ng-messages="vm.contactData.feedback.$error" md-auto-hide="false">
+                <div ng-message="required">This is required!</div>
+                <div ng-message="md-maxlength">You exceeded the max length!</div>
+              </div>
+            </md-input-container>
+
+            <div ng-if="vm.msgSent" layout="row" layout-align="center center">
+                <p class="md-padding" flex-gt-sm>
+                    Thank you for your message!!!
+                </p>
+            </div>
+
+            <md-button type="submit" ng-click="vm.submitMsg()" ng-if="!vm.msgSent" ng-disabled="vm.msgSent" class="md-raised coral-bg submit-btn">
+                Send
+            </md-button>
+        </div>
+    </div>
 </div>
 
 <footer>
