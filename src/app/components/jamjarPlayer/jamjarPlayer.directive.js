@@ -55,7 +55,7 @@
             
             // Set JamPick values for Landing Page Demo JamJar
             if(vm.landing != null){
-                console.log(vm.landing);
+                //console.log(vm.landing);
 
                 vm.concertId = vm.landing.concertId;
                 vm.videoId = vm.landing.videoId;

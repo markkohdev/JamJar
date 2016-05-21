@@ -22,11 +22,12 @@
         return directive;
 
         /** @ngInject */ 
-        function uploadController(FileUploader, $scope, APIService, TokenService, ConcertService) {
+        function uploadController(FileUploader, $scope, APIService, TokenService, ConcertService, $mdDialog, $mdMedia, $state) {
             var vm = this;
             
             vm.showErrMsg = false;
-
+            vm.noErrOnAllUpload = true;
+            
             vm.privacySettings = [{value: 'Public'}, {value: 'Private'}];
 
             vm.valid = function() {
@@ -148,6 +149,7 @@
             };
             vm.uploader.onErrorItem = function(fileItem, response, status, headers) {
               fileItem.file.error = response.error;
+              vm.noErrOnAllUpload = false;
               console.info('onError', fileItem, response, status, headers);
             };
             vm.uploader.onCancelItem = function(fileItem, response, status, headers) {
@@ -155,6 +157,42 @@
             };
             vm.uploader.onCompleteItem = function(fileItem, response, status, headers) {
               console.info('onComplete', fileItem, response, status, headers);
+            };
+            
+            vm.uploader.onCompleteAll = function(){
+                if(vm.noErrOnAllUpload == true){
+                    vm.showUploadComplete();   
+                }
+            };
+            
+            vm.showUploadComplete = function(ev) {
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+
+                $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: 'app/components/uploadWidget/doneUpload.tmpl.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose: false,
+                    fullscreen: useFullScreen
+                })
+                .then(function(answer) {
+
+                }, function() {
+
+                });
+            };
+        }
+        
+        function DialogController(AuthService, $scope, $mdDialog, $window, $state) {
+            var vm = $scope;
+            
+            vm.continueUpload = function() {
+                $mdDialog.cancel();
+            };
+                
+            vm.goToProfile = function() {
+                $mdDialog.cancel();
             };
         }
     }

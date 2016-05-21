@@ -1,0 +1,27 @@
+<md-dialog aria-label="Upload(s) Completed" ng-cloak class="upload-alert">
+    <md-toolbar class="dialog-toolbar">
+        <div class="md-toolbar-tools">
+            <h2>Upload(s) Completed</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="continueUpload()">
+                <md-icon md-svg-src="assets/images/btns/ic_close_white_24px.svg" aria-label="Close dialog"></md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <div layout="row">
+                Your videos have successfully uploaded.<br>
+                We've popped them into the oven and they will be ready soon!
+            </div>
+        </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row" class="dialog-btn-band">
+        <a ui-sref="dashboard.profile.videos">
+            <md-button type="button" ng-click="goToProfile()" class="md-raised coral-bg submit-btn">Go to your Profile</md-button>
+        </a>
+        <md-button type="button" ng-click="continueUpload()" class="md-raised okay-btn">Continue Uploading</md-button>
+    </md-dialog-actions>
+</md-dialog>
