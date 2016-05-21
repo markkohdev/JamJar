@@ -16,7 +16,8 @@
           controllerAs: 'player',
           bindToController: true,
           scope: {
-              'landing': '='
+              'landing': '=',
+              'autoplay': '='
           }
         };
 
@@ -63,7 +64,7 @@
             }
             
             // this will be a factory with DI
-            vm.jamjar = new JamJar(ConcertService, VideoService, $sce);
+            vm.jamjar = new JamJar(ConcertService, VideoService, $sce, vm.autoplay);
             vm.jamjar.initialize(parseInt(vm.concertId), parseInt(vm.videoId), vm.type, vm.overlay, vm.replay);
 
             vm.individual = $stateParams.type == 'individual';
@@ -76,6 +77,21 @@
             }
 
             window.jamjar = vm.jamjar;
+
+            vm.isAutoPlay = function(video) {
+              var auto;
+              if (!vm.jamjar.started && !vm.autoplay) {
+                // if playback hasn't begun yet and autoplay is _OFF_, then
+                // pass the autoplay option along to videogular
+                auto = false;
+              } else if (video == vm.jamjar.nowPlaying) {
+                auto = true;
+              } else {
+                auto = false;
+              }
+
+              return auto;
+            }
 
             vm.onHover = function(event) {
 

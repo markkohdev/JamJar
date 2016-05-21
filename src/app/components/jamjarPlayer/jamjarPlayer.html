@@ -6,7 +6,7 @@
         <div class="videogular-container" ng-hide="video != player.jamjar.nowPlaying">
             <videogular flex
                 vg-theme="player.config.theme"
-                vg-auto-play="(video == player.jamjar.nowPlaying)"
+                vg-auto-play="player.isAutoPlay(video)"
                 vg-player-ready="player.jamjar.onPlayerReady($API, video)"
                 vg-can-play="player.jamjar.onPlayerCanPlay(video)"
                 vg-update-time="player.jamjar.onUpdateTime($currentTime, $duration, video)"

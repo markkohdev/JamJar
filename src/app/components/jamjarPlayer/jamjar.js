@@ -1,10 +1,13 @@
-function JamJar(concertService, videoService, $sce) {
+function JamJar(concertService, videoService, $sce, autoplay) {
   var self = this;
 
   // stopgap until this becomes a factory with DI
   self.concertService = concertService;
   self.videoService = videoService;
   self.$sce = $sce;
+
+  self.started = false;
+  self.autoplay = autoplay;
 
   // concert information
   self.concert = null;
@@ -193,6 +196,11 @@ JamJar.prototype.onPlayerReady = function(API, video) {
 
   if (video == self.nowPlaying) {
     video.volume(self.volume);
+    if (!self.autoplay && !self.started) {
+      // if autoplay is off and we haven't started yet, then pause!
+      self.nowPlaying.API.stop();
+      _.defer(self.nowPlaying.API.stop.bind(self.nowPlaying.API));
+    }
   } else {
     video.volume(0.0);
     video.pause("PLAYER CAN PLAY");
@@ -227,6 +235,15 @@ JamJar.prototype.onComplete = function(video) {
 JamJar.prototype.onUpdateTime = function(playedTime, duration, updatedVideo) {
   var self = this;
 
+  // ignore the first onUpdateTime if we're not autoplaying
+  if (playedTime == 0 && !self.autoplay) {
+    // pass
+  } else {
+    self.started = true;
+  }
+
+  // note that playback has started whenever we get the first update time
+  // subsequent updates are idemotent
   // queued videos get an initial onUpdateTime -- ignore that
   if (updatedVideo != self.nowPlaying || self.type == 'individual') {
     return;
