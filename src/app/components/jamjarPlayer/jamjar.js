@@ -128,6 +128,8 @@ JamJar.prototype.handleSwitch = function(selectedVideo) {
 
   if (!selectedVideo.presentation.playable) {
     return;
+  } else if(selectedVideo == self.nowPlaying) {
+    return;
   } else {
     return self.switchVideo(selectedVideo, false);
   }
