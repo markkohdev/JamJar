@@ -46,11 +46,11 @@
 //            },
             {
               state: 'about',
-              name: 'About Us'
+              name: 'About'
             },
             {
               state: 'team',
-              name: 'Our Team'
+              name: 'Team JamJar'
             },
             {
                 name: 'Log Out',

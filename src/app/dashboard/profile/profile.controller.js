@@ -40,6 +40,7 @@
         UserService.getProfile(user.username, function(err, resp) {
           if (err) return console.error(err);
 
+            console.log(resp);
           _.assign(vm.profile, resp);
         });
     }

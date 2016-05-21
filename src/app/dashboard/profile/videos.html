@@ -2,12 +2,20 @@
   <div layout="row" layout-align="start start" layout-wrap class='video-list'>
     <div ng-repeat="video in vm.profile.videos" flex-xs="100" flex-sm="50" flex-md="25" flex-gt-md="20">
       <div layout="column" class="block">
-        <a ui-sref="dashboard.player({concert_id: video.concert.id, video_id: video.id, type: 'individual'})">
+        <a ng-if="video.uploaded" ui-sref="dashboard.player({concert_id: video.concert.id, video_id: video.id, type: 'individual'})">
             <div class="video-thumbnail-img" 
                  ng-style="{'background-image':'url('+video.thumb_src[256]+')'}">
             </div>
             <h3>{{video.name}}</h3>
         </a>
+          
+        <div ng-if="!video.uploaded">
+            <div class="video-thumbnail-img" 
+                 ng-style="{'background-image':'url(../../assets/images/processing-jam.png)'}">
+            </div>
+            <h3>{{video.name}}</h3>
+        </div>
+          
         <h4>
           <span ng-repeat="artist in video.artists">
             {{ artist.name }}
