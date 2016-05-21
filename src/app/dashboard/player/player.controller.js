@@ -5,8 +5,11 @@
         .controller('JamJarPlayerController', JamJarPlayerController);
 
     /** @ngInject */
-    function JamJarPlayerController(ConcertService, $state) {
+    function JamJarPlayerController(ConcertService, $state, AuthService, TokenService) {
         var vm = this;
 
+        if (!AuthService.getUser()) {
+           TokenService.onUnauthorized();
+        }
     }
 })();

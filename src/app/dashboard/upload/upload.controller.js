@@ -4,9 +4,13 @@
       .module('jamjar')
       .controller('UploadController', UploadController);
 
-  function UploadController (ArtistService, $scope, $stateParams) {
+  function UploadController (AuthService, TokenService, ArtistService, $scope, $stateParams) {
     var vm = this;
       
+    if (!AuthService.getUser()) {
+       TokenService.onUnauthorized();
+    }
+
     vm.concertValues = {
       'artists' : $stateParams.artists,
       'date'    : $stateParams.date,

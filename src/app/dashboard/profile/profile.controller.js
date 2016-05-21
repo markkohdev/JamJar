@@ -5,9 +5,13 @@
         .controller('MyProfileController', MyProfileController);
     
     /** @ngInject */
-    function MyProfileController($state, UserService, AuthService) {
+    function MyProfileController($state, UserService, AuthService, TokenService) {
         var vm = this;
 
+        if (!AuthService.getUser()) {
+           TokenService.onUnauthorized();
+        }
+        
         vm.profile = {};
 
         vm.pages = [

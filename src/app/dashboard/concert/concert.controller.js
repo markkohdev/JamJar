@@ -5,9 +5,13 @@
         .controller('ConcertController', ConcertController);
 
     /** @ngInject */
-    function ConcertController(ConcertService, $state, AuthService) {
+    function ConcertController(ConcertService, $state, AuthService, TokenService) {
         var vm = this;
 
+        if (!AuthService.getUser()) {
+           TokenService.onUnauthorized();
+        }
+        
         vm.concert_id = $state.params.id;
         vm.concert = {};
         vm.concert_graph = {};
