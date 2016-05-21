@@ -70,7 +70,6 @@
         templateUrl: 'app/dashboard/player/player.html',
         controller: 'JamJarPlayerController',
         controllerAs: 'vm',
-        reloadOnSearch: false
       })
       .state('dashboard.upload', {
         url: '/upload?artists?date?venueId?',
