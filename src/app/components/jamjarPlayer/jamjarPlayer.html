@@ -42,10 +42,14 @@
 
                 <jamjar-vline ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-vline>
                 <jamjar-plugin ng-if="!player.individual" ng-hide="player.replay.jamjarCompleted" overlay="player.overlay"></jamjar-plugin>
-                
-<!--                <replay-plugin replay="player.replay"></replay-plugin>-->
-                
+
+                <div class='replay'>
+                  <div ng-show='player.replay.jamjarCompleted'>
+                    <a ng-click="player.onReplay()">REPLAY!</a>
+                  </div>
+                </div>
             </videogular>
+
         </div>
       </div>
   </div>

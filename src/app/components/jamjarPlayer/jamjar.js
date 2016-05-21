@@ -45,6 +45,9 @@ JamJar.prototype.initialize = function(concert_id, video_id, type, overlay, repl
   self.type = type;
   self.overlay = overlay;
   self.replay = replay;
+
+  self.original_video_id = video_id;
+  self.original_concert_id = concert_id;
     
   if (self.type == 'individual') {
     self.loadVideo(concert_id, video_id);
@@ -55,35 +58,46 @@ JamJar.prototype.initialize = function(concert_id, video_id, type, overlay, repl
   }
 };
 
+JamJar.prototype.doReplay = function() {
+  var self = this;
+
+  self.nowPlaying = null;
+  self.relativeEdges = {};
+  self.videosMap = {};
+  self.videos = [];
+
+  if (self.type == 'individual') {
+    self.loadVideo(self.original_concert_id, self.original_video_id);
+  } else if (self.type == 'jamjar') {
+    self.loadGraph(self.original_concert_id, self.original_video_id);
+  }
+}
+
 JamJar.prototype.loadVideo = function(concert_id, video_id) {
   var self = this;
 
-  self.videoService.getVideoById(video_id, function(err, video) {
-    if (err) {
-      return console.error(err);
-    }
+  if (!self.nowPlaying || !self.concert) {
+    self.videoService.getVideoById(video_id, function(err, video) {
+      if (err) {
+        return console.error(err);
+      }
 
-    self.nowPlaying = new Video(video, {}, self.$sce);
-
-    self.videos.push(self.nowPlaying);
-  });
-  
-  self.concertService.getConcertById(concert_id, function(err, resp) {
-      self.concert = resp;
-  });
+      self.nowPlaying = new Video(video, {}, self.$sce);
+      self.videos.push(self.nowPlaying);
+    });
+    
+    self.concertService.getConcertById(concert_id, function(err, resp) {
+        self.concert = resp;
+    });
+  } else {
+      self.nowPlaying = self.videos[0];
+  }
 };
 
 JamJar.prototype.loadGraph = function(concert_id, video_id) {
   var self = this;
 
-  self.concertService.getGraphById(concert_id, function(err, resp) {
-    if (err) {
-      debugger;
-      return
-    }
-
-    self.concert = resp;
-
+  function handleGraphLoaded() {
     // encapsulate videos in Video class
     _.each(self.concert.videos, function(video) {
       // these subgraphs are disjoint, so find the first subgraph
@@ -123,7 +137,21 @@ JamJar.prototype.loadGraph = function(concert_id, video_id) {
       video.setPresentationDetails(self.nowPlaying, edge, 0, maxWidth);
     });
 
-  });
+  }
+
+  if (!self.concert) {
+    self.concertService.getGraphById(concert_id, function(err, resp) {
+      if (err) {
+        debugger;
+        return
+      }
+      self.concert = resp;
+
+      handleGraphLoaded();
+    });
+  } else {
+    handleGraphLoaded();
+  }
 };
 
 JamJar.prototype.handleSwitch = function(selectedVideo) {

@@ -50,6 +50,11 @@
               jamjarCompleted: false
             }
 
+            vm.onReplay = function() {
+              vm.replay.jamjarCompleted = false;
+              self.jamjar.doReplay();
+            }
+
             vm.concertId = $stateParams.concert_id;
             vm.videoId = $stateParams.video_id;
             vm.type = $stateParams.type;
