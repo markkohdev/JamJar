@@ -57,7 +57,7 @@
       <div layout="column" layout-align="center start">
         <div class="primary-video-title">{{player.jamjar.nowPlaying.video.name}}</div>
         <div class="user-info">
-            <a ui-sref="dashboard.explore({uploaders: video.user.id, name: video.user.username})">          
+            <a ui-sref="dashboard.explore({uploaders: player.jamjar.nowPlaying.video.user.id, name: player.jamjar.nowPlaying.video.user.username})">          
                 {{player.jamjar.nowPlaying.video.user.username}}
             </a>
         </div>
